@@ -10,6 +10,9 @@ class UniverseSnapshot:
     mode: str
     symbols: List[str]
     timestamp: Optional[str] = None
+    source_path: Optional[str] = None
+    is_fallback: bool = False
+    note: str = ""
 
 
 @dataclass(frozen=True)
@@ -26,4 +29,6 @@ class UniverseComparison:
 class Hellhound001Report:
     mode: str
     comparison: UniverseComparison
+    production_universe_source: str
+    production_universe_is_fallback: bool
     summary: Dict[str, Any] = field(default_factory=dict)

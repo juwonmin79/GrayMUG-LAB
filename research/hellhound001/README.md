@@ -2,20 +2,20 @@
 
 Hellhound-001 compares the Production Hound Universe with the LAB Lead Line Universe.
 
-This directory contains the Validation Runner Skeleton only. It creates the input/output structure needed for later validation, but it does not perform trading, automatic order placement, Forecast, Graph ML, Whale ML, DB integration, FastAPI, or dashboard work.
+This directory contains the Hellhound-001 validation runner. It creates the input/output structure needed for universe comparison, but it does not perform trading, automatic order placement, Forecast, Graph ML, Whale ML, DB integration, FastAPI, dashboard work, or Production Hound execution.
 
 ## Scope
 
 - Load Lead Line Universe from the existing LAB Lead Line API Socket.
 - Load Production Hound Universe read-only when a simple universe file exists.
-- Use a small fallback Production universe when no read-only universe artifact exists.
+- Detect the Production Hound dynamic universe generator in `backup_GrayMUG/hound/scanner.py`.
+- Use a small fallback Production universe only when no explicit read-only symbol artifact exists.
 - Compare overlap, Lead Line only symbols, Production only symbols, and overlap ratio.
 - Write small output artifacts under `outputs/hellhound001/`.
 
 ## Production Fallback Warning
 
-Production universe fallback is only for runner skeleton test.
-It is not a validation result.
+Production universe not found. Fallback used. This is not a real validation result.
 
 The current fallback is:
 
@@ -25,7 +25,7 @@ ETH/USDT
 BNB/USDT
 ```
 
-This fallback exists so the runner and smoke test can execute before a real read-only Production universe loader is connected.
+This fallback exists because the current Production Hound universe is generated dynamically from exchange tickers inside `HoundScanner.get_top_symbols()`. Hellhound-001-B detects that source path read-only, but does not execute Production Hound or call production exchange code.
 
 ## Commands
 
@@ -42,4 +42,4 @@ python -B research/hellhound001/test_validation_runner.py
 
 ## Next Step
 
-Hellhound-001-B should connect a real read-only Production universe source without modifying `backup_GrayMUG` or Production Hound logic.
+Hellhound-001-C should connect a real read-only Production universe artifact, such as an exported watchlist snapshot, without modifying `backup_GrayMUG` or Production Hound logic.

@@ -1,11 +1,13 @@
 # Hellhound-001 Universe Compare Summary
 
 - Mode: `BTC_ACCUMULATION`
+- Production universe source: `fallback`
+- Production universe fallback: `True`
 - Production symbols: `3`
 - Lead Line symbols: `11`
 - Overlap count: `0`
 - Overlap ratio: `0.0000`
-- Note: Production universe fallback is only for runner skeleton test. It is not a validation result.
+- Note: Production universe not found. Fallback used. This is not a real validation result.
 
 ## Production Hound Universe
 

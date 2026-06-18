@@ -40,17 +40,20 @@
     ],
     "overlap_ratio": 0.0
   },
+  "production_universe_source": "fallback",
+  "production_universe_is_fallback": true,
   "summary": {
     "runner": "hellhound001_validation_runner",
     "mode": "BTC_ACCUMULATION",
     "top_n": 12,
     "production_source": "PRODUCTION_HOUND",
     "lead_line_source": "LEAD_LINE",
+    "production_universe_source": "fallback",
+    "production_universe_is_fallback": true,
     "production_count": 3,
     "lead_line_count": 11,
     "overlap_count": 0,
     "overlap_ratio": 0.0,
-    "production_universe_fallback": true,
-    "note": "Production universe fallback is only for runner skeleton test. It is not a validation result."
+    "note": "Production universe not found. Fallback used. This is not a real validation result."
   }
 }

@@ -29,6 +29,7 @@ def test_validation_runner() -> None:
     production = load_production_hound_universe(mode="BTC_ACCUMULATION", top_n=3)
     assert production.source == "PRODUCTION_HOUND"
     assert production.symbols
+    assert production.source_path
 
     comparison = compare_universes(production.symbols, lead_line.symbols)
     assert isinstance(comparison, UniverseComparison)
@@ -37,8 +38,12 @@ def test_validation_runner() -> None:
     report = run_validation(mode="BTC_ACCUMULATION", top_n=12)
     assert isinstance(report, Hellhound001Report)
     assert report.mode == "BTC_ACCUMULATION"
+    assert report.production_universe_source
+    assert isinstance(report.production_universe_is_fallback, bool)
     assert report.summary["production_count"] > 0
     assert report.summary["lead_line_count"] > 0
+    assert "production_universe_source" in report.summary
+    assert "production_universe_is_fallback" in report.summary
 
     assert JSON_OUTPUT_PATH.exists()
     assert CSV_OUTPUT_PATH.exists()

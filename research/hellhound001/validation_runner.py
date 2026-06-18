@@ -39,21 +39,29 @@ def build_validation_report(
         lead_line_symbols=lead_line.symbols,
     )
 
-    used_fallback = production.symbols == PRODUCTION_FALLBACK_UNIVERSE[:top_n]
+    used_fallback = production.is_fallback
+    production_universe_source = production.source_path or "unknown"
     summary: Dict = {
         "runner": "hellhound001_validation_runner",
         "mode": mode,
         "top_n": top_n,
         "production_source": production.source,
         "lead_line_source": lead_line.source,
+        "production_universe_source": production_universe_source,
+        "production_universe_is_fallback": used_fallback,
         "production_count": len(production.symbols),
         "lead_line_count": len(lead_line.symbols),
         "overlap_count": len(comparison.overlap_symbols),
         "overlap_ratio": comparison.overlap_ratio,
-        "production_universe_fallback": used_fallback,
-        "note": FALLBACK_NOTE if used_fallback else "Production universe loaded read-only.",
+        "note": production.note or ("Production universe loaded read-only." if not used_fallback else FALLBACK_NOTE),
     }
-    return Hellhound001Report(mode=mode, comparison=comparison, summary=summary)
+    return Hellhound001Report(
+        mode=mode,
+        comparison=comparison,
+        production_universe_source=production_universe_source,
+        production_universe_is_fallback=used_fallback,
+        summary=summary,
+    )
 
 
 def write_outputs(report: Hellhound001Report) -> None:
@@ -103,6 +111,8 @@ def _write_summary(report: Hellhound001Report) -> None:
         "# Hellhound-001 Universe Compare Summary",
         "",
         f"- Mode: `{report.mode}`",
+        f"- Production universe source: `{report.production_universe_source}`",
+        f"- Production universe fallback: `{report.production_universe_is_fallback}`",
         f"- Production symbols: `{len(comparison.production_symbols)}`",
         f"- Lead Line symbols: `{len(comparison.lead_line_symbols)}`",
         f"- Overlap count: `{len(comparison.overlap_symbols)}`",

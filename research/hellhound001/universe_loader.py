@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, List
@@ -15,8 +16,7 @@ BACKUP_GRAYMUG_ROOT = PROJECT_ROOT / "backup_GrayMUG"
 
 PRODUCTION_FALLBACK_UNIVERSE = ["BTC/USDT", "ETH/USDT", "BNB/USDT"]
 FALLBACK_NOTE = (
-    "Production universe fallback is only for runner skeleton test. "
-    "It is not a validation result."
+    "Production universe not found. Fallback used. This is not a real validation result."
 )
 
 READ_ONLY_CANDIDATES = [
@@ -25,6 +25,9 @@ READ_ONLY_CANDIDATES = [
     BACKUP_GRAYMUG_ROOT / "hound" / "hound_watchlist.json",
     BACKUP_GRAYMUG_ROOT / "hound" / "hound_watchlist.csv",
 ]
+
+SCANNER_SOURCE_PATH = BACKUP_GRAYMUG_ROOT / "hound" / "scanner.py"
+RUN_HOUND_SOURCE_PATH = BACKUP_GRAYMUG_ROOT / "hound" / "run_hound.py"
 
 
 def _utc_now() -> str:
@@ -53,6 +56,8 @@ def load_lead_line_universe(
         mode=mode,
         symbols=_clean_symbols(symbols),
         timestamp=_utc_now(),
+        source_path="research/whale_link_flow/lead_line_socket.py",
+        is_fallback=False,
     )
 
 
@@ -68,13 +73,33 @@ def load_production_hound_universe(
                 mode=mode,
                 symbols=_clean_symbols(symbols)[:top_n],
                 timestamp=_utc_now(),
+                source_path=_relative_path(path),
+                is_fallback=False,
+                note="Production universe loaded from explicit read-only universe file.",
             )
+
+    scanner_symbols = _try_extract_static_symbols_from_scanner(SCANNER_SOURCE_PATH)
+    if scanner_symbols:
+        return UniverseSnapshot(
+            source="PRODUCTION_HOUND",
+            mode=mode,
+            symbols=_clean_symbols(scanner_symbols)[:top_n],
+            timestamp=_utc_now(),
+            source_path=_relative_path(SCANNER_SOURCE_PATH),
+            is_fallback=False,
+            note="Production universe loaded from static scanner symbol list.",
+        )
+
+    _detect_dynamic_production_universe_source()
 
     return UniverseSnapshot(
         source="PRODUCTION_HOUND",
         mode=mode,
         symbols=PRODUCTION_FALLBACK_UNIVERSE[:top_n],
         timestamp=_utc_now(),
+        source_path="fallback",
+        is_fallback=True,
+        note=FALLBACK_NOTE,
     )
 
 
@@ -113,3 +138,55 @@ def _read_csv_symbols(path: Path) -> List[str]:
             return [str(row.get(symbol_field, "")) for row in reader]
     except OSError:
         return []
+
+
+def _try_extract_static_symbols_from_scanner(path: Path) -> List[str]:
+    """
+    Read-only static extraction.
+
+    Production Hound currently builds its universe dynamically from exchange tickers.
+    This helper only accepts explicit source literals such as SYMBOLS = [...]
+    or WATCHLIST = [...]. It does not execute or import production code.
+    """
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return []
+
+    patterns = [
+        r"(?:SYMBOLS|WATCHLIST|UNIVERSE|TOP30)\s*=\s*\[(?P<body>[^\]]+)\]",
+        r"(?:symbols|watchlist|universe|top30)\s*=\s*\[(?P<body>[^\]]+)\]",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if not match:
+            continue
+        symbols = re.findall(r"['\"]([A-Z0-9]+/[A-Z0-9]+)['\"]", match.group("body"))
+        if symbols:
+            return symbols
+    return []
+
+
+def _detect_dynamic_production_universe_source() -> str:
+    if _source_contains(SCANNER_SOURCE_PATH, "def get_top_symbols") and _source_contains(
+        SCANNER_SOURCE_PATH,
+        "fetch_tickers",
+    ):
+        return f"{_relative_path(SCANNER_SOURCE_PATH)}:HoundScanner.get_top_symbols"
+    if _source_contains(RUN_HOUND_SOURCE_PATH, "HoundScanner"):
+        return f"{_relative_path(RUN_HOUND_SOURCE_PATH)}:HoundScanner"
+    return ""
+
+
+def _source_contains(path: Path, needle: str) -> bool:
+    try:
+        return needle in path.read_text(encoding="utf-8")
+    except OSError:
+        return False
+
+
+def _relative_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(PROJECT_ROOT))
+    except ValueError:
+        return str(path)
