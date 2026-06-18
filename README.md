@@ -1,618 +1,336 @@
 # GrayMUG-LAB
 
-GrayMUG-LAB is the research and validation sandbox for GrayMUG. Its purpose is to study whale behavior, capital rotation, and market regime changes before any idea is allowed to influence the production GrayMUG Core.
+GrayMUG-LAB is the research, validation, and experimental engine lab for GrayMUG.
 
-This repository is documentation-first and validation-first. It does not treat a backtest result as a trading signal until the hypothesis has survived falsification, replay, and integration review.
+Current state:
 
----
+```text
+WhaleLab Foundation Complete.
+Hellhound Shadow Node Phase Ready.
+```
 
 ## 1. Project Vision
 
-GrayMUG exists to accumulate BTC over market cycles. The project is built around the idea that the market should be understood as layered flows rather than isolated price spikes.
+GrayMUG is not designed to maximize USDT returns as the final goal.
+
+The final goal is:
+
+```text
+BTC Accumulation Engine
+```
+
+Every research module, engine feed, validation result, and future production candidate is judged by whether it can help increase BTC quantity over time.
 
 Core philosophy:
 
-* **BTC Accumulation First**: every model is ultimately judged by whether it helps accumulate more BTC, not whether it only produces USD-denominated returns.
-* **BTC Count is the Final Metric**: GrayMUG does not optimize for USDT return first. Every strategy ultimately rolls back into BTC quantity.
-* **Halving Cycle is the Macro Season**: the BTC halving cycle defines the long macro season and the broad background regime.
-* **Whale Link Flow is the Live Capital Current**: while the halving cycle defines the season, Whale Link Flow tracks the live movement of capital across assets and sectors.
-* **Hound is Detection**: Hound remains the detection and observation layer.
-* **Whale Link Flow is Lead Line**: Whale Link Flow does not trade directly. It guides where Hound should look harder.
+- BTC accumulation comes first.
+- USDT return is a tactical measurement, not the final objective.
+- Halving cycle is the macro season.
+- Whale Link Flow is the live capital current.
+- Hound detects alt opportunities.
+- Ward keeps the system alive.
+- Core keeps the system pointed toward BTC accumulation.
+- LAB does not replace production judgment; LAB produces validated candidates.
 
-The current research direction is clear: GrayMUG should not guess a whale's inception point from a fixed time offset. It should track whether multiple live signals are improving together.
+## 2. Architecture
 
----
-
-## 2. Current Architecture
+GrayMUG is now organized as three layers:
 
 ```text
-GrayMUG
-|
-+-- Hound
-|   `-- Whale detection and observation layer
-|
-+-- Ward
-|   `-- Risk monitoring and safety layer
-|
-+-- Whale Link Flow
-|   |-- Cycle Layer
-|   |-- Live Flow Layer
-|   |-- Link Graph Layer
-|   |-- Sector Flow
-|   |-- Persistence
-|   `-- Whale Type Classifier
-|
-+-- Watch Priority
-|   `-- Hound observation weighting
-|
-+-- Event Replay
-|   `-- Historical validation and replay analysis
-|
-`-- Future ML Core
-    |-- Adaptive Whale Profile
-    |-- Sector ML
-    `-- Flow Forecast Layer
+GrayMUG-LAB
+    |
+    v
+Hell Engines
+    |
+    v
+Production Engines
 ```
 
-### Hound
+### GrayMUG-LAB
 
-Hound is the alt hunting engine. It tracks the Lead Line, searches for alt opportunities, and captures rotation returns. Hound only consumes the universe provided by Lead Line API Socket. GrayMUG-LAB must not directly modify Hound or its detection logic.
+GrayMUG-LAB is the research and validation layer.
 
-### Ward
+It builds:
 
-Ward is the survival engine. It monitors market risk, evaluates defensive context, and keeps final defense decisions independent.
+- Lead Line Socket
+- Target Intelligence Feed
+- Engine Fitness Framework
+- Signal Calibration Layer
+- Execution Guidance API
+- Hellhound validation and shadow-node plans
+
+LAB output is not a trade command. It becomes a candidate only after validation.
+
+### Hell Engines
+
+Hell Engines are experimental evolution spaces.
+
+They do not replace production. They create tested merge candidates.
+
+```text
+hell_engines/
+├─ Hellcore
+├─ Hellward
+└─ Hellhound
+```
+
+### Production Engines
+
+Production engines are the protected operating engines.
+
+They are treated as source-of-truth runtime systems and must not be directly modified by LAB experiments.
+
+Production reference:
+
+```text
+backup_GrayMUG/
+```
+
+`backup_GrayMUG` is read-only reference material.
+
+## 3. Engine Definition
 
 ### Core
 
-Core is the BTC mainline engine. It judges market regime, selects strategy mode, and keeps the system pointed toward BTC accumulation.
+Core is the BTC accumulation engine.
 
-Supported Core modes:
+Responsibilities:
 
-* `BEAR_ESCAPE`
-* `BTC_ACCUMULATION`
-* `OBSERVE_ONLY`
+- BTC accumulation direction
+- Market mode context
+- Main strategy authority
+- Final BTC-focused operating posture
 
-### Whale Link Flow
+Core is not replaced by LAB.
 
-Whale Link Flow tracks live capital movement across assets and sectors. It combines cycle context, live flow scores, link graph structure, sector rotation, persistence, and whale type classification.
+### Ward
 
-It is not a trade engine. Its role is to produce a stronger observation map for Hound.
+Ward is the survival engine.
 
-### Watch Priority
+Responsibilities:
 
-Watch Priority converts Whale Link Flow output into a ranked observation priority. The intended integration path is:
+- Risk monitoring
+- Defensive context
+- Emergency and survival judgment
+- System protection
+
+Ward keeps independent defensive authority.
+
+### Hound
+
+Hound is the alt hunting engine.
+
+Responsibilities:
+
+- Alt target detection
+- Rotation opportunity discovery
+- Production alert generation
+- Hound baseline logic
+
+Hound detection logic must not be directly modified by LAB.
+
+## 4. Hell Engine Definition
+
+### Hellcore
+
+Hellcore is the Core evolution experiment space.
+
+It is used to test BTC accumulation context, Core payloads, and future Core improvement candidates without changing Production Core.
+
+### Hellward
+
+Hellward is the Ward evolution experiment space.
+
+It is used to test LAB risk hints, calibration hints, and defensive context without replacing Ward judgment.
+
+### Hellhound
+
+Hellhound is the Hound evolution experiment space.
+
+It is used to test Lead Line universe priority, Target Feed, Calibration, Execution Guidance, and OracleJP-Supabase shadow-node behavior without changing Production Hound.
+
+Important rule:
 
 ```text
-Whale Link Score
-    |
-    v
-Watch Priority
-    |
-    v
-Hound observation 강화
+Hell Engines do not replace Production.
+Hell Engines create validated merge candidates.
 ```
 
-### Lead Line API Socket
+## 5. WhaleLab Status
 
-WhaleLab-005-A adds the internal API Socket layer between Whale Link Flow and GrayMUG Core consumers:
+WhaleLab-005 foundation is complete through 005-G.
 
-```text
-Whale Link Flow
-        |
-        v
-Lead Line API Socket
-        |
-        v
-+------------+------------+------------+
-|    Core    |   Hound    |    Ward    |
-+------------+------------+------------+
-```
+Completed:
 
-The socket exposes Watch Priority as a shared internal contract. Core, Hound, and Ward can consume the same Lead Line payload without modifying Hound detection logic.
+- `005-A`: Lead Line API Socket
+  - Exposes Whale Link Flow as an internal API socket for Core, Ward, and Hound.
+- `005-B`: Engine Integration Harness
+  - Builds Core / Ward / Hound state payloads without touching production engines.
+- `005-C`: Target Intelligence Pipeline
+  - Converts LAB context into engine-owned feeds: Core Target Feed, Ward Risk Feed, Hound Hunt Feed.
+- `005-D`: Engine Fitness Framework
+  - Measures whether LAB outputs improve Core judgment, Ward survival, and Hound hunting ability.
+- `005-E`: LAB Signal Calibration Layer
+  - Limits LAB signal strength by engine scope and prevents engine judgment replacement.
+- `005-F`: Execution Guidance API
+  - Produces pattern, entry style, TP/SL case, and exit trigger guidance without issuing trade commands.
+- `005-G`: Hound Interface Audit
+  - Maps safe Hound attachment points and confirms Hound should not be directly modified.
 
-Whale Link Flow is not a helper for only one engine. It is the connector between Core, Hound, and Ward.
-
-### Event Replay
-
-Event Replay validates whether the flow model behaves sensibly during known historical shocks and macro events.
-
-### Future ML Core
-
-The ML Core is planned, not complete. It should extend the validated flow architecture rather than replace it.
-
----
-
-## 3. Research History
-
-GrayMUG-LAB has progressed through four major WhaleLab stages.
-
-### WhaleLab-001: UNI Case Study
-
-Purpose:
-
-* Study whether whale activity begins before the visible market pump.
-* Compare "whale detected" timing against possible "whale activity inception" timing.
-* Use UNI as an initial case study for volume spike precursors.
-
-Tested:
-
-* Price slope
-* Volume slope
-* Rank momentum
-* Relative strength
-
-Outcome:
-
-* Adopted: the idea that a single volume spike is too late and that earlier market footprints should be studied.
-* Not yet proven: a stable physical lead time between whale activity and detection.
-
-### WhaleLab-002: Historical Event Analysis
-
-Purpose:
-
-* Test the early lead time hypothesis against major market events.
-* Analyze seven historical events:
-  - LUNA Collapse
-  - FTX Collapse
-  - SVB Collapse
-  - BTC ETF Approval
-  - BTC Halving
-  - Carry Trade Shock
-  - Yoon Martial Law Shock
-
-Tested:
-
-* Whether the measured average lead time of about 22.61 hours represented real whale behavior.
-* Whether detected inception points occurred before or after real event shocks.
-* Whether random event tests produced similar lead times.
-
-Outcome:
-
-* Rejected: fixed Lead Time hypothesis.
-* Rejected: reverse-search inception based on a fixed historical window.
-* Adopted: falsification-first validation.
-* Adopted: RS vs BTC decoupling and rank momentum as useful features, when interpreted as flow rather than one-candle triggers.
-
-Key conclusion:
-
-> The fixed 22.61-hour Lead Time was an artifact of the search window, not a reliable physical whale accumulation lag.
-
-### WhaleLab-003: Whale Link Flow
-
-Purpose:
-
-* Move away from fixed-time inception guessing.
-* Build a flow-based model that links assets, sectors, and whale behavior.
-
-Built:
-
-* Cycle Layer
-* Live Flow Layer
-* Link Graph Layer
-* Whale Type Classifier
-
-Tested:
-
-* Whether capital flow can be represented as linked movement across assets.
-* Whether whale behavior types can be inferred from live flow patterns.
-* Whether Hound can eventually receive a better observation map instead of a direct trading signal.
-
-Outcome:
-
-* Adopted: Link Flow approach.
-* Adopted: Whale Link Flow as a Lead Line for Hound.
-* Rejected: direct conversion of research signals into production trade conditions.
-
-### WhaleLab-004: Sector Flow, Persistence, and Watch Priority
-
-Purpose:
-
-* Extend Whale Link Flow into sector-level capital rotation.
-* Measure whether flows persist or disappear as one-off spikes.
-* Produce Watch Priority candidates for Hound observation weighting.
-
-Built:
-
-* Sector Flow
-* Flow Persistence
-* Watch Priority
-* Rotation Heatmap
-* Event Replay Validation
-
-Tested:
-
-* Seven-event replay validation over roughly 4.5 years of historical data.
-* Sector inflow and outflow behavior.
-* Dominant whale type during major events.
-* Watch Priority top candidates.
-
-Outcome:
-
-* Completed: WhaleLab-004 validation.
-* Adopted: Watch Priority as the current integration interface.
-* Adopted: Persistence as a key filter against one-candle noise.
-* Maintained: Whale Link Flow is a Lead Line, not a trade engine.
-
-Current research position:
+WhaleLab conclusion:
 
 ```text
 Fixed Lead Time hypothesis: rejected
-Link Flow based approach: retained
-Watch Priority interface: retained
-Lead Line API Socket: added in WhaleLab-005-A
-Direct Hound modification from LAB: forbidden
-Core strategy logic inside Whale Link Flow: forbidden
-Ward decision override from Whale Link Flow: forbidden
+Link Flow approach: retained
+Lead Line role: retained
+Direct production modification: forbidden
 ```
 
-### WhaleLab-005-A: Lead Line API Socket
+## 6. Hellhound Status
 
-Purpose:
+Hellhound-001 is the current active track.
 
-* Provide Whale Link Flow as a shared internal API Socket.
-* Allow Core, Hound, and Ward to consume the same Lead Line contract.
-* Keep Hound detection logic unchanged.
-* Keep Ward independent as the defensive layer.
-* Let Core choose between survival, accumulation, and observe-only modes.
+Completed:
 
-Supported modes:
+- `001-A`: Validation Runner Skeleton
+  - Created the minimum runner structure for comparing Production Hound Universe vs Lead Line Universe.
+- `001-B`: Production Universe Loader
+  - Confirmed Production Hound universe is not a static file.
+  - Found dynamic generation at `backup_GrayMUG/hound/scanner.py:HoundScanner.get_top_symbols`.
+- `001-C`: OracleJP-Supabase Shadow Node Plan
+  - Defined Hellhound as a read-only OracleJP-Supabase shadow node.
+  - Defined `hellhound_shadow_signals` and `hellhound_shadow_outcomes` schemas.
+  - Confirmed Hellhound creates `shadow_signal` records only.
 
-* `BEAR_ESCAPE`: USDT survival / risk avoidance.
-* `BTC_ACCUMULATION`: BTC-denominated accumulation.
-* `OBSERVE_ONLY`: observation, learning, and non-execution.
-
-Implemented contract:
-
-* `get_current_lead_line(mode, top_n=12, min_priority=0.0) -> dict`
-* `get_hound_universe(mode, top_n=12, min_priority=0.0) -> list[str]`
-* `get_ward_context(mode) -> dict`
-* `get_core_payload(mode) -> dict`
-
-Implementation:
+Current Hellhound architecture:
 
 ```text
-research/whale_link_flow/lead_line_socket.py
+OracleJP
+  |
+  v
+Supabase market data read-only
+  |
+  v
+Hellhound Shadow Node
+  |
+  v
+LAB Context
+  |
+  v
+hellhound_shadow_signals
+  |
+  v
+hellhound_shadow_outcomes
 ```
 
-### WhaleLab-005 Roadmap
+Hellhound does not place orders and does not manage positions.
 
-* `005-A`: Lead Line API Socket. Complete.
-* `005-B`: Engine Integration Harness. Complete.
-* `005-C`: Target Intelligence Pipeline. Complete.
-* `005-D`: Engine Fitness Framework. Complete.
-* `005-E`: LAB Signal Calibration Layer. Complete.
-* `005-F`: Execution Guidance API. Complete.
+## 7. Current Roadmap
 
-### WhaleLab-005-C: Target Intelligence Pipeline
-
-Purpose:
-
-* Convert Lead Line and Integration Harness state into engine-owned Target Feeds.
-* Keep LAB from making final Core / Ward / Hound decisions.
-* Make every feed answer which engine decision it improves.
-
-Feeds:
-
-* `CoreTargetFeed`: supports BTC accumulation judgment.
-* `WardRiskFeed`: supports survival and defensive judgment.
-* `HoundHuntFeed`: supports alt hunting target selection.
-
-Implementation:
+Current stage:
 
 ```text
-research/targeting/
+Hellhound-001-D
+Minimal Shadow Runner
 ```
 
-### WhaleLab-005-D: Engine Fitness Framework
+The next implementation target is a minimal OracleJP-Supabase shadow runner that:
 
-Purpose:
+- Reads confirmed Supabase market tables.
+- Loads LAB Lead Line universe.
+- Builds Target Feed, Fitness, Calibration, and Execution Guidance context.
+- Inserts only into `hellhound_shadow_signals`.
+- Does not place orders.
+- Does not mutate production tables.
 
-* Measure whether WhaleLab outputs improve Core / Ward / Hound capability.
-* Establish the research -> apply -> measure -> improve loop.
-* Evaluate Core judgment, Ward survival, and Hound hunting ability separately.
+Planned stages:
 
-Implementation:
+- `Hellhound-001-E`: Outcome Evaluator
+  - Fill `hellhound_shadow_outcomes`.
+  - Measure forward `+1h`, `+4h`, `+24h` return.
+  - Measure BTC-relative return.
+  - Track TP hit, SL hit, and exit trigger hit.
+- `Hellhound-001-F`: Fitness Feedback Loop
+  - Feed Hellhound shadow outcomes back into Engine Fitness.
+  - Compare Production Hound baseline vs Hellhound shadow signals.
+  - Decide which candidates deserve merge review.
 
-```text
-research/fitness/
-```
+## 8. Safety Rules
 
-### WhaleLab-005-E: LAB Signal Calibration Layer
+### backup_GrayMUG
 
-Purpose:
+`backup_GrayMUG` is a production reference artifact.
 
-* Standardize LAB signal strength, confidence, and application scope.
-* Prevent LAB signals from replacing Core / Ward / Hound logic.
-* Enforce engine-specific max influence policies.
+Rules:
 
-Max influence:
+- Do not modify.
+- Do not delete.
+- Do not move.
+- Do not rename.
+- Do not stage.
+- Do not commit.
+- Do not push.
+- Do not print secrets, keys, tokens, credentials, or `.env` contents.
 
-* Core: `0.20`
-* Ward: `0.15`
-* Hound: `0.30`
+### Production Core / Ward / Hound
 
-Implementation:
+Production engines are protected.
 
-```text
-research/calibration/
-```
+Rules:
 
-### WhaleLab-005-F: Execution Guidance API
+- Do not directly modify Production Core.
+- Do not directly modify Production Ward.
+- Do not directly modify Production Hound.
+- Do not replace Hound detection logic.
+- Do not replace Ward defense judgment.
+- Do not replace Core strategy judgment.
 
-Purpose:
+### Experiments
 
-* Generate case-level guidance when Hound has a target.
-* Provide Pattern Hint, Entry Style, TP/SL Template, and Exit Trigger.
-* Explain Hound target context without issuing trade commands.
+All experiments run through Hell Engines first.
 
-Implementation:
+Rules:
 
-```text
-research/execution/
-```
+- No live trading from LAB.
+- No automatic orders.
+- No position management.
+- No Binance order endpoint calls.
+- No production Supabase table update/delete.
+- Shadow tables only for Hellhound shadow runs.
 
----
+## 9. Project Memory
 
-## 4. Current Outputs
-
-The main Whale Link Flow v0.4 outputs are stored under:
-
-```text
-outputs/whale_link_flow/
-```
-
-Key files:
-
-| File | Role |
-| :--- | :--- |
-| `flow_summary_v04.md` | Human-readable validation summary for Whale Link Flow v0.4 |
-| `watch_priority.csv` | Per-symbol observation priority scores for Hound weighting |
-| `sector_flow_scores.csv` | Sector-level capital inflow/outflow and rotation scores |
-| `whale_type_scores.csv` | Whale type classification scores and confidence values |
-| `rotation_heatmap.png` | Visual heatmap of capital rotation intensity |
-| `flow_network.png` | Directed network map of capital movement relationships |
-
-Additional outputs may exist from earlier experiments, but the files above represent the current WhaleLab-004 validation set.
-
-Target Intelligence output:
-
-| File | Role |
-| :--- | :--- |
-| `outputs/targeting/latest_target_feed.json` | Small latest Target Pipeline payload for Core / Ward / Hound feed inspection |
-
----
-
-## 5. Integration Philosophy
-
-GrayMUG-LAB is not production. It is a research, backtest, and validation environment.
-
-The production integration path is:
-
-```text
-Research
-    |
-    v
-Backtest
-    |
-    v
-Validation
-    |
-    v
-Production
-```
-
-The operational integration concept is:
-
-```text
-Input
-    |
-    v
-Score
-    |
-    v
-Priority
-```
-
-Whale Link Flow should preserve this structure:
-
-* Input: price, volume, rank, relative strength, sector map, event context
-* Score: live flow score, sector flow score, persistence score, whale type confidence
-* Priority: Hound watch priority
-
-Strict integration rules:
-
-* Do not directly modify Hound from GrayMUG-LAB.
-* Do not change Hound detection conditions based only on research output.
-* Do not revive the fixed Lead Time hypothesis.
-* Do not override Ward's internal defense judgment.
-* Do not put Core strategy decisions inside Whale Link Flow.
-* Do not treat Watch Priority as a buy or sell signal.
-* Keep Whale Link Flow as a Lead Line.
-* Preserve Hound as the detection layer.
-* Preserve Ward as the risk and safety layer.
-
-Future target:
-
-```text
-Whale Link Score
-    |
-    v
-Watch Priority
-    |
-    v
-Hound 감시 강화
-    |
-    v
-Production decision under existing safety rules
-```
-
-Current internal socket contract:
-
-```text
-Whale Link Flow
-    |
-    v
-Lead Line API Socket
-    |
-    v
-Core / Hound / Ward
-```
-
-Core passes the operating mode. Hound consumes only the resulting universe. Ward consumes risk context but keeps final defensive authority.
-
----
-
-## 6. Development Rules
-
-All future research and development must follow these rules.
-
-### No Look-ahead Bias
-
-No model may use future information at the current decision point.
-
-Examples of forbidden behavior:
-
-* Selecting an inception candle by looking backward from a known future spike.
-* Computing features with full-period statistics unavailable at the time.
-* Tuning thresholds after seeing event outcomes and calling the result predictive.
-
-### No Pre-listing Data
-
-Do not use data from before an asset was actually tradable.
-
-Required handling:
-
-* Respect each asset's real listing date.
-* Flag low-liquidity launch periods.
-* Avoid filling pre-listing periods in a way that creates fake momentum.
-
-### BTC-relative Alpha First
-
-GrayMUG's target is BTC accumulation. Performance must be evaluated relative to BTC, not only in USD terms.
-
-Required checks:
-
-* BTC-relative return
-* BTC-relative strength
-* Bull, bear, and sideways market behavior
-* Risk-adjusted performance versus holding BTC
-
-### DataFrame Input / DataFrame Output
-
-New research modules should keep a simple structured interface:
-
-```text
-DataFrame Input -> DataFrame Output
-```
-
-This keeps modules testable, replayable, and easier to integrate into GrayMUG Core later.
-
-### GrayMUG Core Compatible
-
-Every new module should be shaped so it can eventually integrate with GrayMUG Core without forcing production rewrites.
-
-Required properties:
-
-* Clear input schema
-* Clear output schema
-* No hidden state dependency on notebooks
-* No production DB access from LAB
-* No direct trading side effects
-
----
-
-## 7. Current Status
-
-Current completed stage:
-
-```text
-WhaleLab-005-F complete
-```
-
-Completed capabilities:
-
-* UNI case study
-* Lead Time hypothesis validation
-* Seven-event historical analysis
-* Lead Time artifact rejection
-* Whale Link Flow
-* Cycle Layer
-* Live Flow Layer
-* Link Graph Layer
-* Whale Type Classifier
-* Sector Flow
-* Flow Persistence
-* Watch Priority
-* Rotation Heatmap
-* Event Replay Validation
-* Lead Line API Socket
-* Core / Hound / Ward shared payload contract
-* Engine Integration Harness
-* Simulator Payload foundation
-* Target Intelligence Pipeline
-* Core Target Feed
-* Ward Risk Feed
-* Hound Hunt Feed
-* Engine Fitness Framework
-* Core / Ward / Hound Fitness Report
-* LAB Signal Calibration Layer
-* Engine-specific max influence policy
-* Execution Guidance API
-* Pattern Hint / Entry Style / TP-SL Template / Exit Trigger
-
-Next planned stage:
-
-```text
-WhaleLab-006
-```
-
-Planned research:
-
-* Mode Router
-* Core / Ward / Hound Socket connection validation
-* Flow Forecast Dataset
-* Graph ML
-* Whale Pattern ML
-* ML Core
-* Adaptive Whale Profile
-* Flow Forecast Layer
-* Sector ML
-* Whale Type ML
-* Capital Rotation Forecast
-
-The next stage should build on the validated v0.4 flow architecture. It should not revive the fixed Lead Time hypothesis, and it should not bypass the Hound/Ward production safety boundary.
-
-Final operating definition:
-
-```text
-Core gathers BTC.
-Ward keeps the system alive.
-Hound hunts alts.
-Whale Link Flow connects the three engines.
-Every result flows back into BTC quantity growth.
-```
-
----
-
-## 8. Project Memory
-
-For the current state of the project, read these documents first:
+Start with these documents:
 
 | Document | Purpose |
 | :--- | :--- |
-| `docs/000_PROJECT_CHARTER.md` | Mission and research target |
-| `docs/001_RESEARCH_ROADMAP.md` | Research phases and historical event plan |
-| `docs/002_GRAYMUG_INTEGRATION_RULES.md` | Research-to-production integration rules |
-| `docs/003_WHALELAB_VALIDATION_REPORT.md` | WhaleLab validation and Lead Time falsification |
 | `docs/004_PROJECT_STATE.md` | Current project state |
-| `docs/005_ARCHITECTURE_MAP.md` | Architecture and module map |
-| `docs/006_DEVELOPMENT_RULES.md` | Development constraints and safety rules |
-| `docs/007_WHALELAB_005A_LEAD_LINE_API_SOCKET.md` | Lead Line API Socket contract |
-| `docs/008_WHALELAB_005_INTEGRATION_DIRECTIVE.md` | WhaleLab-005 integration directive and roadmap |
-| `docs/009_SIMULATOR_FOUNDATION.md` | Simulator philosophy and observation foundation |
-| `docs/010_WHALELAB_005C_TARGET_INTELLIGENCE_PIPELINE.md` | Target Intelligence Pipeline contract |
-| `docs/011_ENGINE_FITNESS_FRAMEWORK.md` | Engine Fitness Framework contract |
-| `docs/012_LAB_SIGNAL_CALIBRATION_LAYER.md` | LAB Signal Calibration Layer contract |
-| `docs/013_EXECUTION_GUIDANCE_API.md` | Execution Guidance API contract |
+| `docs/005_ARCHITECTURE_MAP.md` | Architecture map |
+| `docs/006_DEVELOPMENT_RULES.md` | Development and safety rules |
+| `docs/014_HOUND_INTERFACE_AUDIT.md` | Hound attachment audit |
+| `docs/015_PRODUCTION_ENGINE_MAP.md` | Production Core / Ward / Hound map |
+| `docs/016_HELLHOUND_001_VALIDATION_PLAN.md` | Hellhound-001 validation plan |
+| `docs/017_HELLHOUND_001B_PRODUCTION_UNIVERSE_LOADER.md` | Production universe loader finding |
+| `docs/018_HELLHOUND_001C_ORACLEJP_SUPABASE_SHADOW_NODE_PLAN.md` | OracleJP-Supabase shadow node plan |
 
-These documents are the project memory layer. A new contributor should be able to read them and understand the project goal, research history, current state, and next direction without relying on chat history.
+For WhaleLab foundation details:
+
+| Document | Purpose |
+| :--- | :--- |
+| `docs/007_WHALELAB_005A_LEAD_LINE_API_SOCKET.md` | Lead Line API Socket |
+| `docs/010_WHALELAB_005C_TARGET_INTELLIGENCE_PIPELINE.md` | Target Intelligence Pipeline |
+| `docs/011_ENGINE_FITNESS_FRAMEWORK.md` | Engine Fitness Framework |
+| `docs/012_LAB_SIGNAL_CALIBRATION_LAYER.md` | Signal Calibration Layer |
+| `docs/013_EXECUTION_GUIDANCE_API.md` | Execution Guidance API |
+
+## 10. Final Operating Definition
+
+```text
+Core accumulates BTC.
+Ward keeps the system alive.
+Hound hunts alts.
+WhaleLab builds validated LAB context.
+Hell Engines test evolution candidates.
+Production Engines remain protected.
+Every result must flow back to BTC quantity growth.
+```
