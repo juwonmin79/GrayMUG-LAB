@@ -1,0 +1,56 @@
+{
+  "mode": "BTC_ACCUMULATION",
+  "comparison": {
+    "production_symbols": [
+      "BTC/USDT",
+      "ETH/USDT",
+      "BNB/USDT"
+    ],
+    "lead_line_symbols": [
+      "ETH/BTC",
+      "XRP/BTC",
+      "TAO/BTC",
+      "AVAX/BTC",
+      "BNB/BTC",
+      "UNI/BTC",
+      "ADA/BTC",
+      "SOL/BTC",
+      "LINK/BTC",
+      "DOGE/BTC",
+      "FET/BTC"
+    ],
+    "overlap_symbols": [],
+    "lead_line_only": [
+      "ETH/BTC",
+      "XRP/BTC",
+      "TAO/BTC",
+      "AVAX/BTC",
+      "BNB/BTC",
+      "UNI/BTC",
+      "ADA/BTC",
+      "SOL/BTC",
+      "LINK/BTC",
+      "DOGE/BTC",
+      "FET/BTC"
+    ],
+    "production_only": [
+      "BTC/USDT",
+      "ETH/USDT",
+      "BNB/USDT"
+    ],
+    "overlap_ratio": 0.0
+  },
+  "summary": {
+    "runner": "hellhound001_validation_runner",
+    "mode": "BTC_ACCUMULATION",
+    "top_n": 12,
+    "production_source": "PRODUCTION_HOUND",
+    "lead_line_source": "LEAD_LINE",
+    "production_count": 3,
+    "lead_line_count": 11,
+    "overlap_count": 0,
+    "overlap_ratio": 0.0,
+    "production_universe_fallback": true,
+    "note": "Production universe fallback is only for runner skeleton test. It is not a validation result."
+  }
+}
