@@ -13,6 +13,8 @@
 | GrayMUG Core | v0.4 기준 | Hound, Ward, Whale Link Flow, Backtest / Validation 축으로 구성 |
 | GrayMUG-LAB | Research / Backtest Sandbox | Production 코드 직접 수정 금지 |
 | Whale Link Flow | v0.4 validated | Sector Map, Sector Flow, Flow Persistence, Watch Priority 검증 완료 |
+| Lead Line API Socket | WhaleLab-005-A complete | Core / Hound / Ward 공통 내부 API 계약 구현 |
+| Engine Integration Harness | WhaleLab-005-B complete | Lead Line -> Core / Ward / Hound state 변환 검증 |
 | ML Core | Planned | Whale Type ML, Sector ML, Capital Rotation Forecast 예정 |
 
 ---
@@ -49,16 +51,50 @@
   - 유동적 Inception 탐색
   - Flow Persistence
 
+### WhaleLab-005-A
+* Lead Line API Socket 구현 완료.
+* 구현 파일:
+  - `research/whale_link_flow/lead_line_socket.py`
+  - `docs/007_WHALELAB_005A_LEAD_LINE_API_SOCKET.md`
+* 지원 API:
+  - `get_current_lead_line()`
+  - `get_hound_universe()`
+  - `get_ward_context()`
+  - `get_core_payload()`
+* 지원 모드:
+  - `BEAR_ESCAPE`
+  - `BTC_ACCUMULATION`
+  - `OBSERVE_ONLY`
+
+### WhaleLab-005-B
+* Engine Integration Harness 구현 완료.
+* 구현 파일:
+  - `research/integration/state_schema.py`
+  - `research/integration/core_adapter.py`
+  - `research/integration/ward_adapter.py`
+  - `research/integration/hound_adapter.py`
+  - `research/integration/integration_harness.py`
+  - `research/integration/simulator_payload.py`
+  - `research/integration/test_harness.py`
+  - `research/integration/README.md`
+  - `docs/009_SIMULATOR_FOUNDATION.md`
+* 검증:
+  - Lead Line 수신 성공
+  - CoreState 생성 성공
+  - WardState 생성 성공
+  - HoundState 생성 성공
+  - Simulator Payload 생성 성공
+
 ---
 
 ## 3. In Progress
 
-### Watch Priority -> Hound Integration
-* Whale Link Flow v0.4의 `watch_priority(symbol)` 인터페이스를 Hound 관찰 가중치에 연결하는 단계.
+### WhaleLab-005-C: Core / Ward / Hound 실연결
+* Socket 기반 연결 검증 단계.
 * 현재 원칙:
-  - Whale Link Flow는 Lead Line이다.
-  - Hound는 최종 감지/관찰 계층이다.
-  - LAB에서 Hound를 직접 수정하지 않는다.
+  - Core가 실행 모드와 BTC 축적 방향을 결정한다.
+  - Whale Link Flow는 Lead Line API Socket만 제공한다.
+  - Hound / Ward 내부 판단 로직을 침범하지 않는다.
 
 ### ML Core
 * 아직 Production 편입 대상이 아님.
@@ -91,6 +127,12 @@
 * 현재 자금 흐름에서 다음 순환 후보 섹터/자산을 예측.
 * 직접 매수/매도 신호가 아니라 Hound의 관찰 우선순위 보정값으로 사용.
 
+### WhaleLab-005-C/D/E/F
+* 005-C: Core / Ward / Hound Socket 기반 실연결 검증.
+* 005-D: 현재 흐름 -> 다음 흐름 Flow Forecast Dataset 구축.
+* 005-E: `link_edges.csv`, `watch_priority.csv`, `sector_flow_scores.csv` 기반 Graph ML.
+* 005-F: 고래가 다음에 어디로 갈 것인지 예측하는 Whale Pattern ML.
+
 ### Regime Similarity Engine
 * 현재 시장 국면을 과거 이벤트와 비교.
 * LUNA, FTX, SVB, BTC ETF, BTC Halving, Carry Trade Shock, Yoon Martial Law Shock 등 역사적 국면과의 유사도를 계산.
@@ -104,3 +146,7 @@ GrayMUG의 현재 핵심 가설은 다음과 같다.
 > 고래의 작업 시작 시점은 고정된 시간차로 역산할 수 없다. 대신 Rank Momentum, RS vs BTC Decoupling, Sector Flow, Flow Persistence, Whale Type, Watch Priority가 함께 개선되는 누적 흐름으로 탐지해야 한다.
 
 따라서 GrayMUG v0.4 이후의 개발 방향은 단일 알람 모델이 아니라, Hound가 어디를 더 집중해서 볼지 결정하는 관찰 우선순위 시스템이다.
+
+WhaleLab-005 기준 최종 정의는 다음과 같다.
+
+> Core는 BTC를 모은다. Ward는 살아남게 한다. Hound는 알트를 사냥한다. Whale Link Flow는 세 엔진을 연결한다. 모든 결과는 BTC 수량 증가로 환류된다.

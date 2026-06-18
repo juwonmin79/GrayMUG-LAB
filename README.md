@@ -13,6 +13,7 @@ GrayMUG exists to accumulate BTC over market cycles. The project is built around
 Core philosophy:
 
 * **BTC Accumulation First**: every model is ultimately judged by whether it helps accumulate more BTC, not whether it only produces USD-denominated returns.
+* **BTC Count is the Final Metric**: GrayMUG does not optimize for USDT return first. Every strategy ultimately rolls back into BTC quantity.
 * **Halving Cycle is the Macro Season**: the BTC halving cycle defines the long macro season and the broad background regime.
 * **Whale Link Flow is the Live Capital Current**: while the halving cycle defines the season, Whale Link Flow tracks the live movement of capital across assets and sectors.
 * **Hound is Detection**: Hound remains the detection and observation layer.
@@ -55,11 +56,21 @@ GrayMUG
 
 ### Hound
 
-Hound is the whale detection layer. It is the production-side observer that can eventually consume priority information from Whale Link Flow. GrayMUG-LAB must not directly modify Hound.
+Hound is the alt hunting engine. It tracks the Lead Line, searches for alt opportunities, and captures rotation returns. Hound only consumes the universe provided by Lead Line API Socket. GrayMUG-LAB must not directly modify Hound or its detection logic.
 
 ### Ward
 
-Ward is the risk monitoring layer. It protects the production system from unsafe execution and unvalidated research outputs.
+Ward is the survival engine. It monitors market risk, evaluates defensive context, and keeps final defense decisions independent.
+
+### Core
+
+Core is the BTC mainline engine. It judges market regime, selects strategy mode, and keeps the system pointed toward BTC accumulation.
+
+Supported Core modes:
+
+* `BEAR_ESCAPE`
+* `BTC_ACCUMULATION`
+* `OBSERVE_ONLY`
 
 ### Whale Link Flow
 
@@ -80,6 +91,26 @@ Watch Priority
     v
 Hound observation 강화
 ```
+
+### Lead Line API Socket
+
+WhaleLab-005-A adds the internal API Socket layer between Whale Link Flow and GrayMUG Core consumers:
+
+```text
+Whale Link Flow
+        |
+        v
+Lead Line API Socket
+        |
+        v
++------------+------------+------------+
+|    Core    |   Hound    |    Ward    |
++------------+------------+------------+
+```
+
+The socket exposes Watch Priority as a shared internal contract. Core, Hound, and Ward can consume the same Lead Line payload without modifying Hound detection logic.
+
+Whale Link Flow is not a helper for only one engine. It is the connector between Core, Hound, and Ward.
 
 ### Event Replay
 
@@ -208,8 +239,49 @@ Current research position:
 Fixed Lead Time hypothesis: rejected
 Link Flow based approach: retained
 Watch Priority interface: retained
+Lead Line API Socket: added in WhaleLab-005-A
 Direct Hound modification from LAB: forbidden
+Core strategy logic inside Whale Link Flow: forbidden
+Ward decision override from Whale Link Flow: forbidden
 ```
+
+### WhaleLab-005-A: Lead Line API Socket
+
+Purpose:
+
+* Provide Whale Link Flow as a shared internal API Socket.
+* Allow Core, Hound, and Ward to consume the same Lead Line contract.
+* Keep Hound detection logic unchanged.
+* Keep Ward independent as the defensive layer.
+* Let Core choose between survival, accumulation, and observe-only modes.
+
+Supported modes:
+
+* `BEAR_ESCAPE`: USDT survival / risk avoidance.
+* `BTC_ACCUMULATION`: BTC-denominated accumulation.
+* `OBSERVE_ONLY`: observation, learning, and non-execution.
+
+Implemented contract:
+
+* `get_current_lead_line(mode, top_n=12, min_priority=0.0) -> dict`
+* `get_hound_universe(mode, top_n=12, min_priority=0.0) -> list[str]`
+* `get_ward_context(mode) -> dict`
+* `get_core_payload(mode) -> dict`
+
+Implementation:
+
+```text
+research/whale_link_flow/lead_line_socket.py
+```
+
+### WhaleLab-005 Roadmap
+
+* `005-A`: Lead Line API Socket. Complete.
+* `005-B`: Engine Integration Harness. Complete.
+* `005-C`: Core / Ward / Hound live connection validation through the Socket.
+* `005-D`: Flow Forecast Dataset for current flow -> next flow learning.
+* `005-E`: Graph ML using `link_edges.csv`, `watch_priority.csv`, and `sector_flow_scores.csv`.
+* `005-F`: Whale Pattern ML to predict where whales are likely to go next.
 
 ---
 
@@ -277,6 +349,9 @@ Strict integration rules:
 
 * Do not directly modify Hound from GrayMUG-LAB.
 * Do not change Hound detection conditions based only on research output.
+* Do not revive the fixed Lead Time hypothesis.
+* Do not override Ward's internal defense judgment.
+* Do not put Core strategy decisions inside Whale Link Flow.
 * Do not treat Watch Priority as a buy or sell signal.
 * Keep Whale Link Flow as a Lead Line.
 * Preserve Hound as the detection layer.
@@ -296,6 +371,20 @@ Hound 감시 강화
     v
 Production decision under existing safety rules
 ```
+
+Current internal socket contract:
+
+```text
+Whale Link Flow
+    |
+    v
+Lead Line API Socket
+    |
+    v
+Core / Hound / Ward
+```
+
+Core passes the operating mode. Hound consumes only the resulting universe. Ward consumes risk context but keeps final defensive authority.
 
 ---
 
@@ -363,7 +452,7 @@ Required properties:
 Current completed stage:
 
 ```text
-WhaleLab-004 complete
+WhaleLab-005-B complete
 ```
 
 Completed capabilities:
@@ -382,15 +471,24 @@ Completed capabilities:
 * Watch Priority
 * Rotation Heatmap
 * Event Replay Validation
+* Lead Line API Socket
+* Core / Hound / Ward shared payload contract
+* Engine Integration Harness
+* Simulator Payload foundation
 
 Next planned stage:
 
 ```text
-WhaleLab-005
+WhaleLab-005-C
 ```
 
 Planned research:
 
+* Mode Router
+* Core / Ward / Hound Socket connection validation
+* Flow Forecast Dataset
+* Graph ML
+* Whale Pattern ML
 * ML Core
 * Adaptive Whale Profile
 * Flow Forecast Layer
@@ -399,6 +497,16 @@ Planned research:
 * Capital Rotation Forecast
 
 The next stage should build on the validated v0.4 flow architecture. It should not revive the fixed Lead Time hypothesis, and it should not bypass the Hound/Ward production safety boundary.
+
+Final operating definition:
+
+```text
+Core gathers BTC.
+Ward keeps the system alive.
+Hound hunts alts.
+Whale Link Flow connects the three engines.
+Every result flows back into BTC quantity growth.
+```
 
 ---
 
@@ -415,5 +523,8 @@ For the current state of the project, read these documents first:
 | `docs/004_PROJECT_STATE.md` | Current project state |
 | `docs/005_ARCHITECTURE_MAP.md` | Architecture and module map |
 | `docs/006_DEVELOPMENT_RULES.md` | Development constraints and safety rules |
+| `docs/007_WHALELAB_005A_LEAD_LINE_API_SOCKET.md` | Lead Line API Socket contract |
+| `docs/008_WHALELAB_005_INTEGRATION_DIRECTIVE.md` | WhaleLab-005 integration directive and roadmap |
+| `docs/009_SIMULATOR_FOUNDATION.md` | Simulator philosophy and observation foundation |
 
 These documents are the project memory layer. A new contributor should be able to read them and understand the project goal, research history, current state, and next direction without relying on chat history.

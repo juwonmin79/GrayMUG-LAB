@@ -12,10 +12,10 @@
 GrayMUG Core
 |
 +-- Hound
-|   `-- Whale detection / observation target
+|   `-- Alt hunting / whale detection / Lead Line universe consumer
 |
 +-- Ward
-|   `-- Risk monitoring / safety layer
+|   `-- Survival engine / risk monitoring / independent defense layer
 |
 +-- Whale Link Flow
 |   |-- Cycle Layer
@@ -26,6 +26,15 @@ GrayMUG Core
 |   |-- Flow Persistence
 |   |-- Whale Type
 |   `-- Watch Priority
+|
++-- Lead Line API Socket
+|   `-- Shared internal contract for Core / Hound / Ward
+|
++-- Integration Harness
+|   `-- Lead Line -> Core / Ward / Hound state conversion
+|
++-- Core
+|   `-- BTC accumulation engine / mode router owner
 |
 +-- ML Core
 |   `-- Planned research layer
@@ -60,7 +69,16 @@ Whale Type
 Watch Priority
     |
     v
-Hound
+Lead Line API Socket
+    |
+    v
+Core / Hound / Ward
+    |
+    v
+Integration Harness
+    |
+    v
+Simulator Payload
     |
     v
 Trade Signal
@@ -112,13 +130,30 @@ Trade Signal은 이 문서 기준 Production 계층의 최종 결과이며, Gray
 * 직접 매매 신호가 아니다.
 * 표준 인터페이스는 `watch_priority(symbol)` 형태를 유지한다.
 
+### Lead Line API Socket
+* Whale Link Flow를 Core / Hound / Ward가 공통으로 소비할 수 있게 하는 내부 API 계층.
+* `get_current_lead_line()`, `get_hound_universe()`, `get_ward_context()`, `get_core_payload()`를 제공한다.
+* Hound 탐지 로직, Ward 방어 판단, Core 전략 판단을 직접 수정하지 않는다.
+
+### Core
+* BTC 본류 엔진.
+* 시장 국면 판단, 전략 모드 선택, BTC 축적 방향 유지를 담당한다.
+* 지원 모드는 `BEAR_ESCAPE`, `BTC_ACCUMULATION`, `OBSERVE_ONLY`다.
+
+### Integration Harness
+* 실제 Core / Ward / Hound 없이 Lead Line 연결 흐름을 검증한다.
+* `CoreState`, `WardState`, `HoundState`, `LeadLineState`를 하나의 Simulator Payload로 묶는다.
+* 매매, Forecast, Graph ML, Whale ML, Dashboard, DB, FastAPI를 구현하지 않는다.
+
 ### Hound
-* 고래 감지 및 관찰 계층.
-* Whale Link Flow의 Watch Priority를 입력으로 받을 수 있으나, LAB 단계에서 직접 수정해서는 안 된다.
+* 알트 사냥 엔진.
+* Lead Line API Socket이 제공하는 universe를 소비한다.
+* Hound 내부 탐지 로직은 수정하지 않는다.
 
 ### Ward
-* 위험 감시 및 안전 계층.
-* Production 편입 이후에도 리서치 모델의 과도한 신호를 제한하는 방어선 역할을 한다.
+* 생존 엔진.
+* 시장 위험 감시, 리스크 평가, 방어 상태 판단을 담당한다.
+* Lead Line risk context를 참고할 수 있으나 최종 판단은 독립적으로 수행한다.
 
 ---
 
@@ -175,4 +210,6 @@ Whale Link Flow v0.4는 다음 7개 대형 이벤트로 검증되었다.
 
 Whale Link Flow는 Hound를 대체하지 않는다.
 
-Whale Link Flow는 시장의 자금 순환, 지속성, 고래 유형, 섹터 우선순위를 계산해서 Hound가 더 집중해서 볼 대상을 알려주는 Lead Line이다.
+Whale Link Flow는 시장의 자금 순환, 지속성, 고래 유형, 섹터 우선순위를 계산해서 Core / Hound / Ward가 공통으로 소비하는 Lead Line API Socket으로 제공된다.
+
+Core는 BTC를 모은다. Ward는 살아남게 한다. Hound는 알트를 사냥한다. Whale Link Flow는 세 엔진을 연결한다.

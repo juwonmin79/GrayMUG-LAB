@@ -196,3 +196,24 @@ GrayMUG-LAB의 핵심 연구 방향, 폐기된 가설, 검증된 인터페이스
 * 현재 프로젝트 상태
 
 프로젝트 담당자, AI 모델, 개발 세션이 바뀌어도 `docs/000~006`만 읽으면 현재 상태를 복구할 수 있어야 한다.
+
+---
+
+## Rule 11. WhaleLab-005 엔진 책임 경계 유지
+
+WhaleLab-005 기준 엔진 책임은 다음과 같이 고정한다.
+
+* Core는 BTC를 모은다.
+* Ward는 살아남게 한다.
+* Hound는 알트를 사냥한다.
+* Whale Link Flow는 세 엔진을 연결한다.
+* 모든 결과는 BTC 수량 증가로 환류된다.
+
+절대 금지:
+
+* 고정 Lead Time 가설 부활 금지
+* Hound 내부 수정 금지
+* Ward 내부 판단 로직 침범 금지
+* Core 전략 판단을 Whale Link Flow 안에 삽입 금지
+
+Whale Link Flow는 Core / Hound / Ward가 공통으로 소비하는 Lead Line API Socket을 제공할 뿐이며, 특정 엔진의 내부 판단을 대체하지 않는다.

@@ -53,4 +53,5 @@
 * `scoring.py`: 자산별 고래 점수(Whale Link Score) 계산.
 * `flow_graph.py`: 교차 상관 관계 및 로테이션 지표에 기반한 인접 행렬 생성 및 DFS 기반 자금 이동 경로 탐색.
 * `flow_engine.py`: 전체 파이프라인 조율 및 시뮬레이션 엔진.
+* `lead_line_socket.py`: Core / Hound / Ward가 공통으로 소비하는 내부 Lead Line API Socket.
 * `examples/run_replay.py`: 실데이터를 입력받아 역사적 자금 이동(예: majors -> alt 로테이션)을 리플레이하고 시각화하는 실행 예제.
