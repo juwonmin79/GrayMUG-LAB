@@ -248,6 +248,21 @@ Planned files:
 
 Current task creates only the directory placeholder. It does not generate metric files.
 
+Hellhound-001-B adds the first production universe loader. If no explicit watchlist, universe, symbol list, or top30 artifact exists under `backup_GrayMUG`, the runner must mark:
+
+```json
+{
+  "production_universe_source": "fallback",
+  "production_universe_is_fallback": true
+}
+```
+
+and include this note:
+
+```text
+Production universe not found. Fallback used. This is not a real validation result.
+```
+
 ## 8. Suggested Artifact Schemas
 
 ### universe_snapshots.csv
