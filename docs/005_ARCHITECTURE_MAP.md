@@ -36,6 +36,12 @@ GrayMUG Core
 +-- Target Intelligence Pipeline
 |   `-- Core / Ward / Hound Target Feed generation
 |
++-- Engine Fitness Framework
+|   `-- Core / Ward / Hound capability measurement
+|
++-- LAB Signal Calibration Layer
+|   `-- Signal strength / confidence / engine scope standardization
+|
 +-- Core
 |   `-- BTC accumulation engine / mode router owner
 |
@@ -88,6 +94,18 @@ Target Intelligence Pipeline
     |
     v
 Core / Ward / Hound Target Feed
+    |
+    v
+Engine Fitness Framework
+    |
+    v
+Fitness Report
+    |
+    v
+LAB Signal Calibration Layer
+    |
+    v
+Calibrated Signal Payload
     |
     v
 Trade Signal
@@ -160,6 +178,18 @@ Trade Signal은 이 문서 기준 Production 계층의 최종 결과이며, Gray
 * Ward Feed는 생존 판단을 보조한다.
 * Hound Feed는 알트 사냥 타겟 지정을 보조한다.
 * LAB은 최종 판단을 대체하지 않고 Feed만 제공한다.
+
+### Engine Fitness Framework
+* Target Feed가 Core 판단력, Ward 생존력, Hound 사냥능력을 향상시키는지 측정한다.
+* Core Fitness, Ward Fitness, Hound Fitness를 분리해 평가한다.
+* overall score는 Core 40%, Ward 30%, Hound 30% 가중 평균으로 계산한다.
+* 실거래, 백테스트, Forecast, Graph ML, Whale ML을 수행하지 않는다.
+
+### LAB Signal Calibration Layer
+* LAB 신호의 강도, 신뢰도, 적용 범위, 최종 영향도를 표준화한다.
+* Core max influence는 `0.20`, Ward는 `0.15`, Hound는 `0.30`이다.
+* 강한 신호라도 엔진의 기본 로직을 대체할 수 없다.
+* Forecast, Graph ML, Whale ML, Execution Guidance를 수행하지 않는다.
 
 ### Hound
 * 알트 사냥 엔진.

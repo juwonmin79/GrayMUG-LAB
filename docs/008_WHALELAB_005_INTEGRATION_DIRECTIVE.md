@@ -209,33 +209,39 @@ Complete
 * Core Target Feed, Ward Risk Feed, Hound Hunt Feed 생성
 * LAB은 판단하지 않고 Feed만 제공
 
-### 005-D: Flow Forecast Dataset
+### 005-D: Engine Fitness Framework
 
 상태:
 
 ```text
-Next
+Complete
 ```
 
 목표:
+
+* WhaleLab 결과가 Core / Ward / Hound 능력을 향상시키는지 측정
+* Core Fitness, Ward Fitness, Hound Fitness 생성
+* overall fitness score 계산
+
+### 005-E: LAB Signal Calibration Layer
+
+상태:
 
 ```text
-현재 흐름 -> 다음 흐름
+Complete
 ```
-
-학습 데이터 구축.
-
-### 005-E: Graph ML
-
-입력:
-
-* `link_edges.csv`
-* `watch_priority.csv`
-* `sector_flow_scores.csv`
 
 목표:
 
-* Flow Path Forecast
+* LAB 신호 강도, 신뢰도, 적용 범위 표준화
+* Core / Ward / Hound별 max influence 정책 적용
+* 엔진 판단 대체 방지
+
+정책:
+
+* Core max influence: `0.20`
+* Ward max influence: `0.15`
+* Hound max influence: `0.30`
 
 ### 005-F: Whale Pattern ML
 

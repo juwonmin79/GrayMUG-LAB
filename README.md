@@ -279,8 +279,8 @@ research/whale_link_flow/lead_line_socket.py
 * `005-A`: Lead Line API Socket. Complete.
 * `005-B`: Engine Integration Harness. Complete.
 * `005-C`: Target Intelligence Pipeline. Complete.
-* `005-D`: Flow Forecast Dataset for current flow -> next flow learning.
-* `005-E`: Graph ML using `link_edges.csv`, `watch_priority.csv`, and `sector_flow_scores.csv`.
+* `005-D`: Engine Fitness Framework. Complete.
+* `005-E`: LAB Signal Calibration Layer. Complete.
 * `005-F`: Whale Pattern ML to predict where whales are likely to go next.
 
 ### WhaleLab-005-C: Target Intelligence Pipeline
@@ -301,6 +301,40 @@ Implementation:
 
 ```text
 research/targeting/
+```
+
+### WhaleLab-005-D: Engine Fitness Framework
+
+Purpose:
+
+* Measure whether WhaleLab outputs improve Core / Ward / Hound capability.
+* Establish the research -> apply -> measure -> improve loop.
+* Evaluate Core judgment, Ward survival, and Hound hunting ability separately.
+
+Implementation:
+
+```text
+research/fitness/
+```
+
+### WhaleLab-005-E: LAB Signal Calibration Layer
+
+Purpose:
+
+* Standardize LAB signal strength, confidence, and application scope.
+* Prevent LAB signals from replacing Core / Ward / Hound logic.
+* Enforce engine-specific max influence policies.
+
+Max influence:
+
+* Core: `0.20`
+* Ward: `0.15`
+* Hound: `0.30`
+
+Implementation:
+
+```text
+research/calibration/
 ```
 
 ---
@@ -478,7 +512,7 @@ Required properties:
 Current completed stage:
 
 ```text
-WhaleLab-005-C complete
+WhaleLab-005-E complete
 ```
 
 Completed capabilities:
@@ -505,11 +539,15 @@ Completed capabilities:
 * Core Target Feed
 * Ward Risk Feed
 * Hound Hunt Feed
+* Engine Fitness Framework
+* Core / Ward / Hound Fitness Report
+* LAB Signal Calibration Layer
+* Engine-specific max influence policy
 
 Next planned stage:
 
 ```text
-WhaleLab-005-D
+WhaleLab-005-F
 ```
 
 Planned research:
@@ -557,5 +595,7 @@ For the current state of the project, read these documents first:
 | `docs/008_WHALELAB_005_INTEGRATION_DIRECTIVE.md` | WhaleLab-005 integration directive and roadmap |
 | `docs/009_SIMULATOR_FOUNDATION.md` | Simulator philosophy and observation foundation |
 | `docs/010_WHALELAB_005C_TARGET_INTELLIGENCE_PIPELINE.md` | Target Intelligence Pipeline contract |
+| `docs/011_ENGINE_FITNESS_FRAMEWORK.md` | Engine Fitness Framework contract |
+| `docs/012_LAB_SIGNAL_CALIBRATION_LAYER.md` | LAB Signal Calibration Layer contract |
 
 These documents are the project memory layer. A new contributor should be able to read them and understand the project goal, research history, current state, and next direction without relying on chat history.

@@ -235,3 +235,53 @@ WhaleLab-005-C 이후 모든 Feed는 Core / Ward / Hound 중 하나에 명확히
 * LAB이 최종 매수/매도, 방어, 감지 판단을 수행하는 구조 금지
 
 모든 Feed는 "이 지표가 어느 엔진의 어떤 판단을 더 정확하게 만드는가?"라는 질문을 통과해야 한다.
+
+---
+
+## Rule 13. 연구 성과는 Engine Fitness로 측정
+
+GrayMUG-LAB의 연구 성과는 지표 개수로 평가하지 않는다.
+
+평가 기준:
+
+* Core 판단력 향상
+* Ward 생존력 향상
+* Hound 사냥능력 향상
+* BTC 수량 증가 기여도
+
+WhaleLab-005-D 이후 모든 주요 연구 산출물은 Core Fitness, Ward Fitness, Hound Fitness 중 어디를 개선하는지 설명할 수 있어야 한다.
+
+금지:
+
+* Fitness 계산을 실거래 로직으로 확장 금지
+* Fitness 계산을 백테스트로 위장 금지
+* Fitness 점수를 최종 매수/매도 판단으로 사용 금지
+
+---
+
+## Rule 14. LAB 신호는 Calibration 이후에만 적용 가능
+
+LAB 지표는 강할수록 좋은 것이 아니다.
+
+모든 LAB 신호는 엔진에 전달되기 전에 다음 값을 가져야 한다.
+
+* signal_strength
+* confidence
+* application_scope
+* max_influence
+* final_weight
+
+엔진별 최대 영향도:
+
+* Core: `0.20`
+* Ward: `0.15`
+* Hound: `0.30`
+
+금지:
+
+* Hound 감지 로직 대체 금지
+* Ward 방어 판단 대체 금지
+* Core 전략 판단 대체 금지
+* forbidden scope를 application scope로 사용 금지
+
+LAB은 엔진의 핸들을 빼앗지 않는다. LAB은 신호 강도, 신뢰도, 적용 범위를 조정해 판단 보조값만 제공한다.

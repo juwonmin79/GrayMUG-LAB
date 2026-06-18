@@ -16,6 +16,8 @@
 | Lead Line API Socket | WhaleLab-005-A complete | Core / Hound / Ward 공통 내부 API 계약 구현 |
 | Engine Integration Harness | WhaleLab-005-B complete | Lead Line -> Core / Ward / Hound state 변환 검증 |
 | Target Intelligence Pipeline | WhaleLab-005-C complete | Core / Ward / Hound Target Feed API 파이프라인 구현 |
+| Engine Fitness Framework | WhaleLab-005-D complete | Core / Ward / Hound 능력 향상 측정 Framework 구현 |
+| LAB Signal Calibration Layer | WhaleLab-005-E complete | LAB 신호 강도, 신뢰도, 적용 범위 표준화 |
 | ML Core | Planned | Whale Type ML, Sector ML, Capital Rotation Forecast 예정 |
 
 ---
@@ -107,15 +109,57 @@
   - TargetPipelinePayload 생성 성공
   - 각 Feed의 engine 귀속 확인
 
+### WhaleLab-005-D
+* Engine Fitness Framework 구현 완료.
+* 구현 파일:
+  - `research/fitness/fitness_schema.py`
+  - `research/fitness/core_fitness.py`
+  - `research/fitness/ward_fitness.py`
+  - `research/fitness/hound_fitness.py`
+  - `research/fitness/fitness_registry.py`
+  - `research/fitness/fitness_score.py`
+  - `research/fitness/fitness_pipeline.py`
+  - `research/fitness/test_fitness_pipeline.py`
+  - `research/fitness/README.md`
+  - `docs/011_ENGINE_FITNESS_FRAMEWORK.md`
+* 검증:
+  - CoreFitness 생성 성공
+  - WardFitness 생성 성공
+  - HoundFitness 생성 성공
+  - FitnessReport 생성 성공
+  - overall_score 계산 성공
+
+### WhaleLab-005-E
+* LAB Signal Calibration Layer 구현 완료.
+* 구현 파일:
+  - `research/calibration/calibration_schema.py`
+  - `research/calibration/signal_calibrator.py`
+  - `research/calibration/engine_scope.py`
+  - `research/calibration/calibration_policy.py`
+  - `research/calibration/calibration_pipeline.py`
+  - `research/calibration/test_calibration_pipeline.py`
+  - `research/calibration/README.md`
+  - `docs/012_LAB_SIGNAL_CALIBRATION_LAYER.md`
+* 정책:
+  - Core max influence: `0.20`
+  - Ward max influence: `0.15`
+  - Hound max influence: `0.30`
+* 검증:
+  - Core final_weight <= 0.20
+  - Ward final_weight <= 0.15
+  - Hound final_weight <= 0.30
+  - 각 signal의 단일 engine 귀속 확인
+  - forbidden scope 미사용 확인
+
 ---
 
 ## 3. In Progress
 
-### WhaleLab-005-D: Flow Forecast Dataset
-* 현재 흐름 -> 다음 흐름 학습 데이터 구축 단계.
+### WhaleLab-005-F: 다음 연구 단계 준비
+* Calibration Layer 이후 연구 산출물이 엔진 로직을 침범하지 않는 구조를 유지하는 단계.
 * 현재 원칙:
-  - Forecast 모델은 아직 구현하지 않는다.
-  - Dataset만 구축한다.
+  - Forecast / Graph ML / Whale ML은 아직 구현하지 않는다.
+  - Execution Guidance는 calibrated signal만 소비할 수 있다.
   - 각 출력은 Core / Ward / Hound 중 하나에 명확히 귀속되어야 한다.
 
 ### ML Core
@@ -149,9 +193,7 @@
 * 현재 자금 흐름에서 다음 순환 후보 섹터/자산을 예측.
 * 직접 매수/매도 신호가 아니라 Hound의 관찰 우선순위 보정값으로 사용.
 
-### WhaleLab-005-D/E/F
-* 005-D: 현재 흐름 -> 다음 흐름 Flow Forecast Dataset 구축.
-* 005-E: `link_edges.csv`, `watch_priority.csv`, `sector_flow_scores.csv` 기반 Graph ML.
+### WhaleLab-005-F+
 * 005-F: 고래가 다음에 어디로 갈 것인지 예측하는 Whale Pattern ML.
 
 ### Regime Similarity Engine
