@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Env
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cache
+.pytest_cache/
+.mypy_cache/
+
+# macOS
+.DS_Store
+
+# Data
+datasets/
+
+# Generated Outputs
+outputs/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
