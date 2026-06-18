@@ -1,0 +1,44 @@
+{
+  "timestamp": 1781738100000,
+  "mode": "BTC_ACCUMULATION",
+  "source": "target_intelligence_pipeline",
+  "core": {
+    "mode": "BTC_ACCUMULATION",
+    "quote_asset": "BTC",
+    "btc_accumulation_bias": 0.8,
+    "focus_assets": [
+      "ETH/BTC",
+      "XRP/BTC",
+      "TAO/BTC"
+    ],
+    "confidence": 0.8,
+    "source": "whale_link_flow",
+    "engine": "CORE"
+  },
+  "ward": {
+    "mode": "BTC_ACCUMULATION",
+    "risk_hint": "NORMAL",
+    "escape_pressure": 0.1,
+    "risk_alignment": "ALIGNED",
+    "warning_flags": [],
+    "source": "whale_link_flow",
+    "engine": "WARD"
+  },
+  "hound": {
+    "mode": "BTC_ACCUMULATION",
+    "top_targets": [
+      "ETH/BTC",
+      "XRP/BTC",
+      "TAO/BTC"
+    ],
+    "priority_rank": {
+      "ETH/BTC": 1,
+      "XRP/BTC": 2,
+      "TAO/BTC": 3
+    },
+    "hunt_pressure": 1.0,
+    "confidence": 1.0,
+    "source": "whale_link_flow",
+    "engine": "HOUND"
+  }
+}

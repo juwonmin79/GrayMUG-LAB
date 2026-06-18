@@ -15,6 +15,7 @@
 | Whale Link Flow | v0.4 validated | Sector Map, Sector Flow, Flow Persistence, Watch Priority 검증 완료 |
 | Lead Line API Socket | WhaleLab-005-A complete | Core / Hound / Ward 공통 내부 API 계약 구현 |
 | Engine Integration Harness | WhaleLab-005-B complete | Lead Line -> Core / Ward / Hound state 변환 검증 |
+| Target Intelligence Pipeline | WhaleLab-005-C complete | Core / Ward / Hound Target Feed API 파이프라인 구현 |
 | ML Core | Planned | Whale Type ML, Sector ML, Capital Rotation Forecast 예정 |
 
 ---
@@ -85,16 +86,37 @@
   - HoundState 생성 성공
   - Simulator Payload 생성 성공
 
+### WhaleLab-005-C
+* Target Intelligence Pipeline 구현 완료.
+* 구현 파일:
+  - `research/targeting/target_schema.py`
+  - `research/targeting/target_feed_builder.py`
+  - `research/targeting/core_target_feed.py`
+  - `research/targeting/ward_risk_feed.py`
+  - `research/targeting/hound_hunt_feed.py`
+  - `research/targeting/target_pipeline.py`
+  - `research/targeting/test_target_pipeline.py`
+  - `research/targeting/README.md`
+  - `docs/010_WHALELAB_005C_TARGET_INTELLIGENCE_PIPELINE.md`
+* 보조 출력:
+  - `outputs/targeting/latest_target_feed.json`
+* 검증:
+  - CoreTargetFeed 생성 성공
+  - WardRiskFeed 생성 성공
+  - HoundHuntFeed 생성 성공
+  - TargetPipelinePayload 생성 성공
+  - 각 Feed의 engine 귀속 확인
+
 ---
 
 ## 3. In Progress
 
-### WhaleLab-005-C: Core / Ward / Hound 실연결
-* Socket 기반 연결 검증 단계.
+### WhaleLab-005-D: Flow Forecast Dataset
+* 현재 흐름 -> 다음 흐름 학습 데이터 구축 단계.
 * 현재 원칙:
-  - Core가 실행 모드와 BTC 축적 방향을 결정한다.
-  - Whale Link Flow는 Lead Line API Socket만 제공한다.
-  - Hound / Ward 내부 판단 로직을 침범하지 않는다.
+  - Forecast 모델은 아직 구현하지 않는다.
+  - Dataset만 구축한다.
+  - 각 출력은 Core / Ward / Hound 중 하나에 명확히 귀속되어야 한다.
 
 ### ML Core
 * 아직 Production 편입 대상이 아님.
@@ -127,8 +149,7 @@
 * 현재 자금 흐름에서 다음 순환 후보 섹터/자산을 예측.
 * 직접 매수/매도 신호가 아니라 Hound의 관찰 우선순위 보정값으로 사용.
 
-### WhaleLab-005-C/D/E/F
-* 005-C: Core / Ward / Hound Socket 기반 실연결 검증.
+### WhaleLab-005-D/E/F
 * 005-D: 현재 흐름 -> 다음 흐름 Flow Forecast Dataset 구축.
 * 005-E: `link_edges.csv`, `watch_priority.csv`, `sector_flow_scores.csv` 기반 Graph ML.
 * 005-F: 고래가 다음에 어디로 갈 것인지 예측하는 Whale Pattern ML.

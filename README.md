@@ -278,10 +278,30 @@ research/whale_link_flow/lead_line_socket.py
 
 * `005-A`: Lead Line API Socket. Complete.
 * `005-B`: Engine Integration Harness. Complete.
-* `005-C`: Core / Ward / Hound live connection validation through the Socket.
+* `005-C`: Target Intelligence Pipeline. Complete.
 * `005-D`: Flow Forecast Dataset for current flow -> next flow learning.
 * `005-E`: Graph ML using `link_edges.csv`, `watch_priority.csv`, and `sector_flow_scores.csv`.
 * `005-F`: Whale Pattern ML to predict where whales are likely to go next.
+
+### WhaleLab-005-C: Target Intelligence Pipeline
+
+Purpose:
+
+* Convert Lead Line and Integration Harness state into engine-owned Target Feeds.
+* Keep LAB from making final Core / Ward / Hound decisions.
+* Make every feed answer which engine decision it improves.
+
+Feeds:
+
+* `CoreTargetFeed`: supports BTC accumulation judgment.
+* `WardRiskFeed`: supports survival and defensive judgment.
+* `HoundHuntFeed`: supports alt hunting target selection.
+
+Implementation:
+
+```text
+research/targeting/
+```
 
 ---
 
@@ -305,6 +325,12 @@ Key files:
 | `flow_network.png` | Directed network map of capital movement relationships |
 
 Additional outputs may exist from earlier experiments, but the files above represent the current WhaleLab-004 validation set.
+
+Target Intelligence output:
+
+| File | Role |
+| :--- | :--- |
+| `outputs/targeting/latest_target_feed.json` | Small latest Target Pipeline payload for Core / Ward / Hound feed inspection |
 
 ---
 
@@ -452,7 +478,7 @@ Required properties:
 Current completed stage:
 
 ```text
-WhaleLab-005-B complete
+WhaleLab-005-C complete
 ```
 
 Completed capabilities:
@@ -475,11 +501,15 @@ Completed capabilities:
 * Core / Hound / Ward shared payload contract
 * Engine Integration Harness
 * Simulator Payload foundation
+* Target Intelligence Pipeline
+* Core Target Feed
+* Ward Risk Feed
+* Hound Hunt Feed
 
 Next planned stage:
 
 ```text
-WhaleLab-005-C
+WhaleLab-005-D
 ```
 
 Planned research:
@@ -526,5 +556,6 @@ For the current state of the project, read these documents first:
 | `docs/007_WHALELAB_005A_LEAD_LINE_API_SOCKET.md` | Lead Line API Socket contract |
 | `docs/008_WHALELAB_005_INTEGRATION_DIRECTIVE.md` | WhaleLab-005 integration directive and roadmap |
 | `docs/009_SIMULATOR_FOUNDATION.md` | Simulator philosophy and observation foundation |
+| `docs/010_WHALELAB_005C_TARGET_INTELLIGENCE_PIPELINE.md` | Target Intelligence Pipeline contract |
 
 These documents are the project memory layer. A new contributor should be able to read them and understand the project goal, research history, current state, and next direction without relying on chat history.

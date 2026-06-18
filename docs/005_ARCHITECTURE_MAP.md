@@ -33,6 +33,9 @@ GrayMUG Core
 +-- Integration Harness
 |   `-- Lead Line -> Core / Ward / Hound state conversion
 |
++-- Target Intelligence Pipeline
+|   `-- Core / Ward / Hound Target Feed generation
+|
 +-- Core
 |   `-- BTC accumulation engine / mode router owner
 |
@@ -79,6 +82,12 @@ Integration Harness
     |
     v
 Simulator Payload
+    |
+    v
+Target Intelligence Pipeline
+    |
+    v
+Core / Ward / Hound Target Feed
     |
     v
 Trade Signal
@@ -144,6 +153,13 @@ Trade Signal은 이 문서 기준 Production 계층의 최종 결과이며, Gray
 * 실제 Core / Ward / Hound 없이 Lead Line 연결 흐름을 검증한다.
 * `CoreState`, `WardState`, `HoundState`, `LeadLineState`를 하나의 Simulator Payload로 묶는다.
 * 매매, Forecast, Graph ML, Whale ML, Dashboard, DB, FastAPI를 구현하지 않는다.
+
+### Target Intelligence Pipeline
+* Integration Harness state를 Core / Ward / Hound별 Target Feed로 변환한다.
+* Core Feed는 BTC 축적 판단을 보조한다.
+* Ward Feed는 생존 판단을 보조한다.
+* Hound Feed는 알트 사냥 타겟 지정을 보조한다.
+* LAB은 최종 판단을 대체하지 않고 Feed만 제공한다.
 
 ### Hound
 * 알트 사냥 엔진.

@@ -195,22 +195,27 @@ Complete
 * 실제 엔진 없이 연결 흐름 검증
 * Simulator Payload 기반 생성
 
-### 005-C: Core / Ward / Hound 실연결
+### 005-C: Target Intelligence Pipeline
+
+상태:
+
+```text
+Complete
+```
+
+목표:
+
+* Lead Line / Integration Harness 상태를 엔진별 Target Feed로 변환
+* Core Target Feed, Ward Risk Feed, Hound Hunt Feed 생성
+* LAB은 판단하지 않고 Feed만 제공
+
+### 005-D: Flow Forecast Dataset
 
 상태:
 
 ```text
 Next
 ```
-
-목표:
-
-* Socket 기반 연결 검증
-* Hound는 universe만 소비
-* Ward는 risk context만 참고
-* Core는 mode와 축적 방향 결정
-
-### 005-D: Flow Forecast Dataset
 
 목표:
 

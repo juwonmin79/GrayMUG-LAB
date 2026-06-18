@@ -217,3 +217,21 @@ WhaleLab-005 기준 엔진 책임은 다음과 같이 고정한다.
 * Core 전략 판단을 Whale Link Flow 안에 삽입 금지
 
 Whale Link Flow는 Core / Hound / Ward가 공통으로 소비하는 Lead Line API Socket을 제공할 뿐이며, 특정 엔진의 내부 판단을 대체하지 않는다.
+
+---
+
+## Rule 12. Target Feed는 반드시 단일 엔진에 귀속
+
+WhaleLab-005-C 이후 모든 Feed는 Core / Ward / Hound 중 하나에 명확히 귀속되어야 한다.
+
+* Core Feed는 BTC 축적 판단만 보조한다.
+* Ward Feed는 생존/방어 판단만 보조한다.
+* Hound Feed는 알트 사냥 타겟 지정만 보조한다.
+
+금지:
+
+* 재미있는 지표라는 이유만으로 Feed 추가 금지
+* 한 Feed가 여러 엔진 판단을 동시에 대체하는 구조 금지
+* LAB이 최종 매수/매도, 방어, 감지 판단을 수행하는 구조 금지
+
+모든 Feed는 "이 지표가 어느 엔진의 어떤 판단을 더 정확하게 만드는가?"라는 질문을 통과해야 한다.
