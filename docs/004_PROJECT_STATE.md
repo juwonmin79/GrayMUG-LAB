@@ -18,6 +18,7 @@
 | Target Intelligence Pipeline | WhaleLab-005-C complete | Core / Ward / Hound Target Feed API 파이프라인 구현 |
 | Engine Fitness Framework | WhaleLab-005-D complete | Core / Ward / Hound 능력 향상 측정 Framework 구현 |
 | LAB Signal Calibration Layer | WhaleLab-005-E complete | LAB 신호 강도, 신뢰도, 적용 범위 표준화 |
+| Execution Guidance API | WhaleLab-005-F complete | Hound target 발견 후 건별 guidance 생성 |
 | ML Core | Planned | Whale Type ML, Sector ML, Capital Rotation Forecast 예정 |
 
 ---
@@ -151,15 +152,35 @@
   - 각 signal의 단일 engine 귀속 확인
   - forbidden scope 미사용 확인
 
+### WhaleLab-005-F
+* Execution Guidance API 구현 완료.
+* 구현 파일:
+  - `research/execution/execution_schema.py`
+  - `research/execution/pattern_classifier.py`
+  - `research/execution/entry_guidance.py`
+  - `research/execution/tp_sl_guidance.py`
+  - `research/execution/exit_guidance.py`
+  - `research/execution/execution_builder.py`
+  - `research/execution/execution_pipeline.py`
+  - `research/execution/test_execution_pipeline.py`
+  - `research/execution/README.md`
+  - `docs/013_EXECUTION_GUIDANCE_API.md`
+* 검증:
+  - Pattern 생성 성공
+  - Entry 생성 성공
+  - TP/SL 생성 성공
+  - Exit 생성 성공
+  - Payload 생성 성공
+
 ---
 
 ## 3. In Progress
 
-### WhaleLab-005-F: 다음 연구 단계 준비
-* Calibration Layer 이후 연구 산출물이 엔진 로직을 침범하지 않는 구조를 유지하는 단계.
+### WhaleLab-006 준비
+* WhaleLab-005의 API pipeline을 기반으로 다음 연구 단계를 정의하는 단계.
 * 현재 원칙:
   - Forecast / Graph ML / Whale ML은 아직 구현하지 않는다.
-  - Execution Guidance는 calibrated signal만 소비할 수 있다.
+  - Execution Guidance는 거래 전략이나 자동 주문이 아니다.
   - 각 출력은 Core / Ward / Hound 중 하나에 명확히 귀속되어야 한다.
 
 ### ML Core
@@ -193,8 +214,8 @@
 * 현재 자금 흐름에서 다음 순환 후보 섹터/자산을 예측.
 * 직접 매수/매도 신호가 아니라 Hound의 관찰 우선순위 보정값으로 사용.
 
-### WhaleLab-005-F+
-* 005-F: 고래가 다음에 어디로 갈 것인지 예측하는 Whale Pattern ML.
+### WhaleLab-006+
+* Forecast / Graph ML / Whale Pattern ML은 이후 단계에서 별도 정의한다.
 
 ### Regime Similarity Engine
 * 현재 시장 국면을 과거 이벤트와 비교.

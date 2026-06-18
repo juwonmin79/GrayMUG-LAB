@@ -42,6 +42,9 @@ GrayMUG Core
 +-- LAB Signal Calibration Layer
 |   `-- Signal strength / confidence / engine scope standardization
 |
++-- Execution Guidance API
+|   `-- Pattern hint / entry style / TP-SL template / exit trigger
+|
 +-- Core
 |   `-- BTC accumulation engine / mode router owner
 |
@@ -106,6 +109,12 @@ LAB Signal Calibration Layer
     |
     v
 Calibrated Signal Payload
+    |
+    v
+Execution Guidance API
+    |
+    v
+Execution Guidance Payload
     |
     v
 Trade Signal
@@ -189,7 +198,12 @@ Trade Signal은 이 문서 기준 Production 계층의 최종 결과이며, Gray
 * LAB 신호의 강도, 신뢰도, 적용 범위, 최종 영향도를 표준화한다.
 * Core max influence는 `0.20`, Ward는 `0.15`, Hound는 `0.30`이다.
 * 강한 신호라도 엔진의 기본 로직을 대체할 수 없다.
-* Forecast, Graph ML, Whale ML, Execution Guidance를 수행하지 않는다.
+* Forecast, Graph ML, Whale ML을 수행하지 않으며 Execution Guidance 이전의 안전 보정 계층이다.
+
+### Execution Guidance API
+* Hound target 발견 후 Pattern Hint, Entry Style, TP/SL Template, Exit Trigger를 생성한다.
+* 실거래, 자동 주문, 포지션 관리, 최종 진입/청산 판단을 수행하지 않는다.
+* 기존 Hound 탐지 결과를 구조화된 형태로 설명하는 Layer다.
 
 ### Hound
 * 알트 사냥 엔진.

@@ -281,7 +281,7 @@ research/whale_link_flow/lead_line_socket.py
 * `005-C`: Target Intelligence Pipeline. Complete.
 * `005-D`: Engine Fitness Framework. Complete.
 * `005-E`: LAB Signal Calibration Layer. Complete.
-* `005-F`: Whale Pattern ML to predict where whales are likely to go next.
+* `005-F`: Execution Guidance API. Complete.
 
 ### WhaleLab-005-C: Target Intelligence Pipeline
 
@@ -335,6 +335,20 @@ Implementation:
 
 ```text
 research/calibration/
+```
+
+### WhaleLab-005-F: Execution Guidance API
+
+Purpose:
+
+* Generate case-level guidance when Hound has a target.
+* Provide Pattern Hint, Entry Style, TP/SL Template, and Exit Trigger.
+* Explain Hound target context without issuing trade commands.
+
+Implementation:
+
+```text
+research/execution/
 ```
 
 ---
@@ -512,7 +526,7 @@ Required properties:
 Current completed stage:
 
 ```text
-WhaleLab-005-E complete
+WhaleLab-005-F complete
 ```
 
 Completed capabilities:
@@ -543,11 +557,13 @@ Completed capabilities:
 * Core / Ward / Hound Fitness Report
 * LAB Signal Calibration Layer
 * Engine-specific max influence policy
+* Execution Guidance API
+* Pattern Hint / Entry Style / TP-SL Template / Exit Trigger
 
 Next planned stage:
 
 ```text
-WhaleLab-005-F
+WhaleLab-006
 ```
 
 Planned research:
@@ -597,5 +613,6 @@ For the current state of the project, read these documents first:
 | `docs/010_WHALELAB_005C_TARGET_INTELLIGENCE_PIPELINE.md` | Target Intelligence Pipeline contract |
 | `docs/011_ENGINE_FITNESS_FRAMEWORK.md` | Engine Fitness Framework contract |
 | `docs/012_LAB_SIGNAL_CALIBRATION_LAYER.md` | LAB Signal Calibration Layer contract |
+| `docs/013_EXECUTION_GUIDANCE_API.md` | Execution Guidance API contract |
 
 These documents are the project memory layer. A new contributor should be able to read them and understand the project goal, research history, current state, and next direction without relying on chat history.

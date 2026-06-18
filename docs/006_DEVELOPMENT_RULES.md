@@ -285,3 +285,27 @@ LAB 지표는 강할수록 좋은 것이 아니다.
 * forbidden scope를 application scope로 사용 금지
 
 LAB은 엔진의 핸들을 빼앗지 않는다. LAB은 신호 강도, 신뢰도, 적용 범위를 조정해 판단 보조값만 제공한다.
+
+---
+
+## Rule 15. Execution Guidance는 거래 명령이 아님
+
+Execution Guidance는 Hound target 발견 후 구조화된 참고 가이드를 제공한다.
+
+제공 가능:
+
+* Pattern Hint
+* Entry Style
+* TP Case
+* SL Case
+* Exit Trigger
+
+금지:
+
+* 실거래 실행 금지
+* 자동 주문 금지
+* 포지션 관리 금지
+* 최종 진입/청산 판단 대체 금지
+* `BUY` / `SELL` 명령 생성 금지
+
+Execution Guidance는 기존 Hound의 탐지 결과를 설명하는 Layer이며 거래 전략 생성 시스템이 아니다.

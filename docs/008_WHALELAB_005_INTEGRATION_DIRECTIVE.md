@@ -243,21 +243,21 @@ Complete
 * Ward max influence: `0.15`
 * Hound max influence: `0.30`
 
-### 005-F: Whale Pattern ML
+### 005-F: Execution Guidance API
+
+상태:
+
+```text
+Complete
+```
 
 최종 목표:
 
-```text
-고래가 어디로 갔는가
-```
+* Hound가 target을 발견했을 때 건별 guidance 생성
+* Pattern Hint, Entry Style, TP/SL Template, Exit Trigger 제공
+* LAB은 최종 매매 판단을 하지 않음
 
-가 아니라
-
-```text
-고래가 다음에 어디로 갈 것인가
-```
-
-를 예측한다.
+Execution Guidance는 거래 전략 생성 시스템이 아니라 Hound 탐지 결과를 구조화해 설명하는 Layer다.
 
 ---
 
