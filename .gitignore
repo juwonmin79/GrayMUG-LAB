@@ -27,6 +27,9 @@ logs/
 # Large Datasets
 datasets/
 
+# Production reference backup
+backup_GrayMUG/
+
 # Output Cache
 outputs/**/*.csv
 
