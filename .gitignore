@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
 
 # Virtual Env
 .venv/
@@ -15,16 +16,19 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Data
-datasets/
-
-# Generated Outputs
-outputs/
-
-# Logs
-*.log
-logs/
-
 # IDE
 .vscode/
 .idea/
+
+# Logs
+logs/
+*.log
+
+# Large Datasets
+datasets/
+
+# Output Cache
+outputs/**/*.csv
+
+# Large Images (선택)
+# outputs/**/*.png
