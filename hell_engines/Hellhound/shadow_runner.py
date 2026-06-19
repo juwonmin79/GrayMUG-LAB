@@ -204,10 +204,12 @@ def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
         )
 
     try:
+        inserted_signals = []
         for signal in signals:
-            _insert_shadow_signal(
+            inserted_signal = _insert_shadow_signal(
                 supabase_url=supabase_url, supabase_key=supabase_key, signal=signal
             )
+            inserted_signals.append(inserted_signal or signal)
     except ShadowInsertError as exc:
         LOGGER.error("Supabase shadow signal insert failed: %s", exc)
         return ShadowRunnerResult(
@@ -219,15 +221,15 @@ def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
             signals=signals,
         )
 
-    LOGGER.info("Inserted %s Hellhound hypothesis shadow signals", len(signals))
+    LOGGER.info("Inserted %s Hellhound hypothesis shadow signals", len(inserted_signals))
     return ShadowRunnerResult(
         ok=True,
         dry_run=False,
         inserted=True,
         skipped=False,
-        message=f"inserted {len(signals)} hypothesis shadow signals",
-        signal=signals[0] if signals else None,
-        signals=signals,
+        message=f"inserted {len(inserted_signals)} hypothesis shadow signals",
+        signal=inserted_signals[0] if inserted_signals else None,
+        signals=inserted_signals,
     )
 
 
@@ -237,7 +239,7 @@ class ShadowInsertError(RuntimeError):
 
 def _insert_shadow_signal(
     *, supabase_url: str, supabase_key: str, signal: Mapping[str, Any]
-) -> None:
+) -> Optional[Dict[str, Any]]:
     endpoint = f"{supabase_url.rstrip('/')}/rest/v1/{SHADOW_SIGNAL_TABLE}"
     body = json.dumps(signal).encode("utf-8")
     req = request.Request(
@@ -248,7 +250,7 @@ def _insert_shadow_signal(
             "apikey": supabase_key,
             "Authorization": f"Bearer {supabase_key}",
             "Content-Type": "application/json",
-            "Prefer": "return=minimal",
+            "Prefer": "return=representation",
         },
     )
 
@@ -256,6 +258,11 @@ def _insert_shadow_signal(
         with request.urlopen(req, timeout=15) as response:
             if response.status < 200 or response.status >= 300:
                 raise ShadowInsertError(f"unexpected Supabase status {response.status}")
+            body = response.read().decode("utf-8")
+            rows = json.loads(body) if body else []
+            if isinstance(rows, list) and rows:
+                return dict(rows[0])
+            return None
     except error.HTTPError as exc:
         safe_body = exc.read().decode("utf-8", errors="replace")[:500]
         raise ShadowInsertError(

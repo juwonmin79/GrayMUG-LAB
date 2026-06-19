@@ -311,3 +311,74 @@ Safety boundaries:
 - Hellhound-002 does not promote Oracle.
 - Hellhound-002 does not run a scheduler or cron.
 - Hellhound-002 does not import or modify Production Hound, Ward, Core, or `backup_GrayMUG`.
+
+## Hellhound-003 24h Experiment Runner
+
+Status: completed.
+
+`experiment_24h_runner.py` runs the Hellhound research cycle repeatedly for a fixed window, then stops automatically.
+
+Cycle order:
+
+```text
+shadow_runner.py
+outcome_tracker.py
+market_snapshot.py
+outcome_resolver.py
+evaluation_loop.py
+```
+
+Environment:
+
+```text
+HELLHOUND_EXPERIMENT_INTERVAL_MINUTES=15
+HELLHOUND_EXPERIMENT_DURATION_HOURS=24
+HELLHOUND_EXPERIMENT_DRY_RUN=false
+```
+
+Local shortened test:
+
+```bash
+HELLHOUND_EXPERIMENT_INTERVAL_MINUTES=0.1 \
+HELLHOUND_EXPERIMENT_DURATION_HOURS=0.01 \
+python3 hell_engines/Hellhound/experiment_24h_runner.py
+```
+
+Supabase mode:
+
+```bash
+python3 hell_engines/Hellhound/experiment_24h_runner.py
+```
+
+Cycle summary fields:
+
+```text
+cycle number
+timestamp
+signals generated
+outcomes created
+snapshots updated
+outcomes resolved
+hypotheses evaluated
+```
+
+Final summary fields:
+
+```text
+total cycles
+total signals
+total outcomes
+total snapshots
+total resolved outcomes
+final scoreboard if available
+```
+
+Ctrl+C exits through safe interrupt handling and prints the partial final summary before stopping.
+
+Safety boundaries:
+
+- Hellhound-003 does not use cron or an external scheduler.
+- Hellhound-003 does not call Binance trading APIs or place orders.
+- Hellhound-003 does not promote Oracle automatically.
+- Hellhound-003 does not import or modify Production Hound, Ward, Core, or `backup_GrayMUG`.
+- All persisted research results remain in Supabase shadow tables.
