@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import Any, Dict, Mapping, Optional
 from urllib import error, parse, request
 
+from outcome_windows import is_outcome_due, outcome_target_time
+
 try:
     from dotenv import load_dotenv
 except ImportError:
@@ -48,11 +50,15 @@ class MarketSnapshotError(RuntimeError):
 def build_market_snapshots(
     pending_outcomes: list[Mapping[str, Any]],
     market_prices: Optional[Mapping[str, Any]] = None,
+    now: Optional[datetime] = None,
 ) -> list[Dict[str, Any]]:
     snapshots = []
     live_price_cache: Dict[str, float] = {}
+    now_utc = now or datetime.now(timezone.utc)
     for outcome in pending_outcomes:
         if outcome.get("result") != "PENDING":
+            continue
+        if not is_outcome_due(outcome, now_utc):
             continue
         signal = _signal_for_outcome(outcome)
         symbol = str(signal.get("symbol") or outcome.get("symbol") or "").upper()
@@ -88,6 +94,7 @@ def build_market_snapshots(
                 "symbol": symbol,
                 "signal_time": signal.get("source_time") or signal.get("created_at"),
                 "evaluation_window": evaluation_window,
+                "target_time": outcome_target_time(outcome),
                 "entry_price": entry_price,
                 "current_price": current_price,
                 "return_pct": return_pct,
@@ -176,7 +183,7 @@ def update_pending_market_snapshots() -> MarketSnapshotResult:
 def _load_pending_outcomes(
     *, supabase_url: str, supabase_key: str
 ) -> list[Dict[str, Any]]:
-    outcome_fields = "id,shadow_signal_id,symbol,evaluation_window,result"
+    outcome_fields = "id,shadow_signal_id,symbol,evaluation_window,target_time,result"
     endpoint = (
         f"{supabase_url.rstrip('/')}/rest/v1/{OUTCOME_TABLE}"
         f"?select={outcome_fields}&result=eq.PENDING"
@@ -236,10 +243,19 @@ def _load_shadow_signal(
 def _update_outcomes(
     *, supabase_url: str, supabase_key: str, snapshots: list[Mapping[str, Any]]
 ) -> None:
+    now_utc = datetime.now(timezone.utc)
     for snapshot in snapshots:
         outcome_id = snapshot.get("id")
         if not outcome_id:
             raise MarketSnapshotError("market snapshot is missing outcome id")
+        if not is_outcome_due(snapshot, now_utc):
+            LOGGER.warning(
+                "Skipping pre-target Hellhound market snapshot id=%s window=%s target_time=%s",
+                outcome_id,
+                snapshot.get("evaluation_window"),
+                snapshot.get("target_time"),
+            )
+            continue
         outcome_filter = parse.quote(f"eq.{outcome_id}", safe="")
         endpoint = f"{supabase_url.rstrip('/')}/rest/v1/{OUTCOME_TABLE}?id={outcome_filter}"
         status, _ = _supabase_json(
@@ -252,6 +268,7 @@ def _update_outcomes(
                 "return_pct": snapshot.get("return_pct"),
                 "outcome_return": snapshot.get("return_pct"),
                 "snapshot_time": snapshot.get("snapshot_time"),
+                "target_time": snapshot.get("target_time"),
             },
             prefer="return=minimal",
         )
@@ -380,6 +397,7 @@ def _incomplete_snapshot(
         "symbol": symbol,
         "signal_time": signal.get("source_time") or signal.get("created_at"),
         "evaluation_window": outcome.get("evaluation_window"),
+        "target_time": outcome_target_time(outcome),
         "entry_price": None,
         "current_price": None,
         "return_pct": None,

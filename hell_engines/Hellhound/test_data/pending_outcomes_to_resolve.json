@@ -4,11 +4,13 @@
     "shadow_signal_id": "11111111-1111-4111-8111-111111111111",
     "symbol": "ETHUSDT",
     "evaluation_window": "1h",
+    "target_time": "2026-06-19T03:00:00+00:00",
     "outcome_return": 0.012,
     "result": "PENDING",
     "shadow_signal": {
       "id": "11111111-1111-4111-8111-111111111111",
       "symbol": "ETHUSDT",
+      "created_at": "2026-06-19T02:00:00+00:00",
       "pattern": "SLOW_CREEP",
       "shadow_action": "WATCH"
     }
@@ -18,11 +20,13 @@
     "shadow_signal_id": "11111111-1111-4111-8111-111111111112",
     "symbol": "ETHUSDT",
     "evaluation_window": "4h",
+    "target_time": "2026-06-19T06:00:00+00:00",
     "outcome_return": 0.004,
     "result": "PENDING",
     "shadow_signal": {
       "id": "11111111-1111-4111-8111-111111111112",
       "symbol": "ETHUSDT",
+      "created_at": "2026-06-19T02:00:00+00:00",
       "pattern": "DISTRIBUTION_RISK",
       "shadow_action": "AVOID"
     }
@@ -32,11 +36,13 @@
     "shadow_signal_id": "11111111-1111-4111-8111-111111111113",
     "symbol": "ETHUSDT",
     "evaluation_window": "24h",
+    "target_time": "2026-06-20T02:00:00+00:00",
     "outcome_return": null,
     "result": "PENDING",
     "shadow_signal": {
       "id": "11111111-1111-4111-8111-111111111113",
       "symbol": "ETHUSDT",
+      "created_at": "2026-06-19T02:00:00+00:00",
       "pattern": "CHAIN_ROTATION",
       "shadow_action": "WAIT_CONFIRMATION"
     }

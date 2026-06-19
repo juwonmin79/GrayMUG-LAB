@@ -95,6 +95,7 @@ id
 shadow_signal_id
 symbol
 evaluation_window
+target_time
 outcome_return
 result
 created_at
@@ -117,7 +118,7 @@ FAIL
 INCONCLUSIVE
 ```
 
-`outcome_tracker.py` attaches three initial `PENDING` outcome records to one shadow signal, one for each evaluation window. It does not call Binance, exchanges, Oracle, cron, schedulers, or production engines.
+`outcome_tracker.py` attaches three initial `PENDING` outcome records to one shadow signal, one for each evaluation window. Each row stores `target_time = hellhound_shadow_signals.created_at + evaluation_window`, so downstream evaluation can keep 1h, 4h, and 24h windows separate. It does not call Binance, exchanges, Oracle, cron, schedulers, or production engines.
 
 Local test data:
 
@@ -144,7 +145,7 @@ Shadow signal pattern = SLOW_CREEP
 
 Status: completed.
 
-`outcome_resolver.py` resolves `hellhound_outcomes` rows where `result = PENDING` into:
+`outcome_resolver.py` resolves `hellhound_outcomes` rows where `result = PENDING` and `now_utc >= target_time` into:
 
 ```text
 SUCCESS
@@ -167,7 +168,7 @@ WAIT_CONFIRMATION:
   unresolved -> INCONCLUSIVE
 ```
 
-If `outcome_return` is missing, the resolver returns `INCONCLUSIVE`. Thresholds can be overridden with `OUTCOME_RESOLVER_THRESHOLDS` JSON.
+If `outcome_return` is missing after the target time has passed, the resolver returns `INCONCLUSIVE`. Thresholds can be overridden with `OUTCOME_RESOLVER_THRESHOLDS` JSON. Pending rows whose target time has not passed are left unresolved.
 
 Local test data:
 
@@ -181,13 +182,13 @@ Local dry-run:
 OUTCOME_RESOLVER_LOCAL=1 python3 hell_engines/Hellhound/outcome_resolver.py
 ```
 
-Supabase mode reads pending rows from `hellhound_outcomes`, reads linked shadow signal metadata from `hellhound_shadow_signals`, and writes resolved `result` values back to `hellhound_outcomes`. It does not call Binance, exchanges, Oracle, cron, schedulers, or production engines.
+Supabase mode reads pending rows from `hellhound_outcomes`, reads linked shadow signal metadata from `hellhound_shadow_signals`, filters out rows before their target time, and writes resolved `result` values back to `hellhound_outcomes`. It does not call Binance, exchanges, Oracle, cron, schedulers, or production engines.
 
 ## Hellhound-001-H Market Snapshot
 
 Status: completed.
 
-`market_snapshot.py` reads pending `hellhound_outcomes`, reads each linked shadow signal for `symbol` and signal timestamp, and computes market return fields.
+`market_snapshot.py` reads pending `hellhound_outcomes`, reads each linked shadow signal for `symbol` and signal timestamp, filters to rows where `now_utc >= target_time`, and computes market return fields.
 
 Server/Supabase mode uses Binance public read-only ticker prices. It does not read `test_data/local_market_prices.json` unless `MARKET_SNAPSHOT_LOCAL=1` is set. `entry_price` comes from the linked shadow signal payload when available; if the signal has no usable entry or universe price yet, the first live ticker price is used as `entry_price` for that outcome snapshot.
 
@@ -222,12 +223,13 @@ Acceptance:
 
 ```text
 One shadow signal
-  -> 1h outcome gets entry_price, current_price, return_pct
-  -> 4h outcome gets entry_price, current_price, return_pct
-  -> 24h outcome gets entry_price, current_price, return_pct
+  -> due outcomes get entry_price, current_price, return_pct
+  -> not-yet-due outcomes remain untouched and unresolved
 ```
 
 The market snapshot layer is read-only for market data. It uses `market_snapshot_source=binance_public_ticker` in server mode and `market_snapshot_source=local_fixture` in local fixture mode. It does not call Binance trading APIs, order endpoints, account endpoints, Oracle promotion, cron, schedulers, production engines, or `backup_GrayMUG`.
+
+Rows resolved before this target-time gate was introduced should be treated as contaminated for evaluation-window performance analysis.
 
 ## Hellhound-002 Evaluation Loop
 

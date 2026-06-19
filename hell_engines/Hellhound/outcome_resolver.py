@@ -5,9 +5,12 @@ import logging
 import os
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping, Optional
 from urllib import error, parse, request
+
+from outcome_windows import is_outcome_due, outcome_target_time
 
 try:
     from dotenv import load_dotenv
@@ -49,12 +52,15 @@ class OutcomeResolverError(RuntimeError):
 def resolve_pending_outcomes(
     pending_outcomes: list[Mapping[str, Any]],
     thresholds: Optional[Mapping[str, Mapping[str, float]]] = None,
+    now: Optional[datetime] = None,
 ) -> list[Dict[str, Any]]:
     active_thresholds = _merge_thresholds(thresholds or _thresholds_from_env())
+    now_utc = now or datetime.now(timezone.utc)
     return [
         _resolve_outcome(outcome, active_thresholds)
         for outcome in pending_outcomes
         if outcome.get("result") == "PENDING"
+        and is_outcome_due(outcome, now_utc)
     ]
 
 
@@ -169,6 +175,7 @@ def _resolve_outcome(
         "shadow_signal_id": outcome.get("shadow_signal_id"),
         "symbol": outcome.get("symbol"),
         "evaluation_window": outcome.get("evaluation_window"),
+        "target_time": outcome_target_time(outcome),
         "outcome_return": outcome_return,
         "shadow_action": shadow_action,
         "result": result,
@@ -178,7 +185,7 @@ def _resolve_outcome(
 def _load_pending_outcomes(
     *, supabase_url: str, supabase_key: str
 ) -> list[Dict[str, Any]]:
-    outcome_fields = "id,shadow_signal_id,symbol,evaluation_window,outcome_return,result"
+    outcome_fields = "id,shadow_signal_id,symbol,evaluation_window,target_time,outcome_return,result"
     endpoint = (
         f"{supabase_url.rstrip('/')}/rest/v1/{OUTCOME_TABLE}"
         f"?select={outcome_fields}&result=eq.PENDING"
@@ -218,7 +225,7 @@ def _load_shadow_signal(
     signal_filter = parse.quote(f"eq.{shadow_signal_id}", safe="")
     endpoint = (
         f"{supabase_url.rstrip('/')}/rest/v1/{SHADOW_SIGNAL_TABLE}"
-        f"?select=id,symbol,shadow_action,pattern&id={signal_filter}&limit=1"
+        f"?select=id,symbol,created_at,shadow_action,pattern&id={signal_filter}&limit=1"
     )
     status, rows = _supabase_json(
         endpoint=endpoint,
@@ -236,6 +243,7 @@ def _load_shadow_signal(
 def _update_resolved_outcomes(
     *, supabase_url: str, supabase_key: str, resolved: list[Mapping[str, Any]]
 ) -> None:
+    now_utc = datetime.now(timezone.utc)
     for outcome in resolved:
         outcome_id = outcome.get("id")
         result = outcome.get("result")
@@ -243,13 +251,24 @@ def _update_resolved_outcomes(
             raise OutcomeResolverError("resolved outcome is missing id")
         if result not in OUTCOME_RESULTS or result == "PENDING":
             raise OutcomeResolverError(f"invalid resolved outcome result {result}")
+        if not is_outcome_due(outcome, now_utc):
+            LOGGER.warning(
+                "Skipping pre-target Hellhound outcome resolve id=%s window=%s target_time=%s",
+                outcome_id,
+                outcome.get("evaluation_window"),
+                outcome.get("target_time"),
+            )
+            continue
         outcome_filter = parse.quote(f"eq.{outcome_id}", safe="")
         endpoint = f"{supabase_url.rstrip('/')}/rest/v1/{OUTCOME_TABLE}?id={outcome_filter}"
         status, _ = _supabase_json(
             endpoint=endpoint,
             supabase_key=supabase_key,
             method="PATCH",
-            body={"result": result},
+            body={
+                "result": result,
+                "target_time": outcome.get("target_time"),
+            },
             prefer="return=minimal",
         )
         if status < 200 or status >= 300:

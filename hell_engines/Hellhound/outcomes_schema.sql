@@ -9,6 +9,7 @@ create table if not exists hellhound_outcomes (
   current_price numeric,
   return_pct numeric,
   snapshot_time timestamptz,
+  target_time timestamptz,
   outcome_return numeric,
   result text not null default 'PENDING',
   created_at timestamptz not null default now(),
@@ -25,3 +26,9 @@ create index if not exists idx_hellhound_outcomes_signal_id
 
 create index if not exists idx_hellhound_outcomes_symbol_created
   on hellhound_outcomes(symbol, created_at);
+
+alter table hellhound_outcomes
+  add column if not exists target_time timestamptz;
+
+create index if not exists idx_hellhound_outcomes_result_target
+  on hellhound_outcomes(result, target_time);

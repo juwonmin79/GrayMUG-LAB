@@ -5,9 +5,12 @@ import logging
 import os
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping, Optional
 from urllib import error, request
+
+from outcome_windows import compute_target_time
 
 try:
     from dotenv import load_dotenv
@@ -52,11 +55,15 @@ def build_pending_outcomes(shadow_signal: Mapping[str, Any]) -> list[Dict[str, A
     if not symbol:
         raise ValueError("shadow signal is missing symbol")
 
+    signal_created_at = (
+        shadow_signal.get("created_at") or datetime.now(timezone.utc).isoformat()
+    )
     return [
         {
             "shadow_signal_id": str(shadow_signal_id),
             "symbol": str(symbol).upper(),
             "evaluation_window": window,
+            "target_time": compute_target_time(signal_created_at, window),
             "outcome_return": None,
             "result": "PENDING",
         }
