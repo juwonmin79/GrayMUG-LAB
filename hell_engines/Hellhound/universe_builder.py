@@ -37,6 +37,7 @@ EXCLUDED_ASSETS = [
     "TRY",
     "BRL",
     "XAUT",
+    "PAXG",
 ]
 EXCLUDED_BASE_ASSETS = set(EXCLUDED_ASSETS)
 EXTREME_MOVER_THRESHOLD_PCT = 30.0
@@ -123,6 +124,18 @@ def build_universe_from_market_data(
             or ""
         ).upper()
         if quote_asset != "USDT":
+            continue
+
+        if _contains_non_ascii(symbol) or _contains_non_ascii(base_asset):
+            excluded_candidates.append(
+                _excluded_candidate_payload(
+                    ticker=ticker,
+                    symbol=symbol,
+                    base_asset=base_asset,
+                    quote_asset=quote_asset,
+                    reason="non_ascii_symbol",
+                )
+            )
             continue
 
         if base_asset and base_asset.upper() in EXCLUDED_BASE_ASSETS:
@@ -558,6 +571,12 @@ def _string_or_none(value: Any) -> Optional[str]:
         return None
     text = str(value).strip()
     return text or None
+
+
+def _contains_non_ascii(value: Optional[str]) -> bool:
+    if not value:
+        return False
+    return not value.isascii()
 
 
 def _exchange_config() -> ExchangeConfig:

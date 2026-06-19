@@ -424,6 +424,8 @@ EUR
 TRY
 BRL
 XAUT
+PAXG
+non-ASCII symbols or base assets
 ```
 
 Extreme movers:
@@ -474,7 +476,7 @@ Output fields:
 top_symbols
 universe rank rows
 excluded_assets
-excluded_candidates
+excluded_candidates with reason = excluded_base_asset or non_ascii_symbol
 extreme_movers
 candidates_count
 exchange config summary

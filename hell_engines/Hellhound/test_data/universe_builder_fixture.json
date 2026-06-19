@@ -41,6 +41,8 @@
     {"symbol": "XAUTUSDT", "baseAsset": "XAUT", "quoteAsset": "USDT", "status": "TRADING"},
     {"symbol": "USD1USDT", "baseAsset": "USD1", "quoteAsset": "USDT", "status": "TRADING"},
     {"symbol": "RLUSDUSDT", "baseAsset": "RLUSD", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "PAXGUSDT", "baseAsset": "PAXG", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "\u5e01\u5b89\u4eba\u751fUSDT", "baseAsset": "\u5e01\u5b89\u4eba\u751f", "quoteAsset": "USDT", "status": "TRADING"},
     {"symbol": "MOONUSDT", "baseAsset": "MOON", "quoteAsset": "USDT", "status": "TRADING"},
     {"symbol": "BTCUSDC", "baseAsset": "BTC", "quoteAsset": "USDC", "status": "TRADING"}
   ],
@@ -86,6 +88,8 @@
     {"symbol": "XAUTUSDT", "quoteVolume": "5000000000", "volume_ratio": "1.2", "priceChangePercent": "0.6", "highPrice": "2450", "lowPrice": "2400", "lastPrice": "2435"},
     {"symbol": "USD1USDT", "quoteVolume": "4000000000", "volume_ratio": "1.0", "priceChangePercent": "0.0", "highPrice": "1.001", "lowPrice": "0.999", "lastPrice": "1.0"},
     {"symbol": "RLUSDUSDT", "quoteVolume": "3000000000", "volume_ratio": "1.0", "priceChangePercent": "0.0", "highPrice": "1.001", "lowPrice": "0.999", "lastPrice": "1.0"},
+    {"symbol": "PAXGUSDT", "quoteVolume": "2500000000", "volume_ratio": "1.1", "priceChangePercent": "0.7", "highPrice": "2460", "lowPrice": "2405", "lastPrice": "2440"},
+    {"symbol": "\u5e01\u5b89\u4eba\u751fUSDT", "quoteVolume": "2400000000", "volume_ratio": "2.4", "priceChangePercent": "12.0", "highPrice": "0.10", "lowPrice": "0.06", "lastPrice": "0.09"},
     {"symbol": "MOONUSDT", "quoteVolume": "2000000000", "volume_ratio": "3.7", "priceChangePercent": "42.5", "highPrice": "0.20", "lowPrice": "0.09", "lastPrice": "0.18"},
     {"symbol": "BTCUSDC", "quoteVolume": "9999999999", "volume_ratio": "9.9", "priceChangePercent": "99", "highPrice": "110000", "lowPrice": "100000", "lastPrice": "109000"}
   ]
