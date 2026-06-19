@@ -9,10 +9,18 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Any, Dict, Mapping, Optional
 from urllib import error, request
-from dotenv import load_dotenv
 from pathlib import Path
-load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+if load_dotenv:
+    load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+
+
+HYPOTHESES_TABLE = "hypotheses"
 SHADOW_SIGNAL_TABLE = "hellhound_shadow_signals"
 NODE_NAME = "Hellhound-001"
 DEFAULT_MODE = "BTC_ACCUMULATION"
@@ -36,6 +44,7 @@ class ShadowRunnerResult:
     skipped: bool
     message: str
     signal: Optional[Dict[str, Any]] = None
+    signals: Optional[list[Dict[str, Any]]] = None
 
 
 def normalize_oraclejp_payload(payload: Mapping[str, Any]) -> Dict[str, Any]:
@@ -73,6 +82,11 @@ def normalize_oraclejp_payload(payload: Mapping[str, Any]) -> Dict[str, Any]:
         note_parts.append(action_note)
     if payload.get("note"):
         note_parts.append(str(payload["note"]))
+    if payload.get("hypothesis"):
+        hypothesis = _as_mapping(payload["hypothesis"])
+        note_parts.append(
+            f"Hypothesis {hypothesis.get('id', 'unknown')} {hypothesis.get('name', 'unnamed')}."
+        )
 
     signal: Dict[str, Any] = {
         "run_id": str(payload.get("run_id") or _new_run_id()),
@@ -121,8 +135,49 @@ def normalize_oraclejp_payload(payload: Mapping[str, Any]) -> Dict[str, Any]:
 
 
 def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
+    supabase_url, supabase_key = _supabase_credentials()
+    if not supabase_url or not supabase_key:
+        LOGGER.warning(
+            "Supabase credentials missing; active hypotheses and shadow inserts skipped"
+        )
+        return ShadowRunnerResult(
+            ok=True,
+            dry_run=_dry_run_enabled(),
+            inserted=False,
+            skipped=True,
+            message="missing Supabase environment; skipped hypotheses load and insert",
+        )
+
     try:
-        signal = normalize_oraclejp_payload(payload)
+        hypotheses = _load_active_hypotheses(
+            supabase_url=supabase_url, supabase_key=supabase_key
+        )
+    except ShadowInsertError as exc:
+        LOGGER.error("Active hypothesis load failed: %s", exc)
+        return ShadowRunnerResult(
+            ok=False,
+            dry_run=_dry_run_enabled(),
+            inserted=False,
+            skipped=False,
+            message=str(exc),
+        )
+
+    if not hypotheses:
+        LOGGER.info("No active hypotheses found; no shadow signals generated")
+        return ShadowRunnerResult(
+            ok=True,
+            dry_run=_dry_run_enabled(),
+            inserted=False,
+            skipped=True,
+            message="no active hypotheses",
+            signals=[],
+        )
+
+    try:
+        signals = [
+            normalize_oraclejp_payload(_payload_for_hypothesis(payload, hypothesis))
+            for hypothesis in hypotheses
+        ]
     except ValueError as exc:
         LOGGER.error("Shadow signal normalization failed: %s", exc)
         return ShadowRunnerResult(
@@ -134,36 +189,25 @@ def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
         )
 
     if _dry_run_enabled():
-        LOGGER.info("Dry-run enabled; shadow signal not inserted")
-        print(json.dumps(signal, indent=2, sort_keys=True))
+        LOGGER.info(
+            "Dry-run enabled; %s hypothesis shadow signals not inserted", len(signals)
+        )
+        print(json.dumps(signals, indent=2, sort_keys=True))
         return ShadowRunnerResult(
             ok=True,
             dry_run=True,
             inserted=False,
             skipped=False,
-            message="dry-run signal generated",
-            signal=signal,
-        )
-
-    supabase_url = os.environ.get("SUPABASE_URL")
-    supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get(
-        "SUPABASE_ANON_KEY"
-    )
-    if not supabase_url or not supabase_key:
-        LOGGER.warning(
-            "Supabase credentials missing; shadow signal skipped without insert"
-        )
-        return ShadowRunnerResult(
-            ok=True,
-            dry_run=False,
-            inserted=False,
-            skipped=True,
-            message="missing Supabase environment; skipped insert",
-            signal=signal,
+            message=f"dry-run generated {len(signals)} hypothesis shadow signals",
+            signal=signals[0] if signals else None,
+            signals=signals,
         )
 
     try:
-        _insert_shadow_signal(supabase_url=supabase_url, supabase_key=supabase_key, signal=signal)
+        for signal in signals:
+            _insert_shadow_signal(
+                supabase_url=supabase_url, supabase_key=supabase_key, signal=signal
+            )
     except ShadowInsertError as exc:
         LOGGER.error("Supabase shadow signal insert failed: %s", exc)
         return ShadowRunnerResult(
@@ -172,17 +216,18 @@ def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
             inserted=False,
             skipped=False,
             message=str(exc),
-            signal=signal,
+            signals=signals,
         )
 
-    LOGGER.info("Inserted Hellhound shadow signal for %s", signal["symbol"])
+    LOGGER.info("Inserted %s Hellhound hypothesis shadow signals", len(signals))
     return ShadowRunnerResult(
         ok=True,
         dry_run=False,
         inserted=True,
         skipped=False,
-        message="shadow signal inserted",
-        signal=signal,
+        message=f"inserted {len(signals)} hypothesis shadow signals",
+        signal=signals[0] if signals else None,
+        signals=signals,
     )
 
 
@@ -220,6 +265,92 @@ def _insert_shadow_signal(
         raise ShadowInsertError(f"Supabase connection error: {exc.reason}") from exc
     except TimeoutError as exc:
         raise ShadowInsertError("Supabase insert timed out") from exc
+
+
+def _load_active_hypotheses(
+    *, supabase_url: str, supabase_key: str
+) -> list[Dict[str, Any]]:
+    endpoint = (
+        f"{supabase_url.rstrip('/')}/rest/v1/{HYPOTHESES_TABLE}"
+        "?select=id,name,status,config,created_at&status=eq.active"
+    )
+    req = request.Request(
+        endpoint,
+        method="GET",
+        headers={
+            "apikey": supabase_key,
+            "Authorization": f"Bearer {supabase_key}",
+            "Accept": "application/json",
+        },
+    )
+
+    try:
+        with request.urlopen(req, timeout=15) as response:
+            if response.status < 200 or response.status >= 300:
+                raise ShadowInsertError(f"unexpected Supabase status {response.status}")
+            body = response.read().decode("utf-8")
+    except error.HTTPError as exc:
+        safe_body = exc.read().decode("utf-8", errors="replace")[:500]
+        raise ShadowInsertError(
+            f"Supabase HTTP {exc.code}: {_redact_secret_text(safe_body)}"
+        ) from exc
+    except error.URLError as exc:
+        raise ShadowInsertError(f"Supabase connection error: {exc.reason}") from exc
+    except TimeoutError as exc:
+        raise ShadowInsertError("Supabase hypothesis load timed out") from exc
+
+    try:
+        hypotheses = json.loads(body)
+    except json.JSONDecodeError as exc:
+        raise ShadowInsertError("Supabase hypotheses response was not JSON") from exc
+
+    if not isinstance(hypotheses, list):
+        raise ShadowInsertError("Supabase hypotheses response was not a list")
+    return [
+        _json_ready(hypothesis)
+        for hypothesis in hypotheses
+        if isinstance(hypothesis, Mapping) and hypothesis.get("status") == "active"
+    ]
+
+
+def _payload_for_hypothesis(
+    payload: Mapping[str, Any], hypothesis: Mapping[str, Any]
+) -> Dict[str, Any]:
+    config = _as_mapping(hypothesis.get("config"))
+    hypothesis_payload = {
+        "id": hypothesis.get("id"),
+        "name": hypothesis.get("name"),
+        "status": hypothesis.get("status"),
+        "config": _json_ready(config),
+        "created_at": hypothesis.get("created_at"),
+    }
+    next_payload = dict(payload)
+    next_payload.update(config)
+    next_payload["hypothesis"] = hypothesis_payload
+    next_payload["target_feed"] = _merge_json_object(
+        config.get("target_feed") or payload.get("target_feed"),
+        {"hypothesis": hypothesis_payload},
+    )
+    next_payload["execution_guidance"] = _merge_json_object(
+        config.get("execution_guidance")
+        or payload.get("execution_guidance")
+        or payload.get("guidance"),
+        {"hypothesis": hypothesis_payload},
+    )
+    return next_payload
+
+
+def _merge_json_object(value: Any, addition: Mapping[str, Any]) -> Dict[str, Any]:
+    merged = _as_mapping(value)
+    merged.update(_json_ready(addition))
+    return merged
+
+
+def _supabase_credentials() -> tuple[Optional[str], Optional[str]]:
+    return (
+        os.environ.get("SUPABASE_URL"),
+        os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_ANON_KEY"),
+    )
 
 
 def _safe_shadow_action(requested_action: str) -> tuple[str, Optional[str]]:

@@ -1,0 +1,110 @@
+[
+  {
+    "shadow_signal_id": "slow-creep-signal-001",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "1h",
+    "result": "SUCCESS",
+    "repeat_count": 40,
+    "shadow_signal": {
+      "id": "slow-creep-signal-001",
+      "symbol": "ETHUSDT",
+      "pattern": "SLOW_CREEP",
+      "target_feed": {
+        "hypothesis": {
+          "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "name": "SLOW_CREEP"
+        }
+      }
+    }
+  },
+  {
+    "shadow_signal_id": "slow-creep-signal-002",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "4h",
+    "result": "FAIL",
+    "repeat_count": 10,
+    "shadow_signal": {
+      "id": "slow-creep-signal-002",
+      "symbol": "ETHUSDT",
+      "pattern": "SLOW_CREEP",
+      "target_feed": {
+        "hypothesis": {
+          "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "name": "SLOW_CREEP"
+        }
+      }
+    }
+  },
+  {
+    "shadow_signal_id": "chain-rotation-signal-001",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "1h",
+    "result": "SUCCESS",
+    "repeat_count": 20,
+    "shadow_signal": {
+      "id": "chain-rotation-signal-001",
+      "symbol": "ETHUSDT",
+      "pattern": "CHAIN_ROTATION",
+      "target_feed": {
+        "hypothesis": {
+          "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+          "name": "CHAIN_ROTATION"
+        }
+      }
+    }
+  },
+  {
+    "shadow_signal_id": "chain-rotation-signal-002",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "4h",
+    "result": "FAIL",
+    "repeat_count": 10,
+    "shadow_signal": {
+      "id": "chain-rotation-signal-002",
+      "symbol": "ETHUSDT",
+      "pattern": "CHAIN_ROTATION",
+      "target_feed": {
+        "hypothesis": {
+          "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+          "name": "CHAIN_ROTATION"
+        }
+      }
+    }
+  },
+  {
+    "shadow_signal_id": "distribution-risk-signal-001",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "1h",
+    "result": "SUCCESS",
+    "repeat_count": 10,
+    "shadow_signal": {
+      "id": "distribution-risk-signal-001",
+      "symbol": "ETHUSDT",
+      "pattern": "DISTRIBUTION_RISK",
+      "target_feed": {
+        "hypothesis": {
+          "id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+          "name": "DISTRIBUTION_RISK"
+        }
+      }
+    }
+  },
+  {
+    "shadow_signal_id": "distribution-risk-signal-002",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "4h",
+    "result": "FAIL",
+    "repeat_count": 40,
+    "shadow_signal": {
+      "id": "distribution-risk-signal-002",
+      "symbol": "ETHUSDT",
+      "pattern": "DISTRIBUTION_RISK",
+      "target_feed": {
+        "hypothesis": {
+          "id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+          "name": "DISTRIBUTION_RISK"
+        }
+      }
+    }
+  }
+]

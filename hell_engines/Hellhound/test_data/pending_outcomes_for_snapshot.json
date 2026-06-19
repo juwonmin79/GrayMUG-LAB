@@ -1,0 +1,47 @@
+[
+  {
+    "id": "33333333-3333-4333-8333-333333333331",
+    "shadow_signal_id": "11111111-1111-4111-8111-111111111111",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "1h",
+    "result": "PENDING",
+    "shadow_signal": {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "symbol": "ETHUSDT",
+      "source_time": "2026-06-19T02:00:00+00:00",
+      "created_at": "2026-06-19T02:00:00+00:00",
+      "pattern": "SLOW_CREEP",
+      "shadow_action": "WATCH"
+    }
+  },
+  {
+    "id": "33333333-3333-4333-8333-333333333332",
+    "shadow_signal_id": "11111111-1111-4111-8111-111111111111",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "4h",
+    "result": "PENDING",
+    "shadow_signal": {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "symbol": "ETHUSDT",
+      "source_time": "2026-06-19T02:00:00+00:00",
+      "created_at": "2026-06-19T02:00:00+00:00",
+      "pattern": "SLOW_CREEP",
+      "shadow_action": "WATCH"
+    }
+  },
+  {
+    "id": "33333333-3333-4333-8333-333333333333",
+    "shadow_signal_id": "11111111-1111-4111-8111-111111111111",
+    "symbol": "ETHUSDT",
+    "evaluation_window": "24h",
+    "result": "PENDING",
+    "shadow_signal": {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "symbol": "ETHUSDT",
+      "source_time": "2026-06-19T02:00:00+00:00",
+      "created_at": "2026-06-19T02:00:00+00:00",
+      "pattern": "SLOW_CREEP",
+      "shadow_action": "WATCH"
+    }
+  }
+]
