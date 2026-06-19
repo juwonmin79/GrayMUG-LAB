@@ -25,6 +25,8 @@ Rules:
 
 Status: completed.
 
+Hellhound-001-D Minimal Shadow Runner completed: first shadow-only signal inserted into Supabase.
+
 `shadow_runner.py` is the isolated minimal OracleJP-Supabase shadow runner.
 
 Flow:

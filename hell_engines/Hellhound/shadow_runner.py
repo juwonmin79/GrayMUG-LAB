@@ -9,7 +9,9 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Any, Dict, Mapping, Optional
 from urllib import error, request
-
+from dotenv import load_dotenv
+from pathlib import Path
+load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
 SHADOW_SIGNAL_TABLE = "hellhound_shadow_signals"
 NODE_NAME = "Hellhound-001"

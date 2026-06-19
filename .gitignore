@@ -35,3 +35,6 @@ outputs/**/*.csv
 
 # Large Images (선택)
 # outputs/**/*.png
+
+# env
+.env    
