@@ -51,29 +51,62 @@ class ExperimentSummary:
     interrupted: bool = False
 
 
+@dataclass(frozen=True)
+class ExperimentConfig:
+    interval_minutes: float = DEFAULT_INTERVAL_MINUTES
+    duration_hours: float = DEFAULT_DURATION_HOURS
+    dry_run: bool = False
+
+    @property
+    def interval_seconds(self) -> float:
+        return max(1.0, self.interval_minutes * 60)
+
+    @property
+    def duration_seconds(self) -> float:
+        return max(1.0, self.duration_hours * 3600)
+
+
 def run_experiment() -> ExperimentSummary:
-    interval_seconds = max(1.0, _env_float("HELLHOUND_EXPERIMENT_INTERVAL_MINUTES", DEFAULT_INTERVAL_MINUTES) * 60)
-    duration_seconds = max(1.0, _env_float("HELLHOUND_EXPERIMENT_DURATION_HOURS", DEFAULT_DURATION_HOURS) * 3600)
-    dry_run = _env_bool("HELLHOUND_EXPERIMENT_DRY_RUN", False)
+    config = _load_experiment_config()
+    interval_seconds = config.interval_seconds
+    duration_seconds = config.duration_seconds
 
     started_at = datetime.now(timezone.utc)
     deadline = started_at + timedelta(seconds=duration_seconds)
     summary = ExperimentSummary(started_at=started_at.isoformat())
 
     LOGGER.info(
+        "Loaded Hellhound experiment config interval_minutes=%s duration_hours=%s dry_run=%s",
+        config.interval_minutes,
+        config.duration_hours,
+        config.dry_run,
+    )
+    print(
+        json.dumps(
+            {
+                "experiment_config": {
+                    "duration_hours": config.duration_hours,
+                    "duration_seconds": duration_seconds,
+                    "dry_run": config.dry_run,
+                    "interval_minutes": config.interval_minutes,
+                    "interval_seconds": interval_seconds,
+                }
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    LOGGER.info(
         "Starting Hellhound 24h experiment interval=%ss duration=%ss dry_run=%s",
         interval_seconds,
         duration_seconds,
-        dry_run,
+        config.dry_run,
     )
     print(
         json.dumps(
             {
                 "event": "experiment_started",
                 "started_at": summary.started_at,
-                "interval_seconds": interval_seconds,
-                "duration_seconds": duration_seconds,
-                "dry_run": dry_run,
             },
             indent=2,
             sort_keys=True,
@@ -83,7 +116,7 @@ def run_experiment() -> ExperimentSummary:
     try:
         cycle_number = 1
         while datetime.now(timezone.utc) < deadline:
-            with _experiment_dry_run_env(dry_run):
+            with _experiment_dry_run_env(config.dry_run):
                 cycle = run_cycle(cycle_number)
             _accumulate(summary, cycle)
             _print_cycle(cycle)
@@ -168,6 +201,14 @@ def _print_cycle(cycle: CycleSummary) -> None:
 
 def _print_final(summary: ExperimentSummary) -> None:
     print(json.dumps({"final_summary": asdict(summary)}, indent=2, sort_keys=True))
+
+
+def _load_experiment_config() -> ExperimentConfig:
+    return ExperimentConfig(
+        interval_minutes=_env_float("HELLHOUND_EXPERIMENT_INTERVAL_MINUTES", DEFAULT_INTERVAL_MINUTES),
+        duration_hours=_env_float("HELLHOUND_EXPERIMENT_DURATION_HOURS", DEFAULT_DURATION_HOURS),
+        dry_run=_env_bool("HELLHOUND_EXPERIMENT_DRY_RUN", False),
+    )
 
 
 @contextmanager
