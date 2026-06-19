@@ -232,10 +232,11 @@ def build_universe_from_market_data(
     )
 
 
-def build_dynamic_top30_universe() -> UniverseBuilderResult:
+def build_dynamic_top30_universe(top_n: int = DEFAULT_TOP_N) -> UniverseBuilderResult:
     config = _exchange_config()
     local_mode = _local_mode_enabled()
     generated_at = _now_utc()
+    universe_source = "local_fixture" if local_mode else "binance_public_market"
 
     try:
         market_data = (
@@ -243,7 +244,7 @@ def build_dynamic_top30_universe() -> UniverseBuilderResult:
             if local_mode
             else _load_exchange_market_data(config)
         )
-        build = build_universe_from_market_data(market_data, top_n=DEFAULT_TOP_N)
+        build = build_universe_from_market_data(market_data, top_n=top_n)
     except (OSError, ValueError, json.JSONDecodeError, UniverseBuilderError) as exc:
         LOGGER.error("Hellhound universe build failed: %s", exc)
         return UniverseBuilderResult(
@@ -268,6 +269,12 @@ def build_dynamic_top30_universe() -> UniverseBuilderResult:
     stored = False
     skipped_store = True
     message = f"built top {len(top_symbols)} Hellhound universe symbols"
+    LOGGER.info(
+        "universe_source=%s top_n=%s top_symbols=%s",
+        universe_source,
+        len(top_symbols),
+        ",".join(top_symbols),
+    )
 
     if _store_supabase_enabled():
         supabase_url, supabase_key = _supabase_credentials()

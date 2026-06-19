@@ -16,10 +16,12 @@ import market_snapshot
 import outcome_resolver
 import outcome_tracker
 import shadow_runner
+import universe_builder
 
 
 DEFAULT_INTERVAL_MINUTES = 15.0
 DEFAULT_DURATION_HOURS = 24.0
+DEFAULT_UNIVERSE_LIMIT = 30
 
 LOGGER = logging.getLogger("hellhound.experiment_24h_runner")
 
@@ -56,6 +58,7 @@ class ExperimentConfig:
     interval_minutes: float = DEFAULT_INTERVAL_MINUTES
     duration_hours: float = DEFAULT_DURATION_HOURS
     dry_run: bool = False
+    universe_limit: int = DEFAULT_UNIVERSE_LIMIT
 
     @property
     def interval_seconds(self) -> float:
@@ -90,6 +93,7 @@ def run_experiment() -> ExperimentSummary:
                     "dry_run": config.dry_run,
                     "interval_minutes": config.interval_minutes,
                     "interval_seconds": interval_seconds,
+                    "universe_limit": config.universe_limit,
                 }
             },
             indent=2,
@@ -143,7 +147,19 @@ def run_cycle(cycle_number: int) -> CycleSummary:
     )
 
     try:
-        shadow_result = shadow_runner.run_shadow_payload(shadow_runner._local_test_payload())
+        universe_result = universe_builder.build_dynamic_top30_universe(
+            top_n=_env_int("HELLHOUND_UNIVERSE_LIMIT", DEFAULT_UNIVERSE_LIMIT)
+        )
+        if not universe_result.ok:
+            cycle.ok = False
+            cycle.message = universe_result.message
+            return cycle
+        if not universe_result.universe:
+            cycle.ok = False
+            cycle.message = "universe builder returned no symbols"
+            return cycle
+
+        shadow_result = shadow_runner.run_shadow_universe(universe_result.universe)
         signals = shadow_result.signals or []
         cycle.signals_generated = len(signals)
 
@@ -208,6 +224,7 @@ def _load_experiment_config() -> ExperimentConfig:
         interval_minutes=_env_float("HELLHOUND_EXPERIMENT_INTERVAL_MINUTES", DEFAULT_INTERVAL_MINUTES),
         duration_hours=_env_float("HELLHOUND_EXPERIMENT_DURATION_HOURS", DEFAULT_DURATION_HOURS),
         dry_run=_env_bool("HELLHOUND_EXPERIMENT_DRY_RUN", False),
+        universe_limit=_env_int("HELLHOUND_UNIVERSE_LIMIT", DEFAULT_UNIVERSE_LIMIT),
     )
 
 
@@ -252,6 +269,17 @@ def _env_bool(name: str, default: bool) -> bool:
     if raw is None or raw == "":
         return default
     return raw.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _env_int(name: str, default: int) -> int:
+    raw = os.environ.get(name)
+    if raw is None or raw == "":
+        return default
+    try:
+        return max(1, int(raw))
+    except ValueError:
+        LOGGER.warning("Invalid %s=%r; using default %s", name, raw, default)
+        return default
 
 
 def _install_signal_handlers() -> None:

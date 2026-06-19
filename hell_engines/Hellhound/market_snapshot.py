@@ -47,9 +47,10 @@ class MarketSnapshotError(RuntimeError):
 
 def build_market_snapshots(
     pending_outcomes: list[Mapping[str, Any]],
-    market_prices: Mapping[str, Any],
+    market_prices: Optional[Mapping[str, Any]] = None,
 ) -> list[Dict[str, Any]]:
     snapshots = []
+    live_price_cache: Dict[str, float] = {}
     for outcome in pending_outcomes:
         if outcome.get("result") != "PENDING":
             continue
@@ -59,10 +60,19 @@ def build_market_snapshots(
         if not symbol or not evaluation_window:
             continue
 
-        prices = _prices_for_window(market_prices, symbol, evaluation_window)
-        if not prices:
-            snapshots.append(_incomplete_snapshot(outcome, signal, symbol))
-            continue
+        if market_prices is None:
+            current_price = _live_price_for_symbol(symbol, live_price_cache)
+            entry_price = _entry_price_from_signal(signal) or current_price
+            prices = {
+                "entry_price": entry_price,
+                "current_price": current_price,
+                "snapshot_time": _now_utc(),
+            }
+        else:
+            prices = _prices_for_window(market_prices, symbol, evaluation_window)
+            if not prices:
+                snapshots.append(_incomplete_snapshot(outcome, signal, symbol))
+                continue
 
         entry_price = _float_or_none(prices.get("entry_price"))
         current_price = _float_or_none(prices.get("current_price"))
@@ -105,7 +115,12 @@ def update_pending_market_snapshots() -> MarketSnapshotResult:
         pending = _load_pending_outcomes(
             supabase_url=supabase_url, supabase_key=supabase_key
         )
-        market_prices = _load_market_prices()
+        local_mode = _local_mode_enabled()
+        market_prices = _load_market_prices() if local_mode else None
+        LOGGER.info(
+            "market_snapshot_source=%s",
+            "local_fixture" if local_mode else "binance_public_ticker",
+        )
         snapshots = build_market_snapshots(pending, market_prices)
     except (OSError, ValueError, json.JSONDecodeError, MarketSnapshotError) as exc:
         LOGGER.error("Market snapshot build failed: %s", exc)
@@ -202,7 +217,7 @@ def _load_shadow_signal(
     signal_filter = parse.quote(f"eq.{shadow_signal_id}", safe="")
     endpoint = (
         f"{supabase_url.rstrip('/')}/rest/v1/{SHADOW_SIGNAL_TABLE}"
-        f"?select=id,symbol,source_time,created_at,pattern,shadow_action"
+        f"?select=id,symbol,source_time,created_at,pattern,shadow_action,lead_line_payload,target_feed"
         f"&id={signal_filter}&limit=1"
     )
     status, rows = _supabase_json(
@@ -297,6 +312,65 @@ def _prices_for_window(
     }
 
 
+def _entry_price_from_signal(signal: Mapping[str, Any]) -> Optional[float]:
+    for container_name in ("lead_line_payload", "target_feed"):
+        container = signal.get(container_name)
+        if not isinstance(container, Mapping):
+            continue
+        price = _float_or_none(
+            container.get("entry_price")
+            or container.get("last_price")
+            or container.get("lastPrice")
+            or container.get("price")
+        )
+        if price is not None and price > 0:
+            return price
+    return None
+
+
+def _live_price_for_symbol(symbol: str, cache: Dict[str, float]) -> float:
+    if symbol not in cache:
+        cache[symbol] = _fetch_binance_current_price(symbol)
+    return cache[symbol]
+
+
+def _fetch_binance_current_price(symbol: str) -> float:
+    base_url = _exchange_base_url()
+    endpoint = f"{base_url}/api/v3/ticker/price?symbol={parse.quote(symbol, safe='')}"
+    req = request.Request(endpoint, method="GET", headers={"Accept": "application/json"})
+    try:
+        with request.urlopen(req, timeout=15) as response:
+            data = json.loads(response.read().decode("utf-8"))
+    except error.HTTPError as exc:
+        safe_body = exc.read().decode("utf-8", errors="replace")[:500]
+        raise MarketSnapshotError(f"Binance ticker HTTP {exc.code}: {safe_body}") from exc
+    except error.URLError as exc:
+        raise MarketSnapshotError(f"Binance ticker connection error: {exc.reason}") from exc
+    except TimeoutError as exc:
+        raise MarketSnapshotError("Binance ticker request timed out") from exc
+    except json.JSONDecodeError as exc:
+        raise MarketSnapshotError("Binance ticker response was not JSON") from exc
+
+    if not isinstance(data, Mapping):
+        raise MarketSnapshotError("Binance ticker response was not an object")
+    price = _float_or_none(data.get("price"))
+    if price is None or price <= 0:
+        raise MarketSnapshotError(f"Binance ticker returned invalid price for {symbol}")
+    return price
+
+
+def _exchange_base_url() -> str:
+    exchange_name = os.environ.get("EXCHANGE_NAME", "binance").strip().lower()
+    testnet = _env_bool("EXCHANGE_TESTNET", False)
+    if exchange_name in {"binance", "binance_spot", "binance-spot"}:
+        return "https://testnet.binance.vision" if testnet else "https://api.binance.com"
+    if exchange_name in {"binanceus", "binance_us", "binance-us"}:
+        if testnet:
+            raise MarketSnapshotError("binanceus testnet market data is not configured")
+        return "https://api.binance.us"
+    raise MarketSnapshotError(f"unsupported exchange {exchange_name!r}")
+
+
 def _incomplete_snapshot(
     outcome: Mapping[str, Any], signal: Mapping[str, Any], symbol: str
 ) -> Dict[str, Any]:
@@ -355,7 +429,13 @@ def _dry_run_enabled() -> bool:
 
 
 def _local_mode_enabled() -> bool:
-    raw = os.environ.get("MARKET_SNAPSHOT_LOCAL", "")
+    return _env_bool("MARKET_SNAPSHOT_LOCAL", False)
+
+
+def _env_bool(name: str, default: bool) -> bool:
+    raw = os.environ.get(name)
+    if raw is None or raw == "":
+        return default
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 

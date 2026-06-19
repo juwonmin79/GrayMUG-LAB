@@ -187,7 +187,9 @@ Supabase mode reads pending rows from `hellhound_outcomes`, reads linked shadow 
 
 Status: completed.
 
-`market_snapshot.py` reads pending `hellhound_outcomes`, reads each linked shadow signal for `symbol` and signal timestamp, and computes market return fields from read-only local market data.
+`market_snapshot.py` reads pending `hellhound_outcomes`, reads each linked shadow signal for `symbol` and signal timestamp, and computes market return fields.
+
+Server/Supabase mode uses Binance public read-only ticker prices. It does not read `test_data/local_market_prices.json` unless `MARKET_SNAPSHOT_LOCAL=1` is set. `entry_price` comes from the linked shadow signal payload when available; if the signal has no usable entry or universe price yet, the first live ticker price is used as `entry_price` for that outcome snapshot.
 
 Outcome fields updated:
 
@@ -203,7 +205,7 @@ outcome_return
 
 Schema support is in `outcomes_schema.sql`.
 
-Local test data:
+Local test data, used only with `MARKET_SNAPSHOT_LOCAL=1`:
 
 ```text
 hell_engines/Hellhound/test_data/pending_outcomes_for_snapshot.json
@@ -225,7 +227,7 @@ One shadow signal
   -> 24h outcome gets entry_price, current_price, return_pct
 ```
 
-The market snapshot layer is read-only for market data. It does not call Binance trading, exchanges, Oracle promotion, cron, schedulers, production engines, or `backup_GrayMUG`.
+The market snapshot layer is read-only for market data. It uses `market_snapshot_source=binance_public_ticker` in server mode and `market_snapshot_source=local_fixture` in local fixture mode. It does not call Binance trading APIs, order endpoints, account endpoints, Oracle promotion, cron, schedulers, production engines, or `backup_GrayMUG`.
 
 ## Hellhound-002 Evaluation Loop
 
@@ -387,7 +389,7 @@ Safety boundaries:
 
 Status: completed.
 
-`universe_builder.py` builds a Hellhound-only dynamic Top30 target universe from read-only exchange market data. It does not call trading endpoints and does not place orders.
+`universe_builder.py` builds a Hellhound-only dynamic Top30 target universe from read-only exchange market data. It does not call trading endpoints and does not place orders. The 24h experiment runner uses `HELLHOUND_UNIVERSE_LIMIT` to choose how many ranked symbols to send to `shadow_runner.py`; the default is `30`.
 
 Exchange environment:
 
@@ -458,6 +460,14 @@ EXCHANGE_TESTNET=false \
 python3 hell_engines/Hellhound/universe_builder.py
 ```
 
+24h runner live universe limit:
+
+```bash
+HELLHOUND_UNIVERSE_LIMIT=3 python3 hell_engines/Hellhound/experiment_24h_runner.py
+```
+
+Each cycle generates `active hypotheses x selected symbols` shadow signals. For example, three active hypotheses and `HELLHOUND_UNIVERSE_LIMIT=3` generate nine shadow signals.
+
 Optional Supabase snapshot storage:
 
 ```bash
@@ -490,3 +500,5 @@ Safety boundaries:
 - Hellhound-004 uses dynamic symbols from USDT pairs and has no fixed `ETHUSDT` dependency.
 - Hellhound-004 keeps `BTCUSDT` and `ETHUSDT` eligible for the main universe.
 - Hellhound-004 does not import or modify Production Hound, Ward, Core, or `backup_GrayMUG`.
+- Fixture data is isolated behind explicit local flags: `HELLHOUND_UNIVERSE_LOCAL=1` and `MARKET_SNAPSHOT_LOCAL=1`.
+- Server-mode logs include `universe_source=binance_public_market`, `shadow_signal_source=live_universe`, and `market_snapshot_source=binance_public_ticker`.

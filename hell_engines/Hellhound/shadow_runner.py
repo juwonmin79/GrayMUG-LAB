@@ -7,7 +7,7 @@ import sys
 import uuid
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import Any, Dict, Mapping, Optional
+from typing import Any, Dict, Mapping, Optional, Sequence
 from urllib import error, request
 from pathlib import Path
 
@@ -135,6 +135,21 @@ def normalize_oraclejp_payload(payload: Mapping[str, Any]) -> Dict[str, Any]:
 
 
 def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
+    return _run_shadow_payloads([payload], shadow_signal_source="local_fixture")
+
+
+def run_shadow_universe(universe: Sequence[Mapping[str, Any] | str]) -> ShadowRunnerResult:
+    payloads = [_payload_for_universe_row(row) for row in universe]
+    LOGGER.info(
+        "shadow_signal_source=live_universe target_symbols=%s",
+        ",".join(str(payload.get("symbol", "")) for payload in payloads),
+    )
+    return _run_shadow_payloads(payloads, shadow_signal_source="live_universe")
+
+
+def _run_shadow_payloads(
+    payloads: Sequence[Mapping[str, Any]], *, shadow_signal_source: str
+) -> ShadowRunnerResult:
     supabase_url, supabase_key = _supabase_credentials()
     if not supabase_url or not supabase_key:
         LOGGER.warning(
@@ -174,10 +189,12 @@ def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
         )
 
     try:
-        signals = [
-            normalize_oraclejp_payload(_payload_for_hypothesis(payload, hypothesis))
-            for hypothesis in hypotheses
-        ]
+        signals = []
+        for payload in payloads:
+            for hypothesis in hypotheses:
+                signals.append(
+                    normalize_oraclejp_payload(_payload_for_hypothesis(payload, hypothesis))
+                )
     except ValueError as exc:
         LOGGER.error("Shadow signal normalization failed: %s", exc)
         return ShadowRunnerResult(
@@ -190,7 +207,9 @@ def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
 
     if _dry_run_enabled():
         LOGGER.info(
-            "Dry-run enabled; %s hypothesis shadow signals not inserted", len(signals)
+            "Dry-run enabled; %s hypothesis shadow signals not inserted source=%s",
+            len(signals),
+            shadow_signal_source,
         )
         print(json.dumps(signals, indent=2, sort_keys=True))
         return ShadowRunnerResult(
@@ -221,7 +240,11 @@ def run_shadow_payload(payload: Mapping[str, Any]) -> ShadowRunnerResult:
             signals=signals,
         )
 
-    LOGGER.info("Inserted %s Hellhound hypothesis shadow signals", len(inserted_signals))
+    LOGGER.info(
+        "Inserted %s Hellhound hypothesis shadow signals shadow_signal_source=%s",
+        len(inserted_signals),
+        shadow_signal_source,
+    )
     return ShadowRunnerResult(
         ok=True,
         dry_run=False,
@@ -331,12 +354,34 @@ def _payload_for_hypothesis(
         "config": _json_ready(config),
         "created_at": hypothesis.get("created_at"),
     }
+    protected_payload = {
+        key: payload.get(key)
+        for key in (
+            "symbol",
+            "base_asset",
+            "quote_asset",
+            "source_time",
+            "lead_line",
+            "lead_line_payload",
+            "lead_line_rank",
+            "lead_line_score",
+            "target_feed",
+        )
+        if key in payload
+    }
     next_payload = dict(payload)
     next_payload.update(config)
+    next_payload.update(protected_payload)
     next_payload["hypothesis"] = hypothesis_payload
     next_payload["target_feed"] = _merge_json_object(
         config.get("target_feed") or payload.get("target_feed"),
-        {"hypothesis": hypothesis_payload},
+        {
+            "hypothesis": hypothesis_payload,
+            "market_source": payload.get("market_source") or "live_universe",
+            "universe_rank": payload.get("universe_rank"),
+            "universe_score": payload.get("universe_score"),
+            "rank_score": payload.get("rank_score"),
+        },
     )
     next_payload["execution_guidance"] = _merge_json_object(
         config.get("execution_guidance")
@@ -345,6 +390,81 @@ def _payload_for_hypothesis(
         {"hypothesis": hypothesis_payload},
     )
     return next_payload
+
+
+def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
+    if isinstance(row, str):
+        universe_row: Dict[str, Any] = {"symbol": row}
+    elif isinstance(row, Mapping):
+        universe_row = dict(row)
+    else:
+        raise ValueError("universe row must be a mapping or symbol string")
+
+    symbol = str(universe_row.get("symbol") or "").upper()
+    if not symbol:
+        raise ValueError("universe row is missing symbol")
+
+    base_asset, quote_asset = _asset_pair(symbol, universe_row)
+    rank = _int_or_none(universe_row.get("rank") or universe_row.get("universe_rank"))
+    rank_score = _float_or_none(
+        universe_row.get("rank_score") or universe_row.get("universe_score")
+    )
+    last_price = _float_or_none(
+        universe_row.get("last_price")
+        or universe_row.get("lastPrice")
+        or universe_row.get("price")
+    )
+
+    return {
+        "symbol": symbol,
+        "base_asset": base_asset,
+        "quote_asset": quote_asset,
+        "mode": DEFAULT_MODE,
+        "source_time": datetime.now(timezone.utc).isoformat(),
+        "market_source": "live_universe",
+        "universe_rank": rank,
+        "universe_score": rank_score,
+        "rank_score": rank_score,
+        "lead_line": {
+            "rank": rank,
+            "score": rank_score,
+            "source": "live_universe",
+            "symbol": symbol,
+            "base_asset": base_asset,
+            "quote_asset": quote_asset,
+            "last_price": last_price,
+        },
+        "target_feed": {
+            "mode": DEFAULT_MODE,
+            "focus_assets": [base_asset] if base_asset else [],
+            "symbol": symbol,
+            "base_asset": base_asset,
+            "quote_asset": quote_asset,
+            "market_source": "live_universe",
+            "universe_rank": rank,
+            "universe_score": rank_score,
+            "rank_score": rank_score,
+            "last_price": last_price,
+        },
+        "fitness_payload": {
+            "source": "live_universe",
+            "universe_rank": rank,
+            "universe_score": rank_score,
+        },
+        "calibration_payload": {
+            "source": "live_universe",
+            "price_change_pct": universe_row.get("price_change_pct"),
+            "volatility": universe_row.get("volatility"),
+            "quote_volume": universe_row.get("quote_volume"),
+        },
+        "execution_guidance": {
+            "pattern": "LIVE_UNIVERSE_OBSERVE",
+            "entry_guidance": "Observe only; no executable order.",
+            "shadow_action": "WATCH",
+        },
+        "final_weight": rank_score,
+        "note": "Live universe shadow payload.",
+    }
 
 
 def _merge_json_object(value: Any, addition: Mapping[str, Any]) -> Dict[str, Any]:
