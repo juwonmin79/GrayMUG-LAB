@@ -382,3 +382,81 @@ Safety boundaries:
 - Hellhound-003 does not promote Oracle automatically.
 - Hellhound-003 does not import or modify Production Hound, Ward, Core, or `backup_GrayMUG`.
 - All persisted research results remain in Supabase shadow tables.
+
+## Hellhound-004 Universe Builder
+
+Status: completed.
+
+`universe_builder.py` builds a Hellhound-only dynamic Top30 target universe from read-only exchange market data. It does not call trading endpoints and does not place orders.
+
+Exchange environment:
+
+```text
+EXCHANGE_NAME=binance
+EXCHANGE_API_KEY
+EXCHANGE_API_SECRET
+EXCHANGE_TESTNET=false
+```
+
+`EXCHANGE_API_KEY` and `EXCHANGE_API_SECRET` are read only as config presence flags; the builder uses public market-data endpoints for candidate discovery.
+
+Ranking input:
+
+```text
+USDT spot pairs only
+quote volume
+volume_ratio if available
+price_change_pct
+volatility from 24h high/low/last
+```
+
+Local fixture mode:
+
+```bash
+HELLHOUND_UNIVERSE_LOCAL=1 python3 hell_engines/Hellhound/universe_builder.py
+```
+
+Optional fixture override:
+
+```bash
+HELLHOUND_UNIVERSE_LOCAL=1 \
+HELLHOUND_UNIVERSE_FIXTURE_PATH=hell_engines/Hellhound/test_data/universe_builder_fixture.json \
+python3 hell_engines/Hellhound/universe_builder.py
+```
+
+Live read-only market-data mode:
+
+```bash
+EXCHANGE_NAME=binance \
+EXCHANGE_TESTNET=false \
+python3 hell_engines/Hellhound/universe_builder.py
+```
+
+Optional Supabase snapshot storage:
+
+```bash
+HELLHOUND_UNIVERSE_STORE_SUPABASE=1 python3 hell_engines/Hellhound/universe_builder.py
+```
+
+Schema support is in `universe_snapshots_schema.sql` for table:
+
+```text
+hellhound_universe_snapshots
+```
+
+Output fields:
+
+```text
+top_symbols
+universe rank rows
+candidates_count
+exchange config summary
+stored / skipped_store
+```
+
+Safety boundaries:
+
+- Hellhound-004 does not use trading endpoints.
+- Hellhound-004 reads only exchange market data.
+- Hellhound-004 uses dynamic symbols from USDT pairs and has no fixed `ETHUSDT` dependency.
+- Hellhound-004 does not import or modify Production Hound, Ward, Core, or `backup_GrayMUG`.
