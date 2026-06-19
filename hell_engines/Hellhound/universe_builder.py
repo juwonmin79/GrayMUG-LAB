@@ -25,6 +25,21 @@ LOCAL_FIXTURE_PATH = (
 )
 DEFAULT_EXCHANGE_NAME = "binance"
 DEFAULT_TOP_N = 30
+EXCLUDED_ASSETS = [
+    "USDC",
+    "FDUSD",
+    "TUSD",
+    "USDP",
+    "DAI",
+    "USD1",
+    "RLUSD",
+    "EUR",
+    "TRY",
+    "BRL",
+    "XAUT",
+]
+EXCLUDED_BASE_ASSETS = set(EXCLUDED_ASSETS)
+EXTREME_MOVER_THRESHOLD_PCT = 30.0
 
 LOGGER = logging.getLogger("hellhound.universe_builder")
 
@@ -62,6 +77,17 @@ class UniverseBuilderResult:
     candidates_count: int
     top_symbols: list[str]
     universe: list[Dict[str, Any]]
+    excluded_assets: list[str]
+    excluded_candidates: list[Dict[str, Any]]
+    extreme_movers: list[Dict[str, Any]]
+
+
+@dataclass(frozen=True)
+class UniverseBuild:
+    universe: list[Dict[str, Any]]
+    candidates_count: int
+    excluded_candidates: list[Dict[str, Any]]
+    extreme_movers: list[Dict[str, Any]]
 
 
 class UniverseBuilderError(RuntimeError):
@@ -70,12 +96,14 @@ class UniverseBuilderError(RuntimeError):
 
 def build_universe_from_market_data(
     market_data: Mapping[str, Any], *, top_n: int = DEFAULT_TOP_N
-) -> tuple[list[Dict[str, Any]], int]:
+) -> UniverseBuild:
     markets = _extract_markets(market_data)
     tickers = _extract_tickers(market_data)
     allowed_usdt_symbols = _usdt_symbols_from_markets(markets)
 
     candidates: list[UniverseCandidate] = []
+    excluded_candidates: list[Dict[str, Any]] = []
+    extreme_movers: list[UniverseCandidate] = []
     for ticker in tickers:
         symbol = _symbol_from_ticker(ticker)
         if not symbol:
@@ -95,6 +123,18 @@ def build_universe_from_market_data(
             or ""
         ).upper()
         if quote_asset != "USDT":
+            continue
+
+        if base_asset and base_asset.upper() in EXCLUDED_BASE_ASSETS:
+            excluded_candidates.append(
+                _excluded_candidate_payload(
+                    ticker=ticker,
+                    symbol=symbol,
+                    base_asset=base_asset.upper(),
+                    quote_asset=quote_asset,
+                    reason="excluded_base_asset",
+                )
+            )
             continue
 
         quote_volume = _first_float(
@@ -122,42 +162,60 @@ def build_universe_from_market_data(
         if price_change_pct is None:
             price_change_pct = 0.0
 
-        candidates.append(
-            UniverseCandidate(
-                symbol=symbol,
-                base_asset=base_asset,
-                quote_asset=quote_asset,
+        candidate = UniverseCandidate(
+            symbol=symbol,
+            base_asset=base_asset,
+            quote_asset=quote_asset,
+            quote_volume=quote_volume,
+            volume_ratio=volume_ratio,
+            price_change_pct=price_change_pct,
+            volatility=volatility,
+            last_price=last_price,
+            rank_score=_rank_score(
                 quote_volume=quote_volume,
                 volume_ratio=volume_ratio,
                 price_change_pct=price_change_pct,
                 volatility=volatility,
-                last_price=last_price,
-                rank_score=_rank_score(
-                    quote_volume=quote_volume,
-                    volume_ratio=volume_ratio,
-                    price_change_pct=price_change_pct,
-                    volatility=volatility,
-                ),
-            )
+            ),
         )
+        if abs(price_change_pct) >= EXTREME_MOVER_THRESHOLD_PCT:
+            extreme_movers.append(candidate)
+            continue
+        candidates.append(candidate)
 
     ranked = sorted(
         candidates,
         key=lambda item: (
             item.quote_volume,
-            item.volume_ratio if item.volume_ratio is not None else -1.0,
-            item.price_change_pct,
             item.volatility,
+            abs(item.price_change_pct),
+            item.volume_ratio if item.volume_ratio is not None else -1.0,
             item.symbol,
         ),
         reverse=True,
     )
-    return (
-        [
+    ranked_extreme_movers = sorted(
+        extreme_movers,
+        key=lambda item: (
+            abs(item.price_change_pct),
+            item.quote_volume,
+            item.volatility,
+            item.volume_ratio if item.volume_ratio is not None else -1.0,
+            item.symbol,
+        ),
+        reverse=True,
+    )
+    return UniverseBuild(
+        universe=[
             _candidate_payload(index, candidate)
             for index, candidate in enumerate(ranked[:top_n], start=1)
         ],
-        len(candidates),
+        candidates_count=len(candidates),
+        excluded_candidates=excluded_candidates,
+        extreme_movers=[
+            _candidate_payload(index, candidate)
+            for index, candidate in enumerate(ranked_extreme_movers, start=1)
+        ],
     )
 
 
@@ -172,9 +230,7 @@ def build_dynamic_top30_universe() -> UniverseBuilderResult:
             if local_mode
             else _load_exchange_market_data(config)
         )
-        universe, candidates_count = build_universe_from_market_data(
-            market_data, top_n=DEFAULT_TOP_N
-        )
+        build = build_universe_from_market_data(market_data, top_n=DEFAULT_TOP_N)
     except (OSError, ValueError, json.JSONDecodeError, UniverseBuilderError) as exc:
         LOGGER.error("Hellhound universe build failed: %s", exc)
         return UniverseBuilderResult(
@@ -188,8 +244,13 @@ def build_dynamic_top30_universe() -> UniverseBuilderResult:
             candidates_count=0,
             top_symbols=[],
             universe=[],
+            excluded_assets=EXCLUDED_ASSETS,
+            excluded_candidates=[],
+            extreme_movers=[],
         )
 
+    universe = build.universe
+    candidates_count = build.candidates_count
     top_symbols = [row["symbol"] for row in universe]
     stored = False
     skipped_store = True
@@ -208,6 +269,8 @@ def build_dynamic_top30_universe() -> UniverseBuilderResult:
                     generated_at=generated_at,
                     candidates_count=candidates_count,
                     universe=universe,
+                    excluded_candidates=build.excluded_candidates,
+                    extreme_movers=build.extreme_movers,
                     top_symbols=top_symbols,
                 )
                 stored = True
@@ -225,6 +288,9 @@ def build_dynamic_top30_universe() -> UniverseBuilderResult:
                     candidates_count=candidates_count,
                     top_symbols=top_symbols,
                     universe=universe,
+                    excluded_assets=EXCLUDED_ASSETS,
+                    excluded_candidates=build.excluded_candidates,
+                    extreme_movers=build.extreme_movers,
                 )
 
     return UniverseBuilderResult(
@@ -238,6 +304,9 @@ def build_dynamic_top30_universe() -> UniverseBuilderResult:
         candidates_count=candidates_count,
         top_symbols=top_symbols,
         universe=universe,
+        excluded_assets=EXCLUDED_ASSETS,
+        excluded_candidates=build.excluded_candidates,
+        extreme_movers=build.extreme_movers,
     )
 
 
@@ -283,6 +352,8 @@ def _insert_universe_snapshot(
     generated_at: str,
     candidates_count: int,
     universe: list[Mapping[str, Any]],
+    excluded_candidates: list[Mapping[str, Any]],
+    extreme_movers: list[Mapping[str, Any]],
     top_symbols: list[str],
 ) -> None:
     endpoint = f"{supabase_url.rstrip('/')}/rest/v1/{UNIVERSE_SNAPSHOT_TABLE}"
@@ -293,7 +364,12 @@ def _insert_universe_snapshot(
         "top_n": len(top_symbols),
         "candidates_count": candidates_count,
         "symbols": top_symbols,
-        "universe_payload": universe,
+        "universe_payload": {
+            "excluded_assets": EXCLUDED_ASSETS,
+            "excluded_candidates": excluded_candidates,
+            "extreme_movers": extreme_movers,
+            "universe": universe,
+        },
     }
     status, _ = _supabase_json(
         endpoint=endpoint,
@@ -394,6 +470,36 @@ def _candidate_payload(rank: int, candidate: UniverseCandidate) -> Dict[str, Any
     return data
 
 
+def _excluded_candidate_payload(
+    *,
+    ticker: Mapping[str, Any],
+    symbol: str,
+    base_asset: str,
+    quote_asset: str,
+    reason: str,
+) -> Dict[str, Any]:
+    return {
+        "symbol": symbol,
+        "base_asset": base_asset,
+        "quote_asset": quote_asset,
+        "reason": reason,
+        "quote_volume": _first_float(
+            ticker,
+            "quoteVolume",
+            "quote_volume",
+            "turnover24h",
+            "volumeQuote",
+        ),
+        "price_change_pct": _first_float(
+            ticker,
+            "priceChangePercent",
+            "price_change_pct",
+            "priceChangePcnt",
+        ),
+        "volume_ratio": _first_float(ticker, "volume_ratio", "volumeRatio"),
+    }
+
+
 def _rank_score(
     *,
     quote_volume: float,
@@ -403,9 +509,9 @@ def _rank_score(
 ) -> float:
     return (
         quote_volume
-        + ((volume_ratio or 0.0) * 1_000_000)
-        + (price_change_pct * 10_000)
         + (volatility * 100_000)
+        + (abs(price_change_pct) * 10_000)
+        + ((volume_ratio or 0.0) * 1_000_000)
     )
 
 
@@ -515,6 +621,9 @@ def _print_result(result: UniverseBuilderResult) -> None:
             {
                 "candidates_count": result.candidates_count,
                 "exchange": asdict(result.exchange),
+                "excluded_assets": result.excluded_assets,
+                "excluded_candidates": result.excluded_candidates,
+                "extreme_movers": result.extreme_movers,
                 "generated_at": result.generated_at,
                 "local_mode": result.local_mode,
                 "message": result.message,

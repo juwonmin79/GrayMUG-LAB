@@ -35,6 +35,13 @@
     {"symbol": "HBARUSDT", "baseAsset": "HBAR", "quoteAsset": "USDT", "status": "TRADING"},
     {"symbol": "ICPUSDT", "baseAsset": "ICP", "quoteAsset": "USDT", "status": "TRADING"},
     {"symbol": "RUNEUSDT", "baseAsset": "RUNE", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "USDCUSDT", "baseAsset": "USDC", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "FDUSDUSDT", "baseAsset": "FDUSD", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "EURUSDT", "baseAsset": "EUR", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "XAUTUSDT", "baseAsset": "XAUT", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "USD1USDT", "baseAsset": "USD1", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "RLUSDUSDT", "baseAsset": "RLUSD", "quoteAsset": "USDT", "status": "TRADING"},
+    {"symbol": "MOONUSDT", "baseAsset": "MOON", "quoteAsset": "USDT", "status": "TRADING"},
     {"symbol": "BTCUSDC", "baseAsset": "BTC", "quoteAsset": "USDC", "status": "TRADING"}
   ],
   "tickers": [
@@ -73,6 +80,13 @@
     {"symbol": "HBARUSDT", "quoteVolume": "210000000", "volume_ratio": "1.1", "priceChangePercent": "1.4", "highPrice": "0.095", "lowPrice": "0.087", "lastPrice": "0.093"},
     {"symbol": "ICPUSDT", "quoteVolume": "190000000", "volume_ratio": "1.0", "priceChangePercent": "0.6", "highPrice": "11.2", "lowPrice": "10.4", "lastPrice": "10.9"},
     {"symbol": "RUNEUSDT", "quoteVolume": "170000000", "volume_ratio": "1.3", "priceChangePercent": "2.6", "highPrice": "5.7", "lowPrice": "5.0", "lastPrice": "5.5"},
+    {"symbol": "USDCUSDT", "quoteVolume": "8000000000", "volume_ratio": "1.0", "priceChangePercent": "0.0", "highPrice": "1.001", "lowPrice": "0.999", "lastPrice": "1.0"},
+    {"symbol": "FDUSDUSDT", "quoteVolume": "7000000000", "volume_ratio": "1.0", "priceChangePercent": "0.0", "highPrice": "1.001", "lowPrice": "0.999", "lastPrice": "1.0"},
+    {"symbol": "EURUSDT", "quoteVolume": "6000000000", "volume_ratio": "1.1", "priceChangePercent": "0.2", "highPrice": "1.10", "lowPrice": "1.08", "lastPrice": "1.09"},
+    {"symbol": "XAUTUSDT", "quoteVolume": "5000000000", "volume_ratio": "1.2", "priceChangePercent": "0.6", "highPrice": "2450", "lowPrice": "2400", "lastPrice": "2435"},
+    {"symbol": "USD1USDT", "quoteVolume": "4000000000", "volume_ratio": "1.0", "priceChangePercent": "0.0", "highPrice": "1.001", "lowPrice": "0.999", "lastPrice": "1.0"},
+    {"symbol": "RLUSDUSDT", "quoteVolume": "3000000000", "volume_ratio": "1.0", "priceChangePercent": "0.0", "highPrice": "1.001", "lowPrice": "0.999", "lastPrice": "1.0"},
+    {"symbol": "MOONUSDT", "quoteVolume": "2000000000", "volume_ratio": "3.7", "priceChangePercent": "42.5", "highPrice": "0.20", "lowPrice": "0.09", "lastPrice": "0.18"},
     {"symbol": "BTCUSDC", "quoteVolume": "9999999999", "volume_ratio": "9.9", "priceChangePercent": "99", "highPrice": "110000", "lowPrice": "100000", "lastPrice": "109000"}
   ]
 }

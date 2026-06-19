@@ -405,10 +405,34 @@ Ranking input:
 ```text
 USDT spot pairs only
 quote volume
-volume_ratio if available
-price_change_pct
 volatility from 24h high/low/last
+absolute price_change_pct
+volume_ratio if available
 ```
+
+Main universe exclusions:
+
+```text
+USDC
+FDUSD
+TUSD
+USDP
+DAI
+USD1
+RLUSD
+EUR
+TRY
+BRL
+XAUT
+```
+
+Extreme movers:
+
+```text
+abs(price_change_pct) >= 30
+```
+
+Extreme movers are excluded from the main Top30 by default and are emitted separately for anomaly review.
 
 Local fixture mode:
 
@@ -449,6 +473,9 @@ Output fields:
 ```text
 top_symbols
 universe rank rows
+excluded_assets
+excluded_candidates
+extreme_movers
 candidates_count
 exchange config summary
 stored / skipped_store
@@ -459,4 +486,5 @@ Safety boundaries:
 - Hellhound-004 does not use trading endpoints.
 - Hellhound-004 reads only exchange market data.
 - Hellhound-004 uses dynamic symbols from USDT pairs and has no fixed `ETHUSDT` dependency.
+- Hellhound-004 keeps `BTCUSDT` and `ETHUSDT` eligible for the main universe.
 - Hellhound-004 does not import or modify Production Hound, Ward, Core, or `backup_GrayMUG`.
