@@ -6,7 +6,7 @@ Current state:
 
 ```text
 WhaleLab Foundation Complete.
-Hellhound Shadow Node Phase Ready.
+Hellhound Outcome Window Validation.
 ```
 
 ## 1. Project Vision
@@ -188,7 +188,7 @@ Direct production modification: forbidden
 
 ## 6. Hellhound Status
 
-Hellhound-001 is the current active track.
+Hellhound-013 Outcome Window Validation is the current active track.
 
 Completed:
 
@@ -225,35 +225,199 @@ hellhound_shadow_outcomes
 
 Hellhound does not place orders and does not manage positions.
 
+Current Hellhound analysis direction:
+
+```text
+Hound = execution institution
+Hellhound = detachable analysis brain
+GPT/LAB = continuous Hellhound upgrade surface
+ProductHound = future consumer of validated Hellhound decisions
+```
+
+Hellhound now treats repeated shadow signals as observations inside event timelines. Outcome tables remain intact, but event analysis is the primary structure for pre-spike detection.
+
+Hellhound is currently Advisor Mode only:
+
+```text
+Trade Authority: none
+Production Hound result mutation: none
+Entry/Exit mutation: none
+Order authority: none
+Shadow logging: file-based
+Communication: library/API boundary
+Persistence: append-only JSONL
+Dataset: Lead Line pre-outcome rows
+Validation: Outcome window rows
+```
+
 ## 7. Current Roadmap
 
 Current stage:
 
 ```text
-Hellhound-001-D
-Minimal Shadow Runner
+Hellhound-013
+Outcome Window Validation
 ```
 
-The next implementation target is a minimal OracleJP-Supabase shadow runner that:
+The current implementation target is a detachable, fail-safe advisor API that:
 
-- Reads confirmed Supabase market tables.
-- Loads LAB Lead Line universe.
-- Builds Target Feed, Fitness, Calibration, and Execution Guidance context.
-- Inserts only into `hellhound_shadow_signals`.
+- Groups repeated symbol signals into stable event timelines.
+- Dedupes `symbol + source_time + hypothesis` at the analysis layer.
+- Prepares multi-timeframe snapshots for `1m`, `15m`, `1h`, `4h`, `1d`, and `1w`.
+- Computes initial pre-spike features.
+- Classifies events as `BEL`, `ACT`, `ACE`, `NIGHT`, or `UNCLASSIFIED`.
+- Computes accumulation context and Hellhound Score v0.2.
+- Produces shadow promotion status: `PROMOTE`, `WATCH`, or `REJECT`.
+- Builds file-based shadow audit rows for later accuracy measurement.
+- Reads recent `hound_scan_log` or `hellhound_shadow_signals` rows through read-only GET.
+- Writes shadow decisions to `outputs/hellhound_shadow_decisions.jsonl`.
+- Exposes signal/event/snapshot facade functions with `is_trade_command=false`.
+- Persists validated Event Layer records to `outputs/hellhound_event_layer.jsonl`.
+- Builds lead-line candidate rows at `outputs/hellhound_lead_line_dataset.jsonl`.
+- Validates lead-line rows at `outputs/hellhound_validation_dataset.jsonl`.
+- Exposes `evaluate_symbol(symbol, as_of_time=None) -> dict`.
 - Does not place orders.
 - Does not mutate production tables.
 
-Planned stages:
+Implemented Hellhound-005 files:
 
-- `Hellhound-001-E`: Outcome Evaluator
-  - Fill `hellhound_shadow_outcomes`.
-  - Measure forward `+1h`, `+4h`, `+24h` return.
-  - Measure BTC-relative return.
-  - Track TP hit, SL hit, and exit trigger hit.
-- `Hellhound-001-F`: Fitness Feedback Loop
-  - Feed Hellhound shadow outcomes back into Engine Fitness.
-  - Compare Production Hound baseline vs Hellhound shadow signals.
-  - Decide which candidates deserve merge review.
+- `hell_engines/Hellhound/event_layer.py`
+- `hell_engines/Hellhound/pre_spike_features.py`
+- `hell_engines/Hellhound/event_classifier.py`
+- `hell_engines/Hellhound/decision_api.py`
+- `hell_engines/Hellhound/integration_stub.py`
+- `hell_engines/Hellhound/event_layer_schema.sql`
+- `hell_engines/Hellhound/test_event_layer.py`
+- `hell_engines/Hellhound/accumulation_features.py`
+- `hell_engines/Hellhound/promotion_candidate.py`
+- `hell_engines/Hellhound/shadow_advisor.py`
+- `hell_engines/Hellhound/test_accumulation_features.py`
+- `hell_engines/Hellhound/test_promotion_candidate.py`
+- `hell_engines/Hellhound/test_shadow_advisor.py`
+- `hell_engines/Hellhound/real_shadow_feed.py`
+- `hell_engines/Hellhound/test_real_shadow_feed.py`
+- `hell_engines/Hellhound/library_interface.py`
+- `hell_engines/Hellhound/test_library_interface.py`
+- `hell_engines/Hellhound/event_writer.py`
+- `hell_engines/Hellhound/test_event_writer.py`
+- `hell_engines/Hellhound/lead_line_dataset.py`
+- `hell_engines/Hellhound/test_lead_line_dataset.py`
+- `hell_engines/Hellhound/outcome_validator.py`
+- `hell_engines/Hellhound/test_outcome_validator.py`
+
+Schema draft:
+
+- `hellhound_events`
+- `hellhound_event_observations`
+- `hellhound_mtf_snapshots`
+
+The API is default OFF:
+
+```text
+HELLHOUND_DECISION_ENABLED=false
+```
+
+Fail-safe behavior:
+
+```text
+entry_bias="neutral"
+confidence=0
+error present
+```
+
+Shadow Advisor flow:
+
+```text
+Hound Signal
+  -> Hellhound Evaluate
+  -> Shadow Decision
+  -> Log Only
+```
+
+Shadow audit fields:
+
+```text
+symbol
+signal_time
+event_id
+hellhound_score
+promotion_status
+entry_bias
+actual_1h_outcome
+actual_4h_outcome
+actual_24h_outcome
+```
+
+Real shadow feed command:
+
+```bash
+python3 hell_engines/Hellhound/real_shadow_feed.py --limit 100 --dry-run
+```
+
+Mock dry-run:
+
+```bash
+python3 hell_engines/Hellhound/real_shadow_feed.py --limit 5 --dry-run --mock
+```
+
+Library boundary:
+
+```python
+evaluate_signal_row(signal)
+evaluate_event_row(event)
+evaluate_snapshot_row(snapshot)
+detect_cluster_rows(signals)
+evaluate_real_feed_row(signal)
+```
+
+Boundary output never contains a trade command.
+
+Event writer:
+
+```python
+append_event(record)
+append_events(records)
+validate_event(record)
+record_from_boundary_output(payload)
+records_from_boundary_output(payload)
+```
+
+Supported event records:
+
+```text
+shadow_decision
+daily_open_alert_cluster
+real_feed_outcome
+```
+
+Lead Line dataset builder:
+
+```python
+build_lead_line_dataset(...)
+collect_pre_outcome_events(...)
+create_lead_line_record(...)
+```
+
+Default output:
+
+```text
+outputs/hellhound_lead_line_dataset.jsonl
+```
+
+Outcome validator:
+
+```python
+validate_lead_line(...)
+validate_outcome_window(...)
+create_validation_record(...)
+write_validation_dataset(...)
+```
+
+Validation output:
+
+```text
+outputs/hellhound_validation_dataset.jsonl
+```
 
 ## 8. Safety Rules
 
@@ -312,6 +476,8 @@ Start with these documents:
 | `docs/016_HELLHOUND_001_VALIDATION_PLAN.md` | Hellhound-001 validation plan |
 | `docs/017_HELLHOUND_001B_PRODUCTION_UNIVERSE_LOADER.md` | Production universe loader finding |
 | `docs/018_HELLHOUND_001C_ORACLEJP_SUPABASE_SHADOW_NODE_PLAN.md` | OracleJP-Supabase shadow node plan |
+| `docs/019_HELLHOUND_EVENT_LAYER.md` | Hellhound Event Layer and research pipeline |
+| `docs/020_HELLHOUND_PRODUCTION_INTERFACE.md` | Hellhound Production Interface v1 adapter boundary |
 
 For WhaleLab foundation details:
 
@@ -332,5 +498,6 @@ Hound hunts alts.
 WhaleLab builds validated LAB context.
 Hell Engines test evolution candidates.
 Production Engines remain protected.
+Hellhound can advise Production Hound only through versioned, non-trading interfaces.
 Every result must flow back to BTC quantity growth.
 ```

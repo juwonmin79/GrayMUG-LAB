@@ -504,3 +504,1083 @@ Safety boundaries:
 - Hellhound-004 does not import or modify Production Hound, Ward, Core, or `backup_GrayMUG`.
 - Fixture data is isolated behind explicit local flags: `HELLHOUND_UNIVERSE_LOCAL=1` and `MARKET_SNAPSHOT_LOCAL=1`.
 - Server-mode logs include `universe_source=binance_public_market`, `shadow_signal_source=live_universe`, and `market_snapshot_source=binance_public_ticker`.
+
+## Hellhound-005 Event Layer and Decision API Draft
+
+Status: initial implementation.
+
+Hellhound-005 shifts the analysis unit from isolated outcomes to symbol event timelines. Outcomes still measure whether a signal worked, but event timelines explain whether many shadow signals are part of one developing market structure.
+
+Reason for the shift:
+
+```text
+84 METUSDT shadow signals should not become 84 independent market stories.
+They should become one event timeline with many observations.
+```
+
+Implemented modules:
+
+```text
+event_layer.py
+pre_spike_features.py
+event_classifier.py
+decision_api.py
+integration_stub.py
+event_layer_schema.sql
+test_event_layer.py
+```
+
+Event fields:
+
+```text
+event_id
+symbol
+event_start_bucket
+max_gap_hours
+first_seen_time
+last_seen_time
+event_age_hours
+observation_count
+observation_timeframe_hint
+event_state
+hypotheses
+shadow_actions
+patterns
+```
+
+Deduplication:
+
+```text
+symbol + source_time + hypothesis
+```
+
+Raw `hellhound_shadow_signals` rows are not deleted. Deduplication is analysis-only, so hypothesis-level signal history remains available.
+
+Current `event_id` limitation:
+
+```text
+event_id = symbol + first_seen_time
+```
+
+This is acceptable for the first LAB event layer, but a late backfill can change `first_seen_time` and therefore change `event_id`. Future key candidates are `symbol + event_start_bucket`, `symbol + gap-window cluster`, `symbol + first_hound_alert_id`, or `symbol + first_shadow_signal_id`.
+
+Multi-timeframe snapshot interface:
+
+```text
+1m
+15m
+1h
+4h
+1d
+1w
+```
+
+Initial pre-spike features:
+
+```text
+micro_vol_rise
+vol_ma_acceleration
+price_compression
+rs_slope
+candle_body_expansion
+spike_count_7d
+spike_interval
+watchlist_age
+```
+
+`watchlist_age` remains TODO until a safe read-only first-seen source is confirmed.
+
+Initial event classes:
+
+```text
+BEL   bottom rebound / expansion candidate
+ACT   long decline / distribution candidate
+ACE   late detection candidate
+NIGHT repeated re-accumulation candidate
+```
+
+Decision API draft:
+
+```python
+evaluate_symbol(symbol, as_of_time=None) -> dict
+```
+
+Default:
+
+```text
+HELLHOUND_DECISION_ENABLED=false
+```
+
+Fail-safe:
+
+```text
+entry_bias="neutral"
+confidence=0
+error present
+```
+
+Hound integration is example-only in `integration_stub.py`. Production Hound is not modified.
+
+Schema support is drafted in `event_layer_schema.sql` for:
+
+```text
+hellhound_events
+hellhound_event_observations
+hellhound_mtf_snapshots
+```
+
+`event_layer_schema.sql` is draft-only until a writer exists. `updated_at` has no automatic trigger yet.
+
+Safety boundaries:
+
+- Hellhound-005 does not use Binance trading endpoints.
+- Hellhound-005 does not place orders or manage positions.
+- Hellhound-005 does not update/delete production tables.
+- Hellhound-005 does not modify Production Hound, Ward, Core, `.env`, or `backup_GrayMUG`.
+
+## Hellhound-006 Accumulation Intelligence Layer
+
+Status: initial implementation.
+
+Sprint 3 shifts Hellhound from:
+
+```text
+already exploded detection
+```
+
+to:
+
+```text
+pre-explosion preparation detection
+```
+
+Implemented module:
+
+```text
+accumulation_features.py
+test_accumulation_features.py
+```
+
+Primary API:
+
+```python
+compute_accumulation_features(symbol, historical_candles, event_history=None) -> dict
+```
+
+Feature groups:
+
+```text
+vol_7d_avg
+vol_14d_avg
+vol_30d_avg
+vol_ratio_7d_vs_30d
+vol_ratio_14d_vs_30d
+price_return_7d
+price_return_14d
+price_return_30d
+price_from_30d_high
+price_from_52w_high
+price_from_30d_low
+price_from_52w_low
+```
+
+Repeated whale activity:
+
+```text
+spike_count_7d
+spike_count_14d
+spike_count_30d
+avg_spike_interval_days
+min_spike_interval_days
+repeat_activity_score
+```
+
+Structure context:
+
+```text
+weekly_trend
+monthly_trend
+distance_ma200
+distance_52w_high
+distance_52w_low
+structure_type
+setup_type
+```
+
+Supported structure types:
+
+```text
+ACCUMULATION_BASE
+MID_CYCLE
+DISTRIBUTION
+CAPITULATION
+UNKNOWN
+```
+
+Setup hints:
+
+```text
+BEL
+ACT
+ACE
+MET
+UNKNOWN
+```
+
+Hellhound Score v0.2:
+
+```text
+accumulation_score
+repeat_activity_score
+structure_score
+hellhound_score
+```
+
+`decision_api.evaluate_symbol()` accepts optional `historical_candles` and `event_history` and returns the new score fields when provided.
+
+Safety boundaries:
+
+- Hellhound-006 does not use ML.
+- Hellhound-006 does not use Binance trading endpoints.
+- Hellhound-006 does not place orders or manage positions.
+- Hellhound-006 does not update/delete DB rows.
+- Hellhound-006 does not modify Production Hound, Ward, Core, `.env`, or `backup_GrayMUG`.
+
+## Hellhound-007 Shadow Promotion Layer
+
+Status: initial implementation.
+
+Sprint 4 shifts Hellhound from:
+
+```text
+good signal
+```
+
+to:
+
+```text
+Production promotion candidate
+```
+
+Implemented module:
+
+```text
+promotion_candidate.py
+test_promotion_candidate.py
+```
+
+Primary APIs:
+
+```python
+evaluate_promotion_candidate(...) -> dict
+build_shadow_decision(...) -> dict
+replay_shadow_cases(cases) -> list[dict]
+compute_outcome_correlation(outcomes) -> dict
+```
+
+Promotion status:
+
+```text
+PROMOTE
+WATCH
+REJECT
+```
+
+Initial promotion rule:
+
+```text
+PROMOTE:
+  hellhound_score >= 0.60
+  distribution_risk <= 0.40
+
+PROMOTE fallback:
+  structure_type = ACCUMULATION_BASE
+  accumulation_score >= 0.55
+  repeat_activity_score >= 0.25
+  distribution_risk <= 0.40
+
+WATCH:
+  middle score/risk profile
+
+REJECT:
+  distribution_risk >= 0.65
+  or structure_type in DISTRIBUTION/CAPITULATION
+```
+
+Shadow decision payload:
+
+```text
+symbol
+setup_type
+structure_type
+hellhound_score
+promotion_status
+reasons
+is_trade_command=false
+```
+
+Replay acceptance:
+
+```text
+BEL   -> PROMOTE
+ACT   -> REJECT
+ACE   -> REJECT
+MET   -> WATCH
+NIGHT -> WATCH
+```
+
+Outcome correlation groups supplied outcome rows into:
+
+```text
+0.0~0.2
+0.2~0.4
+0.4~0.6
+0.6~0.8
+0.8~1.0
+```
+
+Safety boundaries:
+
+- Hellhound-007 is shadow-only.
+- Hellhound-007 does not change Production Hound/Ward/Core.
+- Hellhound-007 does not change real trading logic.
+- Hellhound-007 does not update/delete DB rows.
+- Hellhound-007 does not stage, commit, or push git changes.
+
+## Hellhound-008 Shadow Advisor Mode
+
+Status: initial implementation.
+
+Sprint 5 attaches Hellhound as a shadow advisor without modifying Production Hound.
+
+Flow:
+
+```text
+Hound Signal
+  -> Hellhound Evaluate
+  -> Shadow Decision
+  -> Log Only
+```
+
+Advisor mode contract:
+
+```text
+Hellhound has no Trade Authority.
+Hellhound does not change Hound entry conditions.
+Hellhound does not change Hound exit conditions.
+Hellhound does not change Hound results.
+Hellhound does not place orders.
+```
+
+Implemented modules:
+
+```text
+integration_stub.py
+shadow_advisor.py
+test_shadow_advisor.py
+```
+
+Optional advisor API:
+
+```python
+optional_hellhound_decision(
+    symbol,
+    signal=None,
+    shadow_signals=None,
+    historical_candles=None,
+    event_history=None,
+    as_of_time=None,
+) -> dict
+```
+
+Advisor output:
+
+```text
+hellhound_score
+accumulation_score
+repeat_activity_score
+structure_type
+setup_type
+promotion_status
+distribution_risk
+entry_bias
+reasons
+is_trade_command=false
+```
+
+In Advisor Mode, `entry_bias` is fixed to `neutral` at the integration surface. Promotion status is recorded for audit, but Hellhound does not suggest executable entry or exit changes.
+
+Shadow evaluation pipeline:
+
+```python
+run_shadow_evaluation_pipeline(...) -> dict
+```
+
+Audit row:
+
+```text
+symbol
+signal_time
+event_id
+hellhound_score
+promotion_status
+entry_bias
+actual_1h_outcome
+actual_4h_outcome
+actual_24h_outcome
+```
+
+Shadow log:
+
+```text
+shadow_decision_log.jsonl
+```
+
+The log is file-based. DB is not required for Sprint 5.
+
+Replay validation compares:
+
+```text
+Hound Signal
+Hellhound Decision
+Actual Outcome
+```
+
+False-positive analysis extracts:
+
+```text
+PROMOTE but failed
+REJECT but succeeded
+Top Failure Reasons
+Top Success Reasons
+```
+
+Safety boundaries:
+
+- Hellhound-008 is Advisor Mode only.
+- Hellhound-008 has no Trade Authority.
+- Hellhound-008 does not modify Production Hound/Ward/Core.
+- Hellhound-008 does not modify entry or exit logic.
+- Hellhound-008 does not use Binance order endpoints.
+- Hellhound-008 does not update/delete DB rows.
+- Hellhound-008 does not stage, commit, or push git changes.
+
+## Hellhound-009 Real Shadow Feed
+
+Status: initial implementation.
+
+Sprint 6 connects actual Hound/Hellhound signal rows to Shadow Advisor without modifying Production Hound.
+
+Read sources:
+
+```text
+hound_scan_log
+hellhound_shadow_signals
+```
+
+The reader tries `hound_scan_log` first, then `hellhound_shadow_signals`. Reads use Supabase REST GET only.
+
+Flow:
+
+```text
+Real signal row
+  -> run_shadow_evaluation_pipeline()
+  -> PROMOTE/WATCH/REJECT
+  -> outputs/hellhound_shadow_decisions.jsonl
+```
+
+Primary module:
+
+```text
+real_shadow_feed.py
+test_real_shadow_feed.py
+```
+
+Primary APIs:
+
+```python
+load_recent_signals(limit=100)
+load_recent_outcomes(limit=500)
+build_real_shadow_decision(signal, outcome_rows=None)
+process_recent_signals(signals, outcome_rows=None, dry_run=True)
+write_shadow_feed_log(decisions)
+join_outcomes(signal, outcome_rows)
+```
+
+Default log path:
+
+```text
+outputs/hellhound_shadow_decisions.jsonl
+```
+
+Shadow log fields:
+
+```text
+symbol
+signal_time
+event_id
+hellhound_score
+promotion_status
+structure_type
+setup_type
+distribution_risk
+reasons
+actual_1h_outcome
+actual_4h_outcome
+actual_24h_outcome
+is_trade_command=false
+```
+
+Daily Open Alert Cluster:
+
+```text
+UTC 00:00 +/- 15m alerts
+cluster_id
+symbols
+alert_count
+avg_vol_ratio
+max_vol_ratio
+daily_open_cluster=true
+detection_delay_candidate=true
+```
+
+Cluster rows are written to the same JSONL shadow log with `record_type=daily_open_alert_cluster`.
+
+CLI:
+
+```bash
+python3 hell_engines/Hellhound/real_shadow_feed.py --limit 100 --dry-run
+```
+
+Mock dry-run:
+
+```bash
+python3 hell_engines/Hellhound/real_shadow_feed.py --limit 5 --dry-run --mock
+```
+
+Outcome join:
+
+```text
+hellhound_outcomes read-only join
+1h / 4h / 24h fields are null when no outcome row exists
+```
+
+Safety boundaries:
+
+- Hellhound-009 does not modify Production Hound/Ward/Core.
+- Hellhound-009 does not modify `backup_GrayMUG`.
+- Hellhound-009 does not use Binance order/trading endpoints.
+- Hellhound-009 does not update/delete DB rows.
+- Hellhound-009 does not apply `event_layer_schema.sql`.
+- Hellhound-009 does not stage, commit, or push git changes.
+
+## Hellhound-010 Library/API Boundary
+
+Status: initial implementation.
+
+Sprint 7 defines the safe communication boundary between future Production Hound callers and Hellhound.
+
+Principles:
+
+```text
+Hellhound does not trade.
+Hellhound does not return trade commands.
+Hellhound is Advisor Mode only.
+Production Hound remains the execution engine.
+```
+
+Implemented module:
+
+```text
+library_interface.py
+test_library_interface.py
+```
+
+Boundary inputs:
+
+```text
+signal row
+event row
+snapshot row
+signal batch
+```
+
+Boundary outputs:
+
+```text
+shadow_decision
+advisor_result
+cluster
+```
+
+Primary APIs:
+
+```python
+evaluate_signal_row(signal, shadow_signals=None, historical_candles=None, event_history=None)
+evaluate_event_row(event, signal=None, historical_candles=None)
+evaluate_snapshot_row(snapshot, signal=None)
+detect_cluster_rows(signals)
+evaluate_real_feed_row(signal, outcome_rows=None)
+```
+
+Output contract:
+
+```text
+hellhound_interface_version
+input_type
+output_type
+is_trade_command=false
+```
+
+Integration surface rule:
+
+```text
+entry_bias=neutral
+```
+
+Event Writer status:
+
+```text
+deferred
+append-only JSONL remains the persistence boundary
+event_layer_schema.sql is not applied
+```
+
+Safety boundaries:
+
+- Hellhound-010 does not modify Production Hound/Ward/Core.
+- Hellhound-010 does not modify `backup_GrayMUG`.
+- Hellhound-010 does not use Binance order/trading endpoints.
+- Hellhound-010 does not update/delete DB rows.
+- Hellhound-010 does not stage, commit, or push git changes.
+
+## Hellhound-011 Event Writer + Persistence
+
+Status: initial implementation.
+
+Sprint 8 adds append-only research persistence for Hellhound Event Layer outputs.
+
+Purpose:
+
+```text
+Lead Line input
+MFE/MAE input
+Mirror Pattern ML input
+Shadow Advisor audit history
+```
+
+Implemented module:
+
+```text
+event_writer.py
+test_event_writer.py
+```
+
+Default JSONL path:
+
+```text
+outputs/hellhound_event_layer.jsonl
+```
+
+Supported record types:
+
+```text
+shadow_decision
+daily_open_alert_cluster
+real_feed_outcome
+```
+
+Required event fields:
+
+```text
+event_id
+event_time
+record_type
+source
+hellhound_version
+symbol when available
+is_trade_command=false
+```
+
+Primary API:
+
+```python
+EventWriter(path).append_event(record)
+EventWriter(path).append_events(records)
+append_event(record, path=...)
+append_events(records, path=...)
+validate_event(record)
+record_from_boundary_output(payload)
+records_from_boundary_output(payload)
+```
+
+Validation rejects:
+
+```text
+missing required fields
+invalid record_type
+is_trade_command=true
+```
+
+Safety boundaries:
+
+- Hellhound-011 is append-only JSONL.
+- Hellhound-011 does not update/delete DB rows.
+- Hellhound-011 does not apply Supabase schema.
+- Hellhound-011 does not modify Production Hound/Ward/Core.
+- Hellhound-011 does not use Binance order/trading endpoints.
+- Hellhound-011 does not stage, commit, or push git changes.
+
+## Hellhound-012 Lead Line Dataset Builder
+
+Status: initial implementation.
+
+Sprint 9 asks:
+
+```text
+What did Hellhound see before the positive outcome?
+```
+
+Mission:
+
+```text
+Detection Delay reduction
+```
+
+Implemented module:
+
+```text
+lead_line_dataset.py
+test_lead_line_dataset.py
+```
+
+Input:
+
+```text
+outputs/hellhound_event_layer.jsonl
+```
+
+Outcome anchor:
+
+```text
+record_type=real_feed_outcome
+```
+
+Default windows:
+
+```text
+24h
+48h
+72h
+```
+
+Output:
+
+```text
+outputs/hellhound_lead_line_dataset.jsonl
+```
+
+Primary API:
+
+```python
+build_lead_line_dataset(...)
+collect_pre_outcome_events(...)
+create_lead_line_record(...)
+load_event_records(path)
+write_lead_line_dataset(rows, output_path=..., append=True)
+```
+
+Dataset row fields:
+
+```text
+lead_line_id
+symbol
+outcome_time
+hours_before_outcome
+saw_shadow_decision
+saw_daily_open_cluster
+promotion_status
+structure_type
+hellhound_score
+entry_bias
+signal_hour
+daily_open_cluster
+alert_count
+event_count
+is_trade_command=false
+```
+
+Safety boundaries:
+
+- Hellhound-012 is research-only.
+- Hellhound-012 is append-only JSONL.
+- Hellhound-012 does not modify Production Hound/Ward/Core.
+- Hellhound-012 does not use Binance endpoints.
+- Hellhound-012 does not update/delete DB rows.
+- Hellhound-012 does not stage, commit, or push git changes.
+
+## Hellhound-013 Outcome Window Validation
+
+Status: initial implementation.
+
+Sprint 10 asks:
+
+```text
+Did the Lead Line matter?
+```
+
+Mission:
+
+```text
+Detection Delay measurement
+```
+
+Implemented module:
+
+```text
+outcome_validator.py
+test_outcome_validator.py
+```
+
+Input:
+
+```text
+outputs/hellhound_lead_line_dataset.jsonl
+```
+
+Default windows:
+
+```text
+24h
+48h
+72h
+```
+
+Validation status:
+
+```text
+VALIDATED
+DELAYED
+INCONCLUSIVE
+REJECTED
+```
+
+Output:
+
+```text
+outputs/hellhound_validation_dataset.jsonl
+```
+
+Primary API:
+
+```python
+validate_lead_line(...)
+validate_outcome_window(...)
+create_validation_record(...)
+write_validation_dataset(...)
+load_lead_line_rows(path)
+```
+
+Validation row fields:
+
+```text
+validation_id
+lead_line_id
+symbol
+validation_status
+validation_window_hours
+hours_before_outcome
+saw_daily_open_cluster
+promotion_status
+structure_type
+daily_open_cluster
+alert_count
+event_count
+validation_score
+is_trade_command=false
+```
+
+Safety boundaries:
+
+- Hellhound-013 is research-only.
+- Hellhound-013 is append-only JSONL.
+- Hellhound-013 does not modify Production Hound/Ward/Core.
+- Hellhound-013 does not use Binance endpoints.
+- Hellhound-013 does not update/delete DB rows.
+- Hellhound-013 does not stage, commit, or push git changes.
+
+## Hellhound-014 MFE / MAE Engine
+
+Status: initial implementation.
+
+Sprint 11 asks:
+
+```text
+How much does this pattern usually pay?
+```
+
+Mission:
+
+```text
+Whale profit-zone learning
+```
+
+Implemented module:
+
+```text
+mfe_mae_engine.py
+test_mfe_mae_engine.py
+```
+
+Input:
+
+```text
+outputs/hellhound_validation_dataset.jsonl
+post-validation price path
+```
+
+Output:
+
+```text
+outputs/hellhound_mfe_mae_dataset.jsonl
+```
+
+Primary API:
+
+```python
+calculate_mfe(...)
+calculate_mae(...)
+calculate_time_to_peak(...)
+calculate_time_to_stop(...)
+create_mfe_mae_record(...)
+write_mfe_mae_dataset(...)
+aggregate_mfe_mae_by_structure(...)
+load_validation_rows(path)
+```
+
+Dataset row fields:
+
+```text
+mfe_mae_id
+lead_line_id
+symbol
+structure_type
+validation_status
+mfe_pct
+mae_pct
+time_to_peak_hours
+time_to_stop_hours
+peak_price
+stop_price
+outcome_price
+is_trade_command=false
+```
+
+Structure statistics:
+
+```text
+average_mfe
+median_mfe
+average_mae
+median_mae
+```
+
+Safety boundaries:
+
+- Hellhound-014 is research-only.
+- Hellhound-014 is append-only JSONL.
+- Hellhound-014 does not modify Production Hound/Ward/Core.
+- Hellhound-014 does not use Binance endpoints.
+- Hellhound-014 does not update/delete DB rows.
+- Hellhound-014 does not stage, commit, or push git changes.
+
+## Hellhound-014-A Production Interface v1
+
+Status: initial implementation.
+
+Sprint 11A asks:
+
+```text
+Can Production Hound call Hellhound as a modular advisory library without giving Hellhound trade authority?
+```
+
+Implemented module:
+
+```text
+production_interface.py
+test_production_interface.py
+```
+
+Adapter document:
+
+```text
+docs/020_HELLHOUND_PRODUCTION_INTERFACE.md
+```
+
+Input:
+
+```json
+{
+  "interface_version": "hellhound_production_interface_v1",
+  "mode": "shadow",
+  "cases": [
+    {
+      "case_id": "case-1",
+      "symbol": "BELUSDT",
+      "signal": {},
+      "snapshot": {}
+    }
+  ]
+}
+```
+
+Output:
+
+```json
+{
+  "interface_version": "hellhound_production_interface_v1",
+  "mode": "shadow",
+  "is_trade_command": false,
+  "results": [
+    {
+      "case_id": "case-1",
+      "symbol": "BELUSDT",
+      "structure_type": "BEL",
+      "promotion_status": "PROMOTE",
+      "hellhound_score": 0.72,
+      "entry_bias": "neutral",
+      "advisory": "WATCH_STRONG",
+      "risk_note": "shadow_only",
+      "is_trade_command": false
+    }
+  ]
+}
+```
+
+Primary API:
+
+```python
+validate_production_interface_input(payload)
+evaluate_case(case)
+evaluate_cases(cases)
+build_production_interface_response(results)
+enforce_non_trade_output(payload)
+evaluate_production_payload(payload)
+```
+
+Output contract:
+
+```text
+is_trade_command=false
+entry_bias=neutral
+risk_note=shadow_only
+```
+
+Safety boundaries:
+
+- Hellhound-014-A is advisory-only.
+- Hellhound-014-A does not modify Production Hound/Ward/Core.
+- Hellhound-014-A does not return trade commands.
+- Hellhound-014-A does not use Binance endpoints.
+- Hellhound-014-A does not update/delete DB rows.
+- Hellhound-014-A does not stage, commit, or push git changes.
