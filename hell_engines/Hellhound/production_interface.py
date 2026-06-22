@@ -165,7 +165,7 @@ def _advisory(*, promotion_status: str) -> str:
         return "WATCH_STRONG"
     if status == "REJECT":
         return "AVOID"
-    return "WATCH_NEUTRAL"
+    return "WATCH"
 
 
 def _clamp(value: Any) -> float:

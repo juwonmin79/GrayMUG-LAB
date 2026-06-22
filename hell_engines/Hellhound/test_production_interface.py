@@ -127,6 +127,37 @@ class ProductionInterfaceTest(unittest.TestCase):
             result["reasons"],
         )
 
+    def test_disabled_library_decision_returns_signal_based_advisory(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+        result = evaluate_case(
+            {
+                "case_id": "case-fallback",
+                "symbol": "BELUSDT",
+                "signal": {
+                    "symbol": "BELUSDT",
+                    "price": 1.23,
+                    "rsi": 58,
+                    "volume_ratio": 2.8,
+                    "rs_value": 1.08,
+                    "rs_rising": True,
+                    "fng": 55,
+                    "passes_entry": True,
+                    "is_whale": False,
+                    "reasons": [],
+                    "spike_type": "volume",
+                    "volume_spike": True,
+                    "taker_buy_ratio": 0.64,
+                },
+            }
+        )
+
+        self.assertEqual(result["structure_type"], "BEL")
+        self.assertEqual(result["promotion_status"], "PROMOTE")
+        self.assertEqual(result["advisory"], "WATCH_STRONG")
+        self.assertGreater(result["hellhound_score"], 0.0)
+        self.assertEqual(result["entry_bias"], "neutral")
+        self.assertFalse(result["is_trade_command"])
+
     def test_production_interface_source_has_no_binance_or_db_mutation_endpoint(self) -> None:
         source = inspect.getsource(production_interface)
 

@@ -13,6 +13,9 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 
+# Supabase local temp
+supabase/
+
 # macOS
 .DS_Store
 

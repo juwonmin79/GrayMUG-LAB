@@ -90,6 +90,100 @@ class LibraryInterfaceTest(unittest.TestCase):
         self.assertEqual(result["entry_bias"], "neutral")
         self.assertFalse(result["is_trade_command"])
 
+    def test_disabled_optional_import_uses_strong_bel_signal_fallback(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+        result = evaluate_signal_row(_production_signal("BELUSDT"))
+
+        self.assertEqual(result["structure_type"], "BEL")
+        self.assertEqual(result["promotion_status"], "PROMOTE")
+        self.assertGreater(result["hellhound_score"], 0.0)
+        self.assertEqual(result["entry_bias"], "neutral")
+        self.assertFalse(result["is_trade_command"])
+
+    def test_weak_signal_fallback_rejects_without_crashing(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+        result = evaluate_signal_row(
+            {
+                "symbol": "WEAKUSDT",
+                "rsi": 33,
+                "volume_ratio": 0.2,
+                "rs_rising": False,
+                "passes_entry": False,
+                "is_whale": False,
+                "reasons": ["weak volume", "risk elevated"],
+            }
+        )
+
+        self.assertEqual(result["promotion_status"], "REJECT")
+        self.assertLess(result["hellhound_score"], 0.35)
+        self.assertFalse(result["is_trade_command"])
+
+    def test_high_rsi_or_candle_tail_fallback_is_act(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+        high_rsi = evaluate_signal_row(_production_signal("ACTUSDT", rsi=74, reasons=[]))
+        candle_tail = evaluate_signal_row(_production_signal("TAILUSDT", rsi=55, reasons=["candle_tail detected"]))
+
+        self.assertEqual(high_rsi["structure_type"], "ACT")
+        self.assertEqual(candle_tail["structure_type"], "ACT")
+        self.assertFalse(high_rsi["is_trade_command"])
+        self.assertFalse(candle_tail["is_trade_command"])
+
+    def test_passes_entry_increases_fallback_score(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+        base = _production_signal("BASEUSDT", passes_entry=False, is_whale=False)
+        entry = _production_signal("ENTRYUSDT", passes_entry=True, is_whale=False)
+
+        base_result = evaluate_signal_row(base)
+        entry_result = evaluate_signal_row(entry)
+
+        self.assertGreater(entry_result["hellhound_score"], base_result["hellhound_score"])
+        self.assertFalse(entry_result["is_trade_command"])
+
+    def test_malformed_signal_fields_are_fail_safe_non_trade(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+        result = evaluate_signal_row(
+            {
+                "symbol": "BADUSDT",
+                "rsi": "not-a-number",
+                "volume_ratio": None,
+                "rs_rising": "no",
+                "passes_entry": "bad",
+                "reasons": "weak data",
+            }
+        )
+
+        self.assertEqual(result["structure_type"], "UNCLASSIFIED")
+        self.assertEqual(result["promotion_status"], "REJECT")
+        self.assertEqual(result["entry_bias"], "neutral")
+        self.assertFalse(result["is_trade_command"])
+
+
+def _production_signal(
+    symbol: str,
+    *,
+    rsi: float = 58,
+    volume_ratio: float = 2.8,
+    rs_rising: bool = True,
+    passes_entry: bool = True,
+    is_whale: bool = False,
+    reasons: list[str] | None = None,
+) -> dict[str, object]:
+    return {
+        "symbol": symbol,
+        "price": 1.23,
+        "rsi": rsi,
+        "volume_ratio": volume_ratio,
+        "rs_value": 1.08,
+        "rs_rising": rs_rising,
+        "fng": 55,
+        "passes_entry": passes_entry,
+        "is_whale": is_whale,
+        "reasons": [] if reasons is None else reasons,
+        "spike_type": "volume",
+        "volume_spike": True,
+        "taker_buy_ratio": 0.64,
+    }
+
 
 if __name__ == "__main__":
     unittest.main()
