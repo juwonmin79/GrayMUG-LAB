@@ -122,6 +122,7 @@ def build_real_shadow_decision(
     signal: Mapping[str, Any],
     *,
     outcome_rows: Optional[Sequence[Mapping[str, Any]]] = None,
+    decision_enabled: Optional[bool] = True,
 ) -> Dict[str, Any]:
     symbol = str(signal.get("symbol") or signal.get("market") or "").upper()
     if not symbol:
@@ -131,6 +132,7 @@ def build_real_shadow_decision(
         signal=signal,
         shadow_signals=[signal],
         log_path=None,
+        decision_enabled=decision_enabled,
     )
     decision = dict(pipeline.get("hellhound_decision") or {})
     outcomes = join_outcomes(signal, outcome_rows or [])
@@ -141,11 +143,13 @@ def build_real_shadow_decision(
         "event_id": decision.get("event_id"),
         "hellhound_score": decision.get("hellhound_score", 0.0),
         "promotion_status": decision.get("promotion_status", "WATCH"),
+        "advisory": decision.get("advisory", "WATCH"),
         "structure_type": decision.get("structure_type", "UNAVAILABLE"),
         "setup_type": decision.get("setup_type"),
         "distribution_risk": decision.get("distribution_risk", 0.0),
         "entry_bias": decision.get("entry_bias", "neutral"),
         "reasons": decision.get("reasons", []),
+        "decision_source": decision.get("decision_source"),
         "actual_1h_outcome": outcomes.get("actual_1h_outcome"),
         "actual_4h_outcome": outcomes.get("actual_4h_outcome"),
         "actual_24h_outcome": outcomes.get("actual_24h_outcome"),
@@ -159,9 +163,10 @@ def process_recent_signals(
     outcome_rows: Optional[Sequence[Mapping[str, Any]]] = None,
     output_path: Optional[Path] = DEFAULT_OUTPUT_PATH,
     dry_run: bool = True,
+    decision_enabled: Optional[bool] = True,
 ) -> Dict[str, Any]:
     decisions = [
-        build_real_shadow_decision(signal, outcome_rows=outcome_rows)
+        build_real_shadow_decision(signal, outcome_rows=outcome_rows, decision_enabled=decision_enabled)
         for signal in signals
     ]
     clusters = detect_daily_open_clusters(signals)

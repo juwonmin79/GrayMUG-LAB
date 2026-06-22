@@ -6,7 +6,8 @@ Current state:
 
 ```text
 WhaleLab Foundation Complete.
-Hellhound Outcome Window Validation.
+Hellhound Production Shadow Pipeline verified.
+Pre-ML observation collection active.
 ```
 
 ## 1. Project Vision
@@ -188,7 +189,7 @@ Direct production modification: forbidden
 
 ## 6. Hellhound Status
 
-Hellhound-013 Outcome Window Validation is the current active track.
+Hellhound Pre-ML observation collection is the current active track.
 
 Completed:
 
@@ -248,15 +249,28 @@ Communication: library/API boundary
 Persistence: append-only JSONL
 Dataset: Lead Line pre-outcome rows
 Validation: Outcome window rows
+MFE/MAE: structure performance rows
+Feedback: Production Shadow research dataset
 ```
+
+Production Shadow Pipeline status:
+
+```text
+Production Hound
+  -> Hellhound
+  -> production_hellhound_shadow.jsonl
+  -> outputs/hellhound_feedback_dataset.jsonl
+```
+
+This pipeline is built and verified. LAB now focuses on missed cases, success cases, delay measurement, and structure outcome ranking before any ML work starts.
 
 ## 7. Current Roadmap
 
 Current stage:
 
 ```text
-Hellhound-013
-Outcome Window Validation
+Pre-ML Phase
+Observation Collection Before ML
 ```
 
 The current implementation target is a detachable, fail-safe advisor API that:
@@ -275,6 +289,12 @@ The current implementation target is a detachable, fail-safe advisor API that:
 - Persists validated Event Layer records to `outputs/hellhound_event_layer.jsonl`.
 - Builds lead-line candidate rows at `outputs/hellhound_lead_line_dataset.jsonl`.
 - Validates lead-line rows at `outputs/hellhound_validation_dataset.jsonl`.
+- Measures MFE/MAE at `outputs/hellhound_mfe_mae_dataset.jsonl`.
+- Registers missed cases at `outputs/hellhound_missed_cases.jsonl`.
+- Registers success cases at `outputs/hellhound_success_cases.jsonl`.
+- Ranks structure outcomes at `outputs/hellhound_structure_stats.jsonl`.
+- Reports detection delay at `outputs/hellhound_detection_delay_report.jsonl`.
+- Converts Production Shadow output into `outputs/hellhound_feedback_dataset.jsonl`.
 - Exposes `evaluate_symbol(symbol, as_of_time=None) -> dict`.
 - Does not place orders.
 - Does not mutate production tables.
@@ -304,6 +324,17 @@ Implemented Hellhound-005 files:
 - `hell_engines/Hellhound/test_lead_line_dataset.py`
 - `hell_engines/Hellhound/outcome_validator.py`
 - `hell_engines/Hellhound/test_outcome_validator.py`
+- `hell_engines/Hellhound/mfe_mae_engine.py`
+- `hell_engines/Hellhound/test_mfe_mae_engine.py`
+- `hell_engines/Hellhound/production_interface.py`
+- `hell_engines/Hellhound/test_production_interface.py`
+- `hell_engines/Hellhound/missed_case_registry.py`
+- `hell_engines/Hellhound/success_case_registry.py`
+- `hell_engines/Hellhound/structure_outcome_ranking.py`
+- `hell_engines/Hellhound/detection_delay_report.py`
+- `hell_engines/Hellhound/production_feedback_dataset.py`
+- `hell_engines/Hellhound/decision_api.py`
+- `hell_engines/Hellhound/integration_stub.py`
 
 Schema draft:
 
@@ -469,6 +500,7 @@ Start with these documents:
 | Document | Purpose |
 | :--- | :--- |
 | `docs/004_PROJECT_STATE.md` | Current project state |
+| `docs/000_GOVERNANCE.md` | Mission, ownership, boundaries, non-negotiable rules |
 | `docs/005_ARCHITECTURE_MAP.md` | Architecture map |
 | `docs/006_DEVELOPMENT_RULES.md` | Development and safety rules |
 | `docs/014_HOUND_INTERFACE_AUDIT.md` | Hound attachment audit |
@@ -478,6 +510,9 @@ Start with these documents:
 | `docs/018_HELLHOUND_001C_ORACLEJP_SUPABASE_SHADOW_NODE_PLAN.md` | OracleJP-Supabase shadow node plan |
 | `docs/019_HELLHOUND_EVENT_LAYER.md` | Hellhound Event Layer and research pipeline |
 | `docs/020_HELLHOUND_PRODUCTION_INTERFACE.md` | Hellhound Production Interface v1 adapter boundary |
+| `docs/021_ECOSYSTEM_ARCHITECTURE.md` | LAB / Production ecosystem and role separation |
+| `docs/022_MISSED_BTC_CASE_REVIEW.md` | Fixed missed BTC rise case review |
+| `docs/023_HELLHOUND_OPTIONAL_DECISION_IMPORT.md` | Sprint 12A optional decision import root cause and activation |
 
 For WhaleLab foundation details:
 
@@ -499,5 +534,6 @@ WhaleLab builds validated LAB context.
 Hell Engines test evolution candidates.
 Production Engines remain protected.
 Hellhound can advise Production Hound only through versioned, non-trading interfaces.
+ML starts only after missed, success, delay, feedback, and structure datasets have enough real observations.
 Every result must flow back to BTC quantity growth.
 ```

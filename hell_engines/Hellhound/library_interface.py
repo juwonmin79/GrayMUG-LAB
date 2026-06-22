@@ -22,6 +22,7 @@ def evaluate_signal_row(
     candles_by_timeframe: Optional[Mapping[str, Sequence[Mapping[str, Any]]]] = None,
     historical_candles: Optional[Sequence[Mapping[str, Any]]] = None,
     event_history: Optional[Sequence[Mapping[str, Any]]] = None,
+    decision_enabled: Optional[bool] = True,
 ) -> Dict[str, Any]:
     """Pure library boundary for a Hound/Hellhound signal row."""
     symbol = str(signal.get("symbol") or signal.get("market") or "").upper()
@@ -34,6 +35,7 @@ def evaluate_signal_row(
         candles_by_timeframe=candles_by_timeframe,
         historical_candles=historical_candles,
         event_history=event_history,
+        decision_enabled=decision_enabled,
     )
     if _needs_signal_fallback(result):
         result = _fallback_signal_decision(symbol, signal, source_error=result.get("error"))
@@ -49,6 +51,7 @@ def evaluate_event_row(
     *,
     signal: Optional[Mapping[str, Any]] = None,
     historical_candles: Optional[Sequence[Mapping[str, Any]]] = None,
+    decision_enabled: Optional[bool] = True,
 ) -> Dict[str, Any]:
     """Pure library boundary for an event row. Persistence is intentionally out of scope."""
     symbol = str(event.get("symbol") or (signal or {}).get("symbol") or "").upper()
@@ -68,6 +71,7 @@ def evaluate_event_row(
         shadow_signals=[input_signal],
         historical_candles=historical_candles,
         event_history=[event],
+        decision_enabled=decision_enabled,
     )
     return _with_boundary(
         result,
@@ -80,6 +84,7 @@ def evaluate_snapshot_row(
     snapshot: Mapping[str, Any],
     *,
     signal: Optional[Mapping[str, Any]] = None,
+    decision_enabled: Optional[bool] = True,
 ) -> Dict[str, Any]:
     """Pure library boundary for a snapshot row. Snapshot rows are advisory only."""
     symbol = str(snapshot.get("symbol") or (signal or {}).get("symbol") or "").upper()
@@ -98,6 +103,7 @@ def evaluate_snapshot_row(
         signal=input_signal,
         shadow_signals=[input_signal],
         log_path=None,
+        decision_enabled=decision_enabled,
     )
     return _with_boundary(
         pipeline,
@@ -225,10 +231,12 @@ def _fallback_signal_decision(
         "structure_type": structure_type,
         "setup_type": structure_type,
         "promotion_status": promotion_status,
+        "advisory": _advisory(promotion_status),
         "distribution_risk": 0.0,
         "entry_bias": "neutral",
         "reasons": fallback_reasons,
         "event_id": signal.get("event_id"),
+        "decision_source": "signal_fallback",
         "is_trade_command": False,
     }
 
@@ -262,6 +270,15 @@ def _promotion_status(score: float) -> str:
     if score >= 0.35:
         return "WATCH"
     return "REJECT"
+
+
+def _advisory(promotion_status: str) -> str:
+    status = str(promotion_status or "WATCH").upper()
+    if status == "PROMOTE":
+        return "WATCH_STRONG"
+    if status == "REJECT":
+        return "AVOID"
+    return "WATCH"
 
 
 def _is_negative_reason(reason: str) -> bool:

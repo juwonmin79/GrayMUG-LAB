@@ -12,14 +12,10 @@ def optional_hellhound_decision(
     historical_candles: Optional[Sequence[Mapping[str, Any]]] = None,
     event_history: Optional[Sequence[Mapping[str, Any]]] = None,
     as_of_time: Optional[str] = None,
+    decision_enabled: Optional[bool] = None,
 ) -> Dict[str, Any]:
     """Example-only Hound integration point. Production Hound is not modified here."""
-    if os.environ.get("HELLHOUND_DECISION_ENABLED", "false").strip().lower() not in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }:
+    if not _decision_enabled(decision_enabled):
         return _neutral_shadow_advice(symbol, "Hellhound optional decision import is disabled.")
 
     try:
@@ -43,6 +39,7 @@ def optional_hellhound_decision(
             candles_by_timeframe=candles_by_timeframe,
             historical_candles=historical_candles,
             event_history=event_history,
+            decision_enabled=decision_enabled,
         )
         if evaluation.get("error"):
             return _neutral_shadow_advice(symbol, str(evaluation["error"]))
@@ -63,10 +60,12 @@ def optional_hellhound_decision(
             "structure_type": evaluation.get("structure_type", "UNKNOWN"),
             "setup_type": evaluation.get("setup_type"),
             "promotion_status": promotion["promotion_status"],
+            "advisory": _advisory(promotion["promotion_status"]),
             "distribution_risk": evaluation.get("distribution_risk", 0.0),
             "entry_bias": "neutral",
             "reasons": list(evaluation.get("reasons") or []) + promotion["reasons"],
             "event_id": evaluation.get("event_id"),
+            "decision_source": "decision_api",
             "is_trade_command": False,
         }
     except Exception as exc:
@@ -82,10 +81,32 @@ def _neutral_shadow_advice(symbol: str, error: str) -> Dict[str, Any]:
         "structure_type": "UNAVAILABLE",
         "setup_type": None,
         "promotion_status": "WATCH",
+        "advisory": "WATCH_NEUTRAL",
         "distribution_risk": 0.0,
         "entry_bias": "neutral",
         "reasons": ["Hellhound Shadow Advisor returned fail-safe neutral."],
         "event_id": None,
+        "decision_source": "fail_safe",
         "is_trade_command": False,
         "error": error,
     }
+
+
+def _decision_enabled(explicit: Optional[bool]) -> bool:
+    if explicit is not None:
+        return explicit
+    return os.environ.get("HELLHOUND_DECISION_ENABLED", "false").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+
+def _advisory(promotion_status: Any) -> str:
+    status = str(promotion_status or "WATCH").upper()
+    if status == "PROMOTE":
+        return "WATCH_STRONG"
+    if status == "REJECT":
+        return "AVOID"
+    return "WATCH"

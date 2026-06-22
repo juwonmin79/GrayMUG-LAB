@@ -133,6 +133,7 @@ class ProductionInterfaceTest(unittest.TestCase):
             {
                 "case_id": "case-fallback",
                 "symbol": "BELUSDT",
+                "decision_enabled": False,
                 "signal": {
                     "symbol": "BELUSDT",
                     "price": 1.23,

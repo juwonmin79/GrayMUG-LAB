@@ -47,6 +47,7 @@ def evaluate_case(case: Mapping[str, Any]) -> Dict[str, Any]:
         candles_by_timeframe=_candles_by_timeframe(case),
         historical_candles=case.get("historical_candles"),
         event_history=case.get("event_history"),
+        decision_enabled=case.get("decision_enabled", True),
     )
     result = {
         "case_id": case_id,

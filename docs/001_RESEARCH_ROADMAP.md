@@ -305,3 +305,45 @@
   - Hellhound는 trade command를 반환하지 않음.
   - v1/v2/v3 library 병렬 유지 가능.
   - LAB은 계속 진화하고 Production은 검증된 stable version만 선택.
+
+---
+
+## Phase 15: Pre-ML Observation Collection
+* **목표**: ML 모델 개발 전 Hellhound가 실제 시장에서 무엇을 놓쳤고, 무엇을 맞췄고, 얼마나 늦었는지 축적한다.
+* **현재 원칙**:
+  - 모델을 만들지 않는다.
+  - 먼저 실패/성공/지연/구조별 outcome을 기록한다.
+  - Production Hound/Ward/Core는 수정하지 않는다.
+  - 모든 출력은 `is_trade_command=false`.
+* **ML 보류 대상**:
+  - LSTM
+  - Transformer
+  - Deep Learning
+  - Embedding DB
+  - Vector Search
+  - Fine-tuning
+  - GPU 학습
+  - Feature Explosion
+* **구현 상태**:
+  1. `missed_case_registry.py`: 상승 이후 발견된 감지 실패 사례를 `outputs/hellhound_missed_cases.jsonl`에 append-only 기록.
+  2. `success_case_registry.py`: Hellhound가 사전에 포착한 성공 사례를 `outputs/hellhound_success_cases.jsonl`에 append-only 기록.
+  3. `structure_outcome_ranking.py`: `BEL`, `ACT`, `ACE`, `MET`, `NIGHT` 구조별 발생 횟수, `VALIDATED` 비율, 평균 MFE, 평균 MAE, 평균 Time To Peak 집계.
+  4. `detection_delay_report.py`: Signal Time, Outcome Time, Delay Hours 및 평균/중앙값/최소/최대 지연 집계.
+  5. `production_feedback_dataset.py`: `production_hellhound_shadow.jsonl`을 연구용 `outputs/hellhound_feedback_dataset.jsonl`로 변환.
+* **고정 케이스**:
+  - 최근 BTC 상승은 `docs/022_MISSED_BTC_CASE_REVIEW.md`에 missed case로 고정한다.
+* **완료 기준**:
+  - 성공 사례, 실패 사례, 지연 사례를 모두 축적할 수 있는 상태.
+  - 그 다음 단계에서만 ML 설계를 시작한다.
+
+### Phase 15-A: Optional Decision Import Activation
+* **목표**: `source_error=Hellhound optional decision import is disabled.` 반복 원인을 규명하고 fallback이 아닌 실제 decision path를 활성화한다.
+* **원인**:
+  - `integration_stub.optional_hellhound_decision()`과 `decision_api.evaluate_symbol()`의 이중 feature flag gate.
+  - 기본 `HELLHOUND_DECISION_ENABLED=false` 때문에 import 이전 또는 decision API 내부에서 fail-safe neutral 반환.
+* **수정**:
+  - LAB/library shadow path는 `decision_enabled=True`를 명시 전달.
+  - 명시적으로 `decision_enabled=False`를 넘긴 경우에만 fallback evaluator 사용.
+  - 실제 decision 결과에는 `decision_source=decision_api`를 포함.
+* **상세 문서**:
+  - `docs/023_HELLHOUND_OPTIONAL_DECISION_IMPORT.md`

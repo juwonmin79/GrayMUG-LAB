@@ -28,10 +28,11 @@ def evaluate_symbol(
     candles_by_timeframe: Optional[Mapping[str, Sequence[Mapping[str, Any]]]] = None,
     historical_candles: Optional[Sequence[Mapping[str, Any]]] = None,
     event_history: Optional[Sequence[Mapping[str, Any]]] = None,
+    decision_enabled: Optional[bool] = None,
 ) -> Dict[str, Any]:
     """Optional Hound-facing decision API. Default is OFF and fail-safe."""
     try:
-        if not _decision_enabled():
+        if not _decision_enabled(decision_enabled):
             return _neutral_response(
                 symbol,
                 as_of_time=as_of_time,
@@ -150,7 +151,9 @@ def _neutral_response(symbol: str, *, as_of_time: Optional[str], error: str) -> 
     }
 
 
-def _decision_enabled() -> bool:
+def _decision_enabled(explicit: Optional[bool] = None) -> bool:
+    if explicit is not None:
+        return explicit
     raw = os.environ.get("HELLHOUND_DECISION_ENABLED", "false")
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 

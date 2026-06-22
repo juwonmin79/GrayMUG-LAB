@@ -30,7 +30,11 @@
 | Hellhound Lead Line Dataset | Initial implementation | pre-outcome event collection, lead-line candidate dataset, detection delay research |
 | Hellhound Outcome Validation | Initial implementation | validation windows, VALIDATED/DELAYED/INCONCLUSIVE/REJECTED, validation dataset |
 | Hellhound Production Interface v1 | Initial implementation | case batch advisory boundary, non-trade output enforcement, future adapter contract |
-| ML Core | Planned | Whale Type ML, Sector ML, Capital Rotation Forecast 예정 |
+| Hellhound MFE/MAE Engine | Initial implementation | MFE, MAE, peak/stop timing, structure aggregation |
+| Production Shadow Pipeline | Verified | Production Hound -> Hellhound -> production_hellhound_shadow.jsonl verified |
+| Pre-ML Observation Collection | Initial implementation | missed/success cases, delay report, structure stats, feedback dataset |
+| Optional Decision Import | Activated for LAB/library shadow paths | `decision_enabled=True`, `decision_source=decision_api`, fallback still explicit |
+| ML Core | Deferred | ML design postponed until observation data is sufficient |
 
 ---
 
@@ -523,13 +527,60 @@
   - empty cases 처리.
   - 기존 `library_interface` 호환.
 
+### Hellhound Pre-ML Observation Collection
+* 목적:
+  - ML 이전에 Hellhound의 실전 관찰 결과를 축적한다.
+  - "무엇을 놓쳤는가"를 체계적으로 기록한다.
+* 구현 파일:
+  - `hell_engines/Hellhound/missed_case_registry.py`
+  - `hell_engines/Hellhound/success_case_registry.py`
+  - `hell_engines/Hellhound/structure_outcome_ranking.py`
+  - `hell_engines/Hellhound/detection_delay_report.py`
+  - `hell_engines/Hellhound/production_feedback_dataset.py`
+  - `hell_engines/Hellhound/test_case_registries.py`
+  - `hell_engines/Hellhound/test_pre_ml_datasets.py`
+* 출력:
+  - `outputs/hellhound_missed_cases.jsonl`
+  - `outputs/hellhound_success_cases.jsonl`
+  - `outputs/hellhound_structure_stats.jsonl`
+  - `outputs/hellhound_detection_delay_report.jsonl`
+  - `outputs/hellhound_feedback_dataset.jsonl`
+* 구조별 대상:
+  - `BEL`
+  - `ACT`
+  - `ACE`
+  - `MET`
+  - `NIGHT`
+* 검증:
+  - missed/success case record 생성.
+  - append-only JSONL writer.
+  - structure별 발생 횟수, VALIDATED 비율, 평균 MFE/MAE/Time To Peak.
+  - detection delay 평균/중앙값/최소/최대.
+  - Production Shadow row의 feedback dataset 변환.
+  - 모든 output `is_trade_command=false`.
+
+### Sprint 12A Optional Decision Import
+* 목적:
+  - `source_error=Hellhound optional decision import is disabled.` 반복 원인 조사.
+  - fallback evaluator가 아니라 실제 decision path 활성화.
+* 원인:
+  - `integration_stub.py`와 `decision_api.py` 모두 `HELLHOUND_DECISION_ENABLED=false` 기본값으로 fail-safe neutral을 반환했다.
+  - import 대상 파일은 존재했고 ImportError가 아니었다.
+* 수정:
+  - `optional_hellhound_decision(..., decision_enabled=...)`
+  - `evaluate_symbol(..., decision_enabled=...)`
+  - LAB/library/real shadow/production interface 호출부는 기본 `decision_enabled=True`.
+  - 명시적 fallback은 `decision_enabled=False`로 유지.
+* 상세:
+  - `docs/023_HELLHOUND_OPTIONAL_DECISION_IMPORT.md`
+
 ---
 
 ## 3. In Progress
 
-### Hellhound Event Persistence 준비
-* Event builder, Accumulation Intelligence, Shadow Promotion, Shadow Advisor, Real Shadow Feed는 로컬/API 레이어 구현 완료.
-* 다음 단계는 `event_layer_schema.sql`을 LAB Supabase에 적용하고 `hellhound_events`, `hellhound_event_observations`, `hellhound_mtf_snapshots` insert-only writer를 추가하는 것이다.
+### Pre-ML Dataset Accumulation
+* 현재 최우선 작업은 missed case, success case, detection delay, structure stats, production feedback dataset을 실제 관찰 데이터로 채우는 것이다.
+* ML 모델 설계는 관찰 데이터가 충분해질 때까지 보류한다.
 * Production table update/delete는 여전히 금지한다.
 
 ### WhaleLab-006 준비
@@ -540,7 +591,14 @@
   - 각 출력은 Core / Ward / Hound 중 하나에 명확히 귀속되어야 한다.
 
 ### ML Core
+* 보류.
 * 아직 Production 편입 대상이 아님.
+* 시작 조건:
+  - missed case 축적.
+  - success case 축적.
+  - delay case 축적.
+  - structure outcome ranking 축적.
+  - Production feedback dataset 축적.
 * 연구 후보:
   - Whale Type ML
   - Sector Flow ML
@@ -590,3 +648,7 @@ GrayMUG의 현재 핵심 가설은 다음과 같다.
 WhaleLab-005 기준 최종 정의는 다음과 같다.
 
 > Core는 BTC를 모은다. Ward는 살아남게 한다. Hound는 알트를 사냥한다. Whale Link Flow는 세 엔진을 연결한다. 모든 결과는 BTC 수량 증가로 환류된다.
+
+Pre-ML Phase 기준 최종 정의는 다음과 같다.
+
+> 지금은 모델을 만드는 단계가 아니다. Hellhound가 무엇을 놓쳤는지, 무엇을 맞췄는지, 얼마나 늦었는지를 append-only 데이터로 축적하는 단계다. Mission is Boss.

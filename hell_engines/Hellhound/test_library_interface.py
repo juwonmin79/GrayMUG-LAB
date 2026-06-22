@@ -25,13 +25,14 @@ except ImportError:
 
 class LibraryInterfaceTest(unittest.TestCase):
     def test_signal_interface_returns_non_trade_shadow_decision(self) -> None:
-        os.environ["HELLHOUND_DECISION_ENABLED"] = "true"
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
         signal = mock_signal_rows(1)[0]
 
         result = evaluate_signal_row(signal, shadow_signals=[signal])
 
         self.assertEqual(result["input_type"], "signal")
         self.assertEqual(result["output_type"], "shadow_decision")
+        self.assertEqual(result["decision_source"], "decision_api")
         self.assertEqual(result["entry_bias"], "neutral")
         self.assertFalse(result["is_trade_command"])
 
@@ -92,10 +93,11 @@ class LibraryInterfaceTest(unittest.TestCase):
 
     def test_disabled_optional_import_uses_strong_bel_signal_fallback(self) -> None:
         os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
-        result = evaluate_signal_row(_production_signal("BELUSDT"))
+        result = evaluate_signal_row(_production_signal("BELUSDT"), decision_enabled=False)
 
         self.assertEqual(result["structure_type"], "BEL")
         self.assertEqual(result["promotion_status"], "PROMOTE")
+        self.assertEqual(result["decision_source"], "signal_fallback")
         self.assertGreater(result["hellhound_score"], 0.0)
         self.assertEqual(result["entry_bias"], "neutral")
         self.assertFalse(result["is_trade_command"])
@@ -111,7 +113,8 @@ class LibraryInterfaceTest(unittest.TestCase):
                 "passes_entry": False,
                 "is_whale": False,
                 "reasons": ["weak volume", "risk elevated"],
-            }
+            },
+            decision_enabled=False,
         )
 
         self.assertEqual(result["promotion_status"], "REJECT")
@@ -120,8 +123,11 @@ class LibraryInterfaceTest(unittest.TestCase):
 
     def test_high_rsi_or_candle_tail_fallback_is_act(self) -> None:
         os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
-        high_rsi = evaluate_signal_row(_production_signal("ACTUSDT", rsi=74, reasons=[]))
-        candle_tail = evaluate_signal_row(_production_signal("TAILUSDT", rsi=55, reasons=["candle_tail detected"]))
+        high_rsi = evaluate_signal_row(_production_signal("ACTUSDT", rsi=74, reasons=[]), decision_enabled=False)
+        candle_tail = evaluate_signal_row(
+            _production_signal("TAILUSDT", rsi=55, reasons=["candle_tail detected"]),
+            decision_enabled=False,
+        )
 
         self.assertEqual(high_rsi["structure_type"], "ACT")
         self.assertEqual(candle_tail["structure_type"], "ACT")
@@ -133,8 +139,8 @@ class LibraryInterfaceTest(unittest.TestCase):
         base = _production_signal("BASEUSDT", passes_entry=False, is_whale=False)
         entry = _production_signal("ENTRYUSDT", passes_entry=True, is_whale=False)
 
-        base_result = evaluate_signal_row(base)
-        entry_result = evaluate_signal_row(entry)
+        base_result = evaluate_signal_row(base, decision_enabled=False)
+        entry_result = evaluate_signal_row(entry, decision_enabled=False)
 
         self.assertGreater(entry_result["hellhound_score"], base_result["hellhound_score"])
         self.assertFalse(entry_result["is_trade_command"])
@@ -149,7 +155,8 @@ class LibraryInterfaceTest(unittest.TestCase):
                 "rs_rising": "no",
                 "passes_entry": "bad",
                 "reasons": "weak data",
-            }
+            },
+            decision_enabled=False,
         )
 
         self.assertEqual(result["structure_type"], "UNCLASSIFIED")

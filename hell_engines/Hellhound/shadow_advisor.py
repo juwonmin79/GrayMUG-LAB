@@ -19,6 +19,7 @@ def run_shadow_evaluation_pipeline(
     historical_candles: Optional[Sequence[Mapping[str, Any]]] = None,
     event_history: Optional[Sequence[Mapping[str, Any]]] = None,
     log_path: Optional[Union[Path, str]] = None,
+    decision_enabled: Optional[bool] = True,
 ) -> Dict[str, Any]:
     """Hound Signal -> Hellhound Evaluate -> Shadow Decision -> file log only."""
     try:
@@ -33,6 +34,7 @@ def run_shadow_evaluation_pipeline(
             shadow_signals=shadow_signals,
             historical_candles=historical_candles,
             event_history=event_history,
+            decision_enabled=decision_enabled,
         )
         audit = audit_decision(
             symbol=symbol,
@@ -206,9 +208,11 @@ def _neutral_advice(symbol: str, error: str) -> Dict[str, Any]:
         "structure_type": "UNAVAILABLE",
         "setup_type": None,
         "promotion_status": "WATCH",
+        "advisory": "WATCH_NEUTRAL",
         "distribution_risk": 0.0,
         "entry_bias": "neutral",
         "reasons": ["Hellhound Shadow Advisor returned fail-safe neutral."],
+        "decision_source": "fail_safe",
         "is_trade_command": False,
         "error": error,
     }
