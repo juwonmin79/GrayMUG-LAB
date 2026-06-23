@@ -347,3 +347,31 @@
   - 실제 decision 결과에는 `decision_source=decision_api`를 포함.
 * **상세 문서**:
   - `docs/023_HELLHOUND_OPTIONAL_DECISION_IMPORT.md`
+
+---
+
+## Phase 16: Wave Engine v0 Dataset Layer
+* **목표**: 새로운 매매 로직이 아니라 Wave Engine용 Dataset Layer를 구축한다.
+* **원칙**:
+  - 기존 Entry/Exit 로직 수정 금지.
+  - 기존 Signal Scoring 수정 금지.
+  - 기존 Hound Position 구조 수정 금지.
+  - Wave Feature를 판단 로직에 반영 금지.
+* **구현 상태**:
+  1. `wave_snapshot.py`: `_build_snapshot(symbol, timeframe, timestamp)` state vector 생성.
+  2. Snapshot Layer: `price_vs_ma20`, `price_vs_ma99`, volume ratio, RSI, MACD hist, BTC trend/weather, signal open context.
+  3. Diff Layer: `Diff_A = Snapshot(T-1) - Snapshot(T-2)`, `Diff_B = Snapshot(T0) - Snapshot(T-1)`.
+  4. Delta Layer: `Delta = Diff_B - Diff_A`.
+  5. Wave Log: `outputs/hellhound_wave_log.jsonl` append-only dataset writer.
+  6. `hound_wave_log_schema.sql`: future table schema draft only.
+  7. `wave_outcome_updater.py`: 6h/24h/72h MFE/MAE/Time To Peak outcome fields 생성. DB update 없음.
+* **성공 조건**:
+  - 30건 이상 Wave row 축적.
+  - Delta vs MFE 상관관계 분석.
+  - Delta vs MAE 상관관계 분석.
+  - 유사 Delta 패턴 군집 존재 여부 확인.
+* **다음 분기**:
+  - 상관관계 존재: Sprint 13 Wave Encoder 연구 착수.
+  - 상관관계 부재: Snapshot 정의 재설계.
+* **상세 문서**:
+  - `docs/ROADMAP.md`

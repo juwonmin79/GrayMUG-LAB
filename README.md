@@ -306,6 +306,8 @@ Implemented Hellhound-005 files:
 - `hell_engines/Hellhound/event_classifier.py`
 - `hell_engines/Hellhound/decision_api.py`
 - `hell_engines/Hellhound/integration_stub.py`
+- `hell_engines/Hellhound/wave_snapshot.py`
+- `hell_engines/Hellhound/wave_outcome_updater.py`
 - `hell_engines/Hellhound/event_layer_schema.sql`
 - `hell_engines/Hellhound/test_event_layer.py`
 - `hell_engines/Hellhound/accumulation_features.py`
@@ -513,6 +515,7 @@ Start with these documents:
 | `docs/021_ECOSYSTEM_ARCHITECTURE.md` | LAB / Production ecosystem and role separation |
 | `docs/022_MISSED_BTC_CASE_REVIEW.md` | Fixed missed BTC rise case review |
 | `docs/023_HELLHOUND_OPTIONAL_DECISION_IMPORT.md` | Sprint 12A optional decision import root cause and activation |
+| `docs/ROADMAP.md` | Wave Engine v0 Snapshot/Diff/Delta roadmap |
 
 For WhaleLab foundation details:
 

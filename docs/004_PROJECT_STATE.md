@@ -34,6 +34,7 @@
 | Production Shadow Pipeline | Verified | Production Hound -> Hellhound -> production_hellhound_shadow.jsonl verified |
 | Pre-ML Observation Collection | Initial implementation | missed/success cases, delay report, structure stats, feedback dataset |
 | Optional Decision Import | Activated for LAB/library shadow paths | `decision_enabled=True`, `decision_source=decision_api`, fallback still explicit |
+| Wave Engine v0 Dataset Layer | Initial implementation | Snapshot, Diff, Delta, append-only wave log, outcome updater |
 | ML Core | Deferred | ML design postponed until observation data is sufficient |
 
 ---
@@ -573,6 +574,32 @@
   - 명시적 fallback은 `decision_enabled=False`로 유지.
 * 상세:
   - `docs/023_HELLHOUND_OPTIONAL_DECISION_IMPORT.md`
+
+### Sprint 12B Wave Engine v0
+* 목적:
+  - Wave Engine용 Dataset Layer를 구축한다.
+  - Mirror Pattern ML, Lead Line ML, MFE/MAE Engine의 미래 학습 기반을 만든다.
+* 구현 파일:
+  - `hell_engines/Hellhound/wave_snapshot.py`
+  - `hell_engines/Hellhound/wave_outcome_updater.py`
+  - `hell_engines/Hellhound/hound_wave_log_schema.sql`
+  - `hell_engines/Hellhound/test_wave_snapshot.py`
+  - `hell_engines/Hellhound/test_wave_outcome_updater.py`
+  - `docs/ROADMAP.md`
+* Layer:
+  - Snapshot Layer: T-2, T-1, T0 state vector.
+  - Diff Layer: Diff_A, Diff_B.
+  - Delta Layer: Diff_B - Diff_A.
+  - Outcome Layer: 6h/24h/72h MFE, MAE, Time To Peak field fill.
+* 출력:
+  - `outputs/hellhound_wave_log.jsonl`
+* 금지 준수:
+  - Entry/Exit 로직 수정 없음.
+  - Signal Scoring 수정 없음.
+  - Hound Position 구조 수정 없음.
+  - Wave Feature를 판단 로직에 반영하지 않음.
+  - DB update 없음.
+  - `is_trade_command=false`.
 
 ---
 
