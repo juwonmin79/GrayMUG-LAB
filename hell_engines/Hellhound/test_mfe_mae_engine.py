@@ -45,6 +45,8 @@ class MfeMaeEngineTest(unittest.TestCase):
     def test_create_mfe_mae_record(self) -> None:
         record = create_mfe_mae_record(_validation_row("BEL"), _price_path())
 
+        self.assertEqual(record["signal_id"], "signal-lead-1")
+        self.assertEqual(record["shadow_signal_id"], "signal-lead-1")
         self.assertEqual(record["symbol"], "BELUSDT")
         self.assertEqual(record["structure_type"], "BEL")
         self.assertEqual(record["validation_status"], "VALIDATED")
@@ -106,6 +108,8 @@ class MfeMaeEngineTest(unittest.TestCase):
 def _validation_row(structure_type: str, lead_line_id: str = "lead-1") -> dict[str, object]:
     return {
         "validation_id": f"validation-{lead_line_id}",
+        "signal_id": f"signal-{lead_line_id}",
+        "shadow_signal_id": f"signal-{lead_line_id}",
         "lead_line_id": lead_line_id,
         "symbol": "BELUSDT" if structure_type != "ACT" else "ACTUSDT",
         "structure_type": structure_type,

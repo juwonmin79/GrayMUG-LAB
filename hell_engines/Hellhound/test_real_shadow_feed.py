@@ -51,10 +51,25 @@ class RealShadowFeedTest(unittest.TestCase):
 
         decision = build_real_shadow_decision(signal)
 
+        self.assertEqual(decision["signal_id"], signal["id"])
+        self.assertEqual(decision["shadow_signal_id"], signal["id"])
         self.assertEqual(decision["symbol"], signal["symbol"])
         self.assertEqual(decision["entry_bias"], "neutral")
         self.assertFalse(decision["is_trade_command"])
         self.assertIn("promotion_status", decision)
+
+    def test_build_real_shadow_decision_generates_signal_id_when_missing(self) -> None:
+        signal = {
+            "symbol": "BELUSDT",
+            "source_time": "2026-01-01T00:00:00+00:00",
+            "pattern": "NO_ID_FIXTURE",
+        }
+
+        decision = build_real_shadow_decision(signal)
+
+        self.assertTrue(decision["signal_id"])
+        self.assertEqual(decision["shadow_signal_id"], decision["signal_id"])
+        self.assertFalse(decision["is_trade_command"])
 
     def test_outcome_join_attaches_available_windows(self) -> None:
         signal = mock_signal_rows(1)[0]
@@ -115,6 +130,7 @@ class RealShadowFeedTest(unittest.TestCase):
             rows = [json.loads(line) for line in output_path.read_text(encoding="utf-8").splitlines()]
 
         self.assertEqual(result["written_count"], 1)
+        self.assertIn("signal_id", rows[0])
         self.assertEqual(rows[0]["symbol"], "BELUSDT")
         self.assertFalse(rows[0]["is_trade_command"])
 

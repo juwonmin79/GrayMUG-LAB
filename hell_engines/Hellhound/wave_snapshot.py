@@ -129,12 +129,15 @@ def build_wave_features(
         "outcome_mfe_6h": None,
         "outcome_mae_6h": None,
         "outcome_time_to_peak_6h": None,
+        "outcome_time_to_stop_6h": None,
         "outcome_mfe_24h": None,
         "outcome_mae_24h": None,
         "outcome_time_to_peak_24h": None,
+        "outcome_time_to_stop_24h": None,
         "outcome_mfe_72h": None,
         "outcome_mae_72h": None,
         "outcome_time_to_peak_72h": None,
+        "outcome_time_to_stop_72h": None,
         "is_trade_command": False,
     }
 

@@ -32,6 +32,7 @@ FORBIDDEN_SHADOW_ACTIONS = {
     "CLOSE_POSITION",
     "OPEN_POSITION",
 }
+SIGNAL_ID_NAMESPACE = uuid.UUID("b5e72a54-3fd4-4f4f-95f5-5917dc49f65d")
 
 LOGGER = logging.getLogger("hellhound.shadow_runner")
 
@@ -89,6 +90,7 @@ def normalize_oraclejp_payload(payload: Mapping[str, Any]) -> Dict[str, Any]:
         )
 
     signal: Dict[str, Any] = {
+        "signal_id": str(payload.get("signal_id") or payload.get("shadow_signal_id") or payload.get("id") or _stable_signal_id(symbol, payload)),
         "run_id": str(payload.get("run_id") or _new_run_id()),
         "mode": str(payload.get("mode") or DEFAULT_MODE),
         "node_name": NODE_NAME,
@@ -264,7 +266,8 @@ def _insert_shadow_signal(
     *, supabase_url: str, supabase_key: str, signal: Mapping[str, Any]
 ) -> Optional[Dict[str, Any]]:
     endpoint = f"{supabase_url.rstrip('/')}/rest/v1/{SHADOW_SIGNAL_TABLE}"
-    body = json.dumps(signal).encode("utf-8")
+    insert_signal = _db_insert_signal(signal)
+    body = json.dumps(insert_signal).encode("utf-8")
     req = request.Request(
         endpoint,
         data=body,
@@ -284,7 +287,10 @@ def _insert_shadow_signal(
             body = response.read().decode("utf-8")
             rows = json.loads(body) if body else []
             if isinstance(rows, list) and rows:
-                return dict(rows[0])
+                returned = dict(rows[0])
+                returned["signal_id"] = str(returned.get("id") or signal.get("signal_id") or "")
+                returned["shadow_signal_id"] = returned["signal_id"]
+                return returned
             return None
     except error.HTTPError as exc:
         safe_body = exc.read().decode("utf-8", errors="replace")[:500]
@@ -416,6 +422,7 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
     )
 
     return {
+        "signal_id": str(universe_row.get("signal_id") or universe_row.get("shadow_signal_id") or universe_row.get("id") or _stable_signal_id(symbol, universe_row)),
         "symbol": symbol,
         "base_asset": base_asset,
         "quote_asset": quote_asset,
@@ -471,6 +478,28 @@ def _merge_json_object(value: Any, addition: Mapping[str, Any]) -> Dict[str, Any
     merged = _as_mapping(value)
     merged.update(_json_ready(addition))
     return merged
+
+
+def _stable_signal_id(symbol: str, payload: Mapping[str, Any]) -> str:
+    seed = f"hellhound:signal:v1:{str(symbol).upper()}:{payload.get('source_time') or payload.get('created_at') or ''}:{payload.get('pattern') or ''}"
+    return str(uuid.uuid5(SIGNAL_ID_NAMESPACE, seed))
+
+
+def _db_insert_signal(signal: Mapping[str, Any]) -> Dict[str, Any]:
+    row = dict(signal)
+    signal_id = row.pop("signal_id", None)
+    row.pop("shadow_signal_id", None)
+    if signal_id and not row.get("id") and _is_uuid(signal_id):
+        row["id"] = str(signal_id)
+    return row
+
+
+def _is_uuid(value: Any) -> bool:
+    try:
+        uuid.UUID(str(value))
+    except (TypeError, ValueError):
+        return False
+    return True
 
 
 def _supabase_credentials() -> tuple[Optional[str], Optional[str]]:

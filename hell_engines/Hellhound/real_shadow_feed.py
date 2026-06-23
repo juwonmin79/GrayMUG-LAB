@@ -20,6 +20,7 @@ REAL_SHADOW_FEED_SCHEMA_VERSION = "hellhound_real_shadow_feed_v1"
 DEFAULT_SIGNAL_TABLES = ("hound_scan_log", "hellhound_shadow_signals")
 DEFAULT_OUTPUT_PATH = Path(__file__).resolve().parents[2] / "outputs" / "hellhound_shadow_decisions.jsonl"
 DAILY_OPEN_CLUSTER_NAMESPACE = uuid.UUID("0f8a9a1d-3211-48f8-a297-4937608db1fd")
+SIGNAL_ID_NAMESPACE = uuid.UUID("b5e72a54-3fd4-4f4f-95f5-5917dc49f65d")
 
 
 class RealShadowFeedError(RuntimeError):
@@ -127,6 +128,7 @@ def build_real_shadow_decision(
     symbol = str(signal.get("symbol") or signal.get("market") or "").upper()
     if not symbol:
         return _feed_fail_safe(signal, "signal is missing symbol")
+    signal_id = _signal_id(signal)
     pipeline = run_shadow_evaluation_pipeline(
         symbol=symbol,
         signal=signal,
@@ -138,6 +140,8 @@ def build_real_shadow_decision(
     outcomes = join_outcomes(signal, outcome_rows or [])
     return {
         "real_shadow_feed_schema_version": REAL_SHADOW_FEED_SCHEMA_VERSION,
+        "signal_id": signal_id,
+        "shadow_signal_id": signal_id,
         "symbol": symbol,
         "signal_time": _signal_time(signal),
         "event_id": decision.get("event_id"),
@@ -251,7 +255,12 @@ def write_shadow_feed_log(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("a", encoding="utf-8") as file:
         for decision in decisions:
-            file.write(json.dumps(dict(decision), sort_keys=True) + "\n")
+            row = dict(decision)
+            if row.get("record_type") != "daily_open_alert_cluster":
+                signal_id = _signal_id(row)
+                row["signal_id"] = signal_id
+                row.setdefault("shadow_signal_id", signal_id)
+            file.write(json.dumps(row, sort_keys=True) + "\n")
     return {
         "real_shadow_feed_schema_version": REAL_SHADOW_FEED_SCHEMA_VERSION,
         "output_path": str(output_path),
@@ -264,7 +273,7 @@ def join_outcomes(
     signal: Mapping[str, Any],
     outcome_rows: Sequence[Mapping[str, Any]],
 ) -> Dict[str, Optional[str]]:
-    signal_id = str(signal.get("id") or signal.get("shadow_signal_id") or "")
+    signal_id = _signal_id(signal)
     symbol = str(signal.get("symbol") or "").upper()
     joined = {
         "actual_1h_outcome": None,
@@ -272,7 +281,7 @@ def join_outcomes(
         "actual_24h_outcome": None,
     }
     for outcome in outcome_rows:
-        outcome_signal_id = str(outcome.get("shadow_signal_id") or "")
+        outcome_signal_id = str(outcome.get("signal_id") or outcome.get("shadow_signal_id") or "")
         outcome_symbol = str(outcome.get("symbol") or "").upper()
         if signal_id and outcome_signal_id and outcome_signal_id != signal_id:
             continue
@@ -384,6 +393,16 @@ def _signal_time(signal: Mapping[str, Any]) -> str:
     return str(signal.get("source_time") or signal.get("created_at") or _now_utc())
 
 
+def _signal_id(signal: Mapping[str, Any]) -> str:
+    for key in ("signal_id", "shadow_signal_id", "id"):
+        value = signal.get(key)
+        if value:
+            return str(value)
+    symbol = str(signal.get("symbol") or signal.get("market") or "").upper()
+    seed = f"hellhound:signal:v1:{symbol}:{_signal_time(signal)}:{signal.get('pattern') or ''}"
+    return str(uuid.uuid5(SIGNAL_ID_NAMESPACE, seed))
+
+
 def _parse_time(value: str) -> Optional[datetime]:
     try:
         text = str(value)
@@ -444,8 +463,11 @@ def _now_utc() -> str:
 
 
 def _feed_fail_safe(signal: Mapping[str, Any], error: str) -> Dict[str, Any]:
+    signal_id = _signal_id(signal)
     return {
         "real_shadow_feed_schema_version": REAL_SHADOW_FEED_SCHEMA_VERSION,
+        "signal_id": signal_id,
+        "shadow_signal_id": signal_id,
         "symbol": str(signal.get("symbol") or "").upper(),
         "signal_time": _signal_time(signal),
         "event_id": None,

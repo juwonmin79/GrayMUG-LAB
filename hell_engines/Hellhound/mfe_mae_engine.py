@@ -71,10 +71,13 @@ def create_mfe_mae_record(
     outcome = normalized[-1]
     stop_price = _stop_price(entry, normalized, stop_loss_pct=stop_loss_pct)
     lead_line_id = str(validation_row.get("lead_line_id") or "")
+    signal_id = _signal_id(validation_row)
     symbol = str(validation_row.get("symbol") or "").upper()
     return {
         "mfe_mae_schema_version": MFE_MAE_SCHEMA_VERSION,
-        "mfe_mae_id": _stable_mfe_mae_id(lead_line_id, symbol),
+        "mfe_mae_id": _stable_mfe_mae_id(signal_id or lead_line_id, symbol),
+        "signal_id": signal_id,
+        "shadow_signal_id": signal_id,
         "lead_line_id": lead_line_id or None,
         "validation_id": validation_row.get("validation_id"),
         "symbol": symbol or None,
@@ -159,9 +162,12 @@ def load_validation_rows(path: Union[Path, str] = DEFAULT_VALIDATION_PATH) -> li
 
 
 def _empty_record(validation_row: Mapping[str, Any], *, error: str) -> Dict[str, Any]:
+    signal_id = _signal_id(validation_row)
     return {
         "mfe_mae_schema_version": MFE_MAE_SCHEMA_VERSION,
-        "mfe_mae_id": _stable_mfe_mae_id(str(validation_row.get("lead_line_id") or ""), str(validation_row.get("symbol") or "")),
+        "mfe_mae_id": _stable_mfe_mae_id(signal_id or str(validation_row.get("lead_line_id") or ""), str(validation_row.get("symbol") or "")),
+        "signal_id": signal_id,
+        "shadow_signal_id": signal_id,
         "lead_line_id": validation_row.get("lead_line_id"),
         "validation_id": validation_row.get("validation_id"),
         "symbol": validation_row.get("symbol"),
@@ -210,7 +216,15 @@ def _stop_price(entry_price: float, price_path: Sequence[Mapping[str, Any]], *, 
 def _is_usable_validation_row(row: Mapping[str, Any]) -> bool:
     if row.get("is_trade_command") is not False:
         return False
-    return bool(row.get("lead_line_id") and row.get("symbol"))
+    return bool((row.get("signal_id") or row.get("shadow_signal_id") or row.get("lead_line_id")) and row.get("symbol"))
+
+
+def _signal_id(row: Mapping[str, Any]) -> Optional[str]:
+    for key in ("signal_id", "shadow_signal_id"):
+        value = row.get(key)
+        if value:
+            return str(value)
+    return None
 
 
 def _optional_float(value: Any) -> Optional[float]:
