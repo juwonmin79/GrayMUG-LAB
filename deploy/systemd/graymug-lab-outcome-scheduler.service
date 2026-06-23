@@ -8,6 +8,7 @@ Type=oneshot
 User=ubuntu
 WorkingDirectory=/home/ubuntu/GrayMUG-LAB
 Environment="PATH=/home/ubuntu/GrayMUG-LAB/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+EnvironmentFile=-/home/ubuntu/GrayMUG-LAB/.env
 ExecStart=/home/ubuntu/GrayMUG-LAB/.venv/bin/python /home/ubuntu/GrayMUG-LAB/hell_engines/Hellhound/outcome_scheduler.py
 
 [Install]
