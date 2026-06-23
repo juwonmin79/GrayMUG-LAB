@@ -1,0 +1,14 @@
+[Unit]
+Description=GrayMUG LAB Hellhound Outcome Scheduler
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/GrayMUG-LAB
+Environment="PATH=/home/ubuntu/GrayMUG-LAB/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/ubuntu/GrayMUG-LAB/.venv/bin/python /home/ubuntu/GrayMUG-LAB/hell_engines/Hellhound/outcome_scheduler.py
+
+[Install]
+WantedBy=multi-user.target

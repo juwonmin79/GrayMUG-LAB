@@ -176,3 +176,36 @@ Rule:
 ```text
 No DB update is performed by LAB. The updater returns a new completed wave row for append-only storage or later approved table handling.
 ```
+
+## Outcome Engine Automation
+
+Status:
+
+```text
+Implemented
+```
+
+Module:
+
+```text
+hell_engines/Hellhound/outcome_scheduler.py
+```
+
+Production registration:
+
+```text
+deploy/systemd/graymug-lab-outcome-scheduler.service
+deploy/systemd/graymug-lab-outcome-scheduler.timer
+```
+
+Schedule:
+
+```text
+Every 15 minutes after boot.
+```
+
+Rule:
+
+```text
+Fail open. Scheduler failures must not stop Hellhound shadow signal generation or production trading logic.
+```
