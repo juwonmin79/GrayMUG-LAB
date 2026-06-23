@@ -127,6 +127,19 @@ class ProductionInterfaceTest(unittest.TestCase):
             result["reasons"],
         )
 
+    def test_flat_snapshot_candles_15m_are_passed_to_library_interface(self) -> None:
+        case = _case("case-1", "BELUSDT")
+        case["snapshot"] = {"candles_15m": _candles_by_timeframe()["15m"]}
+
+        result = evaluate_case(case)
+
+        self.assertEqual(result["case_id"], "case-1")
+        self.assertFalse(result["is_trade_command"])
+        self.assertNotIn(
+            "Pre-spike features are placeholders because no candle snapshot was provided.",
+            result["reasons"],
+        )
+
     def test_disabled_library_decision_returns_signal_based_advisory(self) -> None:
         os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
         result = evaluate_case(

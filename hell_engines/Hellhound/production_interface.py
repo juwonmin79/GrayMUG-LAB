@@ -150,6 +150,9 @@ def _case_fail_safe(case: Mapping[str, Any], error: str) -> Dict[str, Any]:
 def _candles_by_timeframe(case: Mapping[str, Any]) -> Any:
     if case.get("candles_by_timeframe"):
         return case.get("candles_by_timeframe")
+    frames = _flat_candles_by_timeframe(case)
+    if frames:
+        return frames
     snapshot = case.get("snapshot") or {}
     if not isinstance(snapshot, Mapping):
         return None
@@ -157,7 +160,25 @@ def _candles_by_timeframe(case: Mapping[str, Any]) -> Any:
         return snapshot.get("candles_by_timeframe")
     if snapshot.get("timeframes"):
         return snapshot.get("timeframes")
+    frames = _flat_candles_by_timeframe(snapshot)
+    if frames:
+        return frames
     return None
+
+
+def _flat_candles_by_timeframe(source: Mapping[str, Any]) -> Dict[str, Any]:
+    frames = {}
+    for key, timeframe in (
+        ("candles_1m", "1m"),
+        ("candles_15m", "15m"),
+        ("candles_1h", "1h"),
+        ("candles_4h", "4h"),
+        ("candles_1d", "1d"),
+        ("candles_1w", "1w"),
+    ):
+        if source.get(key):
+            frames[timeframe] = source.get(key)
+    return frames
 
 
 def _advisory(*, promotion_status: str) -> str:

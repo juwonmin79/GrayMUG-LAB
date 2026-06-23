@@ -66,6 +66,27 @@ class LibraryInterfaceTest(unittest.TestCase):
         self.assertEqual(result["output_type"], "advisor_result")
         self.assertFalse(result["is_trade_command"])
 
+    def test_snapshot_candles_15m_uses_optional_decision_score(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+        snapshot = {
+            "id": "snapshot-1",
+            "symbol": "BELUSDT",
+            "as_of_time": "2026-01-01T00:00:00+00:00",
+            "candles_15m": _snapshot_candles(50),
+        }
+
+        result = evaluate_snapshot_row(snapshot)
+        decision = result["hellhound_decision"]
+
+        self.assertEqual(decision["decision_source"], "decision_api")
+        self.assertEqual(len(snapshot["candles_15m"]), 50)
+        self.assertNotEqual(round(float(decision["hellhound_score"]), 3), 0.100)
+        self.assertNotIn(
+            "Pre-spike features are placeholders because no candle snapshot was provided.",
+            decision["reasons"],
+        )
+        self.assertFalse(result["is_trade_command"])
+
     def test_cluster_interface_returns_cluster_rows(self) -> None:
         result = detect_cluster_rows(mock_signal_rows(3))
 
@@ -101,6 +122,16 @@ class LibraryInterfaceTest(unittest.TestCase):
         self.assertGreater(result["hellhound_score"], 0.0)
         self.assertEqual(result["entry_bias"], "neutral")
         self.assertFalse(result["is_trade_command"])
+
+    def test_disabled_optional_import_logs_fallback_reason(self) -> None:
+        os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
+
+        with self.assertLogs("hellhound.library_interface", level="WARNING") as logs:
+            result = evaluate_signal_row(_production_signal("BELUSDT"), decision_enabled=False)
+
+        self.assertEqual(result["decision_source"], "signal_fallback")
+        self.assertTrue(any("source_error=Hellhound optional decision import is disabled." in line for line in logs.output))
+        self.assertTrue(any("Hellhound fallback used" in line for line in logs.output))
 
     def test_weak_signal_fallback_rejects_without_crashing(self) -> None:
         os.environ["HELLHOUND_DECISION_ENABLED"] = "false"
@@ -190,6 +221,24 @@ def _production_signal(
         "volume_spike": True,
         "taker_buy_ratio": 0.64,
     }
+
+
+def _snapshot_candles(count: int) -> list[dict[str, float]]:
+    candles = []
+    price = 1.0
+    for index in range(count):
+        price += 0.001 + (0.0005 if index % 8 == 0 else 0.0)
+        candles.append(
+            {
+                "open": price,
+                "high": price * (1.006 + (0.001 if index > count - 5 else 0.0)),
+                "low": price * 0.997,
+                "close": price * (1.002 + (0.002 if index > count - 4 else 0.0)),
+                "volume": 900 + index * 18 + (180 if index > count - 4 else 0),
+                "btc_close": 50000 + index * 6,
+            }
+        )
+    return candles
 
 
 if __name__ == "__main__":

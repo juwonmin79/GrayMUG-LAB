@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import Any, Dict, Mapping, Optional, Sequence
 
 try:
@@ -13,6 +14,7 @@ except ImportError:
 
 
 HELLHOUND_INTERFACE_VERSION = "hellhound_library_interface_v1"
+LOGGER = logging.getLogger("hellhound.library_interface")
 
 
 def evaluate_signal_row(
@@ -38,6 +40,13 @@ def evaluate_signal_row(
         decision_enabled=decision_enabled,
     )
     if _needs_signal_fallback(result):
+        _log_fallback(
+            "signal",
+            symbol,
+            result,
+            candles_by_timeframe=candles_by_timeframe,
+            historical_candles=historical_candles,
+        )
         result = _fallback_signal_decision(symbol, signal, source_error=result.get("error"))
     return _with_boundary(
         result,
@@ -98,13 +107,26 @@ def evaluate_snapshot_row(
         "shadow_action": "WATCH",
         "pattern": "SNAPSHOT_ROW",
     }
+    candles_by_timeframe = _snapshot_candles_by_timeframe(snapshot)
+    historical_candles = _snapshot_historical_candles(snapshot, candles_by_timeframe)
     pipeline = run_shadow_evaluation_pipeline(
         symbol=symbol,
         signal=input_signal,
         shadow_signals=[input_signal],
+        candles_by_timeframe=candles_by_timeframe,
+        historical_candles=historical_candles,
         log_path=None,
         decision_enabled=decision_enabled,
     )
+    decision = dict(pipeline.get("hellhound_decision") or {})
+    if _needs_signal_fallback(decision):
+        _log_fallback(
+            "snapshot",
+            symbol,
+            decision,
+            candles_by_timeframe=candles_by_timeframe,
+            historical_candles=historical_candles,
+        )
     return _with_boundary(
         pipeline,
         input_type="snapshot",
@@ -166,6 +188,30 @@ def _needs_signal_fallback(result: Mapping[str, Any]) -> bool:
     if "fail-safe neutral" in reasons and structure in {"UNAVAILABLE", "UNKNOWN", ""} and score == 0.0:
         return True
     return False
+
+
+def _log_fallback(
+    input_type: str,
+    symbol: str,
+    result: Mapping[str, Any],
+    *,
+    candles_by_timeframe: Optional[Mapping[str, Sequence[Mapping[str, Any]]]] = None,
+    historical_candles: Optional[Sequence[Mapping[str, Any]]] = None,
+) -> None:
+    reasons = list(result.get("reasons") or [])
+    source_error = result.get("error")
+    score = _to_float(result.get("hellhound_score"))
+    LOGGER.warning(
+        "Hellhound fallback used input_type=%s symbol=%s score=%.4f source_error=%s reasons=%s candles_15m=%s historical_candles=%s decision_source=%s",
+        input_type,
+        str(symbol).upper(),
+        score,
+        source_error,
+        reasons,
+        len((candles_by_timeframe or {}).get("15m") or []),
+        len(historical_candles or []),
+        result.get("decision_source"),
+    )
 
 
 def _fallback_signal_decision(
@@ -292,6 +338,69 @@ def _reason_list(value: Any) -> list[str]:
     if isinstance(value, Sequence) and not isinstance(value, (bytes, bytearray, str)):
         return [str(item) for item in value if item is not None]
     return []
+
+
+def _snapshot_candles_by_timeframe(
+    snapshot: Mapping[str, Any],
+) -> Optional[Dict[str, Sequence[Mapping[str, Any]]]]:
+    if not isinstance(snapshot, Mapping):
+        return None
+    candidates = (
+        snapshot.get("candles_by_timeframe"),
+        snapshot.get("timeframes"),
+    )
+    for candidate in candidates:
+        if isinstance(candidate, Mapping):
+            return _normalize_timeframe_keys(candidate)
+    frames: Dict[str, Sequence[Mapping[str, Any]]] = {}
+    for key, timeframe in (
+        ("candles_1m", "1m"),
+        ("candles_15m", "15m"),
+        ("candles_1h", "1h"),
+        ("candles_4h", "4h"),
+        ("candles_1d", "1d"),
+        ("candles_1w", "1w"),
+    ):
+        candles = snapshot.get(key)
+        if isinstance(candles, Sequence) and not isinstance(candles, (str, bytes, bytearray)):
+            frames[timeframe] = candles
+    return frames or None
+
+
+def _snapshot_historical_candles(
+    snapshot: Mapping[str, Any],
+    candles_by_timeframe: Optional[Mapping[str, Sequence[Mapping[str, Any]]]],
+) -> Optional[Sequence[Mapping[str, Any]]]:
+    candles = snapshot.get("historical_candles") if isinstance(snapshot, Mapping) else None
+    if isinstance(candles, Sequence) and not isinstance(candles, (str, bytes, bytearray)):
+        return candles
+    for timeframe in ("1d", "4h", "1h", "15m", "1m", "1w"):
+        frame = (candles_by_timeframe or {}).get(timeframe)
+        if frame:
+            return frame
+    return None
+
+
+def _normalize_timeframe_keys(
+    frames: Mapping[str, Any],
+) -> Dict[str, Sequence[Mapping[str, Any]]]:
+    aliases = {
+        "1min": "1m",
+        "15min": "15m",
+        "60m": "1h",
+        "1hour": "1h",
+        "4hour": "4h",
+        "1day": "1d",
+        "1week": "1w",
+    }
+    normalized: Dict[str, Sequence[Mapping[str, Any]]] = {}
+    for raw_key, value in frames.items():
+        if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
+            continue
+        key = str(raw_key).strip().lower()
+        timeframe = aliases.get(key, key)
+        normalized[timeframe] = value
+    return normalized
 
 
 def _to_bool(value: Any) -> bool:
