@@ -13,9 +13,10 @@ if str(MODULE_DIR) not in sys.path:
     sys.path.insert(0, str(MODULE_DIR))
 
 try:
-    from . import market_snapshot, outcome_resolver
+    from . import market_snapshot, mfe_mae_production, outcome_resolver
 except ImportError:
     import market_snapshot
+    import mfe_mae_production
     import outcome_resolver
 
 
@@ -31,10 +32,13 @@ class OutcomeSchedulerResult:
     ok: bool
     snapshot_ok: bool
     resolver_ok: bool
+    mfe_mae_ok: bool
     snapshots_updated: int
     outcomes_resolved: int
+    mfe_mae_records_written: int
     snapshot_message: str
     resolver_message: str
+    mfe_mae_message: str
     error: Optional[str]
     is_trade_command: bool = False
 
@@ -44,10 +48,13 @@ def run_outcome_scheduler_once() -> OutcomeSchedulerResult:
     started_at = _now_utc()
     snapshot_ok = False
     resolver_ok = False
+    mfe_mae_ok = False
     snapshots_updated = 0
     outcomes_resolved = 0
+    mfe_mae_records_written = 0
     snapshot_message = "not run"
     resolver_message = "not run"
+    mfe_mae_message = "not run"
     error = None
 
     try:
@@ -76,17 +83,33 @@ def run_outcome_scheduler_once() -> OutcomeSchedulerResult:
         resolver_message = str(exc)
         LOGGER.exception("Outcome scheduler resolver step raised")
 
+    try:
+        mfe_mae_result = mfe_mae_production.update_mfe_mae_from_supabase()
+        mfe_mae_ok = bool(mfe_mae_result.ok or mfe_mae_result.skipped)
+        mfe_mae_records_written = len(mfe_mae_result.records or [])
+        mfe_mae_message = mfe_mae_result.message
+        if not mfe_mae_result.ok and not mfe_mae_result.skipped:
+            error = error or mfe_mae_result.message
+            LOGGER.error("Outcome scheduler MFE/MAE step failed: %s", mfe_mae_result.message)
+    except Exception as exc:
+        error = error or str(exc)
+        mfe_mae_message = str(exc)
+        LOGGER.exception("Outcome scheduler MFE/MAE step raised")
+
     return OutcomeSchedulerResult(
         outcome_scheduler_schema_version=OUTCOME_SCHEDULER_SCHEMA_VERSION,
         started_at=started_at,
         stopped_at=_now_utc(),
-        ok=snapshot_ok and resolver_ok,
+        ok=snapshot_ok and resolver_ok and mfe_mae_ok,
         snapshot_ok=snapshot_ok,
         resolver_ok=resolver_ok,
+        mfe_mae_ok=mfe_mae_ok,
         snapshots_updated=snapshots_updated,
         outcomes_resolved=outcomes_resolved,
+        mfe_mae_records_written=mfe_mae_records_written,
         snapshot_message=snapshot_message,
         resolver_message=resolver_message,
+        mfe_mae_message=mfe_mae_message,
         error=error,
         is_trade_command=False,
     )

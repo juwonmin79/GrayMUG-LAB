@@ -209,3 +209,43 @@ Rule:
 ```text
 Fail open. Scheduler failures must not stop Hellhound shadow signal generation or production trading logic.
 ```
+
+## Production MFE/MAE Lineage
+
+Status:
+
+```text
+Implemented
+```
+
+Module:
+
+```text
+hell_engines/Hellhound/mfe_mae_production.py
+```
+
+Input:
+
+```text
+Supabase hellhound_shadow_signals
+Supabase hellhound_outcomes
+```
+
+Output:
+
+```text
+outputs/hellhound_mfe_mae_dataset.jsonl
+```
+
+Lineage key:
+
+```text
+signal_id = hellhound_shadow_signals.id
+shadow_signal_id = hellhound_shadow_signals.id
+```
+
+Rule:
+
+```text
+No production trading logic is changed. No Supabase schema migration is required. The production MFE/MAE lineage writer is append-only and is invoked after the Outcome Scheduler resolves due outcomes.
+```

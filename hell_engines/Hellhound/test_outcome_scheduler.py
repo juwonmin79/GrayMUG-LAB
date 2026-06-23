@@ -28,6 +28,14 @@ class _ResolverResult:
     resolved: list[dict[str, object]]
 
 
+@dataclass(frozen=True)
+class _MfeMaeResult:
+    ok: bool
+    skipped: bool
+    message: str
+    records: list[dict[str, object]]
+
+
 class OutcomeSchedulerTest(unittest.TestCase):
     def test_scheduler_runs_snapshot_then_resolver(self) -> None:
         calls: list[str] = []
@@ -40,15 +48,22 @@ class OutcomeSchedulerTest(unittest.TestCase):
             calls.append("resolver")
             return _ResolverResult(ok=True, skipped=False, message="outcomes resolved", resolved=[{}, {}])
 
+        def mfe_mae() -> _MfeMaeResult:
+            calls.append("mfe_mae")
+            return _MfeMaeResult(ok=True, skipped=False, message="mfe/mae written", records=[{}])
+
         with patch.object(outcome_scheduler_module.market_snapshot, "update_pending_market_snapshots", snapshot), patch.object(
             outcome_scheduler_module.outcome_resolver, "resolve_pending_from_supabase", resolver
+        ), patch.object(
+            outcome_scheduler_module.mfe_mae_production, "update_mfe_mae_from_supabase", mfe_mae
         ):
             result = run_outcome_scheduler_once()
 
-        self.assertEqual(calls, ["snapshot", "resolver"])
+        self.assertEqual(calls, ["snapshot", "resolver", "mfe_mae"])
         self.assertTrue(result.ok)
         self.assertEqual(result.snapshots_updated, 1)
         self.assertEqual(result.outcomes_resolved, 2)
+        self.assertEqual(result.mfe_mae_records_written, 1)
         self.assertFalse(result.is_trade_command)
 
     def test_scheduler_fail_open_when_snapshot_raises(self) -> None:
@@ -58,8 +73,13 @@ class OutcomeSchedulerTest(unittest.TestCase):
         def resolver() -> _ResolverResult:
             return _ResolverResult(ok=True, skipped=False, message="outcomes resolved", resolved=[])
 
+        def mfe_mae() -> _MfeMaeResult:
+            return _MfeMaeResult(ok=True, skipped=True, message="no new MFE/MAE records", records=[])
+
         with patch.object(outcome_scheduler_module.market_snapshot, "update_pending_market_snapshots", snapshot), patch.object(
             outcome_scheduler_module.outcome_resolver, "resolve_pending_from_supabase", resolver
+        ), patch.object(
+            outcome_scheduler_module.mfe_mae_production, "update_mfe_mae_from_supabase", mfe_mae
         ):
             result = run_outcome_scheduler_once()
 
