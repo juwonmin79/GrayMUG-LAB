@@ -60,6 +60,8 @@ def evaluate_case(case: Mapping[str, Any]) -> Dict[str, Any]:
         "risk_note": "shadow_only",
         "reasons": list(decision.get("reasons") or []),
         "event_id": decision.get("event_id"),
+        "decision_source": decision.get("decision_source"),
+        "fallback_used": decision.get("fallback_used"),
         "source_interface_version": decision.get("hellhound_interface_version"),
         "is_trade_command": False,
     }
@@ -142,6 +144,8 @@ def _case_fail_safe(case: Mapping[str, Any], error: str) -> Dict[str, Any]:
         "risk_note": "shadow_only",
         "reasons": ["Hellhound production interface returned fail-safe neutral."],
         "event_id": None,
+        "decision_source": "fail_safe",
+        "fallback_used": True,
         "error": error,
         "is_trade_command": False,
     }

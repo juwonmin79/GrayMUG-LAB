@@ -49,6 +49,8 @@ class ProductionInterfaceTest(unittest.TestCase):
 
         self.assertEqual(result["case_id"], "case-1")
         self.assertEqual(result["symbol"], "BELUSDT")
+        self.assertEqual(result["decision_source"], "decision_api")
+        self.assertFalse(result["fallback_used"])
         self.assertEqual(result["entry_bias"], "neutral")
         self.assertIn(result["source_interface_version"], {"hellhound_library_interface_v1", None})
         self.assertFalse(result["is_trade_command"])
@@ -110,6 +112,8 @@ class ProductionInterfaceTest(unittest.TestCase):
         self.assertEqual(len(response["results"]), 2)
         self.assertEqual(response["results"][0]["case_id"], "case-1")
         self.assertEqual(response["results"][0]["symbol"], "BELUSDT")
+        self.assertEqual(response["results"][0]["decision_source"], "decision_api")
+        self.assertFalse(response["results"][0]["fallback_used"])
         self.assertEqual(response["results"][1]["case_id"], "bad-case")
         self.assertIn("error", response["results"][1])
         self.assertTrue(all(row["is_trade_command"] is False for row in response["results"]))
@@ -168,8 +172,24 @@ class ProductionInterfaceTest(unittest.TestCase):
         self.assertEqual(result["structure_type"], "BEL")
         self.assertEqual(result["promotion_status"], "PROMOTE")
         self.assertEqual(result["advisory"], "WATCH_STRONG")
+        self.assertEqual(result["decision_source"], "signal_fallback")
+        self.assertTrue(result["fallback_used"])
         self.assertGreater(result["hellhound_score"], 0.0)
         self.assertEqual(result["entry_bias"], "neutral")
+        self.assertFalse(result["is_trade_command"])
+
+    def test_production_payload_preserves_decision_source_and_fallback_used(self) -> None:
+        payload = {
+            "interface_version": PRODUCTION_INTERFACE_VERSION,
+            "mode": "shadow",
+            "cases": [_case("case-1", "BELUSDT")],
+        }
+
+        response = evaluate_production_payload(payload)
+        result = response["results"][0]
+
+        self.assertEqual(result["decision_source"], "decision_api")
+        self.assertFalse(result["fallback_used"])
         self.assertFalse(result["is_trade_command"])
 
     def test_production_interface_source_has_no_binance_or_db_mutation_endpoint(self) -> None:

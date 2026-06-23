@@ -168,6 +168,8 @@ def _with_boundary(
     output_type: str,
 ) -> Dict[str, Any]:
     result = dict(payload)
+    if "fallback_used" not in result:
+        result["fallback_used"] = str(result.get("decision_source") or "").lower() in {"signal_fallback", "fail_safe"}
     result["hellhound_interface_version"] = HELLHOUND_INTERFACE_VERSION
     result["input_type"] = input_type
     result["output_type"] = output_type
@@ -283,6 +285,7 @@ def _fallback_signal_decision(
         "reasons": fallback_reasons,
         "event_id": signal.get("event_id"),
         "decision_source": "signal_fallback",
+        "fallback_used": True,
         "is_trade_command": False,
     }
 
@@ -432,6 +435,8 @@ def _interface_fail_safe(error: str) -> Dict[str, Any]:
         "entry_bias": "neutral",
         "promotion_status": "WATCH",
         "reasons": ["Hellhound library interface returned fail-safe neutral."],
+        "decision_source": "fail_safe",
+        "fallback_used": True,
         "is_trade_command": False,
         "error": error,
     }
