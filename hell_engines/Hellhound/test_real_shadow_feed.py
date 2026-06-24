@@ -58,6 +58,28 @@ class RealShadowFeedTest(unittest.TestCase):
         self.assertFalse(decision["is_trade_command"])
         self.assertIn("promotion_status", decision)
 
+    def test_build_real_shadow_decision_preserves_signal_features(self) -> None:
+        signal = {
+            "id": "signal-1",
+            "symbol": "BELUSDT",
+            "source_time": "2026-01-01T00:00:00+00:00",
+            "payload": {
+                "btc_weather": 0.2,
+                "volume_ratio_ma5": 1.9,
+                "volume_ratio_ma20": 1.3,
+                "rsi_15m": 63.0,
+                "macd_hist_15m": 0.05,
+            },
+        }
+
+        decision = build_real_shadow_decision(signal, decision_enabled=False)
+
+        self.assertEqual(decision["btc_weather"], 0.2)
+        self.assertEqual(decision["volume_ratio_ma5"], 1.9)
+        self.assertEqual(decision["volume_ratio_ma20"], 1.3)
+        self.assertEqual(decision["rsi_15m"], 63.0)
+        self.assertEqual(decision["macd_hist_15m"], 0.05)
+
     def test_build_real_shadow_decision_generates_signal_id_when_missing(self) -> None:
         signal = {
             "symbol": "BELUSDT",

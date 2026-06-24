@@ -48,6 +48,31 @@ class ShadowRunnerLineageTest(unittest.TestCase):
         self.assertNotIn("signal_id", row)
         self.assertNotIn("shadow_signal_id", row)
 
+    def test_normalized_shadow_signal_persists_feature_capture_payload(self) -> None:
+        signal = normalize_oraclejp_payload(
+            {
+                "signal_id": "signal-1",
+                "symbol": "BELUSDT",
+                "source_time": "2026-01-01T00:00:00+00:00",
+                "hellhound_score": 0.72,
+                "decision_source": "decision_api",
+                "target_feed": {"btc_weather": 0.3, "volume_ratio_ma5": 1.8},
+                "market_snapshot": {
+                    "volume_ratio_ma20": 1.2,
+                    "rsi_15m": 61.0,
+                    "macd_hist_15m": 0.04,
+                },
+            }
+        )
+
+        self.assertEqual(signal["payload"]["hellhound_score"], 0.72)
+        self.assertEqual(signal["payload"]["decision_source"], "decision_api")
+        self.assertEqual(signal["payload"]["btc_weather"], 0.3)
+        self.assertEqual(signal["payload"]["volume_ratio_ma5"], 1.8)
+        self.assertEqual(signal["payload"]["volume_ratio_ma20"], 1.2)
+        self.assertEqual(signal["payload"]["rsi_15m"], 61.0)
+        self.assertEqual(signal["payload"]["macd_hist_15m"], 0.04)
+
 
 if __name__ == "__main__":
     unittest.main()

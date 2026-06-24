@@ -129,6 +129,7 @@ def normalize_oraclejp_payload(payload: Mapping[str, Any]) -> Dict[str, Any]:
         "final_weight": _float_or_none(
             payload.get("final_weight") or payload.get("weight")
         ),
+        "payload": _feature_capture_payload(payload),
         "is_order_executed": False,
         "is_shadow": True,
         "note": " ".join(note_parts),
@@ -372,6 +373,14 @@ def _payload_for_hypothesis(
             "lead_line_rank",
             "lead_line_score",
             "target_feed",
+            "hellhound_score",
+            "decision_source",
+            "btc_weather",
+            "btc_4h_weather",
+            "volume_ratio_ma5",
+            "volume_ratio_ma20",
+            "rsi_15m",
+            "macd_hist_15m",
         )
         if key in payload
     }
@@ -440,6 +449,11 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
             "base_asset": base_asset,
             "quote_asset": quote_asset,
             "last_price": last_price,
+            "volume_ratio_ma5": _float_or_none(universe_row.get("volume_ratio_ma5")),
+            "volume_ratio_ma20": _float_or_none(universe_row.get("volume_ratio_ma20")),
+            "rsi_15m": _float_or_none(universe_row.get("rsi_15m")),
+            "macd_hist_15m": _float_or_none(universe_row.get("macd_hist_15m")),
+            "btc_weather": _float_or_none(universe_row.get("btc_weather") or universe_row.get("btc_4h_weather")),
         },
         "target_feed": {
             "mode": DEFAULT_MODE,
@@ -452,6 +466,11 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
             "universe_score": rank_score,
             "rank_score": rank_score,
             "last_price": last_price,
+            "volume_ratio_ma5": _float_or_none(universe_row.get("volume_ratio_ma5")),
+            "volume_ratio_ma20": _float_or_none(universe_row.get("volume_ratio_ma20")),
+            "rsi_15m": _float_or_none(universe_row.get("rsi_15m")),
+            "macd_hist_15m": _float_or_none(universe_row.get("macd_hist_15m")),
+            "btc_weather": _float_or_none(universe_row.get("btc_weather") or universe_row.get("btc_4h_weather")),
         },
         "fitness_payload": {
             "source": "live_universe",
@@ -463,6 +482,11 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
             "price_change_pct": universe_row.get("price_change_pct"),
             "volatility": universe_row.get("volatility"),
             "quote_volume": universe_row.get("quote_volume"),
+            "volume_ratio_ma5": _float_or_none(universe_row.get("volume_ratio_ma5")),
+            "volume_ratio_ma20": _float_or_none(universe_row.get("volume_ratio_ma20")),
+            "rsi_15m": _float_or_none(universe_row.get("rsi_15m")),
+            "macd_hist_15m": _float_or_none(universe_row.get("macd_hist_15m")),
+            "btc_weather": _float_or_none(universe_row.get("btc_weather") or universe_row.get("btc_4h_weather")),
         },
         "execution_guidance": {
             "pattern": "LIVE_UNIVERSE_OBSERVE",
@@ -478,6 +502,47 @@ def _merge_json_object(value: Any, addition: Mapping[str, Any]) -> Dict[str, Any
     merged = _as_mapping(value)
     merged.update(_json_ready(addition))
     return merged
+
+
+def _feature_capture_payload(payload: Mapping[str, Any]) -> Optional[Dict[str, Any]]:
+    existing = _as_mapping(payload.get("payload"))
+    feature_capture = dict(existing)
+    for key in (
+        "hellhound_score",
+        "decision_source",
+        "btc_weather",
+        "btc_4h_weather",
+        "volume_ratio_ma5",
+        "volume_ratio_ma20",
+        "rsi_15m",
+        "macd_hist_15m",
+    ):
+        value = _feature_value(payload, key)
+        if value is not None:
+            feature_capture[key] = value
+    return _json_ready(feature_capture) or None
+
+
+def _feature_value(payload: Mapping[str, Any], key: str) -> Any:
+    if payload.get(key) is not None:
+        return payload.get(key)
+    for container_name in (
+        "payload",
+        "market_snapshot",
+        "wave_snapshot",
+        "snapshot",
+        "lead_line",
+        "lead_line_payload",
+        "target_feed",
+        "calibration_payload",
+        "calibration",
+        "execution_guidance",
+        "guidance",
+    ):
+        container = payload.get(container_name)
+        if isinstance(container, Mapping) and container.get(key) is not None:
+            return container.get(key)
+    return None
 
 
 def _stable_signal_id(symbol: str, payload: Mapping[str, Any]) -> str:

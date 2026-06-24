@@ -335,3 +335,11 @@ Rule:
 ```text
 No ML training. Feature importance candidates are simple HIGH/EXTREME MFE vs LOSS bucket summary statistics only.
 ```
+
+Capture path:
+
+```text
+shadow_runner.py persists incoming signal features into hellhound_shadow_signals.payload.
+real_shadow_feed.py preserves the same feature keys in shadow decision JSONL rows.
+mfe_mae_feature_enrichment.py reads the persisted payload by signal_id.
+```

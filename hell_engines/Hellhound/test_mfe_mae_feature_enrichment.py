@@ -47,6 +47,8 @@ class MfeMaeFeatureEnrichmentTest(unittest.TestCase):
         self.assertEqual(row["signal_hour"], 9)
         self.assertEqual(row["signal_day_of_week"], 2)
         self.assertEqual(row["rsi_15m"], 62.5)
+        self.assertEqual(row["volume_ratio_ma5"], 1.8)
+        self.assertEqual(row["btc_weather"], 0.4)
         self.assertTrue(row["feature_join_success"])
         self.assertFalse(row["is_trade_command"])
 

@@ -154,6 +154,11 @@ def build_real_shadow_decision(
         "entry_bias": decision.get("entry_bias", "neutral"),
         "reasons": decision.get("reasons", []),
         "decision_source": decision.get("decision_source"),
+        "btc_weather": _extract_feature(signal, "btc_weather", "btc_4h_weather"),
+        "volume_ratio_ma5": _extract_feature(signal, "volume_ratio_ma5"),
+        "volume_ratio_ma20": _extract_feature(signal, "volume_ratio_ma20"),
+        "rsi_15m": _extract_feature(signal, "rsi_15m"),
+        "macd_hist_15m": _extract_feature(signal, "macd_hist_15m"),
         "actual_1h_outcome": outcomes.get("actual_1h_outcome"),
         "actual_4h_outcome": outcomes.get("actual_4h_outcome"),
         "actual_24h_outcome": outcomes.get("actual_24h_outcome"),
@@ -440,6 +445,22 @@ def _extract_vol_ratio(signal: Mapping[str, Any]) -> Optional[float]:
             value = _optional_float(payload.get(key))
             if value is not None:
                 return value
+    return None
+
+
+def _extract_feature(signal: Mapping[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        value = _optional_float(signal.get(key))
+        if value is not None:
+            return _round_or_none(value)
+    for payload_key in ("payload", "market_snapshot", "wave_snapshot", "snapshot", "lead_line_payload", "target_feed", "calibration_payload"):
+        payload = signal.get(payload_key)
+        if not isinstance(payload, Mapping):
+            continue
+        for key in keys:
+            value = _optional_float(payload.get(key))
+            if value is not None:
+                return _round_or_none(value)
     return None
 
 
