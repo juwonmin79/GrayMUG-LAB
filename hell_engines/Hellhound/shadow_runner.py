@@ -622,7 +622,7 @@ def _historical_candles(
     raw = payload.get("historical_candles")
     if isinstance(raw, Sequence) and not isinstance(raw, (str, bytes)):
         return [dict(candle) for candle in raw if isinstance(candle, Mapping)]
-    return candles_by_timeframe.get("1d") or candles_by_timeframe.get("15m") or []
+    return candles_by_timeframe.get("1d") or []
 
 
 def _last_candle_time(candles: Sequence[Mapping[str, Any]]) -> Optional[Any]:
