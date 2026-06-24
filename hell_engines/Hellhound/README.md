@@ -1598,7 +1598,8 @@ Generate explainability features before shadow signal persistence.
 Signal path:
 
 ```text
-universe row candles_15m / btc_candles_by_timeframe
+universe_builder read-only market data
+-> candles_15m / btc_candles_by_timeframe
 -> wave_snapshot._build_snapshot()
 -> optional_hellhound_decision()
 -> shadow_runner payload
@@ -1622,6 +1623,7 @@ Safety boundaries:
 
 - No Production trading logic changes.
 - No Binance order API changes.
+- Kline collection uses public read-only market data only.
 - No Supabase migration or new table.
 - No ML, Medusa, Campaign, or Whale Phase implementation.
 

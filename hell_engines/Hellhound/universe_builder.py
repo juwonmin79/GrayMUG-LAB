@@ -25,6 +25,8 @@ LOCAL_FIXTURE_PATH = (
 )
 DEFAULT_EXCHANGE_NAME = "binance"
 DEFAULT_TOP_N = 30
+DEFAULT_KLINE_LIMIT_15M = 50
+DEFAULT_BTC_KLINE_LIMIT = 10
 EXCLUDED_ASSETS = [
     "USDC",
     "FDUSD",
@@ -245,6 +247,13 @@ def build_dynamic_top30_universe(top_n: int = DEFAULT_TOP_N) -> UniverseBuilderR
             else _load_exchange_market_data(config)
         )
         build = build_universe_from_market_data(market_data, top_n=top_n)
+        if not local_mode and _feature_candles_enabled():
+            build = UniverseBuild(
+                universe=_attach_feature_candles(build.universe, config),
+                candidates_count=build.candidates_count,
+                excluded_candidates=build.excluded_candidates,
+                extreme_movers=build.extreme_movers,
+            )
     except (OSError, ValueError, json.JSONDecodeError, UniverseBuilderError) as exc:
         LOGGER.error("Hellhound universe build failed: %s", exc)
         return UniverseBuilderResult(
@@ -335,6 +344,71 @@ def _load_exchange_market_data(config: ExchangeConfig) -> Dict[str, Any]:
     exchange_info = _exchange_json(f"{base_url}/api/v3/exchangeInfo")
     tickers = _exchange_json(f"{base_url}/api/v3/ticker/24hr")
     return {"exchangeInfo": exchange_info, "tickers": tickers}
+
+
+def _attach_feature_candles(
+    universe: list[Dict[str, Any]], config: ExchangeConfig
+) -> list[Dict[str, Any]]:
+    if not universe:
+        return []
+    base_url = _exchange_base_url(config.exchange_name, config.testnet)
+    btc_candles = _safe_load_klines(
+        base_url=base_url,
+        symbol="BTCUSDT",
+        interval="4h",
+        limit=DEFAULT_BTC_KLINE_LIMIT,
+    )
+    enriched = []
+    for row in universe:
+        next_row = dict(row)
+        symbol = str(next_row.get("symbol") or "").upper()
+        if symbol:
+            candles_15m = _safe_load_klines(
+                base_url=base_url,
+                symbol=symbol,
+                interval="15m",
+                limit=DEFAULT_KLINE_LIMIT_15M,
+            )
+            if candles_15m:
+                next_row["candles_15m"] = candles_15m
+        if btc_candles:
+            next_row["btc_candles_by_timeframe"] = {"4h": btc_candles}
+        enriched.append(next_row)
+    return enriched
+
+
+def _safe_load_klines(
+    *, base_url: str, symbol: str, interval: str, limit: int
+) -> list[Dict[str, Any]]:
+    endpoint = (
+        f"{base_url}/api/v3/klines?symbol={symbol.upper()}"
+        f"&interval={interval}&limit={int(limit)}"
+    )
+    try:
+        raw_klines = _exchange_json(endpoint)
+    except UniverseBuilderError as exc:
+        LOGGER.warning("feature candle load skipped symbol=%s interval=%s error=%s", symbol, interval, exc)
+        return []
+    if not isinstance(raw_klines, list):
+        return []
+    candles = [_kline_to_candle(kline) for kline in raw_klines]
+    return [candle for candle in candles if candle is not None]
+
+
+def _kline_to_candle(kline: Any) -> Optional[Dict[str, Any]]:
+    if not isinstance(kline, list) or len(kline) < 6:
+        return None
+    try:
+        return {
+            "open_time": int(kline[0]),
+            "open": float(kline[1]),
+            "high": float(kline[2]),
+            "low": float(kline[3]),
+            "close": float(kline[4]),
+            "volume": float(kline[5]),
+        }
+    except (TypeError, ValueError):
+        return None
 
 
 def _exchange_base_url(exchange_name: str, testnet: bool) -> str:
@@ -610,6 +684,10 @@ def _local_mode_enabled() -> bool:
 
 def _store_supabase_enabled() -> bool:
     return _env_bool("HELLHOUND_UNIVERSE_STORE_SUPABASE", False)
+
+
+def _feature_candles_enabled() -> bool:
+    return _env_bool("HELLHOUND_UNIVERSE_FEATURE_CANDLES", True)
 
 
 def _env_bool(name: str, default: bool) -> bool:
