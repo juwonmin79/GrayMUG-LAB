@@ -249,3 +249,38 @@ Rule:
 ```text
 No production trading logic is changed. No Supabase schema migration is required. The production MFE/MAE lineage writer is append-only and is invoked after the Outcome Scheduler resolves due outcomes.
 ```
+
+## MFE/MAE Dataset Report
+
+Status:
+
+```text
+Implemented
+```
+
+Module:
+
+```text
+hell_engines/Hellhound/mfe_mae_dataset_report.py
+```
+
+Input:
+
+```text
+outputs/hellhound_mfe_mae_dataset.jsonl
+```
+
+Output:
+
+```text
+outputs/hellhound_mfe_mae_report.json
+```
+
+Metrics:
+
+```text
+MFE/MAE average, median, p25, p50, p75, p90
+Time-To-Peak average, median, p75, p90
+Time-To-Stop average, median, p75, p90 for actual stop-hit rows
+Structure, promotion_status, and signal_hour group summaries
+```
