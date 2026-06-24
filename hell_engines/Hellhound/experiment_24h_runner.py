@@ -163,6 +163,11 @@ def run_cycle(cycle_number: int) -> CycleSummary:
         signals = shadow_result.signals or []
         cycle.signals_generated = len(signals)
 
+        if not shadow_result.inserted:
+            cycle.ok = False
+            cycle.message = shadow_result.message
+            return cycle
+
         for index, signal in enumerate(signals, start=1):
             signal_with_id = dict(signal)
             signal_with_id.setdefault("id", signal.get("id") or f"dry-run-signal-{cycle_number}-{index}")

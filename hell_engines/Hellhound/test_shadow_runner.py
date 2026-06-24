@@ -97,6 +97,22 @@ class ShadowRunnerLineageTest(unittest.TestCase):
         self.assertIsNotNone(signal["payload"]["macd_hist_15m"])
         self.assertEqual(signal["target_feed"]["volume_ratio_ma5"], signal["payload"]["volume_ratio_ma5"])
 
+    def test_universe_payload_signal_id_uses_source_time(self) -> None:
+        first = _payload_for_universe_row(
+            {
+                "symbol": "BELUSDT",
+                "source_time": "2026-06-24T00:00:00+00:00",
+            }
+        )
+        second = _payload_for_universe_row(
+            {
+                "symbol": "BELUSDT",
+                "source_time": "2026-06-24T00:15:00+00:00",
+            }
+        )
+
+        self.assertNotEqual(first["signal_id"], second["signal_id"])
+
 
 def _candles(count: int, *, start: float = 100.0, step: float = 0.1) -> list[dict[str, float]]:
     candles = []

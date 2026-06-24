@@ -432,6 +432,7 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
     rank_score = _float_or_none(
         universe_row.get("rank_score") or universe_row.get("universe_score")
     )
+    source_time = str(universe_row.get("source_time") or datetime.now(timezone.utc).isoformat())
     last_price = _float_or_none(
         universe_row.get("last_price")
         or universe_row.get("lastPrice")
@@ -439,12 +440,17 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
     )
 
     return {
-        "signal_id": str(universe_row.get("signal_id") or universe_row.get("shadow_signal_id") or universe_row.get("id") or _stable_signal_id(symbol, universe_row)),
+        "signal_id": str(
+            universe_row.get("signal_id")
+            or universe_row.get("shadow_signal_id")
+            or universe_row.get("id")
+            or _stable_signal_id(symbol, {**universe_row, "source_time": source_time})
+        ),
         "symbol": symbol,
         "base_asset": base_asset,
         "quote_asset": quote_asset,
         "mode": DEFAULT_MODE,
-        "source_time": datetime.now(timezone.utc).isoformat(),
+        "source_time": source_time,
         "market_source": "live_universe",
         "universe_rank": rank,
         "universe_score": rank_score,
