@@ -284,3 +284,54 @@ Time-To-Peak average, median, p75, p90
 Time-To-Stop average, median, p75, p90 for actual stop-hit rows
 Structure, promotion_status, and signal_hour group summaries
 ```
+
+## MFE/MAE Feature Dataset
+
+Status:
+
+```text
+Implemented
+```
+
+Module:
+
+```text
+hell_engines/Hellhound/mfe_mae_feature_enrichment.py
+```
+
+Input:
+
+```text
+outputs/hellhound_mfe_mae_dataset.jsonl
+Supabase hellhound_shadow_signals
+```
+
+Output:
+
+```text
+outputs/hellhound_mfe_mae_feature_dataset.jsonl
+outputs/hellhound_mfe_mae_feature_report.json
+```
+
+Fields:
+
+```text
+mfe_bucket
+mae_bucket
+structure_type
+hellhound_score
+decision_source
+signal_hour
+signal_day_of_week
+btc_weather
+volume_ratio_ma5
+volume_ratio_ma20
+rsi_15m
+macd_hist_15m
+```
+
+Rule:
+
+```text
+No ML training. Feature importance candidates are simple HIGH/EXTREME MFE vs LOSS bucket summary statistics only.
+```
