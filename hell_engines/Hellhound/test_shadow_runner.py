@@ -3,9 +3,9 @@ from __future__ import annotations
 import unittest
 
 try:
-    from shadow_runner import _db_insert_signal, _payload_for_universe_row, normalize_oraclejp_payload
+    from shadow_runner import _db_insert_signal, _payload_for_hypothesis, _payload_for_universe_row, normalize_oraclejp_payload
 except ImportError:
-    from .shadow_runner import _db_insert_signal, _payload_for_universe_row, normalize_oraclejp_payload
+    from .shadow_runner import _db_insert_signal, _payload_for_hypothesis, _payload_for_universe_row, normalize_oraclejp_payload
 
 
 class ShadowRunnerLineageTest(unittest.TestCase):
@@ -111,6 +111,18 @@ class ShadowRunnerLineageTest(unittest.TestCase):
             }
         )
 
+        self.assertNotEqual(first["signal_id"], second["signal_id"])
+
+    def test_hypothesis_payload_derives_unique_signal_id(self) -> None:
+        payload = {
+            "signal_id": "base-signal-1",
+            "symbol": "BELUSDT",
+            "source_time": "2026-06-24T00:00:00+00:00",
+        }
+        first = _payload_for_hypothesis(payload, {"id": "hypothesis-1", "name": "first"})
+        second = _payload_for_hypothesis(payload, {"id": "hypothesis-2", "name": "second"})
+
+        self.assertNotEqual(first["signal_id"], payload["signal_id"])
         self.assertNotEqual(first["signal_id"], second["signal_id"])
 
 

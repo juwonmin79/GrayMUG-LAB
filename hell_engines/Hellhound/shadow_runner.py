@@ -394,6 +394,10 @@ def _payload_for_hypothesis(
     next_payload = dict(payload)
     next_payload.update(config)
     next_payload.update(protected_payload)
+    next_payload["signal_id"] = _stable_hypothesis_signal_id(
+        payload.get("signal_id") or _stable_signal_id(str(payload.get("symbol") or ""), payload),
+        hypothesis_payload.get("id"),
+    )
     next_payload["hypothesis"] = hypothesis_payload
     next_payload["target_feed"] = _merge_json_object(
         config.get("target_feed") or payload.get("target_feed"),
@@ -687,6 +691,11 @@ def _feature_value(payload: Mapping[str, Any], key: str) -> Any:
 
 def _stable_signal_id(symbol: str, payload: Mapping[str, Any]) -> str:
     seed = f"hellhound:signal:v1:{str(symbol).upper()}:{payload.get('source_time') or payload.get('created_at') or ''}:{payload.get('pattern') or ''}"
+    return str(uuid.uuid5(SIGNAL_ID_NAMESPACE, seed))
+
+
+def _stable_hypothesis_signal_id(base_signal_id: Any, hypothesis_id: Any) -> str:
+    seed = f"hellhound:hypothesis-signal:v1:{base_signal_id}:{hypothesis_id or ''}"
     return str(uuid.uuid5(SIGNAL_ID_NAMESPACE, seed))
 
 
