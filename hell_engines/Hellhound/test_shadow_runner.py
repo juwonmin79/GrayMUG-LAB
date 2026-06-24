@@ -3,9 +3,9 @@ from __future__ import annotations
 import unittest
 
 try:
-    from shadow_runner import _db_insert_signal, normalize_oraclejp_payload
+    from shadow_runner import _db_insert_signal, _payload_for_universe_row, normalize_oraclejp_payload
 except ImportError:
-    from .shadow_runner import _db_insert_signal, normalize_oraclejp_payload
+    from .shadow_runner import _db_insert_signal, _payload_for_universe_row, normalize_oraclejp_payload
 
 
 class ShadowRunnerLineageTest(unittest.TestCase):
@@ -72,6 +72,46 @@ class ShadowRunnerLineageTest(unittest.TestCase):
         self.assertEqual(signal["payload"]["volume_ratio_ma20"], 1.2)
         self.assertEqual(signal["payload"]["rsi_15m"], 61.0)
         self.assertEqual(signal["payload"]["macd_hist_15m"], 0.04)
+
+    def test_universe_payload_generates_features_from_candles(self) -> None:
+        payload = _payload_for_universe_row(
+            {
+                "symbol": "BELUSDT",
+                "rank": 1,
+                "rank_score": 100.0,
+                "last_price": 112.0,
+                "candles_15m": _candles(50, start=100.0, step=0.2),
+                "btc_candles_by_timeframe": {
+                    "4h": _candles(10, start=60000.0, step=120.0),
+                },
+            }
+        )
+        signal = normalize_oraclejp_payload(payload)
+
+        self.assertIsNotNone(signal["payload"]["hellhound_score"])
+        self.assertEqual(signal["payload"]["decision_source"], "decision_api")
+        self.assertIsNotNone(signal["payload"]["btc_weather"])
+        self.assertIsNotNone(signal["payload"]["volume_ratio_ma5"])
+        self.assertIsNotNone(signal["payload"]["volume_ratio_ma20"])
+        self.assertIsNotNone(signal["payload"]["rsi_15m"])
+        self.assertIsNotNone(signal["payload"]["macd_hist_15m"])
+        self.assertEqual(signal["target_feed"]["volume_ratio_ma5"], signal["payload"]["volume_ratio_ma5"])
+
+
+def _candles(count: int, *, start: float = 100.0, step: float = 0.1) -> list[dict[str, float]]:
+    candles = []
+    for index in range(count):
+        close = start + index * step
+        candles.append(
+            {
+                "open": close - 0.05,
+                "high": close + 0.1,
+                "low": close - 0.1,
+                "close": close,
+                "volume": 1000.0 + index * 5.0,
+            }
+        )
+    return candles
 
 
 if __name__ == "__main__":

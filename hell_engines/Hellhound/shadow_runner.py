@@ -16,6 +16,13 @@ try:
 except ImportError:
     load_dotenv = None
 
+try:
+    from .integration_stub import optional_hellhound_decision
+    from .wave_snapshot import _build_snapshot
+except ImportError:
+    from integration_stub import optional_hellhound_decision
+    from wave_snapshot import _build_snapshot
+
 if load_dotenv:
     load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
@@ -419,6 +426,7 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
     if not symbol:
         raise ValueError("universe row is missing symbol")
 
+    universe_row = _enrich_universe_row_features(universe_row, symbol)
     base_asset, quote_asset = _asset_pair(symbol, universe_row)
     rank = _int_or_none(universe_row.get("rank") or universe_row.get("universe_rank"))
     rank_score = _float_or_none(
@@ -441,6 +449,11 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
         "universe_rank": rank,
         "universe_score": rank_score,
         "rank_score": rank_score,
+        "hellhound_score": _float_or_none(universe_row.get("hellhound_score")),
+        "decision_source": universe_row.get("decision_source"),
+        "structure_type": universe_row.get("structure_type"),
+        "setup_type": universe_row.get("setup_type"),
+        "promotion_status": universe_row.get("promotion_status"),
         "lead_line": {
             "rank": rank,
             "score": rank_score,
@@ -454,6 +467,8 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
             "rsi_15m": _float_or_none(universe_row.get("rsi_15m")),
             "macd_hist_15m": _float_or_none(universe_row.get("macd_hist_15m")),
             "btc_weather": _float_or_none(universe_row.get("btc_weather") or universe_row.get("btc_4h_weather")),
+            "hellhound_score": _float_or_none(universe_row.get("hellhound_score")),
+            "decision_source": universe_row.get("decision_source"),
         },
         "target_feed": {
             "mode": DEFAULT_MODE,
@@ -471,11 +486,15 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
             "rsi_15m": _float_or_none(universe_row.get("rsi_15m")),
             "macd_hist_15m": _float_or_none(universe_row.get("macd_hist_15m")),
             "btc_weather": _float_or_none(universe_row.get("btc_weather") or universe_row.get("btc_4h_weather")),
+            "hellhound_score": _float_or_none(universe_row.get("hellhound_score")),
+            "decision_source": universe_row.get("decision_source"),
         },
         "fitness_payload": {
             "source": "live_universe",
             "universe_rank": rank,
             "universe_score": rank_score,
+            "hellhound_score": _float_or_none(universe_row.get("hellhound_score")),
+            "decision_source": universe_row.get("decision_source"),
         },
         "calibration_payload": {
             "source": "live_universe",
@@ -487,6 +506,8 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
             "rsi_15m": _float_or_none(universe_row.get("rsi_15m")),
             "macd_hist_15m": _float_or_none(universe_row.get("macd_hist_15m")),
             "btc_weather": _float_or_none(universe_row.get("btc_weather") or universe_row.get("btc_4h_weather")),
+            "hellhound_score": _float_or_none(universe_row.get("hellhound_score")),
+            "decision_source": universe_row.get("decision_source"),
         },
         "execution_guidance": {
             "pattern": "LIVE_UNIVERSE_OBSERVE",
@@ -496,6 +517,119 @@ def _payload_for_universe_row(row: Mapping[str, Any] | str) -> Dict[str, Any]:
         "final_weight": rank_score,
         "note": "Live universe shadow payload.",
     }
+
+
+def _enrich_universe_row_features(
+    universe_row: Mapping[str, Any], symbol: str
+) -> Dict[str, Any]:
+    enriched = dict(universe_row)
+    candles_by_timeframe = _candles_by_timeframe(enriched)
+    primary_candles = candles_by_timeframe.get("15m") or []
+    if primary_candles:
+        btc_candles_by_timeframe = _btc_candles_by_timeframe(enriched)
+        source_time = enriched.get("source_time") or _last_candle_time(primary_candles) or datetime.now(timezone.utc).isoformat()
+        snapshot = _build_snapshot(
+            symbol,
+            "15m",
+            source_time,
+            candles=primary_candles,
+            btc_candles_by_timeframe=btc_candles_by_timeframe,
+        )
+        enriched["wave_snapshot"] = _merge_json_object(
+            enriched.get("wave_snapshot") or enriched.get("market_snapshot"),
+            snapshot,
+        )
+        for source_key, target_key in (
+            ("volume_ratio_ma5", "volume_ratio_ma5"),
+            ("volume_ratio_ma20", "volume_ratio_ma20"),
+            ("rsi_15m", "rsi_15m"),
+            ("macd_hist_15m", "macd_hist_15m"),
+            ("btc_4h_weather", "btc_weather"),
+            ("btc_4h_weather", "btc_4h_weather"),
+        ):
+            if enriched.get(target_key) is None and snapshot.get(source_key) is not None:
+                enriched[target_key] = snapshot.get(source_key)
+
+    if enriched.get("hellhound_score") is None or enriched.get("decision_source") is None:
+        decision = optional_hellhound_decision(
+            symbol=symbol,
+            signal=enriched,
+            shadow_signals=[enriched],
+            candles_by_timeframe=candles_by_timeframe,
+            historical_candles=_historical_candles(enriched, candles_by_timeframe),
+            as_of_time=enriched.get("source_time"),
+            decision_enabled=True,
+        )
+        if enriched.get("hellhound_score") is None and decision.get("hellhound_score") is not None:
+            enriched["hellhound_score"] = decision.get("hellhound_score")
+        if enriched.get("decision_source") is None and decision.get("decision_source") is not None:
+            enriched["decision_source"] = decision.get("decision_source")
+        for key in ("structure_type", "setup_type", "promotion_status", "distribution_risk"):
+            if enriched.get(key) is None and decision.get(key) is not None:
+                enriched[key] = decision.get(key)
+
+    return enriched
+
+
+def _candles_by_timeframe(payload: Mapping[str, Any]) -> Dict[str, Sequence[Mapping[str, Any]]]:
+    result: Dict[str, Sequence[Mapping[str, Any]]] = {}
+    raw = payload.get("candles_by_timeframe")
+    if isinstance(raw, Mapping):
+        for timeframe, candles in raw.items():
+            if isinstance(candles, Sequence) and not isinstance(candles, (str, bytes)):
+                result[str(timeframe)] = [dict(candle) for candle in candles if isinstance(candle, Mapping)]
+    for key, timeframe in (
+        ("candles_1m", "1m"),
+        ("candles_15m", "15m"),
+        ("candles", "15m"),
+        ("historical_candles", "15m"),
+        ("candles_1h", "1h"),
+        ("candles_4h", "4h"),
+        ("candles_1d", "1d"),
+    ):
+        candles = payload.get(key)
+        if isinstance(candles, Sequence) and not isinstance(candles, (str, bytes)):
+            normalized = [dict(candle) for candle in candles if isinstance(candle, Mapping)]
+            if normalized:
+                result[timeframe] = normalized
+    return result
+
+
+def _btc_candles_by_timeframe(payload: Mapping[str, Any]) -> Dict[str, Sequence[Mapping[str, Any]]]:
+    result: Dict[str, Sequence[Mapping[str, Any]]] = {}
+    raw = payload.get("btc_candles_by_timeframe")
+    if isinstance(raw, Mapping):
+        for timeframe, candles in raw.items():
+            if isinstance(candles, Sequence) and not isinstance(candles, (str, bytes)):
+                result[str(timeframe)] = [dict(candle) for candle in candles if isinstance(candle, Mapping)]
+    for key, timeframe in (
+        ("btc_candles_15m", "15m"),
+        ("btc_candles_1h", "1h"),
+        ("btc_candles_4h", "4h"),
+        ("btc_candles_1d", "1d"),
+    ):
+        candles = payload.get(key)
+        if isinstance(candles, Sequence) and not isinstance(candles, (str, bytes)):
+            normalized = [dict(candle) for candle in candles if isinstance(candle, Mapping)]
+            if normalized:
+                result[timeframe] = normalized
+    return result
+
+
+def _historical_candles(
+    payload: Mapping[str, Any], candles_by_timeframe: Mapping[str, Sequence[Mapping[str, Any]]]
+) -> Sequence[Mapping[str, Any]]:
+    raw = payload.get("historical_candles")
+    if isinstance(raw, Sequence) and not isinstance(raw, (str, bytes)):
+        return [dict(candle) for candle in raw if isinstance(candle, Mapping)]
+    return candles_by_timeframe.get("1d") or candles_by_timeframe.get("15m") or []
+
+
+def _last_candle_time(candles: Sequence[Mapping[str, Any]]) -> Optional[Any]:
+    if not candles:
+        return None
+    last = candles[-1]
+    return last.get("time") or last.get("timestamp") or last.get("open_time")
 
 
 def _merge_json_object(value: Any, addition: Mapping[str, Any]) -> Dict[str, Any]:

@@ -1584,3 +1584,54 @@ Safety boundaries:
 - Hellhound-014-A does not use Binance endpoints.
 - Hellhound-014-A does not update/delete DB rows.
 - Hellhound-014-A does not stage, commit, or push git changes.
+
+## Sprint 12J Feature Production Path
+
+Status: implemented for shadow signal capture.
+
+Mission:
+
+```text
+Generate explainability features before shadow signal persistence.
+```
+
+Signal path:
+
+```text
+universe row candles_15m / btc_candles_by_timeframe
+-> wave_snapshot._build_snapshot()
+-> optional_hellhound_decision()
+-> shadow_runner payload
+-> hellhound_shadow_signals.payload
+-> MFE/MAE feature dataset
+```
+
+Generated/preserved fields:
+
+```text
+hellhound_score
+decision_source
+btc_weather
+volume_ratio_ma5
+volume_ratio_ma20
+rsi_15m
+macd_hist_15m
+```
+
+Safety boundaries:
+
+- No Production trading logic changes.
+- No Binance order API changes.
+- No Supabase migration or new table.
+- No ML, Medusa, Campaign, or Whale Phase implementation.
+
+Current roadmap progress:
+
+```text
+Outcome Engine              100%
+MFE/MAE Engine               92%
+Lead Line Dataset            55%
+Mirror Pattern Foundation    25%
+Medusa Board                  5%
+ML Loop                       0%
+```
