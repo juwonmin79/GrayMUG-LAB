@@ -139,16 +139,22 @@ def _load_recent_feature_signals(*, limit: int) -> list[Dict[str, Any]]:
         "id,symbol,created_at,source_time,pattern,shadow_action,"
         "lead_line_payload,target_feed,calibration_payload,fitness_payload,payload"
     )
+    fetch_limit = max(int(limit) * 20, int(limit), 100)
     endpoint = (
         f"{supabase_url.rstrip('/')}/rest/v1/{SHADOW_SIGNAL_TABLE}"
-        f"?select={fields}&payload=not.is.null&order=created_at.desc&limit={int(limit)}"
+        f"?select={fields}&payload=not.is.null&order=created_at.desc&limit={fetch_limit}"
     )
     status, rows = _supabase_json(endpoint=endpoint, supabase_key=supabase_key)
     if status < 200 or status >= 300:
         raise FeatureLineageAuditError(f"unexpected Supabase status {status}")
     if not isinstance(rows, list):
         raise FeatureLineageAuditError("Supabase shadow signal response was not a list")
-    return [dict(row) for row in rows if isinstance(row, Mapping)]
+    feature_rows = [
+        dict(row)
+        for row in rows
+        if isinstance(row, Mapping) and all(_feature_value(row, field) is not None for field in FEATURE_FIELDS)
+    ]
+    return feature_rows[: int(limit)]
 
 
 def _load_outcomes(signal_ids: Sequence[str]) -> Dict[str, list[Dict[str, Any]]]:
