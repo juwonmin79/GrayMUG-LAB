@@ -1,0 +1,74 @@
+{
+  "is_trade_command": false,
+  "replay_contrast_matrix_schema_version": "replay_contrast_matrix_v1",
+  "rows": [
+    {
+      "case_id": "success-1-WLDUSDT",
+      "case_type": "success",
+      "ignition_return_24h": 19.1085,
+      "is_trade_command": false,
+      "mae_from_ignition": -0.224603,
+      "mfe_from_ignition": 24.896337,
+      "rsi_persistence": 5,
+      "score_slope_4": -0.00495,
+      "sequence": "rsi_15m -> volume_ratio_ma20 -> hellhound_score",
+      "symbol": "WLDUSDT",
+      "volume_delay_after_score": -1
+    },
+    {
+      "case_id": "success-2-SOLUSDT",
+      "case_type": "success",
+      "ignition_return_24h": 6.693595,
+      "is_trade_command": false,
+      "mae_from_ignition": -0.34622,
+      "mfe_from_ignition": 6.722447,
+      "rsi_persistence": 3,
+      "score_slope_4": 0.009025,
+      "sequence": "hellhound_score -> rsi_15m -> volume_ratio_ma20",
+      "symbol": "SOLUSDT",
+      "volume_delay_after_score": 1
+    },
+    {
+      "case_id": "failure-1-WLDUSDT",
+      "case_type": "failure",
+      "ignition_return_24h": -10.442024,
+      "is_trade_command": false,
+      "mae_from_ignition": -11.354901,
+      "mfe_from_ignition": 3.891736,
+      "rsi_persistence": 8,
+      "score_slope_4": -0.03905,
+      "sequence": "hellhound_score -> volume_ratio_ma20 -> rsi_15m",
+      "symbol": "WLDUSDT",
+      "volume_delay_after_score": 0
+    },
+    {
+      "case_id": "failure-2-ARBUSDT",
+      "case_type": "failure",
+      "ignition_return_24h": -8.899297,
+      "is_trade_command": false,
+      "mae_from_ignition": -10.187354,
+      "mfe_from_ignition": 1.873536,
+      "rsi_persistence": 5,
+      "score_slope_4": 0.01945,
+      "sequence": "rsi_15m -> volume_ratio_ma20 -> hellhound_score",
+      "symbol": "ARBUSDT",
+      "volume_delay_after_score": -1
+    }
+  ],
+  "summary": {
+    "failure": {
+      "average_ignition_return_24h": -9.670661,
+      "average_rsi_persistence": 6.5,
+      "average_score_slope_4": -0.0098,
+      "average_volume_delay_after_score": -0.5,
+      "count": 2
+    },
+    "success": {
+      "average_ignition_return_24h": 12.901048,
+      "average_rsi_persistence": 4.0,
+      "average_score_slope_4": 0.002037,
+      "average_volume_delay_after_score": 0.0,
+      "count": 2
+    }
+  }
+}

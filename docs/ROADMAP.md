@@ -488,3 +488,67 @@ Sprint 12O input:
 Use only these evidence-backed candidates for Mirror Pattern Feature Layer design.
 Do not begin ML training.
 ```
+
+## Sprint 12O Mirror Contrast Dataset
+
+Status:
+
+```text
+Contrast evidence complete; Mirror Pattern implementation remains blocked.
+```
+
+Purpose:
+
+```text
+Build a success/failure contrast dataset before implementing Mirror Pattern Feature Layer.
+No threshold, score formula, gate, ML, Mirror implementation, Medusa, Campaign, or rule changes.
+```
+
+Outputs:
+
+```text
+outputs/mirror_contrast_dataset.json
+outputs/mirror_contrast_report.json
+outputs/mirror_feature_validation.json
+outputs/replay_contrast_matrix.json
+outputs/mirror_feature_stability.json
+```
+
+Replay cases:
+
+```text
+Success cases:
+- WLDUSDT: ignition_return_24h 19.1085
+- SOLUSDT: ignition_return_24h 6.693595
+
+Failure cases:
+- WLDUSDT: ignition_return_24h -10.442024
+- ARBUSDT: ignition_return_24h -8.899297
+```
+
+Contrast matrix summary:
+
+```text
+Success average score_slope_4: 0.002037
+Failure average score_slope_4: -0.0098
+Success average RSI persistence: 4.0
+Failure average RSI persistence: 6.5
+Success average volume delay after score: 0.0
+Failure average volume delay after score: -0.5
+```
+
+Mirror candidate validation:
+
+```text
+hellhound_score temporal line: not validated
+rsi_15m temporal line: not validated
+volume_ratio_ma20 temporal line: not validated
+```
+
+Evidence conclusion:
+
+```text
+The 12N temporal line candidates repeat in Success cases, but also repeat in Failure cases.
+The current three candidates are not sufficient discriminators.
+Sprint 12P should remain evidence/design work unless a stronger contrast discriminator is found.
+```

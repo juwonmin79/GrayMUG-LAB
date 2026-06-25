@@ -731,6 +731,71 @@ Next state:
 Sprint 12O may design a Mirror Pattern Feature Layer using only these evidence-backed temporal line candidates.
 ML remains blocked.
 ```
+
+### Sprint 12O Mirror Contrast Dataset
+
+Status:
+
+```text
+Contrast evidence complete
+Mirror Pattern implementation remains blocked
+```
+
+Scope:
+
+```text
+Replay and compare only.
+No threshold change, Hellhound score change, PROMOTE gate change, ML, Mirror Pattern implementation, Medusa, Campaign, or rule changes.
+```
+
+Generated outputs:
+
+```text
+outputs/mirror_contrast_dataset.json
+outputs/mirror_contrast_report.json
+outputs/mirror_feature_validation.json
+outputs/replay_contrast_matrix.json
+outputs/mirror_feature_stability.json
+```
+
+Replay case set:
+
+```text
+Success:
+- WLDUSDT ignition_return_24h=19.1085
+- SOLUSDT ignition_return_24h=6.693595
+
+Failure:
+- WLDUSDT ignition_return_24h=-10.442024
+- ARBUSDT ignition_return_24h=-8.899297
+```
+
+Contrast result:
+
+```text
+Success average score_slope_4: 0.002037
+Failure average score_slope_4: -0.0098
+Success average RSI persistence: 4.0
+Failure average RSI persistence: 6.5
+Success average volume delay after score: 0.0
+Failure average volume delay after score: -0.5
+```
+
+Candidate validation:
+
+```text
+hellhound_score temporal line: not validated
+rsi_15m temporal line: not validated
+volume_ratio_ma20 temporal line: not validated
+```
+
+Evidence conclusion:
+
+```text
+The 12N candidates repeat in success cases, but also repeat in failure cases.
+They are not sufficient by themselves to distinguish real accumulation from fake signals.
+Mirror Pattern implementation should not start until a stronger contrast discriminator is identified.
+```
 * Layer:
   - Snapshot Layer: T-2, T-1, T0 state vector.
   - Diff Layer: Diff_A, Diff_B.

@@ -665,3 +665,56 @@ No PROMOTE gate change.
 No ML training.
 No Mirror Pattern implementation.
 ```
+
+## Sprint 12O Mirror Contrast Dataset
+
+Status: contrast evidence complete; Mirror candidates not validated yet.
+
+Generated outputs:
+
+```text
+outputs/mirror_contrast_dataset.json
+outputs/mirror_contrast_report.json
+outputs/mirror_feature_validation.json
+outputs/replay_contrast_matrix.json
+outputs/mirror_feature_stability.json
+```
+
+Replay cases:
+
+```text
+Success:
+1. WLDUSDT ignition_return_24h=19.1085
+2. SOLUSDT ignition_return_24h=6.693595
+
+Failure:
+1. WLDUSDT ignition_return_24h=-10.442024
+2. ARBUSDT ignition_return_24h=-8.899297
+```
+
+Contrast summary:
+
+```text
+Success average score_slope_4: 0.002037
+Failure average score_slope_4: -0.0098
+Success average RSI persistence: 4.0
+Failure average RSI persistence: 6.5
+Success average volume delay after score: 0.0
+Failure average volume delay after score: -0.5
+```
+
+Mirror candidate validation:
+
+```text
+hellhound_score temporal line: not validated
+rsi_15m temporal line: not validated
+volume_ratio_ma20 temporal line: not validated
+```
+
+Evidence conclusion:
+
+```text
+The 12N candidates repeat in success cases, but they also repeat in failure cases.
+Therefore they are not sufficient by themselves to answer whether a Line is real accumulation or a fake signal.
+Sprint 12P should not implement Mirror Pattern yet without a stronger contrast discriminator.
+```

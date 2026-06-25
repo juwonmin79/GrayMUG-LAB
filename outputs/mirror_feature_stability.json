@@ -1,0 +1,27 @@
+{
+  "features": [
+    {
+      "contrast_delta": 1.99,
+      "failure_average_strength": 3.531175,
+      "feature": "hellhound_score",
+      "is_trade_command": false,
+      "success_average_strength": 5.521175
+    },
+    {
+      "contrast_delta": 2.532482,
+      "failure_average_strength": 8.623746,
+      "feature": "rsi_15m",
+      "is_trade_command": false,
+      "success_average_strength": 11.156228
+    },
+    {
+      "contrast_delta": -1.20926,
+      "failure_average_strength": 5.008505,
+      "feature": "volume_ratio_ma20",
+      "is_trade_command": false,
+      "success_average_strength": 3.799245
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_feature_stability_schema_version": "mirror_feature_stability_v1"
+}

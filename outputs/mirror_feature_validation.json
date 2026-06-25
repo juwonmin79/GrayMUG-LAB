@@ -1,0 +1,36 @@
+{
+  "is_trade_command": false,
+  "mirror_feature_validation_schema_version": "mirror_feature_validation_v1",
+  "validations": [
+    {
+      "breaks_in_failure": false,
+      "failure_case_count": 2,
+      "failure_repeat_count": 2,
+      "feature": "hellhound_score",
+      "is_trade_command": false,
+      "success_case_count": 2,
+      "success_repeat_count": 2,
+      "validated": false
+    },
+    {
+      "breaks_in_failure": false,
+      "failure_case_count": 2,
+      "failure_repeat_count": 2,
+      "feature": "rsi_15m",
+      "is_trade_command": false,
+      "success_case_count": 2,
+      "success_repeat_count": 2,
+      "validated": false
+    },
+    {
+      "breaks_in_failure": false,
+      "failure_case_count": 2,
+      "failure_repeat_count": 2,
+      "feature": "volume_ratio_ma20",
+      "is_trade_command": false,
+      "success_case_count": 2,
+      "success_repeat_count": 2,
+      "validated": false
+    }
+  ]
+}
