@@ -414,3 +414,77 @@ Use this replay evidence as input for Mirror Pattern Feature design.
 Do not add new features without replay evidence.
 Evidence -> Feature -> ML remains the order.
 ```
+
+## Sprint 12N Mirror Pattern Feature Discovery
+
+Status:
+
+```text
+Evidence complete
+```
+
+Purpose:
+
+```text
+Define Mirror Pattern Feature candidates from Sprint 12M replay evidence.
+No threshold tuning, score formula change, PROMOTE gate change, ML, or Mirror Pattern implementation.
+```
+
+Input:
+
+```text
+outputs/btc_replay_dataset.jsonl
+outputs/btc_replay_report.json
+outputs/leadline_candidate_report.json
+outputs/detectability_verdict.json
+```
+
+Focus features:
+
+```text
+hellhound_score
+rsi_15m
+volume_ratio_ma20
+```
+
+Outputs:
+
+```text
+outputs/mirror_pattern_feature_candidates.json
+outputs/mirror_pattern_sequence_report.json
+outputs/pre_ignition_temporal_report.json
+outputs/feature_transition_matrix.json
+```
+
+Temporal evidence:
+
+```text
+Dominant sequence: hellhound_score -> rsi_15m -> volume_ratio_ma20
+hellhound_score first rise index: 1
+rsi_15m first rise index: 1
+volume_ratio_ma20 first rise index: 3
+volume lag after score/RSI: 2 candles
+```
+
+Candidate order:
+
+```text
+1. rsi_15m temporal line
+2. hellhound_score temporal line
+3. volume_ratio_ma20 temporal line
+```
+
+Success vs missed comparison:
+
+```text
+High-MFE rows: 82
+Loss rows: 0
+Conclusion: this BTC replay supports temporal candidate extraction, but does not provide a loss-side contrast set.
+```
+
+Sprint 12O input:
+
+```text
+Use only these evidence-backed candidates for Mirror Pattern Feature Layer design.
+Do not begin ML training.
+```

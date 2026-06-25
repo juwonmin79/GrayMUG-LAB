@@ -659,6 +659,78 @@ Next state:
 Sprint 12M output is input evidence for Mirror Pattern Feature design.
 No new Feature or ML work should begin without replay-backed evidence.
 ```
+
+### Sprint 12N Mirror Pattern Feature Discovery
+
+Status:
+
+```text
+Evidence complete
+```
+
+Scope:
+
+```text
+Read-only evidence analysis from Sprint 12M replay outputs.
+No threshold, Hellhound score formula, PROMOTE gate, ML, Mirror Pattern implementation, Medusa, or Campaign changes.
+```
+
+Input:
+
+```text
+outputs/btc_replay_dataset.jsonl
+outputs/btc_replay_report.json
+outputs/leadline_candidate_report.json
+outputs/detectability_verdict.json
+```
+
+Focus features:
+
+```text
+hellhound_score
+rsi_15m
+volume_ratio_ma20
+```
+
+Generated outputs:
+
+```text
+outputs/mirror_pattern_feature_candidates.json
+outputs/mirror_pattern_sequence_report.json
+outputs/pre_ignition_temporal_report.json
+outputs/feature_transition_matrix.json
+```
+
+Feature candidate ranking:
+
+```text
+1. rsi_15m temporal line
+2. hellhound_score temporal line
+3. volume_ratio_ma20 temporal line
+```
+
+Sequence evidence:
+
+```text
+Dominant sequence: hellhound_score -> rsi_15m -> volume_ratio_ma20
+hellhound_score and rsi_15m first rise together.
+volume_ratio_ma20 first rise occurs 2 candles later.
+```
+
+Success vs missed note:
+
+```text
+High-MFE rows: 82
+Loss rows: 0
+This replay has no loss-side contrast set; additional missed/loss replay cases are needed before ML or threshold optimization.
+```
+
+Next state:
+
+```text
+Sprint 12O may design a Mirror Pattern Feature Layer using only these evidence-backed temporal line candidates.
+ML remains blocked.
+```
 * Layer:
   - Snapshot Layer: T-2, T-1, T0 state vector.
   - Diff Layer: Diff_A, Diff_B.

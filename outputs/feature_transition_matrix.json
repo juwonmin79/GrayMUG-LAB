@@ -1,0 +1,33 @@
+{
+  "feature_transition_matrix_schema_version": "feature_transition_matrix_v1",
+  "focus_features": [
+    "hellhound_score",
+    "rsi_15m",
+    "volume_ratio_ma20"
+  ],
+  "is_trade_command": false,
+  "matrix": {
+    "hellhound_score": {
+      "down->down": 48,
+      "down->up": 46,
+      "flat->down": 1,
+      "flat->up": 1,
+      "up->down": 47,
+      "up->up": 45
+    },
+    "rsi_15m": {
+      "down->down": 50,
+      "down->up": 44,
+      "up->down": 46,
+      "up->flat": 1,
+      "up->up": 47
+    },
+    "volume_ratio_ma20": {
+      "down->down": 52,
+      "down->flat": 1,
+      "down->up": 45,
+      "up->down": 42,
+      "up->up": 48
+    }
+  }
+}

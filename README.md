@@ -603,3 +603,65 @@ No Production code changed.
 No threshold or gate changed.
 No ML, Mirror Pattern, Medusa, or Campaign implementation.
 ```
+
+## Sprint 12N Mirror Pattern Feature Discovery
+
+Status: evidence complete.
+
+Input:
+
+```text
+outputs/btc_replay_dataset.jsonl
+outputs/btc_replay_report.json
+outputs/leadline_candidate_report.json
+outputs/detectability_verdict.json
+```
+
+Focus features:
+
+```text
+hellhound_score
+rsi_15m
+volume_ratio_ma20
+```
+
+Generated outputs:
+
+```text
+outputs/mirror_pattern_feature_candidates.json
+outputs/mirror_pattern_sequence_report.json
+outputs/pre_ignition_temporal_report.json
+outputs/feature_transition_matrix.json
+```
+
+Dominant sequence:
+
+```text
+hellhound_score -> rsi_15m -> volume_ratio_ma20
+```
+
+Feature candidates:
+
+```text
+1. rsi_15m temporal line
+2. hellhound_score temporal line
+3. volume_ratio_ma20 temporal line
+```
+
+Evidence notes:
+
+```text
+hellhound_score and rsi_15m first rose simultaneously.
+volume_ratio_ma20 first rose 2 candles later.
+The replay window contained 82 high-MFE rows and 0 loss rows, so high-vs-loss delta is not yet available from this single BTC replay.
+```
+
+Boundary:
+
+```text
+No threshold change.
+No score formula change.
+No PROMOTE gate change.
+No ML training.
+No Mirror Pattern implementation.
+```

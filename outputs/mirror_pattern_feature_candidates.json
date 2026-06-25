@@ -1,0 +1,72 @@
+{
+  "candidates": [
+    {
+      "candidate_type": "temporal_line_feature",
+      "definition": "RSI line slope, inflection, and persistence before ignition.",
+      "evidence_score": 18.125907,
+      "feature": "rsi_15m",
+      "is_trade_command": false,
+      "last_acceleration": -8.176018,
+      "max_abs_slope": 5.616556,
+      "max_increase_persistence": 7,
+      "rank": 1,
+      "sequence_position": 2
+    },
+    {
+      "candidate_type": "temporal_line_feature",
+      "definition": "Score line slope, acceleration, and persistence before ignition.",
+      "evidence_score": 4.393333,
+      "feature": "hellhound_score",
+      "is_trade_command": false,
+      "last_acceleration": -0.0316,
+      "max_abs_slope": 0.0284,
+      "max_increase_persistence": 4,
+      "rank": 2,
+      "sequence_position": 1
+    },
+    {
+      "candidate_type": "temporal_line_feature",
+      "definition": "MA20 volume ratio line slope, acceleration, and persistence before ignition.",
+      "evidence_score": 2.916307,
+      "feature": "volume_ratio_ma20",
+      "is_trade_command": false,
+      "last_acceleration": 0.340161,
+      "max_abs_slope": 0.242813,
+      "max_increase_persistence": 4,
+      "rank": 3,
+      "sequence_position": 3
+    }
+  ],
+  "focus_features": [
+    "hellhound_score",
+    "rsi_15m",
+    "volume_ratio_ma20"
+  ],
+  "is_trade_command": false,
+  "mirror_pattern_feature_candidate_schema_version": "mirror_pattern_feature_candidates_v1",
+  "source": "Sprint 12M BTC replay evidence",
+  "transition_matrix_summary": {
+    "hellhound_score": {
+      "down->down": 48,
+      "down->up": 46,
+      "flat->down": 1,
+      "flat->up": 1,
+      "up->down": 47,
+      "up->up": 45
+    },
+    "rsi_15m": {
+      "down->down": 50,
+      "down->up": 44,
+      "up->down": 46,
+      "up->flat": 1,
+      "up->up": 47
+    },
+    "volume_ratio_ma20": {
+      "down->down": 52,
+      "down->flat": 1,
+      "down->up": 45,
+      "up->down": 42,
+      "up->up": 48
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "features": {
+    "hellhound_score": {
+      "absolute_value": {
+        "pre_ignition_first": 0.3581,
+        "pre_ignition_last": 0.1895,
+        "pre_ignition_max": 0.5212,
+        "pre_ignition_min": 0.1121,
+        "replay_max": 0.575,
+        "replay_min": 0.1121
+      },
+      "acceleration": {
+        "average_acceleration": -0.000781,
+        "direction": "decreasing",
+        "inflection_count": 52,
+        "last_acceleration": -0.0316
+      },
+      "persistence": {
+        "last_direction": "down",
+        "max_decrease_candles": 4,
+        "max_increase_candles": 4
+      },
+      "slopes": {
+        "16_candles": -0.002819,
+        "2_candles": -0.0284,
+        "4_candles": 0.001275,
+        "8_candles": -0.004325
+      }
+    },
+    "rsi_15m": {
+      "absolute_value": {
+        "pre_ignition_first": 31.727633,
+        "pre_ignition_last": 37.838203,
+        "pre_ignition_max": 80.485252,
+        "pre_ignition_min": 22.704946,
+        "replay_max": 89.76612,
+        "replay_min": 22.704946
+      },
+      "acceleration": {
+        "average_acceleration": -0.158091,
+        "direction": "decreasing",
+        "inflection_count": 49,
+        "last_acceleration": -8.176018
+      },
+      "persistence": {
+        "last_direction": "down",
+        "max_decrease_candles": 5,
+        "max_increase_candles": 7
+      },
+      "slopes": {
+        "16_candles": -0.447378,
+        "2_candles": -5.616556,
+        "4_candles": -4.175781,
+        "8_candles": -2.904199
+      }
+    },
+    "volume_ratio_ma20": {
+      "absolute_value": {
+        "pre_ignition_first": 3.496096,
+        "pre_ignition_last": 0.602275,
+        "pre_ignition_max": 5.360961,
+        "pre_ignition_min": 0.126672,
+        "replay_max": 5.360961,
+        "replay_min": 0.126672
+      },
+      "acceleration": {
+        "average_acceleration": 0.030591,
+        "direction": "increasing",
+        "inflection_count": 59,
+        "last_acceleration": 0.340161
+      },
+      "persistence": {
+        "last_direction": "up",
+        "max_decrease_candles": 3,
+        "max_increase_candles": 4
+      },
+      "slopes": {
+        "16_candles": -0.034112,
+        "2_candles": -0.006438,
+        "4_candles": -0.242813,
+        "8_candles": -0.103199
+      }
+    }
+  },
+  "focus_features": [
+    "hellhound_score",
+    "rsi_15m",
+    "volume_ratio_ma20"
+  ],
+  "is_trade_command": false,
+  "mirror_temporal_schema_version": "pre_ignition_temporal_report_v1",
+  "row_counts": {
+    "all": 192,
+    "ignition": 1,
+    "post_ignition": 96,
+    "pre_ignition": 95
+  },
+  "success_vs_missed": {
+    "delta_high_minus_loss": {
+      "hellhound_score": null,
+      "rsi_15m": null,
+      "volume_ratio_ma20": null
+    },
+    "high_mfe": {
+      "hellhound_score": {
+        "average_4_candle_slope": -0.000872,
+        "average_value": 0.22728,
+        "max_increase_persistence": 5
+      },
+      "rsi_15m": {
+        "average_4_candle_slope": 0.154576,
+        "average_value": 46.513724,
+        "max_increase_persistence": 4
+      },
+      "volume_ratio_ma20": {
+        "average_4_candle_slope": -0.00277,
+        "average_value": 1.028522,
+        "max_increase_persistence": 3
+      }
+    },
+    "high_mfe_count": 82,
+    "loss": {
+      "hellhound_score": {
+        "average_4_candle_slope": null,
+        "average_value": null,
+        "max_increase_persistence": 0
+      },
+      "rsi_15m": {
+        "average_4_candle_slope": null,
+        "average_value": null,
+        "max_increase_persistence": 0
+      },
+      "volume_ratio_ma20": {
+        "average_4_candle_slope": null,
+        "average_value": null,
+        "max_increase_persistence": 0
+      }
+    },
+    "loss_count": 0
+  },
+  "target": {
+    "accumulation_start": "2026-06-20T14:00:00+00:00",
+    "accumulation_start_index": 576,
+    "ignition_index": 671,
+    "ignition_return_24h": 2.232407,
+    "ignition_time": "2026-06-21T13:45:00+00:00",
+    "is_trade_command": false,
+    "local_peak_index": 767,
+    "local_peak_time": "2026-06-22T13:45:00+00:00",
+    "peak_return_from_ignition": 2.232407,
+    "selection_method": "max_24h_forward_return_latest_1000_15m",
+    "symbol": "BTCUSDT"
+  }
+}
