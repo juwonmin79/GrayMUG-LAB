@@ -1,0 +1,152 @@
+{
+  "contract_version": "mirror_decision_contract_v1",
+  "decision_enum": [
+    "REAL_WHALE_BACK",
+    "FAKE_WHALE_BACK",
+    "INCONCLUSIVE"
+  ],
+  "fields": [
+    {
+      "description": "Mirror output schema version.",
+      "field": "schema_version",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "mirror_decision_contract_v1"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Stable Mirror Pattern decision identifier.",
+      "field": "mirror_pattern_id",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Campaign id copied from Campaign Physics Packet.",
+      "field": "campaign_id",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Signal id copied from Campaign Physics Packet when available.",
+      "field": "signal_id",
+      "nullable": true,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Market symbol copied from Campaign Physics Packet.",
+      "field": "symbol",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Campaign authenticity decision.",
+      "field": "mirror_decision",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "REAL_WHALE_BACK",
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Mirror decision confidence.",
+      "field": "confidence",
+      "nullable": false,
+      "required": true,
+      "type": "number",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": {
+        "maximum": 1.0,
+        "minimum": 0.0
+      }
+    },
+    {
+      "description": "Reason-code based explanation object; free-form LLM prose is forbidden.",
+      "field": "explainability",
+      "nullable": false,
+      "required": true,
+      "type": "object",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Allowed Campaign Physics features used for the decision.",
+      "field": "supporting_features",
+      "nullable": false,
+      "required": true,
+      "type": "object",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Mirror output validation state.",
+      "field": "validation_state",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "ACCEPT",
+        "WARNING",
+        "HOLD",
+        "REJECT"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "UTC timestamp when Mirror output packet is created.",
+      "field": "created_at",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": "ISO-8601 timestamp",
+      "valid_range": null
+    }
+  ],
+  "freeform_explanation_allowed": false,
+  "input_rule": "Campaign Physics Packet",
+  "is_trade_command": false,
+  "mirror_output_schema_version": "mirror_output_schema_v1",
+  "reason_code_required": true,
+  "required_fields": [
+    "schema_version",
+    "mirror_pattern_id",
+    "campaign_id",
+    "signal_id",
+    "symbol",
+    "mirror_decision",
+    "confidence",
+    "explainability",
+    "supporting_features",
+    "validation_state",
+    "created_at"
+  ]
+}

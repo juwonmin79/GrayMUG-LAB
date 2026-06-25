@@ -1,0 +1,128 @@
+{
+  "campaign_physics_layer_schema_version": "campaign_physics_layer_v1",
+  "candidates": [
+    {
+      "calculation_time": "After campaign replay window is available; in live mode updates from start until ignition.",
+      "campaign_position": "Pre-Accumulation through Ignition",
+      "candidate": "early_mae",
+      "evidence_rank": 1,
+      "evidence_score": 1.0,
+      "evidence_verdict": "VERIFIED",
+      "feature_dependency": [
+        "Replay rows or live campaign rows with mae_pct",
+        "Campaign boundaries"
+      ],
+      "inputs": [
+        "campaign start_time",
+        "ignition_time",
+        "mae_pct time series"
+      ],
+      "is_trade_command": false,
+      "meaning": "Maximum adverse excursion observed before or at campaign ignition.",
+      "mirror_dependency": false,
+      "ml_dependency": false,
+      "output": "early_mae percentage value",
+      "real_time_calculable": true,
+      "replayable": true,
+      "usage": "Primary Campaign Physics discriminator for distinguishing healthy early absorption from failed campaigns."
+    },
+    {
+      "calculation_time": "After peak MFE is observed; in live mode provisional until campaign peak/end.",
+      "campaign_position": "Ignition through Expansion/Distribution or Failure",
+      "candidate": "recovery_ratio",
+      "evidence_rank": 2,
+      "evidence_score": 0.852632,
+      "evidence_verdict": "VERIFIED",
+      "feature_dependency": [
+        "early_mae",
+        "peak_mfe"
+      ],
+      "inputs": [
+        "early_mae",
+        "peak_mfe"
+      ],
+      "is_trade_command": false,
+      "meaning": "Peak favorable excursion divided by absolute Early MAE.",
+      "mirror_dependency": false,
+      "ml_dependency": false,
+      "output": "recovery_ratio = peak_mfe / abs(early_mae)",
+      "real_time_calculable": true,
+      "replayable": true,
+      "usage": "Measures whether the campaign recovered and expanded enough to justify the initial drawdown."
+    },
+    {
+      "calculation_time": "When Early MAE timestamp is known; live value updates while early drawdown evolves.",
+      "campaign_position": "Pre-Accumulation through Ignition",
+      "candidate": "initial_drawdown_velocity",
+      "evidence_rank": 3,
+      "evidence_score": 0.43582,
+      "evidence_verdict": "NOT_ENOUGH_EVIDENCE",
+      "feature_dependency": [
+        "early_mae",
+        "time_to_early_mae"
+      ],
+      "inputs": [
+        "early_mae",
+        "time_to_early_mae"
+      ],
+      "is_trade_command": false,
+      "meaning": "Speed of early adverse movement from campaign start to Early MAE.",
+      "mirror_dependency": false,
+      "ml_dependency": false,
+      "output": "initial_drawdown_velocity = early_mae / max(time_to_early_mae, 0.25h)",
+      "real_time_calculable": true,
+      "replayable": true,
+      "usage": "Secondary risk physics candidate; 12S did not prove it as a stable discriminator."
+    },
+    {
+      "calculation_time": "After campaign end; live mode can expose elapsed duration as provisional.",
+      "campaign_position": "Whole Campaign",
+      "candidate": "campaign_duration",
+      "evidence_rank": 4,
+      "evidence_score": 0.295551,
+      "evidence_verdict": "NOT_ENOUGH_EVIDENCE",
+      "feature_dependency": [
+        "Campaign boundaries"
+      ],
+      "inputs": [
+        "start_time",
+        "end_time"
+      ],
+      "is_trade_command": false,
+      "meaning": "Elapsed hours between campaign start and campaign end.",
+      "mirror_dependency": false,
+      "ml_dependency": false,
+      "output": "campaign_duration hours",
+      "real_time_calculable": true,
+      "replayable": true,
+      "usage": "Context metric only; 12S reconfirmed it is not a discriminator."
+    }
+  ],
+  "design_status": "VERIFIED",
+  "forbidden_actions": [
+    "No Mirror Pattern implementation",
+    "No ML training",
+    "No threshold change",
+    "No gate change",
+    "No Hellhound Score change",
+    "No Replay mutation",
+    "No Production code change"
+  ],
+  "is_trade_command": false,
+  "layer_name": "Campaign Physics",
+  "position": {
+    "current_layer": "Campaign Physics",
+    "next_layer": "Mirror Pattern",
+    "order": [
+      "Snapshot",
+      "Lead Line",
+      "Campaign Physics",
+      "Mirror Pattern",
+      "ML",
+      "Medusa Board"
+    ],
+    "previous_layer": "Lead Line",
+    "reason_before_mirror": "Campaign Physics describes measurable campaign movement and recovery from replayable market/outcome rows. Mirror Pattern should consume these physical facts instead of inventing pattern meaning directly from raw feature lines."
+  },
+  "purpose": "Represent Campaign-level physical behavior before Mirror Pattern interpretation."
+}

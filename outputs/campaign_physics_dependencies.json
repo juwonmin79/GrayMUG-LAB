@@ -1,0 +1,71 @@
+{
+  "campaign_physics_dependencies_schema_version": "campaign_physics_dependencies_v1",
+  "candidate_edges": [
+    {
+      "from": "campaign_boundaries",
+      "to": "early_mae"
+    },
+    {
+      "from": "mae_pct_time_series",
+      "to": "early_mae"
+    },
+    {
+      "from": "early_mae",
+      "to": "recovery_ratio"
+    },
+    {
+      "from": "peak_mfe",
+      "to": "recovery_ratio"
+    },
+    {
+      "from": "early_mae",
+      "to": "initial_drawdown_velocity"
+    },
+    {
+      "from": "time_to_early_mae",
+      "to": "initial_drawdown_velocity"
+    },
+    {
+      "from": "campaign_boundaries",
+      "to": "campaign_duration"
+    }
+  ],
+  "cycle_check": {
+    "candidate_has_cycle": false,
+    "has_cycle": false
+  },
+  "dependency_diagram": "Snapshot -> Lead Line -> Campaign Physics -> Mirror Pattern -> ML -> Medusa Board",
+  "independence": {
+    "mirror_required": false,
+    "ml_required": false,
+    "production_required": false
+  },
+  "is_trade_command": false,
+  "layer_edges": [
+    {
+      "dependency_type": "context",
+      "from": "Snapshot",
+      "to": "Lead Line"
+    },
+    {
+      "dependency_type": "campaign_candidate_context",
+      "from": "Lead Line",
+      "to": "Campaign Physics"
+    },
+    {
+      "dependency_type": "physics_features",
+      "from": "Campaign Physics",
+      "to": "Mirror Pattern"
+    },
+    {
+      "dependency_type": "future_training_features",
+      "from": "Mirror Pattern",
+      "to": "ML"
+    },
+    {
+      "dependency_type": "future_decision_surface",
+      "from": "ML",
+      "to": "Medusa Board"
+    }
+  ]
+}

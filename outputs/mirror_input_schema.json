@@ -1,0 +1,50 @@
+{
+  "accepted_contract_version": "campaign_physics_contract_v1",
+  "accepted_input": "Campaign Physics Packet",
+  "dependency_order": [
+    "Snapshot",
+    "Lead Line",
+    "Campaign Physics",
+    "Mirror Pattern",
+    "ML",
+    "Medusa Board"
+  ],
+  "direct_lead_line_access": false,
+  "direct_snapshot_access": false,
+  "forbidden_inputs": [
+    "Snapshot",
+    "Lead Line",
+    "raw candles",
+    "raw score lines"
+  ],
+  "interface_order": [
+    "Snapshot",
+    "Lead Line",
+    "Campaign Physics",
+    "Interface Contract",
+    "Mirror Pattern",
+    "ML",
+    "Medusa Board"
+  ],
+  "is_trade_command": false,
+  "mirror_input_schema_version": "mirror_input_schema_v1",
+  "nullable_packet_fields": [
+    "signal_id",
+    "initial_drawdown_velocity",
+    "campaign_duration"
+  ],
+  "required_packet_fields": [
+    "schema_version",
+    "campaign_id",
+    "signal_id",
+    "symbol",
+    "timeframe",
+    "outcome",
+    "early_mae",
+    "recovery_ratio",
+    "initial_drawdown_velocity",
+    "campaign_duration",
+    "confidence",
+    "created_at"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "candidate_evidence": {
+    "not_verified": [
+      "initial_drawdown_velocity",
+      "campaign_duration"
+    ],
+    "verified": [
+      "early_mae",
+      "recovery_ratio"
+    ]
+  },
+  "contract_status": "VERIFIED",
+  "contract_version": "campaign_physics_contract_v1",
+  "forbidden_actions_confirmed": [
+    "No Mirror Pattern implementation",
+    "No ML training",
+    "No threshold change",
+    "No gate change",
+    "No Hellhound Score change",
+    "No Replay change",
+    "No Campaign Physics calculation change",
+    "No Production code change"
+  ],
+  "interface_contract_report_schema_version": "interface_contract_report_v1",
+  "interface_diagram": "Snapshot -> Lead Line -> Campaign Physics -> Interface Contract -> Mirror Pattern -> ML -> Medusa Board",
+  "is_trade_command": false,
+  "mirror_dependency_rule": "Mirror Pattern Layer accepts only Campaign Physics Packet. It does not directly read Snapshot or Lead Line.",
+  "next_sprint_recommendation": "Review the Interface Contract and decide whether Mirror Pattern design can consume only Campaign Physics Packets.",
+  "not_verified": [],
+  "validation": {
+    "audit_log_fields_complete": true,
+    "contract_only_mirror_input": true,
+    "no_circular_dependency": true,
+    "real_time_usable": true,
+    "reject_hold_warning_policy_defined": true,
+    "replayable": true,
+    "version_manageable": true
+  },
+  "verified": [
+    "Campaign Physics Contract Schema",
+    "Mirror Input Schema",
+    "Validation Rule",
+    "Error Handling Policy",
+    "Audit Log Rule",
+    "Version Policy",
+    "Dependency Rule"
+  ]
+}

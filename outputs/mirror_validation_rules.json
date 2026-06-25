@@ -1,0 +1,102 @@
+{
+  "audit_policy": {
+    "audit_log_fields": [
+      "contract_version",
+      "mirror_pattern_id",
+      "campaign_id",
+      "signal_id",
+      "decision",
+      "reason_code",
+      "validation_result",
+      "action",
+      "timestamp"
+    ],
+    "audit_log_required": true,
+    "reproducibility_required": true
+  },
+  "contract_version": "mirror_decision_contract_v1",
+  "error_handling_policy": [
+    "missing_field -> REJECT -> SKIP",
+    "invalid_enum -> REJECT -> ALERT",
+    "partial_packet -> HOLD",
+    "unknown_field -> WARNING",
+    "invalid_reason_code -> REJECT",
+    "Mirror does not repair or infer rejected packets."
+  ],
+  "is_trade_command": false,
+  "mirror_validation_rules_schema_version": "mirror_validation_rules_v1",
+  "rules": [
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "condition": "mirror_decision is missing.",
+      "validation_error_code": "missing_decision",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "condition": "confidence is missing.",
+      "validation_error_code": "missing_confidence",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "ALERT"
+      ],
+      "condition": "mirror_decision or validation_state is outside valid enum.",
+      "validation_error_code": "invalid_enum",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "condition": "explainability.reason_codes is missing or empty.",
+      "validation_error_code": "missing_reason_code",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "ALERT"
+      ],
+      "condition": "schema_version does not match Mirror contract.",
+      "validation_error_code": "invalid_schema",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "condition": "Required Mirror output field is missing.",
+      "validation_error_code": "missing_field",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "HOLD"
+      ],
+      "condition": "Mirror output packet is structurally incomplete.",
+      "validation_error_code": "partial_packet",
+      "verdict": "HOLD"
+    },
+    {
+      "actions": [
+        "WARNING"
+      ],
+      "condition": "Mirror output packet includes an unknown field.",
+      "validation_error_code": "unknown_field",
+      "verdict": "WARNING"
+    },
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "condition": "Reason code is not in allowed reason-code registry.",
+      "validation_error_code": "invalid_reason_code",
+      "verdict": "REJECT"
+    }
+  ]
+}

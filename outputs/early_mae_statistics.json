@@ -1,0 +1,152 @@
+{
+  "early_mae_statistics_schema_version": "early_mae_statistics_v1",
+  "groups": {
+    "FAILURE": {
+      "campaign_duration": {
+        "count": 10,
+        "max": 24.0,
+        "mean": 21.45,
+        "median": 23.125,
+        "min": 14.75,
+        "std": 3.299411
+      },
+      "early_mae": {
+        "count": 10,
+        "max": -6.850811,
+        "mean": -10.91604,
+        "median": -10.911512,
+        "min": -16.811404,
+        "std": 3.528416
+      },
+      "initial_drawdown_velocity": {
+        "count": 10,
+        "max": -0.583048,
+        "mean": -3.041511,
+        "median": -1.014739,
+        "min": -19.74148,
+        "std": 5.884545
+      },
+      "peak_mfe": {
+        "count": 10,
+        "max": 8.373325,
+        "mean": 6.015404,
+        "median": 6.356968,
+        "min": 3.448276,
+        "std": 1.586673
+      },
+      "recovery_ratio": {
+        "count": 10,
+        "max": 1.222239,
+        "mean": 0.626882,
+        "median": 0.576643,
+        "min": 0.295163,
+        "std": 0.311697
+      },
+      "recovery_time": {
+        "count": 10,
+        "max": 15.5,
+        "mean": -5.025,
+        "median": -7.75,
+        "min": -12.0,
+        "std": 8.832115
+      },
+      "time_to_early_mae": {
+        "count": 10,
+        "max": 12.0,
+        "mean": 8.7,
+        "median": 8.75,
+        "min": 0.5,
+        "std": 3.386657
+      },
+      "time_to_peak_mfe": {
+        "count": 10,
+        "max": 16.0,
+        "mean": 3.675,
+        "median": 0.25,
+        "min": 0.0,
+        "std": 6.318019
+      }
+    },
+    "SUCCESS": {
+      "campaign_duration": {
+        "count": 10,
+        "max": 24.0,
+        "mean": 20.8,
+        "median": 22.625,
+        "min": 14.75,
+        "std": 3.81663
+      },
+      "early_mae": {
+        "count": 10,
+        "max": -1.351157,
+        "mean": -2.719359,
+        "median": -2.012119,
+        "min": -5.38146,
+        "std": 1.574886
+      },
+      "initial_drawdown_velocity": {
+        "count": 10,
+        "max": -0.226067,
+        "mean": -0.770554,
+        "median": -0.644047,
+        "min": -1.801543,
+        "std": 0.564456
+      },
+      "peak_mfe": {
+        "count": 10,
+        "max": 24.896337,
+        "mean": 11.088732,
+        "median": 7.199538,
+        "min": 3.649925,
+        "std": 9.653271
+      },
+      "recovery_ratio": {
+        "count": 10,
+        "max": 12.017584,
+        "mean": 4.332929,
+        "median": 4.626316,
+        "min": 0.98979,
+        "std": 3.239339
+      },
+      "recovery_time": {
+        "count": 10,
+        "max": 19.5,
+        "mean": 6.6,
+        "median": 7.25,
+        "min": -11.25,
+        "std": 9.940238
+      },
+      "time_to_early_mae": {
+        "count": 10,
+        "max": 12.0,
+        "mean": 5.35,
+        "median": 4.875,
+        "min": 0.75,
+        "std": 3.901923
+      },
+      "time_to_peak_mfe": {
+        "count": 10,
+        "max": 23.75,
+        "mean": 11.95,
+        "median": 12.75,
+        "min": 0.75,
+        "std": 6.920983
+      }
+    }
+  },
+  "is_trade_command": false,
+  "sample_counts": {
+    "FAILURE": 10,
+    "SUCCESS": 10
+  },
+  "success_failure_delta": {
+    "campaign_duration": -0.65,
+    "early_mae": 8.196681,
+    "initial_drawdown_velocity": 2.270957,
+    "peak_mfe": 5.073328,
+    "recovery_ratio": 3.706047,
+    "recovery_time": 11.625,
+    "time_to_early_mae": -3.35,
+    "time_to_peak_mfe": 8.275
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "campaign_physics_contract_schema_version": "campaign_physics_contract_v1",
+  "candidate_evidence": {
+    "not_verified": [
+      "initial_drawdown_velocity",
+      "campaign_duration"
+    ],
+    "verified": [
+      "early_mae",
+      "recovery_ratio"
+    ]
+  },
+  "contract_version": "campaign_physics_contract_v1",
+  "dependency_order": [
+    "Snapshot",
+    "Lead Line",
+    "Campaign Physics",
+    "Interface Contract",
+    "Mirror Pattern",
+    "ML",
+    "Medusa Board"
+  ],
+  "fields": [
+    {
+      "description": "Contract schema version for this packet.",
+      "field": "schema_version",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "campaign_physics_contract_v1"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Stable Campaign identifier.",
+      "field": "campaign_id",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": "non-empty string",
+      "valid_range": null
+    },
+    {
+      "description": "Source signal identifier when available; nullable for replay-only rows.",
+      "field": "signal_id",
+      "nullable": true,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": "non-empty string or null",
+      "valid_range": null
+    },
+    {
+      "description": "Market symbol for the Campaign.",
+      "field": "symbol",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": "non-empty trading symbol",
+      "valid_range": null
+    },
+    {
+      "description": "Primary Campaign timeframe.",
+      "field": "timeframe",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Campaign outcome from replay evidence.",
+      "field": "outcome",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "SUCCESS",
+        "FAILURE",
+        "INCONCLUSIVE"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Maximum adverse excursion before or at campaign ignition.",
+      "evidence_verdict": "VERIFIED",
+      "field": "early_mae",
+      "nullable": false,
+      "required": true,
+      "type": "number",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": {
+        "maximum": 0.0,
+        "minimum": -100.0
+      }
+    },
+    {
+      "description": "Peak MFE divided by absolute Early MAE.",
+      "evidence_verdict": "VERIFIED",
+      "field": "recovery_ratio",
+      "nullable": false,
+      "required": true,
+      "type": "number",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": {
+        "maximum": null,
+        "minimum": 0.0
+      }
+    },
+    {
+      "description": "Early MAE divided by time to Early MAE. Candidate remains not verified in 12S evidence.",
+      "evidence_verdict": "NOT_ENOUGH_EVIDENCE",
+      "field": "initial_drawdown_velocity",
+      "nullable": true,
+      "required": true,
+      "type": "number",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": {
+        "maximum": 0.0,
+        "minimum": null
+      }
+    },
+    {
+      "description": "Campaign duration in hours. Context metric, not a verified discriminator.",
+      "evidence_verdict": "NOT_ENOUGH_EVIDENCE",
+      "field": "campaign_duration",
+      "nullable": true,
+      "required": true,
+      "type": "number",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": {
+        "maximum": null,
+        "minimum": 0.0
+      }
+    },
+    {
+      "description": "Contract-level confidence that Campaign Physics evidence is complete enough for Mirror input.",
+      "field": "confidence",
+      "nullable": false,
+      "required": true,
+      "type": "number",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": {
+        "maximum": 1.0,
+        "minimum": 0.0
+      }
+    },
+    {
+      "description": "UTC timestamp when packet was created.",
+      "field": "created_at",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": "ISO-8601 timestamp",
+      "valid_range": null
+    }
+  ],
+  "forbidden_actions": [
+    "No Mirror Pattern implementation",
+    "No ML training",
+    "No threshold change",
+    "No gate change",
+    "No Hellhound Score change",
+    "No Replay change",
+    "No Campaign Physics calculation change",
+    "No Production code change"
+  ],
+  "is_trade_command": false,
+  "mirror_input_rule": "Mirror Pattern Layer accepts only Campaign Physics Packet. It does not directly read Snapshot or Lead Line.",
+  "packet_name": "Campaign Physics Packet",
+  "purpose": "Standard packet passed from Campaign Physics Layer to future Mirror Pattern Layer.",
+  "versioning_policy": {
+    "backward_compatibility": "v1 consumers accept v1 packets only unless an explicit migration adapter is defined in a future design sprint.",
+    "current_version": "campaign_physics_contract_v1",
+    "deprecated_field_handling": "WARNING during supported deprecation window; REJECT after removal in a future major contract version.",
+    "future_versions": [
+      "campaign_physics_contract_v2",
+      "campaign_physics_contract_v3"
+    ],
+    "unknown_field_handling": "WARNING; continue only if all required known fields are valid.",
+    "version_mismatch_handling": "HOLD until compatible contract version or migration policy is available."
+  }
+}

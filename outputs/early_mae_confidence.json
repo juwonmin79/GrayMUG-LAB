@@ -1,0 +1,26 @@
+{
+  "confidence_note": "Evidence is generated from Campaign Replay rows only; no threshold, gate, score, ML, or production logic was changed.",
+  "early_mae_confidence_schema_version": "early_mae_confidence_v1",
+  "failure_campaign_count": 10,
+  "inconclusive_excluded": true,
+  "input_sources": {
+    "binance_historical_pull": "forbidden_not_executed",
+    "campaign_replay_dataset": "campaign_replay_dataset_v1",
+    "mirror_candidate_validation": "mirror_candidate_validation_v1",
+    "replay_expansion_report": "replay_expansion_report_v1"
+  },
+  "is_trade_command": false,
+  "not_enough_evidence_candidates": [
+    "initial_drawdown_velocity",
+    "campaign_duration"
+  ],
+  "overall_evidence_level": "VERIFIED",
+  "partial_candidates": [],
+  "sample_requirement_met": true,
+  "success_campaign_count": 10,
+  "top_candidate": "early_mae",
+  "verified_candidates": [
+    "early_mae",
+    "recovery_ratio"
+  ]
+}

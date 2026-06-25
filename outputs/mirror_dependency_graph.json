@@ -1,0 +1,37 @@
+{
+  "dependency_diagram": "Campaign Physics -> Mirror Decision -> Mirror Packet -> ML -> Medusa",
+  "edges": [
+    {
+      "dependency_type": "contract_packet_input",
+      "from": "Campaign Physics",
+      "to": "Mirror Decision"
+    },
+    {
+      "dependency_type": "decision_output",
+      "from": "Mirror Decision",
+      "to": "Mirror Packet"
+    },
+    {
+      "dependency_type": "future_training_input",
+      "from": "Mirror Packet",
+      "to": "ML"
+    },
+    {
+      "dependency_type": "future_board_input",
+      "from": "ML",
+      "to": "Medusa"
+    }
+  ],
+  "forbidden_direct_inputs": [
+    "Raw Candle",
+    "Snapshot",
+    "Lead Line",
+    "Raw Score"
+  ],
+  "has_cycle": false,
+  "is_trade_command": false,
+  "mirror_dependency_graph_schema_version": "mirror_dependency_graph_v1",
+  "mirror_depends_on_ml": false,
+  "mirror_input_source": "Campaign Physics Packet",
+  "ml_learns_from_mirror": true
+}

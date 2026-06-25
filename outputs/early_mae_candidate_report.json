@@ -1,0 +1,66 @@
+{
+  "allowed_results": [
+    "VERIFIED",
+    "PARTIAL",
+    "NOT_ENOUGH_EVIDENCE"
+  ],
+  "candidate_ranking": [
+    {
+      "candidate": "early_mae",
+      "candidate_score": 1.0,
+      "direction": "success_higher",
+      "failure_mean": -10.91604,
+      "is_trade_command": false,
+      "rank": 1,
+      "repeatability": 1.0,
+      "separation_score": 3.000014,
+      "success_mean": -2.719359,
+      "verdict": "VERIFIED"
+    },
+    {
+      "candidate": "recovery_ratio",
+      "candidate_score": 0.852632,
+      "direction": "success_higher",
+      "failure_mean": 0.626882,
+      "is_trade_command": false,
+      "rank": 2,
+      "repeatability": 0.9,
+      "separation_score": 1.610528,
+      "success_mean": 4.332929,
+      "verdict": "VERIFIED"
+    },
+    {
+      "candidate": "initial_drawdown_velocity",
+      "candidate_score": 0.43582,
+      "direction": "success_higher",
+      "failure_mean": -3.041511,
+      "is_trade_command": false,
+      "rank": 3,
+      "repeatability": 0.6,
+      "separation_score": 0.543278,
+      "success_mean": -0.770554,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    },
+    {
+      "candidate": "campaign_duration",
+      "candidate_score": 0.295551,
+      "direction": "success_lower",
+      "failure_mean": 21.45,
+      "is_trade_command": false,
+      "rank": 4,
+      "repeatability": 0.5,
+      "separation_score": 0.182205,
+      "success_mean": 20.8,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    }
+  ],
+  "early_mae_candidate_report_schema_version": "early_mae_candidate_report_v1",
+  "is_trade_command": false,
+  "statistics_source": "early_mae_statistics_v1",
+  "verification_checks": {
+    "campaign_duration_discriminator": "NOT_ENOUGH_EVIDENCE",
+    "early_mae_discriminator": "VERIFIED",
+    "initial_drawdown_velocity_discriminator": "NOT_ENOUGH_EVIDENCE",
+    "recovery_ratio_discriminator": "VERIFIED"
+  }
+}

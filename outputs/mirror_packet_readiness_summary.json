@@ -1,0 +1,23 @@
+{
+  "audit_event_count": 0,
+  "audit_log_generation_possible": true,
+  "failure_reason_counts": {},
+  "is_trade_command": false,
+  "mirror_input_readiness_rate": 1.0,
+  "mirror_input_readiness_verdict": "READY",
+  "mirror_input_usable_count": 20,
+  "mirror_packet_readiness_summary_schema_version": "mirror_packet_readiness_summary_v1",
+  "packet_count": 20,
+  "readiness_counts": {
+    "ACCEPT": 20,
+    "HOLD": 0,
+    "REJECT": 0,
+    "WARNING": 0
+  },
+  "readiness_rates": {
+    "ACCEPT": 1.0,
+    "HOLD": 0.0,
+    "REJECT": 0.0,
+    "WARNING": 0.0
+  }
+}

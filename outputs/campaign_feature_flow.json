@@ -1,0 +1,65 @@
+{
+  "campaign_feature_flow_schema_version": "campaign_feature_flow_v1",
+  "candidate_outputs": [
+    {
+      "candidate": "early_mae",
+      "output": "early_mae percentage value",
+      "real_time_calculable": true,
+      "replayable": true
+    },
+    {
+      "candidate": "recovery_ratio",
+      "output": "recovery_ratio = peak_mfe / abs(early_mae)",
+      "real_time_calculable": true,
+      "replayable": true
+    },
+    {
+      "candidate": "initial_drawdown_velocity",
+      "output": "initial_drawdown_velocity = early_mae / max(time_to_early_mae, 0.25h)",
+      "real_time_calculable": true,
+      "replayable": true
+    },
+    {
+      "candidate": "campaign_duration",
+      "output": "campaign_duration hours",
+      "real_time_calculable": true,
+      "replayable": true
+    }
+  ],
+  "dependency_diagram": "Snapshot -> Lead Line -> Campaign Physics -> Mirror Pattern -> ML -> Medusa Board",
+  "flow": [
+    {
+      "output": "raw feature state and campaign row context",
+      "stage": "Snapshot"
+    },
+    {
+      "output": "campaign observation priority and context",
+      "stage": "Lead Line"
+    },
+    {
+      "output": "early_mae, recovery_ratio, initial_drawdown_velocity, campaign_duration",
+      "stage": "Campaign Physics"
+    },
+    {
+      "output": "future pattern interpretation using Campaign Physics input",
+      "stage": "Mirror Pattern"
+    },
+    {
+      "output": "future trained models only after evidence is sufficient",
+      "stage": "ML"
+    },
+    {
+      "output": "future display/decision surface",
+      "stage": "Medusa Board"
+    }
+  ],
+  "is_trade_command": false,
+  "layer_diagram": [
+    "Snapshot",
+    "Lead Line",
+    "Campaign Physics",
+    "Mirror Pattern",
+    "ML",
+    "Medusa Board"
+  ]
+}

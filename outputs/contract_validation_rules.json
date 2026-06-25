@@ -1,0 +1,81 @@
+{
+  "accepted_verdicts": [
+    "ACCEPT",
+    "WARNING",
+    "REJECT",
+    "HOLD"
+  ],
+  "contract_validation_rules_schema_version": "contract_validation_rules_v1",
+  "is_trade_command": false,
+  "mandatory_policy": [
+    "Mirror does not repair rejected packets.",
+    "Mirror does not infer missing Campaign Physics values.",
+    "Only packets passing contract validation can become Mirror input.",
+    "All REJECT, HOLD, and WARNING events must emit audit logs."
+  ],
+  "rules": [
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "condition": "Required field is absent.",
+      "reason": "Mirror must not run for this packet.",
+      "validation_error_code": "required_field_missing",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "SKIP",
+        "ALERT"
+      ],
+      "condition": "Field value type does not match contract.",
+      "reason": "Reject and alert because packet is structurally unsafe.",
+      "validation_error_code": "type_mismatch",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "SKIP",
+        "WARNING"
+      ],
+      "condition": "Field value violates enum, range, or pattern.",
+      "reason": "Skip packet and record the invalid field.",
+      "validation_error_code": "invalid_value",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "HOLD"
+      ],
+      "condition": "Packet schema_version does not equal accepted contract version.",
+      "reason": "Wait for compatible version or migration decision.",
+      "validation_error_code": "schema_version_mismatch",
+      "verdict": "HOLD"
+    },
+    {
+      "actions": [
+        "WARNING"
+      ],
+      "condition": "Packet includes a field not defined by contract.",
+      "reason": "Continue if all required known fields are valid.",
+      "validation_error_code": "unknown_field",
+      "verdict": "WARNING"
+    },
+    {
+      "actions": [
+        "HOLD"
+      ],
+      "condition": "Packet is structurally valid but contains nullable unresolved physics values.",
+      "reason": "Wait until required Campaign Physics values are complete.",
+      "validation_error_code": "partial_packet",
+      "verdict": "HOLD"
+    },
+    {
+      "actions": [],
+      "condition": "All required fields are present and valid.",
+      "reason": "Allow packet as Mirror Pattern input.",
+      "validation_error_code": "valid_packet",
+      "verdict": "ACCEPT"
+    }
+  ]
+}

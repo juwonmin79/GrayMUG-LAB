@@ -1,0 +1,208 @@
+{
+  "contract_version": "campaign_physics_contract_v1",
+  "is_trade_command": false,
+  "mirror_contract_validation_result_schema_version": "mirror_contract_validation_result_v1",
+  "packet_count": 20,
+  "results": [
+    {
+      "actions": [],
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-01-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-02-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-03-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-04-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-05-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-06-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-07-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-08-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-09-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "failure-10-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-01-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-02-SOLUSDT",
+      "symbol": "SOLUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-03-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-04-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-05-SOLUSDT",
+      "symbol": "SOLUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-06-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-07-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-08-SOLUSDT",
+      "symbol": "SOLUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-09-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "verdict": "ACCEPT"
+    },
+    {
+      "actions": [],
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "is_trade_command": false,
+      "issues": [],
+      "mirror_input_usable": true,
+      "signal_id": "success-10-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "verdict": "ACCEPT"
+    }
+  ]
+}

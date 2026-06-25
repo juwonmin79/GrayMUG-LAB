@@ -1081,6 +1081,472 @@ Next Sprint:
 Use Campaign Dataset as evidence foundation.
 Do not add Mirror judgment logic until Campaign-level evidence is reviewed.
 ```
+
+### Sprint 12S Early MAE Discriminator Evidence
+
+Status:
+
+```text
+Campaign Physics evidence complete
+```
+
+Scope:
+
+```text
+Campaign Physics validation only.
+No Mirror Pattern implementation, ML training, threshold change, gate change, score calculation change, Replay mutation, or Production code change.
+```
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/early_mae_discriminator.py
+hell_engines/Hellhound/test_early_mae_discriminator.py
+outputs/early_mae_discriminator.json
+outputs/early_mae_statistics.json
+outputs/early_mae_candidate_report.json
+outputs/early_mae_confidence.json
+outputs/campaign_physics_summary.json
+```
+
+Sample requirement:
+
+```text
+Success Campaign: 10
+Failure Campaign: 10
+INCONCLUSIVE: excluded
+Binance Historical Pull: forbidden and not executed
+```
+
+Verified:
+
+```text
+early_mae: repeatability=1.0, separation_score=3.000014, candidate_score=1.0
+recovery_ratio: repeatability=0.9, separation_score=1.610528, candidate_score=0.852632
+```
+
+Not Verified:
+
+```text
+initial_drawdown_velocity: NOT_ENOUGH_EVIDENCE
+campaign_duration: NOT_ENOUGH_EVIDENCE
+```
+
+Candidate Ranking:
+
+```text
+1. early_mae
+2. recovery_ratio
+3. initial_drawdown_velocity
+4. campaign_duration
+```
+
+Evidence Level:
+
+```text
+VERIFIED
+```
+
+Next Sprint recommendation:
+
+```text
+Review verified Campaign Physics evidence before considering Mirror or Campaign Intelligence design.
+Do not implement judgment logic from this evidence alone.
+```
+
+### Sprint 12T Campaign Physics Layer Design
+
+Status:
+
+```text
+Campaign Physics Layer design complete
+```
+
+Scope:
+
+```text
+Design only.
+No Mirror Pattern implementation, ML training, threshold change, gate change, score calculation change, Replay mutation, or Production code change.
+```
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/campaign_physics_design.py
+hell_engines/Hellhound/test_campaign_physics_design.py
+outputs/campaign_physics_layer.json
+outputs/campaign_physics_dependencies.json
+outputs/campaign_feature_flow.json
+outputs/campaign_physics_design_report.json
+```
+
+Layer Diagram:
+
+```text
+Snapshot -> Lead Line -> Campaign Physics -> Mirror Pattern -> ML -> Medusa Board
+```
+
+Dependency Diagram:
+
+```text
+Snapshot -> Lead Line
+Lead Line -> Campaign Physics
+Campaign Physics -> Mirror Pattern
+Mirror Pattern -> ML
+ML -> Medusa Board
+```
+
+Campaign Physics before Mirror:
+
+```text
+Campaign Physics records measurable Campaign behavior from replayable data.
+Mirror Pattern remains a future interpretation layer and depends on Campaign Physics, not the reverse.
+```
+
+Verified:
+
+```text
+early_mae
+recovery_ratio
+```
+
+Not Verified:
+
+```text
+initial_drawdown_velocity
+campaign_duration
+```
+
+Validation:
+
+```text
+No circular dependency: true
+Replay possible: true
+Real-time calculation possible: true
+Independent without Mirror: true
+Design status: VERIFIED
+```
+
+Next Sprint recommendation:
+
+```text
+Define the Campaign Physics to Mirror Pattern interface contract.
+Do not add Mirror Pattern, ML, threshold, gate, score, replay, or production behavior.
+```
+
+### Sprint 12U Campaign Physics to Mirror Pattern Interface Contract
+
+Status:
+
+```text
+Interface Contract design complete
+```
+
+Scope:
+
+```text
+Design and validation only.
+No Mirror Pattern implementation, ML training, threshold change, gate change, score calculation change, Replay mutation, Campaign Physics calculation change, or Production code change.
+```
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/campaign_physics_contract.py
+hell_engines/Hellhound/test_campaign_physics_contract.py
+outputs/campaign_physics_contract.json
+outputs/mirror_input_schema.json
+outputs/contract_validation_rules.json
+outputs/interface_contract_report.json
+outputs/interface_audit_policy.json
+```
+
+Contract Schema summary:
+
+```text
+contract_version: campaign_physics_contract_v1
+packet: Campaign Physics Packet
+required fields: schema_version, campaign_id, signal_id, symbol, timeframe, outcome, early_mae, recovery_ratio, initial_drawdown_velocity, campaign_duration, confidence, created_at
+field metadata: type, required, nullable, description, valid enum/range/pattern
+```
+
+Dependency Rule:
+
+```text
+Snapshot -> Lead Line -> Campaign Physics -> Interface Contract -> Mirror Pattern -> ML -> Medusa Board
+Mirror Pattern accepts only Campaign Physics Packet.
+Mirror Pattern does not directly reference Snapshot or Lead Line.
+```
+
+Validation Rule:
+
+```text
+required_field_missing: REJECT -> SKIP
+type_mismatch: REJECT -> SKIP + ALERT
+invalid_value: REJECT -> SKIP + WARNING
+schema_version_mismatch: HOLD -> HOLD
+unknown_field: WARNING -> WARNING
+partial_packet: HOLD -> HOLD
+valid_packet: ACCEPT
+```
+
+Error Handling Policy:
+
+```text
+Mirror does not repair rejected packets.
+Mirror does not infer missing Campaign Physics values.
+Only packets passing contract validation can become Mirror input.
+All REJECT, HOLD, and WARNING events must emit audit logs.
+```
+
+Audit Log Rule:
+
+```text
+contract_version
+campaign_id
+signal_id
+symbol
+validation_error_code
+validation_reason
+action
+timestamp
+```
+
+Version Policy:
+
+```text
+current_version: campaign_physics_contract_v1
+unknown field: WARNING
+deprecated field: WARNING during supported deprecation window, REJECT after removal
+version mismatch: HOLD until compatible contract version or migration policy is available
+```
+
+Verified:
+
+```text
+Campaign Physics Contract Schema
+Mirror Input Schema
+Validation Rule
+Error Handling Policy
+Audit Log Rule
+Version Policy
+Dependency Rule
+```
+
+Not Verified:
+
+```text
+None
+```
+
+Next Sprint recommendation:
+
+```text
+Review whether Mirror Pattern design can consume only Campaign Physics Packets.
+Do not add Mirror Pattern, ML, threshold, gate, score, replay, Campaign Physics calculation, or production behavior.
+```
+
+### Sprint 12V Mirror Input Readiness Review
+
+Status:
+
+```text
+Mirror input readiness review complete
+```
+
+Scope:
+
+```text
+Contract validation and readiness review only.
+No Mirror Pattern implementation, ML training, threshold change, gate change, score calculation change, Replay mutation, or Production code change.
+```
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/mirror_input_readiness.py
+hell_engines/Hellhound/test_mirror_input_readiness.py
+outputs/mirror_input_readiness_report.json
+outputs/mirror_contract_validation_result.json
+outputs/mirror_input_audit_simulation.json
+outputs/mirror_packet_readiness_summary.json
+```
+
+Contract Validation:
+
+```text
+contract_version: campaign_physics_contract_v1
+packet_count: 20
+ACCEPT: 20 / 1.0
+WARNING: 0 / 0.0
+HOLD: 0 / 0.0
+REJECT: 0 / 0.0
+```
+
+Failure Reason:
+
+```text
+required_field_missing: 0
+type_mismatch: 0
+invalid_value: 0
+schema_version_mismatch: 0
+partial_packet: 0
+unknown_field: 0
+major_failure_reasons: none
+```
+
+Audit Simulation:
+
+```text
+audit_event_count: 0
+audit_log_generation_possible: true
+```
+
+Mirror Input Readiness:
+
+```text
+mirror_input_usable_count: 20
+mirror_input_readiness_rate: 1.0
+mirror_input_readiness_verdict: READY
+```
+
+Next Sprint recommendation:
+
+```text
+Review Mirror Pattern design using Campaign Physics Packet as the only input.
+Do not add Mirror Pattern, ML, threshold, gate, score, replay, or production behavior yet.
+```
+
+### Sprint 12W Mirror Pattern Decision Contract
+
+Status:
+
+```text
+Mirror Decision Contract design complete
+```
+
+Scope:
+
+```text
+Design and contract validation only.
+No Mirror Pattern implementation, ML training, threshold change, gate change, score calculation change, Replay mutation, Campaign Physics calculation change, or Production code change.
+```
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/mirror_decision_contract.py
+hell_engines/Hellhound/test_mirror_decision_contract.py
+outputs/mirror_decision_scope.json
+outputs/mirror_output_schema.json
+outputs/mirror_explainability_rules.json
+outputs/mirror_validation_rules.json
+outputs/mirror_decision_contract_report.json
+outputs/mirror_dependency_graph.json
+```
+
+Mirror Decision Enum:
+
+```text
+REAL_WHALE_BACK
+FAKE_WHALE_BACK
+INCONCLUSIVE
+```
+
+Decision Scope:
+
+```text
+Mirror judges Campaign authenticity, not price direction.
+Input is Campaign Physics Packet only.
+Allowed features: early_mae, recovery_ratio, campaign_duration, initial_drawdown_velocity, confidence
+Forbidden direct inputs: Raw Candle, Snapshot, Lead Line, Raw Score
+```
+
+Mirror Output Schema:
+
+```text
+schema_version
+mirror_pattern_id
+campaign_id
+signal_id
+symbol
+mirror_decision
+confidence
+explainability
+supporting_features
+validation_state
+created_at
+```
+
+Explainability Rule:
+
+```text
+Reason Code required.
+Free-form LLM narrative forbidden.
+Reason codes must map every Mirror decision to reproducible feature evidence.
+```
+
+Validation / Error Handling:
+
+```text
+missing_decision: REJECT -> SKIP
+missing_confidence: REJECT -> SKIP
+invalid_enum: REJECT -> ALERT
+missing_reason_code: REJECT -> SKIP
+invalid_schema: REJECT -> ALERT
+missing_field: REJECT -> SKIP
+partial_packet: HOLD -> HOLD
+unknown_field: WARNING -> WARNING
+invalid_reason_code: REJECT -> SKIP
+Mirror does not repair or infer rejected packets.
+```
+
+Audit Policy:
+
+```text
+contract_version
+mirror_pattern_id
+campaign_id
+signal_id
+decision
+reason_code
+validation_result
+action
+timestamp
+```
+
+Dependency Rule:
+
+```text
+Campaign Physics -> Mirror Decision -> Mirror Packet -> ML -> Medusa
+Mirror does not depend on ML.
+ML learns from Mirror results.
+```
+
+Verified:
+
+```text
+Mirror Decision Scope
+Mirror Output Schema
+Explainability Rule
+Validation Rule
+Error Handling Policy
+Audit Policy
+Dependency Rule
+```
+
+Not Verified:
+
+```text
+None
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12X should review Mirror Pattern design against the Mirror Decision Contract.
+Do not add Mirror Pattern implementation, ML, threshold, gate, score, replay, Campaign Physics calculation, or production behavior yet.
+```
 * Layer:
   - Snapshot Layer: T-2, T-1, T0 state vector.
   - Diff Layer: Diff_A, Diff_B.

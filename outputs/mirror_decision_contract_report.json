@@ -1,0 +1,57 @@
+{
+  "allowed_input_features": [
+    "early_mae",
+    "recovery_ratio",
+    "campaign_duration",
+    "initial_drawdown_velocity",
+    "confidence"
+  ],
+  "contract_status": "VERIFIED",
+  "contract_version": "mirror_decision_contract_v1",
+  "decision_enum": [
+    "REAL_WHALE_BACK",
+    "FAKE_WHALE_BACK",
+    "INCONCLUSIVE"
+  ],
+  "dependency_diagram": "Campaign Physics -> Mirror Decision -> Mirror Packet -> ML -> Medusa",
+  "forbidden_actions_confirmed": [
+    "No Mirror Pattern implementation",
+    "No ML training",
+    "No threshold change",
+    "No gate change",
+    "No score change",
+    "No Replay change",
+    "No Campaign Physics calculation change",
+    "No Production change"
+  ],
+  "forbidden_direct_inputs": [
+    "Raw Candle",
+    "Snapshot",
+    "Lead Line",
+    "Raw Score"
+  ],
+  "is_trade_command": false,
+  "mirror_decision_contract_report_schema_version": "mirror_decision_contract_report_v1",
+  "next_sprint_recommendation": "Review Mirror Pattern design against this Decision Contract before any implementation.",
+  "not_verified": [],
+  "validation": {
+    "audit_policy_defined": true,
+    "campaign_physics_packet_only": true,
+    "decision_scope_defined": true,
+    "dependency_rule_defined": true,
+    "explainability_reason_code_based": true,
+    "forbidden_inputs_blocked": true,
+    "input_contract_verified": true,
+    "output_schema_defined": true,
+    "validation_rules_defined": true
+  },
+  "verified": [
+    "Mirror Decision Scope",
+    "Mirror Output Schema",
+    "Explainability Rule",
+    "Validation Rule",
+    "Error Handling Policy",
+    "Audit Policy",
+    "Dependency Rule"
+  ]
+}

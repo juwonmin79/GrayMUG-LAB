@@ -1,0 +1,110 @@
+{
+  "applies_to_future_layers": [
+    "Mirror Pattern",
+    "ML",
+    "Medusa Board"
+  ],
+  "audit_log_fields": [
+    {
+      "description": "Contract version used for validation.",
+      "field": "contract_version",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "campaign_physics_contract_v1"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Campaign identifier from packet when available.",
+      "field": "campaign_id",
+      "nullable": true,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Signal identifier from packet when available.",
+      "field": "signal_id",
+      "nullable": true,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Symbol from packet when available.",
+      "field": "symbol",
+      "nullable": true,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Validation rule code that triggered the audit event.",
+      "field": "validation_error_code",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Human-readable validation reason.",
+      "field": "validation_reason",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "Policy action selected by validation.",
+      "field": "action",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": [
+        "SKIP",
+        "HOLD",
+        "ALERT",
+        "WARNING"
+      ],
+      "valid_pattern": null,
+      "valid_range": null
+    },
+    {
+      "description": "UTC timestamp when validation event was recorded.",
+      "field": "timestamp",
+      "nullable": false,
+      "required": true,
+      "type": "string",
+      "valid_enum": null,
+      "valid_pattern": "ISO-8601 timestamp",
+      "valid_range": null
+    }
+  ],
+  "audit_log_required_for": [
+    "REJECT",
+    "HOLD",
+    "WARNING"
+  ],
+  "interface_audit_policy_schema_version": "interface_audit_policy_v1",
+  "is_trade_command": false,
+  "medusa_tracking_targets": [
+    "contract violation frequency",
+    "problem field frequency",
+    "schema version mismatch frequency",
+    "action frequency"
+  ],
+  "shared_interface_policy": true
+}

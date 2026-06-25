@@ -1,0 +1,12 @@
+{
+  "audit_log_generation_possible": true,
+  "audit_log_required_for": [
+    "HOLD",
+    "REJECT",
+    "WARNING"
+  ],
+  "event_count": 0,
+  "events": [],
+  "is_trade_command": false,
+  "mirror_input_audit_simulation_schema_version": "mirror_input_audit_simulation_v1"
+}

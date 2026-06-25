@@ -1,0 +1,47 @@
+{
+  "allowed_reason_codes": [
+    "EARLY_MAE_NORMAL",
+    "EARLY_MAE_EXCESSIVE",
+    "RECOVERY_RATIO_STRONG",
+    "RECOVERY_RATIO_WEAK",
+    "CAMPAIGN_DURATION_CONTEXT_ONLY",
+    "INITIAL_DRAWDOWN_VELOCITY_CONTEXT_ONLY",
+    "CAMPAIGN_EVIDENCE_INSUFFICIENT",
+    "CONTRACT_VALIDATION_PASSED"
+  ],
+  "contract_version": "mirror_decision_contract_v1",
+  "decision_reason_map": {
+    "FAKE_WHALE_BACK": [
+      "EARLY_MAE_EXCESSIVE",
+      "RECOVERY_RATIO_WEAK",
+      "CONTRACT_VALIDATION_PASSED"
+    ],
+    "INCONCLUSIVE": [
+      "CAMPAIGN_EVIDENCE_INSUFFICIENT"
+    ],
+    "REAL_WHALE_BACK": [
+      "EARLY_MAE_NORMAL",
+      "RECOVERY_RATIO_STRONG",
+      "CONTRACT_VALIDATION_PASSED"
+    ]
+  },
+  "freeform_llm_narrative_allowed": false,
+  "is_trade_command": false,
+  "mirror_explainability_rules_schema_version": "mirror_explainability_rules_v1",
+  "reason_code_required": true,
+  "supporting_feature_policy": {
+    "allowed": [
+      "early_mae",
+      "recovery_ratio",
+      "campaign_duration",
+      "initial_drawdown_velocity",
+      "confidence"
+    ],
+    "forbidden": [
+      "Raw Candle",
+      "Snapshot",
+      "Lead Line",
+      "Raw Score"
+    ]
+  }
+}

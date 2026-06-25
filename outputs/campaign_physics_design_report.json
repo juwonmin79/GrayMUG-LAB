@@ -1,0 +1,38 @@
+{
+  "campaign_physics_design_report_schema_version": "campaign_physics_design_report_v1",
+  "dependency_diagram": "Snapshot -> Lead Line -> Campaign Physics -> Mirror Pattern -> ML -> Medusa Board",
+  "design_status": "VERIFIED",
+  "forbidden_actions_confirmed": [
+    "No Mirror Pattern implementation",
+    "No ML training",
+    "No threshold change",
+    "No gate change",
+    "No Hellhound Score change",
+    "No Replay mutation",
+    "No Production code change"
+  ],
+  "input_evidence": {
+    "campaign_count": 20,
+    "campaign_physics_evidence_level": "VERIFIED",
+    "failure_campaign_count": 10,
+    "success_campaign_count": 10
+  },
+  "is_trade_command": false,
+  "layer_diagram": "Snapshot -> Lead Line -> Campaign Physics -> Mirror Pattern -> ML -> Medusa Board",
+  "next_sprint_recommendation": "Review Campaign Physics Layer design and decide whether to add more Campaign evidence before any Mirror Pattern design.",
+  "not_verified": [
+    "initial_drawdown_velocity",
+    "campaign_duration"
+  ],
+  "validation": {
+    "independent_without_mirror": true,
+    "no_circular_dependency": true,
+    "real_time_calculable": true,
+    "replayable": true
+  },
+  "verified": [
+    "early_mae",
+    "recovery_ratio"
+  ],
+  "why_campaign_physics_before_mirror": "Campaign Physics describes measurable campaign movement and recovery from replayable market/outcome rows. Mirror Pattern should consume these physical facts instead of inventing pattern meaning directly from raw feature lines."
+}

@@ -1,0 +1,32 @@
+{
+  "accepted_input": "Campaign Physics Packet",
+  "allowed_input_features": [
+    "early_mae",
+    "recovery_ratio",
+    "campaign_duration",
+    "initial_drawdown_velocity",
+    "confidence"
+  ],
+  "contract_version": "mirror_decision_contract_v1",
+  "decision_enum": [
+    "REAL_WHALE_BACK",
+    "FAKE_WHALE_BACK",
+    "INCONCLUSIVE"
+  ],
+  "decision_objective": "Judge Campaign authenticity, not price direction.",
+  "decision_scope_limits": [
+    "No price direction prediction.",
+    "No entry or exit advice.",
+    "No threshold change.",
+    "No raw candle, Snapshot, Lead Line, or Raw Score access."
+  ],
+  "forbidden_direct_inputs": [
+    "Raw Candle",
+    "Snapshot",
+    "Lead Line",
+    "Raw Score"
+  ],
+  "input_contract_version": "campaign_physics_contract_v1",
+  "is_trade_command": false,
+  "mirror_decision_scope_schema_version": "mirror_decision_scope_v1"
+}
