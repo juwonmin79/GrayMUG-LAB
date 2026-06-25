@@ -1,0 +1,36 @@
+{
+  "candidates": [
+    {
+      "candidate": "score_slope",
+      "candidate_state": "Candidate Only",
+      "discrimination": 0.187361,
+      "is_trade_command": false,
+      "mirror_candidate_stability_score": 0.314945,
+      "noise": 0.0,
+      "repeatability": 0.6,
+      "verification": "Not Verified"
+    },
+    {
+      "candidate": "rsi_persistence",
+      "candidate_state": "Candidate Only",
+      "discrimination": 0.108347,
+      "is_trade_command": false,
+      "mirror_candidate_stability_score": 0.381501,
+      "noise": 0.690811,
+      "repeatability": 0.5,
+      "verification": "Not Verified"
+    },
+    {
+      "candidate": "volume_delay",
+      "candidate_state": "Candidate Only",
+      "discrimination": 0.091287,
+      "is_trade_command": false,
+      "mirror_candidate_stability_score": 0.236515,
+      "noise": 0.0,
+      "repeatability": 0.5,
+      "verification": "Not Verified"
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_candidate_stability_schema_version": "mirror_candidate_stability_v1"
+}

@@ -1,0 +1,63 @@
+{
+  "evidence_threshold_design_schema_version": "evidence_threshold_design_v1",
+  "purpose": "Design options for deriving an evidence-based Mirror Candidate threshold in a future sprint. This file is design-only and does not implement or change thresholds.",
+  "implementation_status": "Not implemented",
+  "recommended_next_sprint_designs": [
+    {
+      "name": "ROC-based threshold",
+      "method": "Use labeled replay samples to sweep candidate stability and component cutoffs, then select a boundary using sensitivity/specificity tradeoff.",
+      "required_inputs": [
+        "Expanded success replay samples",
+        "Expanded failure replay samples",
+        "Candidate component scores",
+        "Outcome labels"
+      ],
+      "selection_rule_example": "Choose the threshold maximizing Youden's J or preserving a minimum false-positive ceiling."
+    },
+    {
+      "name": "Distribution separation threshold",
+      "method": "Model success and failure score distributions and select a boundary at the lowest-overlap region.",
+      "required_inputs": [
+        "Per-candidate success distribution",
+        "Per-candidate failure distribution",
+        "Confidence interval estimates"
+      ],
+      "selection_rule_example": "Require minimum effect size plus low overlap before candidate verification."
+    },
+    {
+      "name": "Percentile-based conservative gate",
+      "method": "Set candidate pass boundary from failure distribution percentiles, then require success samples to clear that boundary at a target repeat rate.",
+      "required_inputs": [
+        "Failure score distribution",
+        "Success score distribution",
+        "Target repeatability requirement"
+      ],
+      "selection_rule_example": "Candidate passes only if success median exceeds failure p75 and success repeatability exceeds a predeclared rate."
+    },
+    {
+      "name": "Bayesian decision boundary",
+      "method": "Estimate posterior probability that a candidate belongs to success rather than failure given component scores.",
+      "required_inputs": [
+        "Prior class balance",
+        "Likelihood estimate for candidate components",
+        "Replay outcome labels"
+      ],
+      "selection_rule_example": "Candidate passes only if posterior probability exceeds a predeclared confidence level on holdout replay samples."
+    }
+  ],
+  "minimum_future_evidence_requirements": {
+    "success_samples": "Greater than current 10-sample minimum; predeclare target before threshold derivation.",
+    "failure_samples": "Greater than current 10-sample minimum with balanced failure archetypes.",
+    "symbol_balance": "Avoid single-symbol concentration.",
+    "period_balance": "Avoid single-period concentration.",
+    "holdout": "Reserve unseen replay samples for threshold verification."
+  },
+  "explicit_non_actions": [
+    "No threshold changed",
+    "No Mirror promotion",
+    "No Mirror Layer implementation",
+    "No ML training",
+    "No replay dataset mutation"
+  ],
+  "is_trade_command": false
+}

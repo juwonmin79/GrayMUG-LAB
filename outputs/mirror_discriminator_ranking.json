@@ -1,0 +1,62 @@
+{
+  "is_trade_command": false,
+  "mirror_discriminator_ranking_schema_version": "mirror_discriminator_ranking_v1",
+  "new_candidates": [],
+  "promotion_decision": "Mirror promotion blocked unless at least one candidate is Verified.",
+  "ranking": [
+    {
+      "candidate": "rsi_persistence",
+      "candidate_state": "Candidate Only",
+      "discrimination": 0.108347,
+      "evidence": {
+        "failure_mean": 4.3,
+        "failure_median": 4.5,
+        "success_mean": 4.6,
+        "success_median": 4.5
+      },
+      "is_trade_command": false,
+      "mirror_candidate_stability_score": 0.381501,
+      "noise": 0.690811,
+      "rank": 1,
+      "repeatability": 0.5,
+      "success_failure_separation": 0.216695,
+      "verification": "Not Verified"
+    },
+    {
+      "candidate": "score_slope",
+      "candidate_state": "Candidate Only",
+      "discrimination": 0.187361,
+      "evidence": {
+        "failure_mean": 0.001082,
+        "failure_median": 0.003312,
+        "success_mean": -0.00534,
+        "success_median": -0.003638
+      },
+      "is_trade_command": false,
+      "mirror_candidate_stability_score": 0.314945,
+      "noise": 0.0,
+      "rank": 2,
+      "repeatability": 0.6,
+      "success_failure_separation": 0.374723,
+      "verification": "Not Verified"
+    },
+    {
+      "candidate": "volume_delay",
+      "candidate_state": "Candidate Only",
+      "discrimination": 0.091287,
+      "evidence": {
+        "failure_mean": -0.2,
+        "failure_median": -0.5,
+        "success_mean": 0.0,
+        "success_median": -0.5
+      },
+      "is_trade_command": false,
+      "mirror_candidate_stability_score": 0.236515,
+      "noise": 0.0,
+      "rank": 3,
+      "repeatability": 0.5,
+      "success_failure_separation": 0.182574,
+      "verification": "Not Verified"
+    }
+  ]
+}

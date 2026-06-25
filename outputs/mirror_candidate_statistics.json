@@ -1,0 +1,87 @@
+{
+  "candidates": [
+    {
+      "candidate": "score_slope",
+      "failure": {
+        "count": 10,
+        "max": 0.033275,
+        "mean": 0.001082,
+        "median": 0.003312,
+        "min": -0.026025,
+        "standard_deviation": 0.018906
+      },
+      "is_trade_command": false,
+      "repeatability": {
+        "combined_repeat_rate": 0.6,
+        "direction": "failure_higher",
+        "failure_repeat_rate": 0.6,
+        "success_repeat_rate": 0.6
+      },
+      "success": {
+        "count": 10,
+        "max": 0.015625,
+        "mean": -0.00534,
+        "median": -0.003638,
+        "min": -0.031275,
+        "standard_deviation": 0.015169
+      },
+      "success_failure_separation": 0.374723
+    },
+    {
+      "candidate": "rsi_persistence",
+      "failure": {
+        "count": 10,
+        "max": 6.0,
+        "mean": 4.3,
+        "median": 4.5,
+        "min": 3.0,
+        "standard_deviation": 1.251666
+      },
+      "is_trade_command": false,
+      "repeatability": {
+        "combined_repeat_rate": 0.5,
+        "direction": "success_higher",
+        "failure_repeat_rate": 0.5,
+        "success_repeat_rate": 0.5
+      },
+      "success": {
+        "count": 10,
+        "max": 7.0,
+        "mean": 4.6,
+        "median": 4.5,
+        "min": 3.0,
+        "standard_deviation": 1.505545
+      },
+      "success_failure_separation": 0.216695
+    },
+    {
+      "candidate": "volume_delay",
+      "failure": {
+        "count": 10,
+        "max": 2.0,
+        "mean": -0.2,
+        "median": -0.5,
+        "min": -1.0,
+        "standard_deviation": 1.032796
+      },
+      "is_trade_command": false,
+      "repeatability": {
+        "combined_repeat_rate": 0.5,
+        "direction": "success_higher",
+        "failure_repeat_rate": 0.5,
+        "success_repeat_rate": 0.5
+      },
+      "success": {
+        "count": 10,
+        "max": 2.0,
+        "mean": 0.0,
+        "median": -0.5,
+        "min": -1.0,
+        "standard_deviation": 1.154701
+      },
+      "success_failure_separation": 0.182574
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_candidate_statistics_schema_version": "mirror_candidate_statistics_v1"
+}

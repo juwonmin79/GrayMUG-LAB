@@ -1,0 +1,47 @@
+{
+  "data_coverage": {
+    "by_asset_bucket": {
+      "BTC": 4,
+      "Major Alt": 3,
+      "Mid Cap": 13
+    },
+    "by_symbol": {
+      "ARBUSDT": 5,
+      "BTCUSDT": 4,
+      "SOLUSDT": 3,
+      "WLDUSDT": 8
+    },
+    "coverage_end": "2026-06-23T10:45:00+00:00",
+    "coverage_start": "2026-06-15T16:30:00+00:00",
+    "failure_archetypes": {
+      "Bull Trap": 2,
+      "Dead Cat Bounce": 1,
+      "Failed Accumulation": 1,
+      "Fake Breakout": 1,
+      "Liquidity Sweep": 5
+    }
+  },
+  "failure_count": 10,
+  "is_trade_command": false,
+  "reason_for_binance_pull": "Not executed. Existing replay outputs met the minimum 10 success and 10 failure replay sample counts.",
+  "replay_count": 20,
+  "replay_expansion_report_schema_version": "replay_expansion_report_v1",
+  "sample_source": {
+    "outputs/btc_replay_dataset.jsonl": 4,
+    "outputs/mirror_contrast_dataset.json": 16
+  },
+  "sample_source_priority": [
+    "Existing replay dataset reuse: outputs/btc_replay_dataset.jsonl, outputs/mirror_contrast_dataset.json",
+    "Hellhound real trade/outcome/MFE/MAE history if present",
+    "Binance Historical OHLCV pull only if existing data cannot satisfy sample count"
+  ],
+  "selection_rule": {
+    "failure": "Use existing replay rows showing failed pop, weak/negative 24h follow-through, or sweep drawdown; assign replay archetype from observed return/MFE/MAE shape.",
+    "no_same_period_concentration": "Anchors are thinned across the source replay span before ranking.",
+    "no_same_symbol_concentration": "Balanced take uses round-robin symbol selection before filling any remaining slots.",
+    "success": "Use existing replay rows with 24h forward return above asset-specific replay threshold, balanced by symbol."
+  },
+  "selection_timestamp": "2026-06-25T01:06:47.054750+00:00",
+  "source_case_count": 5,
+  "success_count": 10
+}

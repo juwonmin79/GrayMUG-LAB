@@ -1,0 +1,64 @@
+{
+  "stability_threshold_evidence_schema_version": "stability_threshold_evidence_v1",
+  "audit_scope": "Evidence check for Sprint 12P stability verification thresholds",
+  "threshold_classification": "Temporary Engineering Threshold",
+  "evidence_based_threshold": false,
+  "available_dataset_used_for_12p_validation": {
+    "files": [
+      "outputs/btc_replay_dataset.jsonl",
+      "outputs/mirror_contrast_dataset.json"
+    ],
+    "success_samples": 10,
+    "failure_samples": 10,
+    "asset_buckets": {
+      "BTC": 4,
+      "Major Alt": 3,
+      "Mid Cap": 13
+    },
+    "failure_archetypes": {
+      "Bull Trap": 2,
+      "Dead Cat Bounce": 1,
+      "Failed Accumulation": 1,
+      "Fake Breakout": 1,
+      "Liquidity Sweep": 5
+    }
+  },
+  "evidence_generation_process_found": {
+    "dataset_documented": true,
+    "sample_count_documented": true,
+    "candidate_statistics_documented": true,
+    "roc_or_distribution_optimization_found": false,
+    "percentile_boundary_derivation_found": false,
+    "bayesian_boundary_derivation_found": false,
+    "cross_validation_or_holdout_found": false,
+    "threshold_selection_reason_found": "Conservative engineering gate in code, not statistical threshold derivation."
+  },
+  "candidate_statistics_snapshot": [
+    {
+      "candidate": "rsi_persistence",
+      "success_mean": 4.6,
+      "failure_mean": 4.3,
+      "success_failure_separation": 0.216695,
+      "mirror_candidate_stability_score": 0.381501,
+      "verification": "Not Verified"
+    },
+    {
+      "candidate": "score_slope",
+      "success_mean": -0.00534,
+      "failure_mean": 0.001082,
+      "success_failure_separation": 0.374723,
+      "mirror_candidate_stability_score": 0.314945,
+      "verification": "Not Verified"
+    },
+    {
+      "candidate": "volume_delay",
+      "success_mean": 0.0,
+      "failure_mean": -0.2,
+      "success_failure_separation": 0.182574,
+      "mirror_candidate_stability_score": 0.236515,
+      "verification": "Not Verified"
+    }
+  ],
+  "audit_conclusion": "The 12P candidate hold decision is explainable from the current engineering formula, but the verification thresholds are not evidence-based thresholds.",
+  "is_trade_command": false
+}

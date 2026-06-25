@@ -718,3 +718,100 @@ The 12N candidates repeat in success cases, but they also repeat in failure case
 Therefore they are not sufficient by themselves to answer whether a Line is real accumulation or a fake signal.
 Sprint 12P should not implement Mirror Pattern yet without a stronger contrast discriminator.
 ```
+
+## Sprint 12P Mirror Discriminator Candidate Validation
+
+Status: validation complete; Mirror promotion blocked.
+
+Generated outputs:
+
+```text
+outputs/mirror_candidate_validation.json
+outputs/mirror_candidate_statistics.json
+outputs/mirror_discriminator_ranking.json
+outputs/mirror_candidate_stability.json
+outputs/replay_expansion_report.json
+```
+
+Replay expansion:
+
+```text
+Success samples: 10
+Failure samples: 10
+Source priority used: existing replay outputs first
+Binance Historical OHLCV pull: not executed
+Coverage: BTC, Major Alt, Mid Cap
+Failure archetypes: Fake Breakout, Failed Accumulation, Dead Cat Bounce, Liquidity Sweep, Bull Trap
+```
+
+Verified:
+
+```text
+None
+```
+
+Not Verified:
+
+```text
+rsi_persistence: stability_score=0.381501
+score_slope: stability_score=0.314945
+volume_delay: stability_score=0.236515
+```
+
+New Candidate:
+
+```text
+None
+```
+
+Next Sprint:
+
+```text
+Do not start Mirror Pattern Layer implementation in Sprint 12Q.
+Keep score_slope, rsi_persistence, and volume_delay as Candidate Only.
+Add more contrast evidence before revalidation.
+```
+
+## Sprint 12P-A Stability Formula & Threshold Audit
+
+Status: audit complete.
+
+Generated outputs:
+
+```text
+outputs/stability_formula_audit.json
+outputs/stability_threshold_audit.json
+outputs/stability_threshold_evidence.json
+outputs/evidence_threshold_design.json
+```
+
+Formula audit:
+
+```text
+Mirror Candidate Stability Score =
+0.4 * Repeatability + 0.4 * Discrimination + 0.2 * Noise
+```
+
+Threshold audit:
+
+```text
+Temporary Engineering Threshold
+Current value is not statistically validated.
+Evidence-based Threshold will be derived from Replay Dataset in future sprint.
+```
+
+Code finding:
+
+```text
+No standalone stability_threshold=0.4 pass/fail threshold exists in the 12P code.
+The value 0.4 is used as a formula weight.
+The actual Verified rule is stability_score >= 0.6, repeatability >= 0.6, and discrimination >= 0.25.
+Those cutoffs are also Temporary Engineering Thresholds.
+```
+
+Next Sprint:
+
+```text
+Design an evidence-based threshold using ROC, distribution separation, percentile, or Bayesian boundary methods.
+Do not change thresholds until the derivation dataset and selection rule are fixed.
+```

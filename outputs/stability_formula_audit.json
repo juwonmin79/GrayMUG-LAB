@@ -1,0 +1,73 @@
+{
+  "stability_formula_audit_schema_version": "stability_formula_audit_v1",
+  "audit_scope": "Sprint 12P Mirror Candidate Stability Score formula audit",
+  "source_code_reference": {
+    "file": "hell_engines/Hellhound/mirror_candidate_validation.py",
+    "functions": [
+      "build_candidate_stability",
+      "repeat_rates",
+      "separation_score",
+      "noise_score",
+      "verification_label"
+    ]
+  },
+  "candidate_scope": [
+    "rsi_persistence",
+    "score_slope",
+    "volume_delay"
+  ],
+  "input_variables": {
+    "repeatability": {
+      "definition": "Average of success_repeat_rate and failure_repeat_rate from candidate primary values split by a median pivot.",
+      "calculation": "(success_repeat_rate + failure_repeat_rate) / 2.0",
+      "source_function": "repeat_rates"
+    },
+    "discrimination": {
+      "definition": "Normalized success/failure separation based on absolute mean difference divided by pooled standard deviation, capped at 1.0 after division by 2.0.",
+      "calculation": "min(success_failure_separation / 2.0, 1.0)",
+      "source_functions": [
+        "separation_score",
+        "build_candidate_stability"
+      ]
+    },
+    "noise": {
+      "definition": "Average inverse coefficient-of-variation style score across success and failure groups. Higher is less noisy.",
+      "calculation": "mean(max(0.0, 1.0 - min(group_standard_deviation / abs(group_mean), 1.0)))",
+      "source_function": "noise_score"
+    }
+  },
+  "final_formula": {
+    "code_expression": "round((repeatability * 0.4) + (discrimination * 0.4) + (noise * 0.2), 6)",
+    "expanded": "Mirror Candidate Stability Score = 0.4 * Repeatability + 0.4 * Discrimination + 0.2 * Noise",
+    "weight_meaning": {
+      "0.4_repeatability": "Engineering weight assigned to repeated success/failure split behavior.",
+      "0.4_discrimination": "Engineering weight assigned to normalized success/failure separation.",
+      "0.2_noise": "Engineering weight assigned to lower within-group noise."
+    }
+  },
+  "observed_candidate_scores": [
+    {
+      "candidate": "rsi_persistence",
+      "repeatability": 0.5,
+      "discrimination": 0.108347,
+      "noise": 0.690811,
+      "mirror_candidate_stability_score": 0.381501
+    },
+    {
+      "candidate": "score_slope",
+      "repeatability": 0.6,
+      "discrimination": 0.187361,
+      "noise": 0.0,
+      "mirror_candidate_stability_score": 0.314945
+    },
+    {
+      "candidate": "volume_delay",
+      "repeatability": 0.5,
+      "discrimination": 0.091287,
+      "noise": 0.0,
+      "mirror_candidate_stability_score": 0.236515
+    }
+  ],
+  "audit_finding": "The formula is code-defined and reproducible, but the weights are engineering choices rather than evidence-derived coefficients.",
+  "is_trade_command": false
+}

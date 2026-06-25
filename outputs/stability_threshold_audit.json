@@ -1,0 +1,35 @@
+{
+  "stability_threshold_audit_schema_version": "stability_threshold_audit_v1",
+  "audit_scope": "Sprint 12P Stability and verification threshold audit",
+  "requested_threshold_under_audit": {
+    "name": "stability_threshold",
+    "value": 0.4
+  },
+  "actual_code_finding": {
+    "standalone_stability_threshold_0_4_exists": false,
+    "meaning_of_0_4_in_code": "The value 0.4 is used as a formula weight for Repeatability and Discrimination, not as a pass/fail threshold.",
+    "effective_verification_rule": "Verified only if stability_score >= 0.6 and repeatability >= 0.6 and discrimination >= 0.25.",
+    "source_code_reference": "hell_engines/Hellhound/mirror_candidate_validation.py::verification_label"
+  },
+  "threshold_classification": "Temporary Engineering Threshold",
+  "evidence_based_threshold": false,
+  "temporary_engineering_threshold": true,
+  "reason": "No code, output, or documentation records a dataset-derived optimization process for the verification cutoffs or formula weights. The values are fixed constants used for conservative gating.",
+  "current_value_is_not_statistically_validated": true,
+  "candidate_decision_effect": {
+    "rsi_persistence": "Not Verified",
+    "score_slope": "Not Verified",
+    "volume_delay": "Not Verified"
+  },
+  "prohibited_actions_confirmed": [
+    "Threshold was not changed",
+    "Mirror candidates were not promoted",
+    "Mirror Layer was not implemented",
+    "ML training was not performed",
+    "Hellhound Score was not changed",
+    "PROMOTE Gate was not changed",
+    "Replay Dataset was not changed",
+    "Real trading logic was not changed"
+  ],
+  "is_trade_command": false
+}

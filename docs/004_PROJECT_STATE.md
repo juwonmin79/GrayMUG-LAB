@@ -796,6 +796,134 @@ The 12N candidates repeat in success cases, but also repeat in failure cases.
 They are not sufficient by themselves to distinguish real accumulation from fake signals.
 Mirror Pattern implementation should not start until a stronger contrast discriminator is identified.
 ```
+
+### Sprint 12P Mirror Discriminator Candidate Validation
+
+Status:
+
+```text
+Validation complete
+Mirror Pattern implementation remains blocked
+```
+
+Scope:
+
+```text
+Replay expansion, statistics, stability scoring, and evidence accumulation only.
+No Mirror Layer implementation, threshold change, Hellhound Score change, PROMOTE gate change, ML training, or candidate promotion.
+```
+
+Generated outputs:
+
+```text
+outputs/mirror_candidate_validation.json
+outputs/mirror_candidate_statistics.json
+outputs/mirror_discriminator_ranking.json
+outputs/mirror_candidate_stability.json
+outputs/replay_expansion_report.json
+```
+
+Replay source and coverage:
+
+```text
+Source priority: existing replay outputs first.
+Used outputs/btc_replay_dataset.jsonl and outputs/mirror_contrast_dataset.json.
+Binance Historical OHLCV pull: not executed.
+Success replay samples: 10
+Failure replay samples: 10
+Asset coverage: BTC, Major Alt, Mid Cap
+Failure archetypes: Fake Breakout, Failed Accumulation, Dead Cat Bounce, Liquidity Sweep, Bull Trap
+```
+
+Verified:
+
+```text
+None
+```
+
+Not Verified:
+
+```text
+rsi_persistence: stability_score=0.381501
+score_slope: stability_score=0.314945
+volume_delay: stability_score=0.236515
+```
+
+New Candidate:
+
+```text
+None
+```
+
+Next Sprint:
+
+```text
+Do not promote candidates.
+Do not begin Mirror Pattern Layer implementation in Sprint 12Q.
+Keep all three candidates as Candidate Only and collect more contrast evidence before revalidation.
+```
+
+### Sprint 12P-A Stability Formula & Threshold Audit
+
+Status:
+
+```text
+Audit complete
+```
+
+Scope:
+
+```text
+Formula and threshold audit only.
+No threshold change, Mirror promotion, Mirror Layer implementation, ML training, Hellhound Score change, PROMOTE Gate change, Replay Dataset change, or real trading logic change.
+```
+
+Generated outputs:
+
+```text
+outputs/stability_formula_audit.json
+outputs/stability_threshold_audit.json
+outputs/stability_threshold_evidence.json
+outputs/evidence_threshold_design.json
+```
+
+Stability formula:
+
+```text
+Mirror Candidate Stability Score =
+0.4 * Repeatability + 0.4 * Discrimination + 0.2 * Noise
+```
+
+Threshold basis:
+
+```text
+Temporary Engineering Threshold
+Current value is not statistically validated.
+Evidence-based Threshold will be derived from Replay Dataset in future sprint.
+```
+
+Audit finding:
+
+```text
+Sprint 12P did not contain a standalone stability_threshold=0.4 pass/fail gate.
+The 0.4 values are formula weights for Repeatability and Discrimination.
+The actual Verified rule is stability_score >= 0.6, repeatability >= 0.6, and discrimination >= 0.25.
+Those values are not statistically validated and were not derived from ROC, distribution, percentile, Bayesian, or holdout analysis.
+```
+
+Evidence-based Threshold design:
+
+```text
+Future threshold derivation should use fixed Replay Dataset evidence and predeclared selection rules.
+Candidate approaches: ROC, distribution separation, percentile gate, Bayesian decision boundary.
+```
+
+Next Sprint:
+
+```text
+Derive an evidence-based threshold before any Mirror candidate promotion.
+Do not implement Mirror Pattern Layer from the current 12P candidates.
+```
 * Layer:
   - Snapshot Layer: T-2, T-1, T0 state vector.
   - Diff Layer: Diff_A, Diff_B.

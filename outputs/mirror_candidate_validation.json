@@ -1,0 +1,912 @@
+{
+  "candidates": [
+    "score_slope",
+    "rsi_persistence",
+    "volume_delay"
+  ],
+  "failure_count": 10,
+  "is_trade_command": false,
+  "mirror_candidate_validation_schema_version": "mirror_candidate_validation_v1",
+  "objective": "Validate whether score_slope, rsi_persistence, and volume_delay repeatedly separate success and failure replay samples.",
+  "rules": {
+    "allowed": [
+      "Replay",
+      "Validation",
+      "Statistics",
+      "Candidate Discovery",
+      "Evidence accumulation"
+    ],
+    "forbidden": [
+      "Mirror Layer implementation",
+      "Threshold change",
+      "Hellhound Score change",
+      "PROMOTE Gate change",
+      "ML training",
+      "Candidate promotion"
+    ]
+  },
+  "sample_count": 20,
+  "samples": [
+    {
+      "anchor_timestamp": "2026-06-22T10:30:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 3,
+          "increase_persistence": 6,
+          "peak_after_persistence": 2,
+          "primary_value": 6
+        },
+        "score_slope": {
+          "primary_value": -0.007275,
+          "slope_2": 0.0279,
+          "slope_4": -0.007275,
+          "slope_8": -0.010112
+        },
+        "volume_delay": {
+          "delay_candles": 0,
+          "primary_value": 0,
+          "state": "Overlap"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-22T22:30:00+00:00",
+      "coverage_start": "2026-06-21T22:30:00+00:00",
+      "failure_archetype": "Fake Breakout",
+      "is_trade_command": false,
+      "sample_id": "failure-01-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 11.31381,
+      "source_case_id": "failure-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T22:30:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -11.31381,
+        "ignition_time": "2026-06-22T10:30:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T13:30:00+00:00",
+        "replay_end_time": "2026-06-22T22:30:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T05:45:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 6,
+          "increase_persistence": 6,
+          "peak_after_persistence": 2,
+          "primary_value": 6
+        },
+        "score_slope": {
+          "primary_value": -0.014375,
+          "slope_2": -0.015,
+          "slope_4": -0.014375,
+          "slope_8": -0.022838
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-22T17:45:00+00:00",
+      "coverage_start": "2026-06-21T17:45:00+00:00",
+      "failure_archetype": "Failed Accumulation",
+      "is_trade_command": false,
+      "sample_id": "failure-02-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 6.292064,
+      "source_case_id": "failure-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T17:45:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -6.292064,
+        "ignition_time": "2026-06-22T05:45:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T07:15:00+00:00",
+        "replay_end_time": "2026-06-22T17:45:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T07:45:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 5,
+          "peak_after_persistence": 1,
+          "primary_value": 5
+        },
+        "score_slope": {
+          "primary_value": 0.012975,
+          "slope_2": 0.02675,
+          "slope_4": 0.012975,
+          "slope_8": 0.026175
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-22T19:45:00+00:00",
+      "coverage_start": "2026-06-21T23:30:00+00:00",
+      "failure_archetype": "Dead Cat Bounce",
+      "is_trade_command": false,
+      "sample_id": "failure-03-ARBUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 6.352941,
+      "source_case_id": "failure-2-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T23:30:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -6.352941,
+        "ignition_time": "2026-06-22T07:45:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T13:45:00+00:00",
+        "replay_end_time": "2026-06-22T19:45:00+00:00",
+        "symbol": "ARBUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T20:45:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 4,
+          "peak_after_persistence": 4,
+          "primary_value": 4
+        },
+        "score_slope": {
+          "primary_value": 0.0092,
+          "slope_2": 0.01435,
+          "slope_4": 0.0092,
+          "slope_8": 0.001612
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-23T08:45:00+00:00",
+      "coverage_start": "2026-06-22T08:45:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "sample_id": "failure-04-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 13.998735,
+      "source_case_id": "failure-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-22T08:45:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -13.998735,
+        "ignition_time": "2026-06-22T20:45:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T21:15:00+00:00",
+        "replay_end_time": "2026-06-23T08:45:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T12:00:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 3,
+          "increase_persistence": 3,
+          "peak_after_persistence": 2,
+          "primary_value": 3
+        },
+        "score_slope": {
+          "primary_value": 0.0026,
+          "slope_2": 0.00375,
+          "slope_4": 0.0026,
+          "slope_8": -0.003687
+        },
+        "volume_delay": {
+          "delay_candles": 1,
+          "primary_value": 1,
+          "state": "Delay"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-23T00:00:00+00:00",
+      "coverage_start": "2026-06-22T00:00:00+00:00",
+      "failure_archetype": "Bull Trap",
+      "is_trade_command": false,
+      "sample_id": "failure-05-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 9.504856,
+      "source_case_id": "failure-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-22T00:00:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -9.504856,
+        "ignition_time": "2026-06-22T12:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T13:30:00+00:00",
+        "replay_end_time": "2026-06-23T00:00:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T09:45:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 5,
+          "peak_after_persistence": 4,
+          "primary_value": 5
+        },
+        "score_slope": {
+          "primary_value": 0.01945,
+          "slope_2": -0.0233,
+          "slope_4": 0.01945,
+          "slope_8": -0.005075
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-22T21:45:00+00:00",
+      "coverage_start": "2026-06-21T23:30:00+00:00",
+      "failure_archetype": "Bull Trap",
+      "is_trade_command": false,
+      "sample_id": "failure-06-ARBUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 8.899297,
+      "source_case_id": "failure-2-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T23:30:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -8.899297,
+        "ignition_time": "2026-06-22T09:45:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T13:45:00+00:00",
+        "replay_end_time": "2026-06-22T21:45:00+00:00",
+        "symbol": "ARBUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T18:00:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 5,
+          "increase_persistence": 3,
+          "peak_after_persistence": 4,
+          "primary_value": 3
+        },
+        "score_slope": {
+          "primary_value": 0.004025,
+          "slope_2": -0.0161,
+          "slope_4": 0.004025,
+          "slope_8": -0.004762
+        },
+        "volume_delay": {
+          "delay_candles": 0,
+          "primary_value": 0,
+          "state": "Overlap"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-23T06:00:00+00:00",
+      "coverage_start": "2026-06-22T06:00:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "sample_id": "failure-07-ARBUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 7.656066,
+      "source_case_id": "failure-2-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "target": {
+        "accumulation_start": "2026-06-22T06:00:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -7.656066,
+        "ignition_time": "2026-06-22T18:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T18:00:00+00:00",
+        "replay_end_time": "2026-06-23T06:00:00+00:00",
+        "symbol": "ARBUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-23T08:00:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 3,
+          "increase_persistence": 3,
+          "peak_after_persistence": 1,
+          "primary_value": 3
+        },
+        "score_slope": {
+          "primary_value": -0.026025,
+          "slope_2": -0.0279,
+          "slope_4": -0.026025,
+          "slope_8": -0.005263
+        },
+        "volume_delay": {
+          "delay_candles": 2,
+          "primary_value": 2,
+          "state": "Delay"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-23T10:45:00+00:00",
+      "coverage_start": "2026-06-22T20:00:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "sample_id": "failure-08-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 10.105658,
+      "source_case_id": "failure-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-22T20:00:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -10.105658,
+        "ignition_time": "2026-06-23T08:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-23T08:00:00+00:00",
+        "replay_end_time": "2026-06-23T10:45:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-23T04:15:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 3,
+          "peak_after_persistence": 2,
+          "primary_value": 3
+        },
+        "score_slope": {
+          "primary_value": -0.023025,
+          "slope_2": -0.04465,
+          "slope_4": -0.023025,
+          "slope_8": 0.003713
+        },
+        "volume_delay": {
+          "delay_candles": 0,
+          "primary_value": 0,
+          "state": "Overlap"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-23T09:45:00+00:00",
+      "coverage_start": "2026-06-22T16:15:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "sample_id": "failure-09-ARBUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 6.15942,
+      "source_case_id": "failure-2-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "target": {
+        "accumulation_start": "2026-06-22T16:15:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -6.15942,
+        "ignition_time": "2026-06-23T04:15:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-23T04:15:00+00:00",
+        "replay_end_time": "2026-06-23T09:45:00+00:00",
+        "symbol": "ARBUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T07:15:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 5,
+          "peak_after_persistence": 1,
+          "primary_value": 5
+        },
+        "score_slope": {
+          "primary_value": 0.033275,
+          "slope_2": -0.0008,
+          "slope_4": 0.033275,
+          "slope_8": 0.019187
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "failure",
+      "coverage_end": "2026-06-22T19:15:00+00:00",
+      "coverage_start": "2026-06-21T23:30:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "sample_id": "failure-10-ARBUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 6.110458,
+      "source_case_id": "failure-2-ARBUSDT",
+      "symbol": "ARBUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T23:30:00+00:00",
+        "case_type": "failure",
+        "ignition_return_24h": -6.110458,
+        "ignition_time": "2026-06-22T07:15:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T13:45:00+00:00",
+        "replay_end_time": "2026-06-22T19:15:00+00:00",
+        "symbol": "ARBUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T11:00:00+00:00",
+      "asset_bucket": "BTC",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 5,
+          "increase_persistence": 4,
+          "peak_after_persistence": 3,
+          "primary_value": 4
+        },
+        "score_slope": {
+          "primary_value": 0.00425,
+          "slope_2": 0.0031,
+          "slope_4": 0.00425,
+          "slope_8": -5e-05
+        },
+        "volume_delay": {
+          "delay_candles": 1,
+          "primary_value": 1,
+          "state": "Delay"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-22T13:45:00+00:00",
+      "coverage_start": "2026-06-21T23:00:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-01-BTCUSDT",
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "selection_score": 2.977276,
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T23:00:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": -2.977276,
+        "ignition_time": "2026-06-22T11:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T13:45:00+00:00",
+        "replay_end_time": "2026-06-22T13:45:00+00:00",
+        "symbol": "BTCUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-20T03:15:00+00:00",
+      "asset_bucket": "Major Alt",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 5,
+          "increase_persistence": 5,
+          "peak_after_persistence": 4,
+          "primary_value": 5
+        },
+        "score_slope": {
+          "primary_value": -0.018,
+          "slope_2": 0.00115,
+          "slope_4": -0.018,
+          "slope_8": -0.0261
+        },
+        "volume_delay": {
+          "delay_candles": 0,
+          "primary_value": 0,
+          "state": "Overlap"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-20T15:15:00+00:00",
+      "coverage_start": "2026-06-19T15:15:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-02-SOLUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 5.087895,
+      "source_case_id": "success-2-SOLUSDT",
+      "symbol": "SOLUSDT",
+      "target": {
+        "accumulation_start": "2026-06-19T15:15:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 5.087895,
+        "ignition_time": "2026-06-20T03:15:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-20T05:00:00+00:00",
+        "replay_end_time": "2026-06-20T15:15:00+00:00",
+        "symbol": "SOLUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-15T23:45:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 2,
+          "increase_persistence": 3,
+          "peak_after_persistence": 1,
+          "primary_value": 3
+        },
+        "score_slope": {
+          "primary_value": -0.021225,
+          "slope_2": -0.0341,
+          "slope_4": -0.021225,
+          "slope_8": -0.009712
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-16T11:45:00+00:00",
+      "coverage_start": "2026-06-15T16:30:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-03-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 14.930201,
+      "source_case_id": "success-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-15T16:30:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 14.930201,
+        "ignition_time": "2026-06-15T23:45:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-16T08:45:00+00:00",
+        "replay_end_time": "2026-06-16T11:45:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-22T08:00:00+00:00",
+      "asset_bucket": "BTC",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 4,
+          "peak_after_persistence": 3,
+          "primary_value": 4
+        },
+        "score_slope": {
+          "primary_value": -0.011725,
+          "slope_2": -0.0273,
+          "slope_4": -0.011725,
+          "slope_8": -0.03895
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-22T13:45:00+00:00",
+      "coverage_start": "2026-06-21T20:00:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-04-BTCUSDT",
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "selection_score": 2.564932,
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T20:00:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": -2.564932,
+        "ignition_time": "2026-06-22T08:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T13:45:00+00:00",
+        "replay_end_time": "2026-06-22T13:45:00+00:00",
+        "symbol": "BTCUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-19T23:45:00+00:00",
+      "asset_bucket": "Major Alt",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 5,
+          "increase_persistence": 5,
+          "peak_after_persistence": 3,
+          "primary_value": 5
+        },
+        "score_slope": {
+          "primary_value": -0.001875,
+          "slope_2": -0.0368,
+          "slope_4": -0.001875,
+          "slope_8": 0.008175
+        },
+        "volume_delay": {
+          "delay_candles": 2,
+          "primary_value": 2,
+          "state": "Delay"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-20T11:45:00+00:00",
+      "coverage_start": "2026-06-19T11:45:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-05-SOLUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 4.989963,
+      "source_case_id": "success-2-SOLUSDT",
+      "symbol": "SOLUSDT",
+      "target": {
+        "accumulation_start": "2026-06-19T11:45:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 4.989963,
+        "ignition_time": "2026-06-19T23:45:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-20T05:00:00+00:00",
+        "replay_end_time": "2026-06-20T11:45:00+00:00",
+        "symbol": "SOLUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-16T04:00:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 3,
+          "increase_persistence": 5,
+          "peak_after_persistence": 1,
+          "primary_value": 5
+        },
+        "score_slope": {
+          "primary_value": -0.031275,
+          "slope_2": 0.0104,
+          "slope_4": -0.031275,
+          "slope_8": -0.000225
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-16T16:00:00+00:00",
+      "coverage_start": "2026-06-15T16:30:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-06-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 14.905692,
+      "source_case_id": "success-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-15T16:30:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 14.905692,
+        "ignition_time": "2026-06-16T04:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-16T08:45:00+00:00",
+        "replay_end_time": "2026-06-16T16:00:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-21T15:00:00+00:00",
+      "asset_bucket": "BTC",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 7,
+          "peak_after_persistence": 2,
+          "primary_value": 7
+        },
+        "score_slope": {
+          "primary_value": 0.003675,
+          "slope_2": 0.00245,
+          "slope_4": 0.003675,
+          "slope_8": -0.004137
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-22T03:00:00+00:00",
+      "coverage_start": "2026-06-21T03:00:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-07-BTCUSDT",
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "selection_score": 1.367285,
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T03:00:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 1.367285,
+        "ignition_time": "2026-06-21T15:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-22T01:15:00+00:00",
+        "replay_end_time": "2026-06-22T03:00:00+00:00",
+        "symbol": "BTCUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-19T20:15:00+00:00",
+      "asset_bucket": "Major Alt",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 5,
+          "increase_persistence": 3,
+          "peak_after_persistence": 3,
+          "primary_value": 3
+        },
+        "score_slope": {
+          "primary_value": 0.01255,
+          "slope_2": 0.0047,
+          "slope_4": 0.01255,
+          "slope_8": 0.007925
+        },
+        "volume_delay": {
+          "delay_candles": 1,
+          "primary_value": 1,
+          "state": "Delay"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-20T08:15:00+00:00",
+      "coverage_start": "2026-06-19T10:30:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-08-SOLUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 4.191443,
+      "source_case_id": "success-2-SOLUSDT",
+      "symbol": "SOLUSDT",
+      "target": {
+        "accumulation_start": "2026-06-19T10:30:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 4.191443,
+        "ignition_time": "2026-06-19T20:15:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-20T05:00:00+00:00",
+        "replay_end_time": "2026-06-20T08:15:00+00:00",
+        "symbol": "SOLUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-15T19:30:00+00:00",
+      "asset_bucket": "Mid Cap",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 1,
+          "increase_persistence": 3,
+          "peak_after_persistence": 1,
+          "primary_value": 3
+        },
+        "score_slope": {
+          "primary_value": -0.0054,
+          "slope_2": 0.0028,
+          "slope_4": -0.0054,
+          "slope_8": -0.011887
+        },
+        "volume_delay": {
+          "delay_candles": -1,
+          "primary_value": -1,
+          "state": "Volume Leads"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-16T07:30:00+00:00",
+      "coverage_start": "2026-06-15T16:30:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-09-WLDUSDT",
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "selection_score": 12.538383,
+      "source_case_id": "success-1-WLDUSDT",
+      "symbol": "WLDUSDT",
+      "target": {
+        "accumulation_start": "2026-06-15T16:30:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 12.538383,
+        "ignition_time": "2026-06-15T19:30:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-16T07:30:00+00:00",
+        "replay_end_time": "2026-06-16T07:30:00+00:00",
+        "symbol": "WLDUSDT"
+      }
+    },
+    {
+      "anchor_timestamp": "2026-06-21T12:00:00+00:00",
+      "asset_bucket": "BTC",
+      "candidate_metrics": {
+        "is_trade_command": false,
+        "rsi_persistence": {
+          "decrease_persistence": 4,
+          "increase_persistence": 7,
+          "peak_after_persistence": 1,
+          "primary_value": 7
+        },
+        "score_slope": {
+          "primary_value": 0.015625,
+          "slope_2": 0.00685,
+          "slope_4": 0.015625,
+          "slope_8": 0.001137
+        },
+        "volume_delay": {
+          "delay_candles": 1,
+          "primary_value": 1,
+          "state": "Delay"
+        }
+      },
+      "case_type": "success",
+      "coverage_end": "2026-06-22T00:00:00+00:00",
+      "coverage_start": "2026-06-21T00:00:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "sample_id": "success-10-BTCUSDT",
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "selection_score": 1.058117,
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "symbol": "BTCUSDT",
+      "target": {
+        "accumulation_start": "2026-06-21T00:00:00+00:00",
+        "case_type": "success",
+        "ignition_return_24h": 1.058117,
+        "ignition_time": "2026-06-21T12:00:00+00:00",
+        "is_trade_command": false,
+        "local_peak_time": "2026-06-21T15:30:00+00:00",
+        "replay_end_time": "2026-06-22T00:00:00+00:00",
+        "symbol": "BTCUSDT"
+      }
+    }
+  ],
+  "success_count": 10
+}
