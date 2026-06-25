@@ -1,0 +1,233 @@
+{
+  "candidate_scope": [
+    "hellhound_score_slope",
+    "rsi_persistence",
+    "volume_delay"
+  ],
+  "candidates": [
+    {
+      "balanced_accuracy": 0.6,
+      "candidate": "hellhound_score_slope",
+      "candidate_state": "Evidence Threshold Candidate",
+      "comparison_to_temporary": {
+        "balanced_accuracy_change": 0.0,
+        "f1_change": 0.114286,
+        "precision_change": -0.044444,
+        "recall_change": 0.4,
+        "temporary_threshold": 0.000362,
+        "threshold_difference": 0.017175
+      },
+      "direction": "success_lower",
+      "distribution": {
+        "failure": {
+          "count": 10,
+          "mean": 0.001082,
+          "median": 0.003312,
+          "percentiles": {
+            "p10": -0.023325,
+            "p25": -0.0126,
+            "p50": 0.003312,
+            "p75": 0.012031,
+            "p90": 0.020832
+          },
+          "std": 0.018906,
+          "values": [
+            -0.007275,
+            -0.014375,
+            0.012975,
+            0.0092,
+            0.0026,
+            0.01945,
+            0.004025,
+            -0.026025,
+            -0.023025,
+            0.033275
+          ]
+        },
+        "success": {
+          "count": 10,
+          "mean": -0.00534,
+          "median": -0.003638,
+          "percentiles": {
+            "p10": -0.02223,
+            "p25": -0.016431,
+            "p50": -0.003638,
+            "p75": 0.004106,
+            "p90": 0.012857
+          },
+          "std": 0.015169,
+          "values": [
+            0.00425,
+            -0.018,
+            -0.021225,
+            -0.011725,
+            -0.001875,
+            -0.031275,
+            0.003675,
+            0.01255,
+            -0.0054,
+            0.015625
+          ]
+        }
+      },
+      "evidence_threshold": 0.017537,
+      "f1": 0.714286,
+      "is_trade_command": false,
+      "precision": 0.555556,
+      "recall": 1.0,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    },
+    {
+      "balanced_accuracy": 0.6,
+      "candidate": "rsi_persistence",
+      "candidate_state": "Evidence Threshold Candidate",
+      "comparison_to_temporary": {
+        "balanced_accuracy_change": 0.1,
+        "f1_change": -0.166667,
+        "precision_change": 0.5,
+        "recall_change": -0.3,
+        "temporary_threshold": 4.5,
+        "threshold_difference": 2.0
+      },
+      "direction": "success_higher",
+      "distribution": {
+        "failure": {
+          "count": 10,
+          "mean": 4.3,
+          "median": 4.5,
+          "percentiles": {
+            "p10": 3.0,
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 5.0,
+            "p90": 6.0
+          },
+          "std": 1.251666,
+          "values": [
+            6.0,
+            6.0,
+            5.0,
+            4.0,
+            3.0,
+            5.0,
+            3.0,
+            3.0,
+            3.0,
+            5.0
+          ]
+        },
+        "success": {
+          "count": 10,
+          "mean": 4.6,
+          "median": 4.5,
+          "percentiles": {
+            "p10": 3.0,
+            "p25": 3.25,
+            "p50": 4.5,
+            "p75": 5.0,
+            "p90": 7.0
+          },
+          "std": 1.505545,
+          "values": [
+            4.0,
+            5.0,
+            3.0,
+            4.0,
+            5.0,
+            5.0,
+            7.0,
+            3.0,
+            3.0,
+            7.0
+          ]
+        }
+      },
+      "evidence_threshold": 6.5,
+      "f1": 0.333333,
+      "is_trade_command": false,
+      "precision": 1.0,
+      "recall": 0.2,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    },
+    {
+      "balanced_accuracy": 0.6,
+      "candidate": "volume_delay",
+      "candidate_state": "Evidence Threshold Candidate",
+      "comparison_to_temporary": {
+        "balanced_accuracy_change": 0.1,
+        "f1_change": 0.0,
+        "precision_change": 0.166667,
+        "recall_change": -0.1,
+        "temporary_threshold": -0.5,
+        "threshold_difference": 1.0
+      },
+      "direction": "success_higher",
+      "distribution": {
+        "failure": {
+          "count": 10,
+          "mean": -0.2,
+          "median": -0.5,
+          "percentiles": {
+            "p10": -1.0,
+            "p25": -1.0,
+            "p50": -0.5,
+            "p75": 0.0,
+            "p90": 1.1
+          },
+          "std": 1.032796,
+          "values": [
+            0.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            -1.0,
+            0.0,
+            2.0,
+            0.0,
+            -1.0
+          ]
+        },
+        "success": {
+          "count": 10,
+          "mean": 0.0,
+          "median": -0.5,
+          "percentiles": {
+            "p10": -1.0,
+            "p25": -1.0,
+            "p50": -0.5,
+            "p75": 1.0,
+            "p90": 1.1
+          },
+          "std": 1.154701,
+          "values": [
+            1.0,
+            0.0,
+            -1.0,
+            -1.0,
+            2.0,
+            -1.0,
+            -1.0,
+            1.0,
+            -1.0,
+            1.0
+          ]
+        }
+      },
+      "evidence_threshold": 0.5,
+      "f1": 0.5,
+      "is_trade_command": false,
+      "precision": 0.666667,
+      "recall": 0.4,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    }
+  ],
+  "evidence_threshold_candidates_schema_version": "evidence_threshold_candidates_v1",
+  "is_trade_command": false,
+  "new_candidate_added": false,
+  "verdict_vocabulary": [
+    "SUPPORTED_BY_DATA",
+    "NOT_ENOUGH_EVIDENCE",
+    "REJECT"
+  ]
+}

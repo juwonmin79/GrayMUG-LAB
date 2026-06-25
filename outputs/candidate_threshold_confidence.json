@@ -1,0 +1,114 @@
+{
+  "allowed_verdicts": [
+    "SUPPORTED_BY_DATA",
+    "NOT_ENOUGH_EVIDENCE",
+    "REJECT"
+  ],
+  "candidate_threshold_confidence_schema_version": "candidate_threshold_confidence_v1",
+  "candidates": [
+    {
+      "balanced_accuracy_change": 0.0,
+      "candidate": "hellhound_score_slope",
+      "confidence_note": "Current sample count is limited (success=10, failure=10); threshold is data-derived but requires more replay evidence before support.",
+      "direction": "success_lower",
+      "evidence_metrics": {
+        "balanced_accuracy": 0.6,
+        "f1": 0.714286,
+        "precision": 0.555556,
+        "recall": 1.0
+      },
+      "evidence_threshold": 0.017537,
+      "f1_change": 0.114286,
+      "is_trade_command": false,
+      "precision_change": -0.044444,
+      "previous_stability_score": 0.314945,
+      "recall_change": 0.4,
+      "temporary_metrics": {
+        "balanced_accuracy": 0.6,
+        "confusion": {
+          "fn": 4,
+          "fp": 4,
+          "tn": 6,
+          "tp": 6
+        },
+        "f1": 0.6,
+        "precision": 0.6,
+        "recall": 0.6
+      },
+      "temporary_threshold": 0.000362,
+      "temporary_threshold_source": "Sprint 12P median-pivot repeatability proxy; not a hardcoded threshold",
+      "threshold_difference": 0.017175,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    },
+    {
+      "balanced_accuracy_change": 0.1,
+      "candidate": "rsi_persistence",
+      "confidence_note": "Current sample count is limited (success=10, failure=10); threshold is data-derived but requires more replay evidence before support.",
+      "direction": "success_higher",
+      "evidence_metrics": {
+        "balanced_accuracy": 0.6,
+        "f1": 0.333333,
+        "precision": 1.0,
+        "recall": 0.2
+      },
+      "evidence_threshold": 6.5,
+      "f1_change": -0.166667,
+      "is_trade_command": false,
+      "precision_change": 0.5,
+      "previous_stability_score": 0.381501,
+      "recall_change": -0.3,
+      "temporary_metrics": {
+        "balanced_accuracy": 0.5,
+        "confusion": {
+          "fn": 5,
+          "fp": 5,
+          "tn": 5,
+          "tp": 5
+        },
+        "f1": 0.5,
+        "precision": 0.5,
+        "recall": 0.5
+      },
+      "temporary_threshold": 4.5,
+      "temporary_threshold_source": "Sprint 12P median-pivot repeatability proxy; not a hardcoded threshold",
+      "threshold_difference": 2.0,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    },
+    {
+      "balanced_accuracy_change": 0.1,
+      "candidate": "volume_delay",
+      "confidence_note": "Current sample count is limited (success=10, failure=10); threshold is data-derived but requires more replay evidence before support.",
+      "direction": "success_higher",
+      "evidence_metrics": {
+        "balanced_accuracy": 0.6,
+        "f1": 0.5,
+        "precision": 0.666667,
+        "recall": 0.4
+      },
+      "evidence_threshold": 0.5,
+      "f1_change": 0.0,
+      "is_trade_command": false,
+      "precision_change": 0.166667,
+      "previous_stability_score": 0.236515,
+      "recall_change": -0.1,
+      "temporary_metrics": {
+        "balanced_accuracy": 0.5,
+        "confusion": {
+          "fn": 5,
+          "fp": 5,
+          "tn": 5,
+          "tp": 5
+        },
+        "f1": 0.5,
+        "precision": 0.5,
+        "recall": 0.5
+      },
+      "temporary_threshold": -0.5,
+      "temporary_threshold_source": "Sprint 12P median-pivot repeatability proxy; not a hardcoded threshold",
+      "threshold_difference": 1.0,
+      "verdict": "NOT_ENOUGH_EVIDENCE"
+    }
+  ],
+  "is_trade_command": false,
+  "threshold_comparison_note": "Temporary threshold is the Sprint 12P median-pivot proxy used in repeatability calculation, not a hardcoded production threshold."
+}

@@ -1,0 +1,1418 @@
+{
+  "campaign_count": 20,
+  "campaign_replay_dataset_schema_version": "campaign_replay_dataset_v1",
+  "campaigns": [
+    {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-22T22:30:00+00:00",
+      "failure_archetype": "Fake Breakout",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 5
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 6
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Accumulation",
+            "persistence_candles": 5
+          }
+        },
+        "early_mae": -11.425828,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 8.373325,
+        "rsi_persistence": 6,
+        "score_slope": -0.007275,
+        "volume_delay": 0
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-21T22:30:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T10:45:00+00:00",
+        "failure_time": "2026-06-22T22:30:00+00:00",
+        "ignition_time": "2026-06-22T10:30:00+00:00",
+        "peak_time": "2026-06-22T13:30:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-1-WLDUSDT",
+      "source_sample_id": "failure-01-WLDUSDT",
+      "start_time": "2026-06-21T22:30:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-22T17:45:00+00:00",
+      "failure_archetype": "Failed Accumulation",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Accumulation",
+            "persistence_candles": 3
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Accumulation",
+            "persistence_candles": 6
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -6.850811,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 8.373325,
+        "rsi_persistence": 6,
+        "score_slope": -0.014375,
+        "volume_delay": -1
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-21T17:45:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T06:00:00+00:00",
+        "failure_time": "2026-06-22T17:45:00+00:00",
+        "ignition_time": "2026-06-22T05:45:00+00:00",
+        "peak_time": "2026-06-22T07:15:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-1-WLDUSDT",
+      "source_sample_id": "failure-02-WLDUSDT",
+      "start_time": "2026-06-21T17:45:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 20.25,
+      "end_time": "2026-06-22T19:45:00+00:00",
+      "failure_archetype": "Dead Cat Bounce",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 20.25,
+        "campaign_duration_candles": 82,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 9
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 5
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 5
+          }
+        },
+        "early_mae": -7.050529,
+        "ignition_delay": 8.25,
+        "is_trade_command": false,
+        "peak_mfe": 6.356968,
+        "rsi_persistence": 5,
+        "score_slope": 0.012975,
+        "volume_delay": -1
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-21T23:30:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T08:00:00+00:00",
+        "failure_time": "2026-06-22T19:45:00+00:00",
+        "ignition_time": "2026-06-22T07:45:00+00:00",
+        "peak_time": "2026-06-22T13:45:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-2-ARBUSDT",
+      "source_sample_id": "failure-03-ARBUSDT",
+      "start_time": "2026-06-21T23:30:00+00:00",
+      "symbol": "ARBUSDT"
+    },
+    {
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-23T08:45:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Failure",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 5
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Failure",
+            "persistence_candles": 5
+          }
+        },
+        "early_mae": -16.190327,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 4.950655,
+        "rsi_persistence": 4,
+        "score_slope": 0.0092,
+        "volume_delay": -1
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-22T08:45:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T21:00:00+00:00",
+        "failure_time": "2026-06-23T08:45:00+00:00",
+        "ignition_time": "2026-06-22T20:45:00+00:00",
+        "peak_time": "2026-06-22T21:15:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-1-WLDUSDT",
+      "source_sample_id": "failure-04-WLDUSDT",
+      "start_time": "2026-06-22T08:45:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-23T00:00:00+00:00",
+      "failure_archetype": "Bull Trap",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 5
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Accumulation",
+            "persistence_candles": 5
+          }
+        },
+        "early_mae": -11.87709,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 6.435885,
+        "rsi_persistence": 3,
+        "score_slope": 0.0026,
+        "volume_delay": 1
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-22T00:00:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T12:15:00+00:00",
+        "failure_time": "2026-06-23T00:00:00+00:00",
+        "ignition_time": "2026-06-22T12:00:00+00:00",
+        "peak_time": "2026-06-22T13:30:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-1-WLDUSDT",
+      "source_sample_id": "failure-05-WLDUSDT",
+      "start_time": "2026-06-22T00:00:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 22.25,
+      "end_time": "2026-06-22T21:45:00+00:00",
+      "failure_archetype": "Bull Trap",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 22.25,
+        "campaign_duration_candles": 90,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 9
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 5
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 5
+          }
+        },
+        "early_mae": -10.397196,
+        "ignition_delay": 10.25,
+        "is_trade_command": false,
+        "peak_mfe": 6.356968,
+        "rsi_persistence": 5,
+        "score_slope": 0.01945,
+        "volume_delay": -1
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-21T23:30:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T10:00:00+00:00",
+        "failure_time": "2026-06-22T21:45:00+00:00",
+        "ignition_time": "2026-06-22T09:45:00+00:00",
+        "peak_time": "2026-06-22T13:45:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-2-ARBUSDT",
+      "source_sample_id": "failure-06-ARBUSDT",
+      "start_time": "2026-06-21T23:30:00+00:00",
+      "symbol": "ARBUSDT"
+    },
+    {
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-23T06:00:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 9
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 3
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 3
+          }
+        },
+        "early_mae": -11.635945,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 3.448276,
+        "rsi_persistence": 3,
+        "score_slope": 0.004025,
+        "volume_delay": 0
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-22T06:00:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T18:15:00+00:00",
+        "failure_time": "2026-06-23T06:00:00+00:00",
+        "ignition_time": "2026-06-22T18:00:00+00:00",
+        "peak_time": "2026-06-22T18:00:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-2-ARBUSDT",
+      "source_sample_id": "failure-07-ARBUSDT",
+      "start_time": "2026-06-22T06:00:00+00:00",
+      "symbol": "ARBUSDT"
+    },
+    {
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 14.75,
+      "end_time": "2026-06-23T10:45:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 14.75,
+        "campaign_duration_candles": 60,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Failure",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 4
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Failure",
+            "persistence_candles": 3
+          }
+        },
+        "early_mae": -16.811404,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 4.962108,
+        "rsi_persistence": 3,
+        "score_slope": -0.026025,
+        "volume_delay": 2
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-22T20:00:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-23T08:15:00+00:00",
+        "failure_time": "2026-06-23T10:45:00+00:00",
+        "ignition_time": "2026-06-23T08:00:00+00:00",
+        "peak_time": "2026-06-23T08:00:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-1-WLDUSDT",
+      "source_sample_id": "failure-08-WLDUSDT",
+      "start_time": "2026-06-22T20:00:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 17.5,
+      "end_time": "2026-06-23T09:45:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 17.5,
+        "campaign_duration_candles": 71,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Failure",
+            "persistence_candles": 5
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Accumulation",
+            "persistence_candles": 6
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Failure",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -9.87074,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 4.539559,
+        "rsi_persistence": 3,
+        "score_slope": -0.023025,
+        "volume_delay": 0
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-22T16:15:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-23T04:30:00+00:00",
+        "failure_time": "2026-06-23T09:45:00+00:00",
+        "ignition_time": "2026-06-23T04:15:00+00:00",
+        "peak_time": "2026-06-23T04:15:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-2-ARBUSDT",
+      "source_sample_id": "failure-09-ARBUSDT",
+      "start_time": "2026-06-22T16:15:00+00:00",
+      "symbol": "ARBUSDT"
+    },
+    {
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "campaign_type": "FAILURE_CAMPAIGN",
+      "duration": 19.75,
+      "end_time": "2026-06-22T19:15:00+00:00",
+      "failure_archetype": "Liquidity Sweep",
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 19.75,
+        "campaign_duration_candles": 80,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Failure",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 9
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 5
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Failure",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 5
+          }
+        },
+        "early_mae": -7.050529,
+        "ignition_delay": 7.75,
+        "is_trade_command": false,
+        "peak_mfe": 6.356968,
+        "rsi_persistence": 5,
+        "score_slope": 0.033275,
+        "volume_delay": -1
+      },
+      "outcome": "FAILURE",
+      "replay": {
+        "accumulation_start": "2026-06-21T23:30:00+00:00",
+        "distribution_time": null,
+        "expansion_start": "2026-06-22T07:30:00+00:00",
+        "failure_time": "2026-06-22T19:15:00+00:00",
+        "ignition_time": "2026-06-22T07:15:00+00:00",
+        "peak_time": "2026-06-22T13:45:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "failure-2-ARBUSDT",
+      "source_sample_id": "failure-10-ARBUSDT",
+      "start_time": "2026-06-21T23:30:00+00:00",
+      "symbol": "ARBUSDT"
+    },
+    {
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 14.75,
+      "end_time": "2026-06-22T13:45:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 14.75,
+        "campaign_duration_candles": 60,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 9
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -3.687576,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 3.649925,
+        "rsi_persistence": 4,
+        "score_slope": 0.00425,
+        "volume_delay": 1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-21T23:00:00+00:00",
+        "distribution_time": "2026-06-22T13:45:00+00:00",
+        "expansion_start": "2026-06-22T11:15:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-22T11:00:00+00:00",
+        "peak_time": "2026-06-22T13:45:00+00:00"
+      },
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "source_sample_id": "success-01-BTCUSDT",
+      "start_time": "2026-06-21T23:00:00+00:00",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-20T15:15:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 6
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -1.351157,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 7.199538,
+        "rsi_persistence": 5,
+        "score_slope": -0.018,
+        "volume_delay": 0
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-19T15:15:00+00:00",
+        "distribution_time": "2026-06-20T05:00:00+00:00",
+        "expansion_start": "2026-06-20T03:30:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-20T03:15:00+00:00",
+        "peak_time": "2026-06-20T05:00:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "success-2-SOLUSDT",
+      "source_sample_id": "success-02-SOLUSDT",
+      "start_time": "2026-06-19T15:15:00+00:00",
+      "symbol": "SOLUSDT"
+    },
+    {
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 19.25,
+      "end_time": "2026-06-16T11:45:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 19.25,
+        "campaign_duration_candles": 78,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 5
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 7
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 3
+          }
+        },
+        "early_mae": -5.38146,
+        "ignition_delay": 7.25,
+        "is_trade_command": false,
+        "peak_mfe": 24.896337,
+        "rsi_persistence": 3,
+        "score_slope": -0.021225,
+        "volume_delay": -1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-15T16:30:00+00:00",
+        "distribution_time": "2026-06-16T08:45:00+00:00",
+        "expansion_start": "2026-06-16T00:00:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-15T23:45:00+00:00",
+        "peak_time": "2026-06-16T08:45:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "success-1-WLDUSDT",
+      "source_sample_id": "success-03-WLDUSDT",
+      "start_time": "2026-06-15T16:30:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 17.75,
+      "end_time": "2026-06-22T13:45:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 17.75,
+        "campaign_duration_candles": 72,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Accumulation",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 9
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -2.712801,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 3.649925,
+        "rsi_persistence": 4,
+        "score_slope": -0.011725,
+        "volume_delay": -1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-21T20:00:00+00:00",
+        "distribution_time": "2026-06-22T13:45:00+00:00",
+        "expansion_start": "2026-06-22T08:15:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-22T08:00:00+00:00",
+        "peak_time": "2026-06-22T13:45:00+00:00"
+      },
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "source_sample_id": "success-04-BTCUSDT",
+      "start_time": "2026-06-21T20:00:00+00:00",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-20T11:45:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 6
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -1.351157,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 7.199538,
+        "rsi_persistence": 5,
+        "score_slope": -0.001875,
+        "volume_delay": 2
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-19T11:45:00+00:00",
+        "distribution_time": "2026-06-20T05:00:00+00:00",
+        "expansion_start": "2026-06-20T00:00:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-19T23:45:00+00:00",
+        "peak_time": "2026-06-20T05:00:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "success-2-SOLUSDT",
+      "source_sample_id": "success-05-SOLUSDT",
+      "start_time": "2026-06-19T11:45:00+00:00",
+      "symbol": "SOLUSDT"
+    },
+    {
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 23.5,
+      "end_time": "2026-06-16T16:00:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 23.5,
+        "campaign_duration_candles": 95,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 5
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 7
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 3
+          }
+        },
+        "early_mae": -5.38146,
+        "ignition_delay": 11.5,
+        "is_trade_command": false,
+        "peak_mfe": 24.896337,
+        "rsi_persistence": 5,
+        "score_slope": -0.031275,
+        "volume_delay": -1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-15T16:30:00+00:00",
+        "distribution_time": "2026-06-16T08:45:00+00:00",
+        "expansion_start": "2026-06-16T04:15:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-16T04:00:00+00:00",
+        "peak_time": "2026-06-16T08:45:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "success-1-WLDUSDT",
+      "source_sample_id": "success-06-WLDUSDT",
+      "start_time": "2026-06-15T16:30:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-22T03:00:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 5
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 7
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -1.95258,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 3.649925,
+        "rsi_persistence": 7,
+        "score_slope": 0.003675,
+        "volume_delay": -1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-21T03:00:00+00:00",
+        "distribution_time": "2026-06-22T01:15:00+00:00",
+        "expansion_start": "2026-06-21T15:15:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-21T15:00:00+00:00",
+        "peak_time": "2026-06-22T01:15:00+00:00"
+      },
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "source_sample_id": "success-07-BTCUSDT",
+      "start_time": "2026-06-21T03:00:00+00:00",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 21.75,
+      "end_time": "2026-06-20T08:15:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 21.75,
+        "campaign_duration_candles": 88,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 6
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 5
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -1.351157,
+        "ignition_delay": 9.75,
+        "is_trade_command": false,
+        "peak_mfe": 7.199538,
+        "rsi_persistence": 3,
+        "score_slope": 0.01255,
+        "volume_delay": 1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-19T10:30:00+00:00",
+        "distribution_time": "2026-06-20T05:00:00+00:00",
+        "expansion_start": "2026-06-19T20:30:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-19T20:15:00+00:00",
+        "peak_time": "2026-06-20T05:00:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "success-2-SOLUSDT",
+      "source_sample_id": "success-08-SOLUSDT",
+      "start_time": "2026-06-19T10:30:00+00:00",
+      "symbol": "SOLUSDT"
+    },
+    {
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 15.0,
+      "end_time": "2026-06-16T07:30:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 15.0,
+        "campaign_duration_candles": 61,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 5
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Ignition",
+            "persistence_candles": 5
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Expansion",
+            "max_average_phase": "Expansion",
+            "persistence_candles": 3
+          }
+        },
+        "early_mae": -2.071659,
+        "ignition_delay": 3.0,
+        "is_trade_command": false,
+        "peak_mfe": 24.896337,
+        "rsi_persistence": 3,
+        "score_slope": -0.0054,
+        "volume_delay": -1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-15T16:30:00+00:00",
+        "distribution_time": "2026-06-16T07:30:00+00:00",
+        "expansion_start": "2026-06-15T19:45:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-15T19:30:00+00:00",
+        "peak_time": "2026-06-16T07:30:00+00:00"
+      },
+      "sample_source": "outputs/mirror_contrast_dataset.json",
+      "source_case_id": "success-1-WLDUSDT",
+      "source_sample_id": "success-09-WLDUSDT",
+      "start_time": "2026-06-15T16:30:00+00:00",
+      "symbol": "WLDUSDT"
+    },
+    {
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "campaign_type": "SUCCESS_CAMPAIGN",
+      "duration": 24.0,
+      "end_time": "2026-06-22T00:00:00+00:00",
+      "failure_archetype": null,
+      "is_trade_command": false,
+      "metrics": {
+        "campaign_duration": 24.0,
+        "campaign_duration_candles": 97,
+        "candidate_stage_summary": {
+          "hellhound_score": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Distribution",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 5
+          },
+          "rsi_15m": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Pre-Accumulation",
+            "persistence_candles": 7
+          },
+          "volume_ratio_ma20": {
+            "appears_in_phases": [
+              "Accumulation",
+              "Distribution",
+              "Expansion",
+              "Ignition",
+              "Pre-Accumulation"
+            ],
+            "collapse_phase": "Pre-Accumulation",
+            "max_average_phase": "Distribution",
+            "persistence_candles": 4
+          }
+        },
+        "early_mae": -1.95258,
+        "ignition_delay": 12.0,
+        "is_trade_command": false,
+        "peak_mfe": 3.649925,
+        "rsi_persistence": 7,
+        "score_slope": 0.015625,
+        "volume_delay": 1
+      },
+      "outcome": "SUCCESS",
+      "replay": {
+        "accumulation_start": "2026-06-21T00:00:00+00:00",
+        "distribution_time": "2026-06-21T15:30:00+00:00",
+        "expansion_start": "2026-06-21T12:15:00+00:00",
+        "failure_time": null,
+        "ignition_time": "2026-06-21T12:00:00+00:00",
+        "peak_time": "2026-06-21T15:30:00+00:00"
+      },
+      "sample_source": "outputs/btc_replay_dataset.jsonl",
+      "source_case_id": "btc-replay-success-BTCUSDT",
+      "source_sample_id": "success-10-BTCUSDT",
+      "start_time": "2026-06-21T00:00:00+00:00",
+      "symbol": "BTCUSDT"
+    }
+  ],
+  "failure_campaign_count": 10,
+  "inconclusive_campaign_count": 0,
+  "is_trade_command": false,
+  "sample_requirement": {
+    "failure_campaign_min": 10,
+    "inconclusive_excluded_from_minimum": true,
+    "success_campaign_min": 10
+  },
+  "sprint_status": "COMPLETE",
+  "success_campaign_count": 10
+}

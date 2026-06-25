@@ -1,0 +1,153 @@
+{
+  "binance_pull_executed": false,
+  "campaign_count": 20,
+  "campaign_summary_report_schema_version": "campaign_summary_report_v1",
+  "failure_campaign_count": 10,
+  "forbidden_actions_confirmed": [
+    "No Mirror Pattern Layer implementation",
+    "No ML training",
+    "No threshold change",
+    "No Hellhound Score calculation change",
+    "No gate change",
+    "No Replay data mutation",
+    "No new candidate feature"
+  ],
+  "inconclusive_campaign_count": 0,
+  "is_trade_command": false,
+  "outcome_metric_summary": {
+    "campaign_duration": {
+      "delta_success_minus_failure": -0.65,
+      "failure_mean": 21.45,
+      "success_mean": 20.8
+    },
+    "early_mae": {
+      "delta_success_minus_failure": 8.196681,
+      "failure_mean": -10.91604,
+      "success_mean": -2.719359
+    },
+    "ignition_delay": {
+      "delta_success_minus_failure": -0.675,
+      "failure_mean": 11.025,
+      "success_mean": 10.35
+    },
+    "peak_mfe": {
+      "delta_success_minus_failure": 5.073328,
+      "failure_mean": 6.015404,
+      "success_mean": 11.088732
+    },
+    "rsi_persistence": {
+      "delta_success_minus_failure": 0.3,
+      "failure_mean": 4.3,
+      "success_mean": 4.6
+    },
+    "score_slope": {
+      "delta_success_minus_failure": -0.006422,
+      "failure_mean": 0.001082,
+      "success_mean": -0.00534
+    },
+    "volume_delay": {
+      "delta_success_minus_failure": 0.2,
+      "failure_mean": -0.2,
+      "success_mean": 0.0
+    }
+  },
+  "phase_comparison": {
+    "FAILURE": {
+      "hellhound_score": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Expansion": 7,
+          "Failure": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 3,
+          "Failure": 4,
+          "Pre-Accumulation": 3
+        }
+      },
+      "rsi_15m": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Expansion": 7,
+          "Failure": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 6,
+          "Failure": 2,
+          "Pre-Accumulation": 2
+        }
+      },
+      "volume_ratio_ma20": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Expansion": 7,
+          "Failure": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 2,
+          "Failure": 6,
+          "Pre-Accumulation": 2
+        }
+      }
+    },
+    "SUCCESS": {
+      "hellhound_score": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Distribution": 7,
+          "Expansion": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 3,
+          "Distribution": 3,
+          "Expansion": 4
+        }
+      },
+      "rsi_15m": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Distribution": 7,
+          "Expansion": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 1,
+          "Distribution": 3,
+          "Expansion": 3,
+          "Pre-Accumulation": 3
+        }
+      },
+      "volume_ratio_ma20": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Distribution": 7,
+          "Expansion": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Distribution": 3,
+          "Expansion": 6,
+          "Pre-Accumulation": 1
+        }
+      }
+    }
+  },
+  "sample_requirement_met": true,
+  "source_priority_used": [
+    "outputs/ existing Replay Dataset expansion",
+    "hound_positions real trade history if needed",
+    "Binance Historical Pull only if required"
+  ],
+  "sprint_status": "COMPLETE",
+  "success_campaign_count": 10
+}

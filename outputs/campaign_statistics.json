@@ -1,0 +1,226 @@
+{
+  "campaign_statistics_schema_version": "campaign_statistics_v1",
+  "groups": {
+    "FAILURE": {
+      "count": 10,
+      "metrics": {
+        "campaign_duration": {
+          "count": 10,
+          "max": 24.0,
+          "mean": 21.45,
+          "median": 23.125,
+          "min": 14.75,
+          "std": 3.299411
+        },
+        "early_mae": {
+          "count": 10,
+          "max": -6.850811,
+          "mean": -10.91604,
+          "median": -10.911512,
+          "min": -16.811404,
+          "std": 3.528416
+        },
+        "ignition_delay": {
+          "count": 10,
+          "max": 12.0,
+          "mean": 11.025,
+          "median": 12.0,
+          "min": 7.75,
+          "std": 1.689222
+        },
+        "peak_mfe": {
+          "count": 10,
+          "max": 8.373325,
+          "mean": 6.015404,
+          "median": 6.356968,
+          "min": 3.448276,
+          "std": 1.586673
+        },
+        "rsi_persistence": {
+          "count": 10,
+          "max": 6.0,
+          "mean": 4.3,
+          "median": 4.5,
+          "min": 3.0,
+          "std": 1.251666
+        },
+        "score_slope": {
+          "count": 10,
+          "max": 0.033275,
+          "mean": 0.001082,
+          "median": 0.003312,
+          "min": -0.026025,
+          "std": 0.018906
+        },
+        "volume_delay": {
+          "count": 10,
+          "max": 2.0,
+          "mean": -0.2,
+          "median": -0.5,
+          "min": -1.0,
+          "std": 1.032796
+        }
+      }
+    },
+    "INCONCLUSIVE": {
+      "count": 0,
+      "metrics": {
+        "campaign_duration": {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "std": null
+        },
+        "early_mae": {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "std": null
+        },
+        "ignition_delay": {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "std": null
+        },
+        "peak_mfe": {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "std": null
+        },
+        "rsi_persistence": {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "std": null
+        },
+        "score_slope": {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "std": null
+        },
+        "volume_delay": {
+          "count": 0,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "std": null
+        }
+      }
+    },
+    "SUCCESS": {
+      "count": 10,
+      "metrics": {
+        "campaign_duration": {
+          "count": 10,
+          "max": 24.0,
+          "mean": 20.8,
+          "median": 22.625,
+          "min": 14.75,
+          "std": 3.81663
+        },
+        "early_mae": {
+          "count": 10,
+          "max": -1.351157,
+          "mean": -2.719359,
+          "median": -2.012119,
+          "min": -5.38146,
+          "std": 1.574886
+        },
+        "ignition_delay": {
+          "count": 10,
+          "max": 12.0,
+          "mean": 10.35,
+          "median": 12.0,
+          "min": 3.0,
+          "std": 3.012013
+        },
+        "peak_mfe": {
+          "count": 10,
+          "max": 24.896337,
+          "mean": 11.088732,
+          "median": 7.199538,
+          "min": 3.649925,
+          "std": 9.653271
+        },
+        "rsi_persistence": {
+          "count": 10,
+          "max": 7.0,
+          "mean": 4.6,
+          "median": 4.5,
+          "min": 3.0,
+          "std": 1.505545
+        },
+        "score_slope": {
+          "count": 10,
+          "max": 0.015625,
+          "mean": -0.00534,
+          "median": -0.003638,
+          "min": -0.031275,
+          "std": 0.015169
+        },
+        "volume_delay": {
+          "count": 10,
+          "max": 2.0,
+          "mean": 0.0,
+          "median": -0.5,
+          "min": -1.0,
+          "std": 1.154701
+        }
+      }
+    }
+  },
+  "is_trade_command": false,
+  "success_failure_comparison": {
+    "campaign_duration": {
+      "delta_success_minus_failure": -0.65,
+      "failure_mean": 21.45,
+      "success_mean": 20.8
+    },
+    "early_mae": {
+      "delta_success_minus_failure": 8.196681,
+      "failure_mean": -10.91604,
+      "success_mean": -2.719359
+    },
+    "ignition_delay": {
+      "delta_success_minus_failure": -0.675,
+      "failure_mean": 11.025,
+      "success_mean": 10.35
+    },
+    "peak_mfe": {
+      "delta_success_minus_failure": 5.073328,
+      "failure_mean": 6.015404,
+      "success_mean": 11.088732
+    },
+    "rsi_persistence": {
+      "delta_success_minus_failure": 0.3,
+      "failure_mean": 4.3,
+      "success_mean": 4.6
+    },
+    "score_slope": {
+      "delta_success_minus_failure": -0.006422,
+      "failure_mean": 0.001082,
+      "success_mean": -0.00534
+    },
+    "volume_delay": {
+      "delta_success_minus_failure": 0.2,
+      "failure_mean": -0.2,
+      "success_mean": 0.0
+    }
+  }
+}

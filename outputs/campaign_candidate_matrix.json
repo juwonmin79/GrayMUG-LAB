@@ -1,0 +1,1029 @@
+{
+  "campaign_candidate_matrix_schema_version": "campaign_candidate_matrix_v1",
+  "candidate_metrics": [
+    "score_slope",
+    "rsi_persistence",
+    "volume_delay"
+  ],
+  "features": [
+    "hellhound_score",
+    "rsi_15m",
+    "volume_ratio_ma20"
+  ],
+  "is_trade_command": false,
+  "phase_comparison": {
+    "FAILURE": {
+      "hellhound_score": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Expansion": 7,
+          "Failure": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 3,
+          "Failure": 4,
+          "Pre-Accumulation": 3
+        }
+      },
+      "rsi_15m": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Expansion": 7,
+          "Failure": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 6,
+          "Failure": 2,
+          "Pre-Accumulation": 2
+        }
+      },
+      "volume_ratio_ma20": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Expansion": 7,
+          "Failure": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 2,
+          "Failure": 6,
+          "Pre-Accumulation": 2
+        }
+      }
+    },
+    "SUCCESS": {
+      "hellhound_score": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Distribution": 7,
+          "Expansion": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 3,
+          "Distribution": 3,
+          "Expansion": 4
+        }
+      },
+      "rsi_15m": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Distribution": 7,
+          "Expansion": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Accumulation": 1,
+          "Distribution": 3,
+          "Expansion": 3,
+          "Pre-Accumulation": 3
+        }
+      },
+      "volume_ratio_ma20": {
+        "appearance_phase_counts": {
+          "Accumulation": 10,
+          "Distribution": 7,
+          "Expansion": 10,
+          "Ignition": 10,
+          "Pre-Accumulation": 10
+        },
+        "collapse_phase_counts": {
+          "Distribution": 3,
+          "Expansion": 6,
+          "Pre-Accumulation": 1
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 5
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 6
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Accumulation",
+          "persistence_candles": 5
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 6,
+      "score_slope": -0.007275,
+      "symbol": "WLDUSDT",
+      "volume_delay": 0
+    },
+    {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Accumulation",
+          "persistence_candles": 3
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Accumulation",
+          "persistence_candles": 6
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 6,
+      "score_slope": -0.014375,
+      "symbol": "WLDUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 9
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 5
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 5
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 5,
+      "score_slope": 0.012975,
+      "symbol": "ARBUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Failure",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 5
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Failure",
+          "persistence_candles": 5
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 4,
+      "score_slope": 0.0092,
+      "symbol": "WLDUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 5
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Accumulation",
+          "persistence_candles": 5
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 3,
+      "score_slope": 0.0026,
+      "symbol": "WLDUSDT",
+      "volume_delay": 1
+    },
+    {
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 9
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 5
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 5
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 5,
+      "score_slope": 0.01945,
+      "symbol": "ARBUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 9
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 3
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 3
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 3,
+      "score_slope": 0.004025,
+      "symbol": "ARBUSDT",
+      "volume_delay": 0
+    },
+    {
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Failure",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 4
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Failure",
+          "persistence_candles": 3
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 3,
+      "score_slope": -0.026025,
+      "symbol": "WLDUSDT",
+      "volume_delay": 2
+    },
+    {
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Failure",
+          "persistence_candles": 5
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Accumulation",
+          "persistence_candles": 6
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Failure",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 3,
+      "score_slope": -0.023025,
+      "symbol": "ARBUSDT",
+      "volume_delay": 0
+    },
+    {
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Failure",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 9
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 5
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Failure",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 5
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "FAILURE",
+      "rsi_persistence": 5,
+      "score_slope": 0.033275,
+      "symbol": "ARBUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 9
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 4,
+      "score_slope": 0.00425,
+      "symbol": "BTCUSDT",
+      "volume_delay": 1
+    },
+    {
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 6
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 5,
+      "score_slope": -0.018,
+      "symbol": "SOLUSDT",
+      "volume_delay": 0
+    },
+    {
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 5
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 7
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 3
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 3,
+      "score_slope": -0.021225,
+      "symbol": "WLDUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Accumulation",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 9
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 4,
+      "score_slope": -0.011725,
+      "symbol": "BTCUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 6
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 5,
+      "score_slope": -0.001875,
+      "symbol": "SOLUSDT",
+      "volume_delay": 2
+    },
+    {
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 5
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 7
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 3
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 5,
+      "score_slope": -0.031275,
+      "symbol": "WLDUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 5
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 7
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 7,
+      "score_slope": 0.003675,
+      "symbol": "BTCUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 6
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 5
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 3,
+      "score_slope": 0.01255,
+      "symbol": "SOLUSDT",
+      "volume_delay": 1
+    },
+    {
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 5
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Ignition",
+          "persistence_candles": 5
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Expansion",
+          "max_average_phase": "Expansion",
+          "persistence_candles": 3
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 3,
+      "score_slope": -0.0054,
+      "symbol": "WLDUSDT",
+      "volume_delay": -1
+    },
+    {
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "feature_phase_summary": {
+        "hellhound_score": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Distribution",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 5
+        },
+        "rsi_15m": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Pre-Accumulation",
+          "persistence_candles": 7
+        },
+        "volume_ratio_ma20": {
+          "appears_in_phases": [
+            "Accumulation",
+            "Distribution",
+            "Expansion",
+            "Ignition",
+            "Pre-Accumulation"
+          ],
+          "collapse_phase": "Pre-Accumulation",
+          "max_average_phase": "Distribution",
+          "persistence_candles": 4
+        }
+      },
+      "is_trade_command": false,
+      "outcome": "SUCCESS",
+      "rsi_persistence": 7,
+      "score_slope": 0.015625,
+      "symbol": "BTCUSDT",
+      "volume_delay": 1
+    }
+  ]
+}

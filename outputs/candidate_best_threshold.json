@@ -1,0 +1,60 @@
+{
+  "candidate_best_threshold_schema_version": "candidate_best_threshold_v1",
+  "candidates": [
+    {
+      "balanced_accuracy": 0.6,
+      "candidate": "hellhound_score_slope",
+      "confusion": {
+        "fn": 0,
+        "fp": 8,
+        "tn": 2,
+        "tp": 10
+      },
+      "direction": "success_lower",
+      "evidence_threshold": 0.017537,
+      "f1": 0.714286,
+      "is_trade_command": false,
+      "precision": 0.555556,
+      "recall": 1.0,
+      "source_metric": "score_slope",
+      "threshold_source": "Replay Dataset ROC-style exhaustive scan"
+    },
+    {
+      "balanced_accuracy": 0.6,
+      "candidate": "rsi_persistence",
+      "confusion": {
+        "fn": 8,
+        "fp": 0,
+        "tn": 10,
+        "tp": 2
+      },
+      "direction": "success_higher",
+      "evidence_threshold": 6.5,
+      "f1": 0.333333,
+      "is_trade_command": false,
+      "precision": 1.0,
+      "recall": 0.2,
+      "source_metric": "rsi_persistence",
+      "threshold_source": "Replay Dataset ROC-style exhaustive scan"
+    },
+    {
+      "balanced_accuracy": 0.6,
+      "candidate": "volume_delay",
+      "confusion": {
+        "fn": 6,
+        "fp": 2,
+        "tn": 8,
+        "tp": 4
+      },
+      "direction": "success_higher",
+      "evidence_threshold": 0.5,
+      "f1": 0.5,
+      "is_trade_command": false,
+      "precision": 0.666667,
+      "recall": 0.4,
+      "source_metric": "volume_delay",
+      "threshold_source": "Replay Dataset ROC-style exhaustive scan"
+    }
+  ],
+  "is_trade_command": false
+}

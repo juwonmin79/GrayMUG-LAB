@@ -1,0 +1,177 @@
+{
+  "candidate_distribution_report_schema_version": "candidate_distribution_report_v1",
+  "candidates": [
+    {
+      "candidate": "hellhound_score_slope",
+      "distribution": {
+        "failure": {
+          "count": 10,
+          "mean": 0.001082,
+          "median": 0.003312,
+          "percentiles": {
+            "p10": -0.023325,
+            "p25": -0.0126,
+            "p50": 0.003312,
+            "p75": 0.012031,
+            "p90": 0.020832
+          },
+          "std": 0.018906,
+          "values": [
+            -0.007275,
+            -0.014375,
+            0.012975,
+            0.0092,
+            0.0026,
+            0.01945,
+            0.004025,
+            -0.026025,
+            -0.023025,
+            0.033275
+          ]
+        },
+        "success": {
+          "count": 10,
+          "mean": -0.00534,
+          "median": -0.003638,
+          "percentiles": {
+            "p10": -0.02223,
+            "p25": -0.016431,
+            "p50": -0.003638,
+            "p75": 0.004106,
+            "p90": 0.012857
+          },
+          "std": 0.015169,
+          "values": [
+            0.00425,
+            -0.018,
+            -0.021225,
+            -0.011725,
+            -0.001875,
+            -0.031275,
+            0.003675,
+            0.01255,
+            -0.0054,
+            0.015625
+          ]
+        }
+      },
+      "is_trade_command": false,
+      "source_metric": "score_slope"
+    },
+    {
+      "candidate": "rsi_persistence",
+      "distribution": {
+        "failure": {
+          "count": 10,
+          "mean": 4.3,
+          "median": 4.5,
+          "percentiles": {
+            "p10": 3.0,
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 5.0,
+            "p90": 6.0
+          },
+          "std": 1.251666,
+          "values": [
+            6.0,
+            6.0,
+            5.0,
+            4.0,
+            3.0,
+            5.0,
+            3.0,
+            3.0,
+            3.0,
+            5.0
+          ]
+        },
+        "success": {
+          "count": 10,
+          "mean": 4.6,
+          "median": 4.5,
+          "percentiles": {
+            "p10": 3.0,
+            "p25": 3.25,
+            "p50": 4.5,
+            "p75": 5.0,
+            "p90": 7.0
+          },
+          "std": 1.505545,
+          "values": [
+            4.0,
+            5.0,
+            3.0,
+            4.0,
+            5.0,
+            5.0,
+            7.0,
+            3.0,
+            3.0,
+            7.0
+          ]
+        }
+      },
+      "is_trade_command": false,
+      "source_metric": "rsi_persistence"
+    },
+    {
+      "candidate": "volume_delay",
+      "distribution": {
+        "failure": {
+          "count": 10,
+          "mean": -0.2,
+          "median": -0.5,
+          "percentiles": {
+            "p10": -1.0,
+            "p25": -1.0,
+            "p50": -0.5,
+            "p75": 0.0,
+            "p90": 1.1
+          },
+          "std": 1.032796,
+          "values": [
+            0.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            1.0,
+            -1.0,
+            0.0,
+            2.0,
+            0.0,
+            -1.0
+          ]
+        },
+        "success": {
+          "count": 10,
+          "mean": 0.0,
+          "median": -0.5,
+          "percentiles": {
+            "p10": -1.0,
+            "p25": -1.0,
+            "p50": -0.5,
+            "p75": 1.0,
+            "p90": 1.1
+          },
+          "std": 1.154701,
+          "values": [
+            1.0,
+            0.0,
+            -1.0,
+            -1.0,
+            2.0,
+            -1.0,
+            -1.0,
+            1.0,
+            -1.0,
+            1.0
+          ]
+        }
+      },
+      "is_trade_command": false,
+      "source_metric": "volume_delay"
+    }
+  ],
+  "is_trade_command": false
+}
