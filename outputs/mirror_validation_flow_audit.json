@@ -1,0 +1,13 @@
+{
+  "blocking_issues": [],
+  "checks": {
+    "contract_and_mirror_audit_share_packet_ids": true,
+    "mirror_audit_fields_complete": true,
+    "required_validation_codes_present": true,
+    "state_machine_has_failure_states": true,
+    "validation_verdicts_supported": true
+  },
+  "is_trade_command": false,
+  "mirror_validation_flow_audit_schema_version": "mirror_validation_flow_audit_v1",
+  "status": "PASS"
+}

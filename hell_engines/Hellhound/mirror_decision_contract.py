@@ -188,6 +188,7 @@ def build_validation_rules() -> Dict[str, Any]:
             rule("partial_packet", "Mirror output packet is structurally incomplete.", "HOLD", ["HOLD"]),
             rule("unknown_field", "Mirror output packet includes an unknown field.", "WARNING", ["WARNING"]),
             rule("invalid_reason_code", "Reason code is not in allowed reason-code registry.", "REJECT", ["SKIP"]),
+            rule("valid_packet", "Mirror output packet passes validation and can be emitted.", "ACCEPT", ["PASS"]),
         ],
         "error_handling_policy": [
             "missing_field -> REJECT -> SKIP",
@@ -195,6 +196,7 @@ def build_validation_rules() -> Dict[str, Any]:
             "partial_packet -> HOLD",
             "unknown_field -> WARNING",
             "invalid_reason_code -> REJECT",
+            "valid_packet -> ACCEPT -> PASS",
             "Mirror does not repair or infer rejected packets.",
         ],
         "audit_policy": {

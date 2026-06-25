@@ -1,0 +1,108 @@
+{
+  "dependency_diagram": "Feature -> Evidence -> Reason -> Mirror Decision",
+  "dependency_order": [
+    "Feature",
+    "Evidence",
+    "Reason",
+    "Mirror Decision"
+  ],
+  "evidence_to_reason": [
+    {
+      "from": "EARLY_MAE_HEALTHY",
+      "to": "EARLY_MAE_SUPPORT"
+    },
+    {
+      "from": "RECOVERY_STRONG",
+      "to": "RECOVERY_SUPPORT"
+    },
+    {
+      "from": "EARLY_MAE_EXCESSIVE",
+      "to": "EARLY_MAE_RISK"
+    },
+    {
+      "from": "RECOVERY_WEAK",
+      "to": "RECOVERY_FAILURE"
+    },
+    {
+      "from": "INSUFFICIENT_EVIDENCE",
+      "to": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "from": "LOW_CONFIDENCE",
+      "to": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "from": "EARLY_MAE_HEALTHY",
+      "to": "CONFLICTING_EVIDENCE"
+    },
+    {
+      "from": "RECOVERY_WEAK",
+      "to": "CONFLICTING_EVIDENCE"
+    }
+  ],
+  "feature_to_evidence": [
+    {
+      "from": "early_mae",
+      "to": "EARLY_MAE_HEALTHY"
+    },
+    {
+      "from": "early_mae",
+      "to": "EARLY_MAE_EXCESSIVE"
+    },
+    {
+      "from": "recovery_ratio",
+      "to": "RECOVERY_STRONG"
+    },
+    {
+      "from": "recovery_ratio",
+      "to": "RECOVERY_WEAK"
+    },
+    {
+      "from": "campaign_duration",
+      "to": "CAMPAIGN_SHORT"
+    },
+    {
+      "from": "campaign_duration",
+      "to": "CAMPAIGN_LONG"
+    },
+    {
+      "from": "confidence",
+      "to": "LOW_CONFIDENCE"
+    },
+    {
+      "from": "confidence",
+      "to": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_registry_dependency_schema_version": "mirror_registry_dependency_v1",
+  "reason_direct_feature_reference_allowed": false,
+  "reason_to_decision": [
+    {
+      "from": "EARLY_MAE_SUPPORT",
+      "to": "REAL_WHALE_BACK"
+    },
+    {
+      "from": "RECOVERY_SUPPORT",
+      "to": "REAL_WHALE_BACK"
+    },
+    {
+      "from": "EARLY_MAE_RISK",
+      "to": "FAKE_WHALE_BACK"
+    },
+    {
+      "from": "RECOVERY_FAILURE",
+      "to": "FAKE_WHALE_BACK"
+    },
+    {
+      "from": "INSUFFICIENT_EVIDENCE",
+      "to": "INCONCLUSIVE"
+    },
+    {
+      "from": "CONFLICTING_EVIDENCE",
+      "to": "INCONCLUSIVE"
+    }
+  ],
+  "registry_version": "mirror_reasoning_registry_v1",
+  "reverse_reference_allowed": false
+}

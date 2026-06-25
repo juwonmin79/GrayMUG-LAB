@@ -1,0 +1,64 @@
+{
+  "evidence": [
+    {
+      "description": "Early MAE supports healthy absorption.",
+      "evidence_id": "EARLY_MAE_HEALTHY",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "early_mae",
+      "status": "ACTIVE"
+    },
+    {
+      "description": "Early MAE indicates excessive early drawdown.",
+      "evidence_id": "EARLY_MAE_EXCESSIVE",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "early_mae",
+      "status": "ACTIVE"
+    },
+    {
+      "description": "Recovery ratio supports expansion after drawdown.",
+      "evidence_id": "RECOVERY_STRONG",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "recovery_ratio",
+      "status": "ACTIVE"
+    },
+    {
+      "description": "Recovery ratio indicates failed recovery.",
+      "evidence_id": "RECOVERY_WEAK",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "recovery_ratio",
+      "status": "ACTIVE"
+    },
+    {
+      "description": "Campaign duration is short context.",
+      "evidence_id": "CAMPAIGN_SHORT",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "campaign_duration",
+      "status": "ACTIVE"
+    },
+    {
+      "description": "Campaign duration is long context.",
+      "evidence_id": "CAMPAIGN_LONG",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "campaign_duration",
+      "status": "ACTIVE"
+    },
+    {
+      "description": "Packet confidence is insufficient.",
+      "evidence_id": "LOW_CONFIDENCE",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "confidence",
+      "status": "ACTIVE"
+    },
+    {
+      "description": "Evidence is insufficient for a stable Mirror decision.",
+      "evidence_id": "INSUFFICIENT_EVIDENCE",
+      "lifecycle": "Feature -> Evidence",
+      "source_feature": "confidence",
+      "status": "ACTIVE"
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_evidence_registry_schema_version": "mirror_evidence_registry_v1",
+  "registry_type": "Evidence Registry",
+  "registry_version": "mirror_reasoning_registry_v1"
+}

@@ -1,0 +1,38 @@
+{
+  "average_confidence": 0.625,
+  "db_created": false,
+  "decision_distribution": {
+    "FAKE_WHALE_BACK": 0,
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "inconclusive_drift_check": {
+    "level": "WATCH",
+    "rate": 0.5,
+    "rule_change_performed": false
+  },
+  "inconclusive_rate": 0.5,
+  "is_trade_command": false,
+  "mirror_live_evidence_report_schema_version": "mirror_live_evidence_report_v1",
+  "packet_count": 20,
+  "processing_time": {
+    "average_ms": 0.010537,
+    "max_ms": 0.021917,
+    "p90_ms": 0.011321
+  },
+  "reason_code_distribution": {
+    "CONFLICTING_EVIDENCE": 10,
+    "RECOVERY_FAILURE": 10,
+    "RECOVERY_SUPPORT": 10
+  },
+  "replay_compatibility": "PASS",
+  "rule_change_performed": false,
+  "schema_stability": "PASS",
+  "supabase_connected": false,
+  "symbol_distribution": {
+    "ARBUSDT": 5,
+    "BTCUSDT": 4,
+    "SOLUSDT": 3,
+    "WLDUSDT": 8
+  }
+}

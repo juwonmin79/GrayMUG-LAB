@@ -1,0 +1,13 @@
+{
+  "counts": {
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "is_trade_command": false,
+  "mirror_decision_distribution_schema_version": "mirror_decision_distribution_v1",
+  "rates": {
+    "INCONCLUSIVE": 0.5,
+    "REAL_WHALE_BACK": 0.5
+  },
+  "total": 20
+}

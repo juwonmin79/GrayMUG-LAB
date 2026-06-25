@@ -1,0 +1,53 @@
+{
+  "features": [
+    {
+      "description": "Maximum adverse excursion before or at campaign ignition.",
+      "feature_id": "early_mae",
+      "nullable": false,
+      "required": true,
+      "source": "Campaign Physics Packet",
+      "status": "ACTIVE",
+      "version": "v1"
+    },
+    {
+      "description": "Peak MFE divided by absolute Early MAE.",
+      "feature_id": "recovery_ratio",
+      "nullable": false,
+      "required": true,
+      "source": "Campaign Physics Packet",
+      "status": "ACTIVE",
+      "version": "v1"
+    },
+    {
+      "description": "Campaign duration context in hours.",
+      "feature_id": "campaign_duration",
+      "nullable": true,
+      "required": true,
+      "source": "Campaign Physics Packet",
+      "status": "ACTIVE",
+      "version": "v1"
+    },
+    {
+      "description": "Early drawdown speed context. Reserved until replay evidence supports official Evidence mapping.",
+      "feature_id": "initial_drawdown_velocity",
+      "nullable": true,
+      "required": false,
+      "source": "Campaign Physics Packet",
+      "status": "RESERVED",
+      "version": "v1"
+    },
+    {
+      "description": "Campaign Physics packet confidence.",
+      "feature_id": "confidence",
+      "nullable": false,
+      "required": true,
+      "source": "Campaign Physics Packet",
+      "status": "ACTIVE",
+      "version": "v1"
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_feature_registry_schema_version": "mirror_feature_registry_v1",
+  "registry_type": "Feature Registry",
+  "registry_version": "mirror_reasoning_registry_v1"
+}

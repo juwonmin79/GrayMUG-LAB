@@ -1,0 +1,13 @@
+{
+  "blocking_issues": [],
+  "checks": {
+    "campaign_packet_fields_cover_mirror_input": true,
+    "input_contract_version_matches": true,
+    "mirror_accepts_campaign_physics_packet_only": true,
+    "mirror_decision_enum_matches_output_schema": true,
+    "mirror_output_schema_has_decision_packet_fields": true
+  },
+  "is_trade_command": false,
+  "mirror_contract_compatibility_schema_version": "mirror_contract_compatibility_v1",
+  "status": "PASS"
+}

@@ -1,0 +1,9 @@
+{
+  "count": 20,
+  "is_trade_command": false,
+  "max": 0.9,
+  "mean": 0.625,
+  "min": 0.35,
+  "mirror_confidence_distribution_schema_version": "mirror_confidence_distribution_v1",
+  "temporary_engineering_confidence": true
+}

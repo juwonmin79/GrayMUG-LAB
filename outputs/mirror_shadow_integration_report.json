@@ -1,0 +1,42 @@
+{
+  "average_confidence": 0.625,
+  "average_processing_time_ms": 0.010537,
+  "contract_validation": "PASS",
+  "decision_distribution": {
+    "FAKE_WHALE_BACK": 0,
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "forbidden_actions_confirmed": [
+    "No production trading",
+    "No order creation",
+    "No ML training",
+    "No threshold change",
+    "No gate change",
+    "No score change",
+    "No replay logic change",
+    "No Campaign Physics change",
+    "No Medusa change"
+  ],
+  "is_trade_command": false,
+  "json_validation": "PASS",
+  "mirror_packet_validation": "PASS",
+  "mirror_shadow_integration_report_schema_version": "mirror_shadow_integration_report_v1",
+  "next_sprint_recommendation": "12AE Mirror Live Evidence Accumulation",
+  "packet_count": 20,
+  "pipeline": [
+    "Hellhound Shadow",
+    "Campaign Physics Packet",
+    "Mirror Engine",
+    "Mirror Pattern Packet",
+    "Shadow Log",
+    "Replay Storage",
+    "Optional Telegram Info Only"
+  ],
+  "production_order_flow_separated": true,
+  "replay_storage_compatible": true,
+  "shadow_log_created": true,
+  "shadow_mode": "OFFLINE_SHADOW_MODE",
+  "telegram_default": "OFF",
+  "telegram_enabled": false
+}

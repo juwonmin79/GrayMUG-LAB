@@ -1,0 +1,12 @@
+{
+  "invalid_confidence": 0,
+  "invalid_enum": {},
+  "invalid_mirror_packet": 0,
+  "invalid_reason_code": {},
+  "is_trade_command": false,
+  "mirror_live_schema_stability_schema_version": "mirror_live_schema_stability_v1",
+  "missing_field": {},
+  "packet_count": 20,
+  "schema_stability": "PASS",
+  "unknown_field": {}
+}

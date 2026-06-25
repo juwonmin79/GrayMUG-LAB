@@ -1,0 +1,8 @@
+{
+  "average_processing_time_ms": 0.010537,
+  "is_trade_command": false,
+  "max_processing_time_ms": 0.021917,
+  "min_processing_time_ms": 0.009125,
+  "mirror_shadow_processing_time_schema_version": "mirror_shadow_processing_time_v1",
+  "packet_count": 20
+}

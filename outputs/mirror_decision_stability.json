@@ -1,0 +1,7 @@
+{
+  "deterministic": true,
+  "is_trade_command": false,
+  "mirror_decision_stability_schema_version": "mirror_decision_stability_v1",
+  "mismatch_count": 0,
+  "mismatches": []
+}

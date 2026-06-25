@@ -1,0 +1,19 @@
+{
+  "counts": {
+    "FAKE_WHALE_BACK": 0,
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "inconclusive_confidence": {
+    "count": 10,
+    "max": 0.35,
+    "mean": 0.35,
+    "min": 0.35
+  },
+  "inconclusive_reason_counts": {
+    "CONFLICTING_EVIDENCE": 10,
+    "RECOVERY_FAILURE": 10
+  },
+  "is_trade_command": false,
+  "mirror_inconclusive_statistics_schema_version": "mirror_inconclusive_statistics_v1"
+}

@@ -1316,3 +1316,918 @@ Next Sprint recommendation:
 Sprint 12X should review Mirror Pattern design against this Decision Contract before any implementation.
 Do not implement Mirror Pattern, ML, threshold, gate, score, replay, Campaign Physics calculation, or production behavior yet.
 ```
+
+## Sprint 12X Mirror Engine Architecture Blueprint
+
+Status: Mirror Engine Blueprint complete.
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/mirror_engine_blueprint.py
+hell_engines/Hellhound/test_mirror_engine_blueprint.py
+outputs/mirror_engine_pipeline.json
+outputs/mirror_component_definition.json
+outputs/mirror_state_machine.json
+outputs/mirror_evidence_lifecycle.json
+outputs/mirror_confidence_lifecycle.json
+outputs/mirror_failure_flow.json
+outputs/mirror_extension_points.json
+outputs/mirror_engine_blueprint_report.json
+```
+
+Semantic Layer Definition:
+
+```text
+Mirror is not a price prediction engine.
+Mirror is the Semantic Interpretation Layer that converts Campaign Physics Evidence into Meaning.
+```
+
+Mirror Engine Pipeline:
+
+```text
+Campaign Physics Packet
+-> Packet Validation
+-> Evidence Builder
+-> Evidence Normalizer
+-> Pattern Matcher
+-> Decision Builder
+-> Explainability Builder
+-> Mirror Pattern Packet
+```
+
+Component Definition:
+
+```text
+Packet Validator
+Evidence Builder
+Evidence Normalizer
+Pattern Matcher
+Decision Builder
+Confidence Manager
+Explainability Builder
+Packet Serializer
+```
+
+State Machine:
+
+```text
+IDLE
+WAIT_PACKET
+VALIDATING
+BUILDING_EVIDENCE
+NORMALIZING
+MATCHING
+BUILDING_DECISION
+BUILDING_EXPLAINABILITY
+PACKET_READY
+REJECTED
+HOLD
+```
+
+Evidence / Explainability Lifecycle:
+
+```text
+Packet -> Evidence -> Normalized Evidence -> Matched Pattern -> Decision -> Reason Code -> Mirror Packet
+Evidence -> Matched Evidence -> Reason Code -> Mirror Packet -> Audit Log -> ML -> Medusa
+Reason Code is the only Explainability Source.
+```
+
+Confidence Lifecycle:
+
+```text
+Created by: Confidence Manager
+Modified by: Confidence Manager, Decision Builder
+Freeze point: Packet Serializer freezes final confidence in Mirror Pattern Packet
+Formula: not defined
+```
+
+Failure Flow:
+
+```text
+Packet Error: REJECT -> SKIP
+Validation Fail: REJECT -> SKIP + ALERT
+Evidence Missing: HOLD -> HOLD
+Unsupported Version: HOLD -> HOLD + ALERT
+Unknown Feature: WARNING -> WARNING
+Reason Code Failure: REJECT -> SKIP
+```
+
+Extension Points:
+
+```text
+Feature Registry
+Reason Registry
+Evidence Registry
+```
+
+Dependency Rule:
+
+```text
+Mirror input: Campaign Physics Packet only
+Forbidden direct access: Snapshot, Lead Line, Raw Candle, ML, Medusa, Production
+```
+
+Verified:
+
+```text
+Engine Pipeline
+Component Definition
+State Machine
+Evidence Lifecycle
+Confidence Lifecycle
+Explainability Lifecycle
+Failure Flow
+Extension Point
+Semantic Layer Definition
+Dependency Rule
+```
+
+Not Verified:
+
+```text
+None
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12Y should review registry contracts before any Mirror implementation.
+Do not implement Mirror Pattern, ML, threshold, gate, score, replay, Campaign Physics calculation, or production behavior yet.
+```
+
+## Sprint 12Y Mirror Reasoning Registry Contract
+
+Status: Mirror Reasoning Registry Contract complete.
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/mirror_reasoning_registry.py
+hell_engines/Hellhound/test_mirror_reasoning_registry.py
+outputs/mirror_feature_registry.json
+outputs/mirror_evidence_registry.json
+outputs/mirror_reason_registry.json
+outputs/mirror_registry_dependency.json
+outputs/mirror_registry_validation.json
+outputs/mirror_registry_lifecycle.json
+outputs/mirror_reasoning_principle.json
+outputs/mirror_reasoning_registry_report.json
+```
+
+Mirror Reasoning Principle:
+
+```text
+Mirror does not make decisions directly from Features.
+Mirror transforms Features into Evidence, Evidence into Reasons, and Reasons into Decisions.
+Meaning always precedes Decision.
+```
+
+Feature Registry:
+
+```text
+early_mae
+recovery_ratio
+campaign_duration
+initial_drawdown_velocity
+confidence
+```
+
+Evidence Registry:
+
+```text
+EARLY_MAE_HEALTHY
+EARLY_MAE_EXCESSIVE
+RECOVERY_STRONG
+RECOVERY_WEAK
+CAMPAIGN_SHORT
+CAMPAIGN_LONG
+LOW_CONFIDENCE
+INSUFFICIENT_EVIDENCE
+```
+
+Reason Registry:
+
+```text
+EARLY_MAE_SUPPORT
+RECOVERY_SUPPORT
+EARLY_MAE_RISK
+RECOVERY_FAILURE
+INSUFFICIENT_EVIDENCE
+CONFLICTING_EVIDENCE
+```
+
+Registry Dependency:
+
+```text
+Feature -> Evidence -> Reason -> Mirror Decision
+Reverse reference: forbidden
+Reason direct Feature reference: forbidden
+Feature -> Decision shortcut: forbidden
+```
+
+Registry Lifecycle:
+
+```text
+ACTIVE
+DEPRECATED
+RESERVED
+REMOVED
+```
+
+Registry Validation:
+
+```text
+duplicate_feature
+duplicate_reason
+missing_evidence
+invalid_reference
+deprecated_usage
+unknown_registry_item
+validation_passed: true
+```
+
+Registry Audit:
+
+```text
+registry_type
+registry_id
+version
+status
+changed_at
+change_reason
+```
+
+Extension Policy:
+
+```text
+Future Mirror features must be added by registry entries without changing engine pipeline stages.
+New features must enter through Campaign Physics Packet and registry metadata.
+```
+
+Verified:
+
+```text
+Feature Registry
+Evidence Registry
+Reason Registry
+Registry Dependency
+Registry Lifecycle
+Registry Validation
+Registry Audit
+Extension Policy
+Semantic Consistency Rule
+Reasoning Principle
+```
+
+Not Verified:
+
+```text
+None
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12Z should validate registry-driven Mirror design before any implementation.
+Do not implement Mirror Pattern, ML, threshold, gate, score, replay, Campaign Physics calculation, or production behavior yet.
+```
+
+## Sprint 12Z Hellhound Mirror v1 Readiness Audit
+
+Status: Mirror v1 readiness audit complete.
+
+Generated outputs:
+
+```text
+hell_engines/Hellhound/mirror_v1_readiness_audit.py
+hell_engines/Hellhound/test_mirror_v1_readiness_audit.py
+outputs/mirror_v1_readiness_report.json
+outputs/mirror_contract_compatibility.json
+outputs/mirror_registry_chain_audit.json
+outputs/mirror_reason_coverage_report.json
+outputs/mirror_validation_flow_audit.json
+outputs/mirror_implementation_readiness.json
+```
+
+Verified:
+
+```text
+Contract Compatibility: PASS
+Reason Coverage: PASS
+Dependency Rule: PASS
+Semantic Rule: PASS
+Pipeline Compatibility: PASS
+```
+
+Not Verified:
+
+```text
+Registry Chain: FAIL
+Validation Flow: FAIL
+Implementation Readiness: FAIL
+```
+
+Readiness Verdict:
+
+```text
+PARTIAL
+```
+
+Blocking Issues:
+
+```text
+registry_chain_pass:
+  initial_drawdown_velocity is registered as a Feature but has no Evidence mapping.
+
+validation_flow_pass:
+  Mirror Validation Rules do not explicitly define an ACCEPT verdict path.
+```
+
+Compatibility Result:
+
+```text
+Campaign Physics Packet -> Mirror Input Schema: PASS
+Mirror Decision Contract -> Mirror Output Schema: PASS
+```
+
+Registry Chain Result:
+
+```text
+Feature -> Evidence -> Reason -> Mirror Decision: PARTIAL
+Reason direct Feature reference: forbidden and preserved
+Feature -> Decision shortcut: forbidden and preserved
+```
+
+Reason Coverage Result:
+
+```text
+REAL_WHALE_BACK: covered
+FAKE_WHALE_BACK: covered
+INCONCLUSIVE: covered
+```
+
+Validation Flow Result:
+
+```text
+REJECT: covered
+HOLD: covered
+WARNING: covered
+ACCEPT: missing explicit rule
+```
+
+Next Sprint recommendation:
+
+```text
+Do not start 12AA implementation yet.
+Resolve Blocking Issues first: add registry Evidence mapping for initial_drawdown_velocity or mark it RESERVED, and define explicit ACCEPT validation flow.
+```
+
+## Sprint 12Z-A Mirror Readiness Blocking Fix
+
+Status: Mirror v1 readiness blocking fix complete.
+
+Modified files:
+
+```text
+hell_engines/Hellhound/mirror_reasoning_registry.py
+hell_engines/Hellhound/mirror_decision_contract.py
+hell_engines/Hellhound/mirror_v1_readiness_audit.py
+hell_engines/Hellhound/test_mirror_reasoning_registry.py
+hell_engines/Hellhound/test_mirror_decision_contract.py
+```
+
+Regenerated audit outputs:
+
+```text
+outputs/mirror_v1_readiness_report.json
+outputs/mirror_contract_compatibility.json
+outputs/mirror_registry_chain_audit.json
+outputs/mirror_reason_coverage_report.json
+outputs/mirror_validation_flow_audit.json
+outputs/mirror_implementation_readiness.json
+```
+
+Registry Change:
+
+```text
+initial_drawdown_velocity: RESERVED
+Reason Chain: excluded until replay evidence supports official Evidence mapping
+```
+
+Validation Rule Change:
+
+```text
+valid_packet -> ACCEPT -> PASS
+```
+
+Readiness Audit Result:
+
+```text
+Contract Compatibility: PASS
+Registry Chain: PASS
+Reason Coverage: PASS
+Validation Flow: PASS
+Implementation Readiness: PASS
+Blocking Issues: 0
+Readiness Verdict: READY
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12AA can proceed as Mirror Pattern Engine v1 Offline implementation.
+Keep ML, threshold/gate/score/replay/Campaign Physics/Production changes out of scope unless separately approved.
+```
+
+## Sprint 12AA Mirror Pattern Engine v1 Offline
+
+Status: Mirror Pattern Engine v1 offline implementation complete.
+
+Generated files:
+
+```text
+hell_engines/Hellhound/mirror_pattern_engine.py
+hell_engines/Hellhound/test_mirror_pattern_engine.py
+outputs/mirror_pattern_packets.jsonl
+outputs/mirror_engine_report.json
+outputs/mirror_decision_distribution.json
+outputs/mirror_reason_statistics.json
+outputs/mirror_confidence_distribution.json
+```
+
+Mirror Engine Pipeline:
+
+```text
+Campaign Physics Packet
+-> Packet Validation
+-> Evidence Builder
+-> Evidence Normalizer
+-> Pattern Matcher
+-> Decision Builder
+-> Confidence Manager
+-> Explainability Builder
+-> Packet Serializer
+-> Mirror Pattern Packet
+```
+
+Offline Replay Result:
+
+```text
+Mirror Pattern Packets: 20
+Contract Validation: PASS
+Registry Validation: PASS
+Mirror Packet Validation: PASS
+```
+
+Decision Distribution:
+
+```text
+REAL_WHALE_BACK: 10
+FAKE_WHALE_BACK: 10
+INCONCLUSIVE: 0
+```
+
+Reason Code Distribution:
+
+```text
+RECOVERY_SUPPORT: 10
+RECOVERY_FAILURE: 10
+CONFLICTING_EVIDENCE: 10
+```
+
+Confidence Distribution:
+
+```text
+min: 0.9
+max: 0.95
+mean: 0.925
+```
+
+Temporary Engineering Confidence:
+
+```text
+Confidence is temporary engineering confidence.
+It is not statistically validated.
+It is generated by Confidence Manager and frozen by Packet Serializer.
+```
+
+Boundary:
+
+```text
+Offline Replay only.
+No ML training.
+No threshold/gate/score/replay logic/Campaign Physics/Production change.
+No realtime Hellhound Shadow connection.
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12AB can proceed as Mirror Shadow Integration design/review.
+Keep live execution and production behavior out of scope until separately approved.
+```
+
+## Sprint 12AB Mirror Decision Calibration
+
+Status: Mirror Decision Calibration audit complete.
+
+Generated files:
+
+```text
+hell_engines/Hellhound/mirror_decision_calibration.py
+hell_engines/Hellhound/test_mirror_decision_calibration.py
+outputs/mirror_decision_calibration.json
+outputs/mirror_decision_stability.json
+outputs/mirror_conflict_analysis.json
+outputs/mirror_evidence_sufficiency.json
+outputs/mirror_confidence_calibration.json
+outputs/mirror_inconclusive_analysis.json
+outputs/mirror_decision_calibration_report.json
+```
+
+Decision Distribution:
+
+```text
+REAL_WHALE_BACK: 10
+FAKE_WHALE_BACK: 10
+INCONCLUSIVE: 0
+```
+
+Conflict Analysis:
+
+```text
+conflict_count: 10
+inconclusive_candidate_count: 10
+example conflict: RECOVERY_FAILURE + CONFLICTING_EVIDENCE
+```
+
+Evidence Sufficiency:
+
+```text
+packet_count: 20
+sufficient_count: 10
+issue_counts:
+  reason_conflict: 10
+```
+
+Confidence Calibration:
+
+```text
+CONSISTENT: 10
+OVERCONFIDENT_CONFLICT: 10
+confidence_modified: false
+```
+
+INCONCLUSIVE Analysis:
+
+```text
+INCONCLUSIVE count: 0
+rule_gap: true
+conflict_handling_gap: true
+evidence_gap: false
+registry_gap: false
+```
+
+Decision Stability:
+
+```text
+deterministic: true
+mismatch_count: 0
+```
+
+Calibration Verdict:
+
+```text
+CALIBRATION_NEEDED
+```
+
+Boundary:
+
+```text
+No Mirror Engine logic change.
+No Decision Rule change.
+No Registry change.
+No Threshold/Gate/Score/Replay/Campaign Physics/Production change.
+No Shadow Integration.
+No ML training.
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12AC should be Mirror Decision Refinement, not Shadow Integration.
+The next work should define how conflict candidates become INCONCLUSIVE before live/shadow attachment.
+```
+
+## Sprint 12AC Mirror Decision Refinement
+
+Status: Mirror Decision Refinement complete.
+
+Modified files:
+
+```text
+hell_engines/Hellhound/mirror_pattern_engine.py
+hell_engines/Hellhound/test_mirror_pattern_engine.py
+```
+
+Generated files:
+
+```text
+hell_engines/Hellhound/mirror_decision_refinement.py
+hell_engines/Hellhound/test_mirror_decision_refinement.py
+outputs/mirror_pattern_packets.jsonl
+outputs/mirror_decision_distribution.json
+outputs/mirror_reason_statistics.json
+outputs/mirror_confidence_distribution.json
+outputs/mirror_conflict_resolution_report.json
+outputs/mirror_inconclusive_statistics.json
+outputs/mirror_decision_refinement_report.json
+```
+
+Refinement:
+
+```text
+Pattern Matcher -> Conflict Resolver -> Decision Builder
+```
+
+Conflict Policy:
+
+```text
+RECOVERY_FAILURE + CONFLICTING_EVIDENCE -> INCONCLUSIVE
+Conflict confidence policy: 0.35 Temporary Engineering Confidence
+Reason Code only. No free-form explanation.
+```
+
+Decision Distribution Change:
+
+```text
+Before:
+  REAL_WHALE_BACK: 10
+  FAKE_WHALE_BACK: 10
+  INCONCLUSIVE: 0
+
+After:
+  REAL_WHALE_BACK: 10
+  FAKE_WHALE_BACK: 0
+  INCONCLUSIVE: 10
+```
+
+Conflict Resolution Result:
+
+```text
+conflict_candidates: 10
+conflict_to_inconclusive: 10
+```
+
+Confidence Change:
+
+```text
+before overconfident_conflict: 10
+after overconfident_conflict: 0
+confidence_distribution:
+  min: 0.35
+  max: 0.9
+  mean: 0.625
+```
+
+Validation:
+
+```text
+Contract Validation: PASS
+Registry Validation: PASS
+Replay Validation: PASS
+Mirror Packet Validation: PASS
+JSON Validation: PASS
+```
+
+Boundary:
+
+```text
+No ML training.
+No threshold/gate/score/replay/Campaign Physics/Production change.
+No Shadow Integration.
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12AD can proceed as Mirror Shadow Integration in Offline Shadow Mode.
+Live execution and production behavior remain out of scope unless separately approved.
+```
+
+## Sprint 12AD Mirror Shadow Integration Offline Shadow Mode
+
+Status: Mirror Shadow Observer integration complete.
+
+Created files:
+
+```text
+hell_engines/Hellhound/mirror_shadow_adapter.py
+hell_engines/Hellhound/test_mirror_shadow_adapter.py
+outputs/mirror_shadow_log.jsonl
+outputs/mirror_shadow_statistics.json
+outputs/mirror_shadow_processing_time.json
+outputs/mirror_shadow_integration_report.json
+```
+
+Shadow Pipeline:
+
+```text
+Hellhound Shadow
+-> Campaign Physics Packet
+-> Mirror Engine
+-> Mirror Pattern Packet
+-> Shadow Log
+-> Replay Storage
+-> Optional Telegram Info Only
+```
+
+Policy:
+
+```text
+Mirror Shadow Adapter accepts Campaign Physics Packet only.
+Snapshot, Lead Line, Raw Candle, Raw Score, ML, and Medusa are not direct inputs.
+Telegram is OFF by default and Information Only when enabled.
+Production order flow is separated.
+No order, position create, position close, ML training, threshold/gate/score/replay/Campaign Physics/Medusa change.
+```
+
+Shadow Result:
+
+```text
+packet_count: 20
+REAL_WHALE_BACK: 10
+FAKE_WHALE_BACK: 0
+INCONCLUSIVE: 10
+average_confidence: 0.625
+average_processing_time_ms: 0.010537
+shadow_log_created: true
+```
+
+Validation:
+
+```text
+Contract Validation: PASS
+Mirror Packet Validation: PASS
+JSON Validation: PASS
+Replay Storage Compatible: true
+is_trade_command: false
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12AE should proceed as Mirror Live Evidence Accumulation.
+Mirror remains a Shadow Observer and must not affect market behavior.
+```
+
+## Sprint 12AE Mirror Live Evidence Accumulation
+
+Status: Mirror Live Evidence accumulation complete.
+
+Created files:
+
+```text
+hell_engines/Hellhound/mirror_live_evidence_accumulator.py
+hell_engines/Hellhound/test_mirror_live_evidence_accumulator.py
+outputs/mirror_live_evidence_report.json
+outputs/mirror_live_decision_distribution.json
+outputs/mirror_live_reason_distribution.json
+outputs/mirror_live_schema_stability.json
+outputs/mirror_live_replay_compatibility.json
+outputs/mirror_live_processing_stats.json
+```
+
+Input:
+
+```text
+outputs/mirror_shadow_log.jsonl
+```
+
+Live Evidence Result:
+
+```text
+packet_count: 20
+REAL_WHALE_BACK: 10
+FAKE_WHALE_BACK: 0
+INCONCLUSIVE: 10
+INCONCLUSIVE_rate: 0.5
+INCONCLUSIVE_drift_level: WATCH
+average_confidence: 0.625
+```
+
+Reason Code Distribution:
+
+```text
+RECOVERY_SUPPORT: 10
+RECOVERY_FAILURE: 10
+CONFLICTING_EVIDENCE: 10
+```
+
+Processing Time:
+
+```text
+average_ms: 0.010537
+p90_ms: 0.011321
+max_ms: 0.021917
+```
+
+Schema and Replay:
+
+```text
+Schema Stability: PASS
+Replay Compatibility: PASS
+JSON Validation: PASS
+DB Created: false
+Supabase Connected: false
+Rule Change Performed: false
+is_trade_command: false
+```
+
+Next Sprint recommendation:
+
+```text
+Sprint 12AF should proceed as Mirror Packet Schema Freeze Review.
+DB work remains blocked until Schema Freeze is complete.
+```
+
+## Sprint 12AF Mirror Packet Schema Freeze Review
+
+Status: Mirror Packet v1 Contract frozen.
+
+Created files:
+
+```text
+hell_engines/Hellhound/mirror_packet_contract.py
+hell_engines/Hellhound/test_mirror_packet_contract.py
+outputs/mirror_packet_schema_v1.json
+outputs/mirror_packet_contract_report.json
+outputs/mirror_packet_validation_report.json
+outputs/mirror_packet_golden_samples.json
+```
+
+Frozen Contract:
+
+```text
+contract_version: mirror_pattern_packet_v1
+freeze_status: FROZEN
+source: outputs/mirror_shadow_log.jsonl mirror_packet
+packet_count: 20
+```
+
+Required Fields:
+
+```text
+schema_version
+mirror_pattern_id
+campaign_id
+signal_id
+symbol
+mirror_decision
+confidence
+reason_code
+supporting_features
+validation_state
+created_at
+is_trade_command
+```
+
+Compatibility Policy:
+
+```text
+Required Field removal: FORBIDDEN
+Required -> Optional: FORBIDDEN
+Optional -> Required: FORBIDDEN
+Enum meaning change: FORBIDDEN
+Existing Field meaning change: FORBIDDEN
+Allowed extension: optional v1 field or mirror_pattern_packet_v2
+```
+
+Golden Sample Policy:
+
+```text
+Golden samples must come from actual validated packets.
+Synthetic decision samples are forbidden.
+REAL_WHALE_BACK: present
+INCONCLUSIVE: present
+FAKE_WHALE_BACK: absent_in_source
+```
+
+Validation:
+
+```text
+Contract Validation: PASS
+Schema Stability: PASS
+Replay Compatibility: PASS
+JSON Validation: PASS
+Existing Packet Compatibility: PASS
+Golden Sample Validation: PASS
+```
+
+Next:
+
+```text
+DB, Supabase, Dashboard, ML, Replay expansion, and Production must use mirror_pattern_packet_v1 as the frozen interface.
+Next Sprint can proceed to DB/Supabase design only if it preserves this contract unchanged.
+```

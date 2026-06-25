@@ -1,0 +1,52 @@
+{
+  "blueprint_version": "mirror_engine_blueprint_v1",
+  "explainability_lifecycle": [
+    "Evidence",
+    "Matched Evidence",
+    "Reason Code",
+    "Mirror Packet",
+    "Audit Log",
+    "ML",
+    "Medusa"
+  ],
+  "is_trade_command": false,
+  "lifecycle": [
+    {
+      "artifact": "Campaign Physics Packet",
+      "owner": "Packet Validator",
+      "stage": "Packet"
+    },
+    {
+      "artifact": "Allowed Campaign Physics evidence",
+      "owner": "Evidence Builder",
+      "stage": "Evidence"
+    },
+    {
+      "artifact": "Comparable evidence representation",
+      "owner": "Evidence Normalizer",
+      "stage": "Normalized Evidence"
+    },
+    {
+      "artifact": "Registered semantic match",
+      "owner": "Pattern Matcher",
+      "stage": "Matched Pattern"
+    },
+    {
+      "artifact": "Mirror decision enum",
+      "owner": "Decision Builder",
+      "stage": "Decision"
+    },
+    {
+      "artifact": "Reason-code evidence",
+      "owner": "Explainability Builder",
+      "stage": "Reason Code"
+    },
+    {
+      "artifact": "Mirror Pattern Packet",
+      "owner": "Packet Serializer",
+      "stage": "Mirror Packet"
+    }
+  ],
+  "mirror_evidence_lifecycle_schema_version": "mirror_evidence_lifecycle_v1",
+  "reason_code_is_only_explainability_source": true
+}

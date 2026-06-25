@@ -1,0 +1,26 @@
+{
+  "blocking_issues": [],
+  "checks": {
+    "every_decision_has_explainability_reason": true,
+    "every_decision_has_registry_reason": true,
+    "freeform_explanation_forbidden": true,
+    "reason_code_required": true
+  },
+  "decision_reason_coverage": {
+    "FAKE_WHALE_BACK": [
+      "EARLY_MAE_RISK",
+      "RECOVERY_FAILURE"
+    ],
+    "INCONCLUSIVE": [
+      "CONFLICTING_EVIDENCE",
+      "INSUFFICIENT_EVIDENCE"
+    ],
+    "REAL_WHALE_BACK": [
+      "EARLY_MAE_SUPPORT",
+      "RECOVERY_SUPPORT"
+    ]
+  },
+  "is_trade_command": false,
+  "mirror_reason_coverage_report_schema_version": "mirror_reason_coverage_report_v1",
+  "status": "PASS"
+}

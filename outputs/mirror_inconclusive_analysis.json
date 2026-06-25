@@ -1,0 +1,16 @@
+{
+  "inconclusive_count": 0,
+  "is_trade_command": false,
+  "mirror_inconclusive_analysis_schema_version": "mirror_inconclusive_analysis_v1",
+  "root_cause_candidates": {
+    "conflict_handling_gap": true,
+    "evidence_gap": false,
+    "registry_gap": false,
+    "rule_gap": true
+  },
+  "rule_gap_evidence": [
+    "INCONCLUSIVE is reachable in registry but not selected by current engine output.",
+    "Conflict handling does not route conflict candidates to INCONCLUSIVE.",
+    "No evidence or reason missing in current packets; INCONCLUSIVE absence is not caused by missing evidence."
+  ]
+}

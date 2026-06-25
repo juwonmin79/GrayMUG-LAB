@@ -1,0 +1,10 @@
+{
+  "is_trade_command": false,
+  "mirror_live_reason_distribution_schema_version": "mirror_live_reason_distribution_v1",
+  "packet_count": 20,
+  "reason_counts": {
+    "CONFLICTING_EVIDENCE": 10,
+    "RECOVERY_FAILURE": 10,
+    "RECOVERY_SUPPORT": 10
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "conflict_count": 10,
+  "conflicts": [
+    {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "conflict_detected": true,
+      "conflict_reasons": [
+        "CONFLICTING_EVIDENCE"
+      ],
+      "decision_targets": [
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "inconclusive_candidate": true,
+      "mirror_decision": "FAKE_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ]
+    },
+    {
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    },
+    {
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "conflict_detected": false,
+      "conflict_reasons": [],
+      "decision_targets": [
+        "REAL_WHALE_BACK"
+      ],
+      "inconclusive_candidate": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ]
+    }
+  ],
+  "inconclusive_candidate_count": 10,
+  "is_trade_command": false,
+  "mirror_conflict_analysis_schema_version": "mirror_conflict_analysis_v1",
+  "packet_count": 20
+}

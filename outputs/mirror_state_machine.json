@@ -1,0 +1,105 @@
+{
+  "blueprint_version": "mirror_engine_blueprint_v1",
+  "failure_states": [
+    "REJECTED",
+    "HOLD"
+  ],
+  "is_trade_command": false,
+  "mirror_state_machine_schema_version": "mirror_state_machine_v1",
+  "state_transition_diagram": "IDLE -> WAIT_PACKET -> VALIDATING -> BUILDING_EVIDENCE -> NORMALIZING -> MATCHING -> BUILDING_DECISION -> BUILDING_EXPLAINABILITY -> PACKET_READY",
+  "states": [
+    "IDLE",
+    "WAIT_PACKET",
+    "VALIDATING",
+    "BUILDING_EVIDENCE",
+    "NORMALIZING",
+    "MATCHING",
+    "BUILDING_DECISION",
+    "BUILDING_EXPLAINABILITY",
+    "PACKET_READY",
+    "REJECTED",
+    "HOLD"
+  ],
+  "transitions": [
+    {
+      "event": "engine_ready",
+      "from": "IDLE",
+      "to": "WAIT_PACKET"
+    },
+    {
+      "event": "packet_received",
+      "from": "WAIT_PACKET",
+      "to": "VALIDATING"
+    },
+    {
+      "event": "packet_accept_or_warning",
+      "from": "VALIDATING",
+      "to": "BUILDING_EVIDENCE"
+    },
+    {
+      "event": "validation_reject",
+      "from": "VALIDATING",
+      "to": "REJECTED"
+    },
+    {
+      "event": "validation_hold",
+      "from": "VALIDATING",
+      "to": "HOLD"
+    },
+    {
+      "event": "evidence_available",
+      "from": "BUILDING_EVIDENCE",
+      "to": "NORMALIZING"
+    },
+    {
+      "event": "evidence_missing",
+      "from": "BUILDING_EVIDENCE",
+      "to": "HOLD"
+    },
+    {
+      "event": "normalization_complete",
+      "from": "NORMALIZING",
+      "to": "MATCHING"
+    },
+    {
+      "event": "pattern_match_complete",
+      "from": "MATCHING",
+      "to": "BUILDING_DECISION"
+    },
+    {
+      "event": "unsupported_feature_or_version",
+      "from": "MATCHING",
+      "to": "HOLD"
+    },
+    {
+      "event": "decision_built",
+      "from": "BUILDING_DECISION",
+      "to": "BUILDING_EXPLAINABILITY"
+    },
+    {
+      "event": "reason_code_attached",
+      "from": "BUILDING_EXPLAINABILITY",
+      "to": "PACKET_READY"
+    },
+    {
+      "event": "reason_code_failure",
+      "from": "BUILDING_EXPLAINABILITY",
+      "to": "REJECTED"
+    },
+    {
+      "event": "packet_emitted",
+      "from": "PACKET_READY",
+      "to": "IDLE"
+    },
+    {
+      "event": "failure_audited",
+      "from": "REJECTED",
+      "to": "IDLE"
+    },
+    {
+      "event": "additional_data_or_version_available",
+      "from": "HOLD",
+      "to": "WAIT_PACKET"
+    }
+  ]
+}

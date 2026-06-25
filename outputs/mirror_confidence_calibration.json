@@ -1,0 +1,152 @@
+{
+  "confidence_is_modified": false,
+  "consistency_counts": {
+    "CONSISTENT": 10,
+    "OVERCONFIDENT_CONFLICT": 10
+  },
+  "is_trade_command": false,
+  "mirror_confidence_calibration_schema_version": "mirror_confidence_calibration_v1",
+  "rows": [
+    {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "confidence": 0.95,
+      "confidence_consistency": "OVERCONFIDENT_CONFLICT",
+      "conflict_detected": true,
+      "mirror_decision": "FAKE_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    },
+    {
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "confidence": 0.9,
+      "confidence_consistency": "CONSISTENT",
+      "conflict_detected": false,
+      "mirror_decision": "REAL_WHALE_BACK"
+    }
+  ],
+  "temporary_engineering_confidence": true
+}

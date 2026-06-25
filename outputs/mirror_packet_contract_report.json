@@ -1,0 +1,110 @@
+{
+  "compatibility_note": "Frozen v1 follows actual mirror_pattern_packet_v1 packets with reason_code. Earlier design docs that referenced explainability remain historical design artifacts.",
+  "compatibility_policy": {
+    "existing_packet_readability": "Existing v1 packets must remain readable without mutation.",
+    "golden_samples": "Golden samples are actual validated packets and are used for regression tests.",
+    "production_dependency": "DB, Supabase, Dashboard, ML, Replay expansion, and Production must depend on this frozen contract."
+  },
+  "contract_version": "mirror_pattern_packet_v1",
+  "existing_packet_compatibility": "PASS",
+  "forbidden_actions_confirmed": [
+    "No Production change",
+    "No Trading change",
+    "No Position change",
+    "No Order change",
+    "No Replay Logic change",
+    "No Campaign Physics change",
+    "No Lead Line change",
+    "No Mirror Registry Logic change",
+    "No Mirror Decision Logic change",
+    "No Mirror Threshold change",
+    "No Mirror Gate change",
+    "No Mirror Score change",
+    "No ML training",
+    "No DB creation",
+    "No Supabase connection",
+    "No Medusa change"
+  ],
+  "freeze_policy": {
+    "allowed_extension": [
+      "Add optional field in compatible v1 extension",
+      "Create mirror_pattern_packet_v2"
+    ],
+    "enum_meaning_change": "FORBIDDEN",
+    "field_meaning_change": "FORBIDDEN",
+    "optional_to_required": "FORBIDDEN",
+    "required_field_removal": "FORBIDDEN",
+    "required_to_optional": "FORBIDDEN"
+  },
+  "freeze_status": "FROZEN",
+  "golden_sample_validation": "PASS",
+  "is_trade_command": false,
+  "json_validation": "PASS",
+  "mirror_packet_contract_report_schema_version": "mirror_packet_contract_report_v1",
+  "replay_compatibility": "PASS",
+  "review": {
+    "defaults": {
+      "campaign_id": null,
+      "confidence": null,
+      "created_at": null,
+      "is_trade_command": false,
+      "mirror_decision": null,
+      "mirror_pattern_id": null,
+      "reason_code": [],
+      "schema_version": "mirror_pattern_packet_v1",
+      "signal_id": null,
+      "supporting_features": {},
+      "symbol": null,
+      "validation_state": "ACCEPT"
+    },
+    "duplicate_fields_detected": false,
+    "enum_definitions": {
+      "conflict_resolution.policy": [
+        "DECIDE",
+        "INCONCLUSIVE"
+      ],
+      "mirror_decision": [
+        "REAL_WHALE_BACK",
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "validation_state": [
+        "ACCEPT",
+        "WARNING",
+        "HOLD",
+        "REJECT"
+      ]
+    },
+    "nested_objects": [
+      "supporting_features",
+      "supporting_features.conflict_resolution"
+    ],
+    "null_allowed": {
+      "all other required fields": "not nullable",
+      "signal_id": "nullable",
+      "supporting_features numeric values": "nullable"
+    },
+    "numeric_precision": {
+      "max_decimal_places": 6
+    },
+    "optional_fields": [],
+    "packet_version": "mirror_pattern_packet_v1",
+    "required_fields": [
+      "schema_version",
+      "mirror_pattern_id",
+      "campaign_id",
+      "signal_id",
+      "symbol",
+      "mirror_decision",
+      "confidence",
+      "reason_code",
+      "supporting_features",
+      "validation_state",
+      "created_at",
+      "is_trade_command"
+    ],
+    "timestamp_format": "ISO-8601 timezone-aware string"
+  },
+  "schema_stability": "PASS",
+  "source": "/Users/JakeMin/Documents/Project/GrayMUG-LAB/outputs/mirror_shadow_log.jsonl"
+}

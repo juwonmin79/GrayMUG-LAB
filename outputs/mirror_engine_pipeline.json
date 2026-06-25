@@ -1,0 +1,81 @@
+{
+  "blueprint_version": "mirror_engine_blueprint_v1",
+  "is_trade_command": false,
+  "mirror_engine_pipeline_schema_version": "mirror_engine_pipeline_v1",
+  "pipeline": [
+    {
+      "dependencies": [
+        "Campaign Physics Contract"
+      ],
+      "input": "Campaign Physics Contract output.",
+      "output": "Packet Validation",
+      "role": "Contract-valid input packet.",
+      "stage": "Campaign Physics Packet"
+    },
+    {
+      "dependencies": [
+        "Mirror validation rules"
+      ],
+      "input": "Campaign Physics Packet",
+      "output": "Validated Packet or failure state",
+      "role": "Validate packet schema and allowed input boundary.",
+      "stage": "Packet Validation"
+    },
+    {
+      "dependencies": [
+        "Mirror Decision Scope"
+      ],
+      "input": "Validated Packet",
+      "output": "Evidence",
+      "role": "Select allowed physics fields and create internal evidence record.",
+      "stage": "Evidence Builder"
+    },
+    {
+      "dependencies": [
+        "Feature Registry"
+      ],
+      "input": "Evidence",
+      "output": "Normalized Evidence",
+      "role": "Convert evidence into comparable internal representation without changing thresholds.",
+      "stage": "Evidence Normalizer"
+    },
+    {
+      "dependencies": [
+        "Evidence Registry",
+        "Reason Registry"
+      ],
+      "input": "Normalized Evidence",
+      "output": "Matched Pattern",
+      "role": "Map normalized evidence to registered semantic pattern candidates.",
+      "stage": "Pattern Matcher"
+    },
+    {
+      "dependencies": [
+        "Mirror Decision Contract"
+      ],
+      "input": "Matched Pattern",
+      "output": "Decision",
+      "role": "Create Mirror decision enum from matched pattern evidence.",
+      "stage": "Decision Builder"
+    },
+    {
+      "dependencies": [
+        "Reason Registry"
+      ],
+      "input": "Decision and Matched Evidence",
+      "output": "Reason Code set",
+      "role": "Attach reason codes as the only explanation source.",
+      "stage": "Explainability Builder"
+    },
+    {
+      "dependencies": [
+        "Mirror Output Schema"
+      ],
+      "input": "Decision and Reason Code set",
+      "output": "Mirror Pattern Packet",
+      "role": "Serialize decision into Mirror output packet.",
+      "stage": "Mirror Pattern Packet"
+    }
+  ],
+  "semantic_layer_definition": "Mirror is not a price prediction engine. Mirror is the Semantic Interpretation Layer that converts Campaign Physics Evidence into Meaning."
+}

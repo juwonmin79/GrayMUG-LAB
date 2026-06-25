@@ -1,0 +1,11 @@
+{
+  "db_created": false,
+  "format": "jsonl_append_only",
+  "incompatible_count": 0,
+  "incompatible_rows": [],
+  "is_trade_command": false,
+  "mirror_live_replay_compatibility_schema_version": "mirror_live_replay_compatibility_v1",
+  "packet_count": 20,
+  "replay_compatibility": "PASS",
+  "supabase_connected": false
+}

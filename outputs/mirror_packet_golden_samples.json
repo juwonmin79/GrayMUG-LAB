@@ -1,0 +1,85 @@
+{
+  "available_decision_types": [
+    "REAL_WHALE_BACK",
+    "INCONCLUSIVE"
+  ],
+  "contract_version": "mirror_pattern_packet_v1",
+  "golden_sample_validation": "PASS",
+  "is_trade_command": false,
+  "mirror_packet_golden_samples_schema_version": "mirror_packet_golden_samples_v1",
+  "missing_decision_types": [
+    "FAKE_WHALE_BACK"
+  ],
+  "policy": "Golden samples must be actual validated packets. Missing decision types are not synthesized.",
+  "sample_source": "outputs/mirror_shadow_log.jsonl mirror_packet",
+  "samples": {
+    "FAKE_WHALE_BACK": {
+      "reason": "No actual validated packet for this decision type in current source.",
+      "status": "absent_in_source"
+    },
+    "INCONCLUSIVE": {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "confidence": 0.35,
+      "created_at": "2026-06-25T06:41:36+00:00",
+      "is_trade_command": false,
+      "mirror_decision": "INCONCLUSIVE",
+      "mirror_pattern_id": "mirror-campaign-001-WLDUSDT-failure",
+      "reason_code": [
+        "RECOVERY_FAILURE",
+        "CONFLICTING_EVIDENCE"
+      ],
+      "schema_version": "mirror_pattern_packet_v1",
+      "signal_id": "failure-01-WLDUSDT",
+      "supporting_features": {
+        "campaign_duration": 24.0,
+        "confidence": 1.0,
+        "conflict_resolution": {
+          "conflict_detected": true,
+          "decision_targets": [
+            "FAKE_WHALE_BACK",
+            "INCONCLUSIVE"
+          ],
+          "policy": "INCONCLUSIVE"
+        },
+        "early_mae": -11.425828,
+        "evidence": [
+          "RECOVERY_WEAK"
+        ],
+        "recovery_ratio": 0.732842
+      },
+      "symbol": "WLDUSDT",
+      "validation_state": "ACCEPT"
+    },
+    "REAL_WHALE_BACK": {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "confidence": 0.9,
+      "created_at": "2026-06-25T06:41:36+00:00",
+      "is_trade_command": false,
+      "mirror_decision": "REAL_WHALE_BACK",
+      "mirror_pattern_id": "mirror-campaign-002-WLDUSDT-failure",
+      "reason_code": [
+        "RECOVERY_SUPPORT"
+      ],
+      "schema_version": "mirror_pattern_packet_v1",
+      "signal_id": "failure-02-WLDUSDT",
+      "supporting_features": {
+        "campaign_duration": 24.0,
+        "confidence": 1.0,
+        "conflict_resolution": {
+          "conflict_detected": false,
+          "decision_targets": [
+            "REAL_WHALE_BACK"
+          ],
+          "policy": "DECIDE"
+        },
+        "early_mae": -6.850811,
+        "evidence": [
+          "RECOVERY_STRONG"
+        ],
+        "recovery_ratio": 1.222239
+      },
+      "symbol": "WLDUSDT",
+      "validation_state": "ACCEPT"
+    }
+  }
+}

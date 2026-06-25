@@ -45,6 +45,8 @@ class MirrorDecisionContractTest(unittest.TestCase):
         self.assertEqual(rules["missing_decision"]["verdict"], "REJECT")
         self.assertEqual(rules["partial_packet"]["verdict"], "HOLD")
         self.assertEqual(rules["unknown_field"]["verdict"], "WARNING")
+        self.assertEqual(rules["valid_packet"]["verdict"], "ACCEPT")
+        self.assertEqual(rules["valid_packet"]["actions"], ["PASS"])
         self.assertIn("reason_code", validation["audit_policy"]["audit_log_fields"])
         self.assertFalse(dependency["mirror_depends_on_ml"])
         self.assertTrue(dependency["ml_learns_from_mirror"])

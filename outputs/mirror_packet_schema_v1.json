@@ -1,0 +1,392 @@
+{
+  "compatibility_policy": {
+    "existing_packet_readability": "Existing v1 packets must remain readable without mutation.",
+    "golden_samples": "Golden samples are actual validated packets and are used for regression tests.",
+    "production_dependency": "DB, Supabase, Dashboard, ML, Replay expansion, and Production must depend on this frozen contract."
+  },
+  "contract_version": "mirror_pattern_packet_v1",
+  "decision_enum": [
+    "REAL_WHALE_BACK",
+    "FAKE_WHALE_BACK",
+    "INCONCLUSIVE"
+  ],
+  "field_order": [
+    "schema_version",
+    "mirror_pattern_id",
+    "campaign_id",
+    "signal_id",
+    "symbol",
+    "mirror_decision",
+    "confidence",
+    "reason_code",
+    "supporting_features",
+    "validation_state",
+    "created_at",
+    "is_trade_command"
+  ],
+  "fields": [
+    {
+      "default": "mirror_pattern_packet_v1",
+      "description": "Mirror Packet schema version.",
+      "field": "schema_version",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "string",
+      "valid_enum": [
+        "mirror_pattern_packet_v1"
+      ],
+      "valid_range": null
+    },
+    {
+      "default": null,
+      "description": "Stable Mirror Pattern Packet identifier.",
+      "field": "mirror_pattern_id",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "string",
+      "valid_enum": null,
+      "valid_range": null
+    },
+    {
+      "default": null,
+      "description": "Campaign id copied from Campaign Physics Packet.",
+      "field": "campaign_id",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "string",
+      "valid_enum": null,
+      "valid_range": null
+    },
+    {
+      "default": null,
+      "description": "Signal id copied from Campaign Physics Packet.",
+      "field": "signal_id",
+      "nested_schema": null,
+      "nullable": true,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "string",
+      "valid_enum": null,
+      "valid_range": null
+    },
+    {
+      "default": null,
+      "description": "Market symbol copied from Campaign Physics Packet.",
+      "field": "symbol",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "string",
+      "valid_enum": null,
+      "valid_range": null
+    },
+    {
+      "default": null,
+      "description": "Campaign authenticity decision.",
+      "field": "mirror_decision",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "string",
+      "valid_enum": [
+        "REAL_WHALE_BACK",
+        "FAKE_WHALE_BACK",
+        "INCONCLUSIVE"
+      ],
+      "valid_range": null
+    },
+    {
+      "default": null,
+      "description": "Temporary Engineering Confidence frozen as numeric packet field.",
+      "field": "confidence",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": 6,
+      "required": true,
+      "timestamp_format": null,
+      "type": "number",
+      "valid_enum": null,
+      "valid_range": {
+        "maximum": 1.0,
+        "minimum": 0.0
+      }
+    },
+    {
+      "default": [],
+      "description": "Reason-code list; free-form explanation is forbidden.",
+      "field": "reason_code",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "array<string>",
+      "valid_enum": null,
+      "valid_range": null
+    },
+    {
+      "default": {},
+      "description": "Campaign Physics evidence used by Mirror.",
+      "field": "supporting_features",
+      "nested_schema": {
+        "fields": [
+          {
+            "default": null,
+            "description": "Early MAE feature.",
+            "field": "early_mae",
+            "nested_schema": null,
+            "nullable": true,
+            "numeric_precision": 6,
+            "required": true,
+            "timestamp_format": null,
+            "type": "number",
+            "valid_enum": null,
+            "valid_range": null
+          },
+          {
+            "default": null,
+            "description": "Recovery Ratio feature.",
+            "field": "recovery_ratio",
+            "nested_schema": null,
+            "nullable": true,
+            "numeric_precision": 6,
+            "required": true,
+            "timestamp_format": null,
+            "type": "number",
+            "valid_enum": null,
+            "valid_range": null
+          },
+          {
+            "default": null,
+            "description": "Campaign duration feature.",
+            "field": "campaign_duration",
+            "nested_schema": null,
+            "nullable": true,
+            "numeric_precision": 6,
+            "required": true,
+            "timestamp_format": null,
+            "type": "number",
+            "valid_enum": null,
+            "valid_range": null
+          },
+          {
+            "default": null,
+            "description": "Source Campaign Physics confidence.",
+            "field": "confidence",
+            "nested_schema": null,
+            "nullable": true,
+            "numeric_precision": 6,
+            "required": true,
+            "timestamp_format": null,
+            "type": "number",
+            "valid_enum": null,
+            "valid_range": {
+              "maximum": 1.0,
+              "minimum": 0.0
+            }
+          },
+          {
+            "default": null,
+            "description": "Evidence ids selected by Mirror.",
+            "field": "evidence",
+            "nested_schema": null,
+            "nullable": false,
+            "numeric_precision": null,
+            "required": true,
+            "timestamp_format": null,
+            "type": "array<string>",
+            "valid_enum": null,
+            "valid_range": null
+          },
+          {
+            "default": null,
+            "description": "Conflict Resolver result.",
+            "field": "conflict_resolution",
+            "nested_schema": {
+              "fields": [
+                {
+                  "default": null,
+                  "description": "Whether conflict was detected.",
+                  "field": "conflict_detected",
+                  "nested_schema": null,
+                  "nullable": false,
+                  "numeric_precision": null,
+                  "required": true,
+                  "timestamp_format": null,
+                  "type": "boolean",
+                  "valid_enum": null,
+                  "valid_range": null
+                },
+                {
+                  "default": null,
+                  "description": "Decision targets implied by reasons.",
+                  "field": "decision_targets",
+                  "nested_schema": null,
+                  "nullable": false,
+                  "numeric_precision": null,
+                  "required": true,
+                  "timestamp_format": null,
+                  "type": "array<string>",
+                  "valid_enum": [
+                    "REAL_WHALE_BACK",
+                    "FAKE_WHALE_BACK",
+                    "INCONCLUSIVE"
+                  ],
+                  "valid_range": null
+                },
+                {
+                  "default": null,
+                  "description": "Conflict policy result.",
+                  "field": "policy",
+                  "nested_schema": null,
+                  "nullable": false,
+                  "numeric_precision": null,
+                  "required": true,
+                  "timestamp_format": null,
+                  "type": "string",
+                  "valid_enum": [
+                    "DECIDE",
+                    "INCONCLUSIVE"
+                  ],
+                  "valid_range": null
+                }
+              ],
+              "required_fields": [
+                "conflict_detected",
+                "decision_targets",
+                "policy"
+              ]
+            },
+            "nullable": false,
+            "numeric_precision": null,
+            "required": true,
+            "timestamp_format": null,
+            "type": "object",
+            "valid_enum": null,
+            "valid_range": null
+          }
+        ],
+        "required_fields": [
+          "early_mae",
+          "recovery_ratio",
+          "campaign_duration",
+          "confidence",
+          "evidence",
+          "conflict_resolution"
+        ]
+      },
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "object",
+      "valid_enum": null,
+      "valid_range": null
+    },
+    {
+      "default": "ACCEPT",
+      "description": "Packet validation state.",
+      "field": "validation_state",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "string",
+      "valid_enum": [
+        "ACCEPT",
+        "WARNING",
+        "HOLD",
+        "REJECT"
+      ],
+      "valid_range": null
+    },
+    {
+      "default": null,
+      "description": "UTC ISO-8601 timestamp.",
+      "field": "created_at",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": "ISO-8601 with timezone",
+      "type": "string",
+      "valid_enum": null,
+      "valid_range": null
+    },
+    {
+      "default": false,
+      "description": "Must always be false; Mirror Packet is not a trade command.",
+      "field": "is_trade_command",
+      "nested_schema": null,
+      "nullable": false,
+      "numeric_precision": null,
+      "required": true,
+      "timestamp_format": null,
+      "type": "boolean",
+      "valid_enum": [
+        false
+      ],
+      "valid_range": null
+    }
+  ],
+  "freeze_policy": {
+    "allowed_extension": [
+      "Add optional field in compatible v1 extension",
+      "Create mirror_pattern_packet_v2"
+    ],
+    "enum_meaning_change": "FORBIDDEN",
+    "field_meaning_change": "FORBIDDEN",
+    "optional_to_required": "FORBIDDEN",
+    "required_field_removal": "FORBIDDEN",
+    "required_to_optional": "FORBIDDEN"
+  },
+  "freeze_status": "FROZEN",
+  "is_trade_command": false,
+  "mirror_packet_schema_version": "mirror_packet_schema_v1",
+  "null_policy": {
+    "all other required fields": "not nullable",
+    "signal_id": "nullable",
+    "supporting_features numeric values": "nullable"
+  },
+  "numeric_precision": {
+    "max_decimal_places": 6
+  },
+  "optional_fields": [],
+  "required_fields": [
+    "schema_version",
+    "mirror_pattern_id",
+    "campaign_id",
+    "signal_id",
+    "symbol",
+    "mirror_decision",
+    "confidence",
+    "reason_code",
+    "supporting_features",
+    "validation_state",
+    "created_at",
+    "is_trade_command"
+  ],
+  "timestamp_format": "ISO-8601 timezone-aware string",
+  "unknown_field_handling": "WARNING in validation; v1 producers must not emit unknown fields.",
+  "validation_state_enum": [
+    "ACCEPT",
+    "WARNING",
+    "HOLD",
+    "REJECT"
+  ]
+}

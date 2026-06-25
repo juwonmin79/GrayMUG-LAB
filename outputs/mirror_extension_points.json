@@ -1,0 +1,23 @@
+{
+  "blueprint_version": "mirror_engine_blueprint_v1",
+  "compatibility_rule": "New features must enter through Campaign Physics Packet and registry metadata.",
+  "extension_points": [
+    {
+      "allowed_to_change_engine": false,
+      "purpose": "Register future Campaign Physics features without changing engine pipeline stages.",
+      "registry": "Feature Registry"
+    },
+    {
+      "allowed_to_change_engine": false,
+      "purpose": "Register reason codes for new Mirror semantics.",
+      "registry": "Reason Registry"
+    },
+    {
+      "allowed_to_change_engine": false,
+      "purpose": "Register semantic evidence groups consumed by Pattern Matcher.",
+      "registry": "Evidence Registry"
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_extension_points_schema_version": "mirror_extension_points_v1"
+}

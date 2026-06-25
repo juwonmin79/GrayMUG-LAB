@@ -1,0 +1,160 @@
+{
+  "contract_validation": "PASS",
+  "contract_version": "mirror_pattern_packet_v1",
+  "decision_counts": {
+    "FAKE_WHALE_BACK": 0,
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "is_trade_command": false,
+  "issue_counts": {},
+  "mirror_packet_validation_report_schema_version": "mirror_packet_validation_report_v1",
+  "packet_count": 20,
+  "validation_counts": {
+    "PASS": 20,
+    "REJECT": 0,
+    "WARNING": 0
+  },
+  "validations": [
+    {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "issues": [],
+      "mirror_decision": "INCONCLUSIVE",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "issues": [],
+      "mirror_decision": "REAL_WHALE_BACK",
+      "valid": true,
+      "validation_result": "PASS"
+    }
+  ]
+}

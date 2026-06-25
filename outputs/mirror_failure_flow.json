@@ -1,32 +1,61 @@
 {
-  "audit_policy": {
-    "audit_log_fields": [
-      "contract_version",
-      "mirror_pattern_id",
-      "campaign_id",
-      "signal_id",
-      "decision",
-      "reason_code",
-      "validation_result",
-      "action",
-      "timestamp"
-    ],
-    "audit_log_required": true,
-    "reproducibility_required": true
-  },
-  "contract_version": "mirror_decision_contract_v1",
-  "error_handling_policy": [
-    "missing_field -> REJECT -> SKIP",
-    "invalid_enum -> REJECT -> ALERT",
-    "partial_packet -> HOLD",
-    "unknown_field -> WARNING",
-    "invalid_reason_code -> REJECT",
-    "valid_packet -> ACCEPT -> PASS",
-    "Mirror does not repair or infer rejected packets."
+  "blueprint_version": "mirror_engine_blueprint_v1",
+  "failure_policy": [
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "failure": "Packet Error",
+      "owner": "Packet Validator",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "SKIP",
+        "ALERT"
+      ],
+      "failure": "Validation Fail",
+      "owner": "Packet Validator",
+      "verdict": "REJECT"
+    },
+    {
+      "actions": [
+        "HOLD"
+      ],
+      "failure": "Evidence Missing",
+      "owner": "Evidence Builder",
+      "verdict": "HOLD"
+    },
+    {
+      "actions": [
+        "HOLD",
+        "ALERT"
+      ],
+      "failure": "Unsupported Version",
+      "owner": "Packet Validator",
+      "verdict": "HOLD"
+    },
+    {
+      "actions": [
+        "WARNING"
+      ],
+      "failure": "Unknown Feature",
+      "owner": "Evidence Normalizer",
+      "verdict": "WARNING"
+    },
+    {
+      "actions": [
+        "SKIP"
+      ],
+      "failure": "Reason Code Failure",
+      "owner": "Explainability Builder",
+      "verdict": "REJECT"
+    }
   ],
   "is_trade_command": false,
-  "mirror_validation_rules_schema_version": "mirror_validation_rules_v1",
-  "rules": [
+  "mirror_failure_flow_schema_version": "mirror_failure_flow_v1",
+  "mirror_repairs_or_infers_rejected_packets": false,
+  "source_validation_rules": [
     {
       "actions": [
         "SKIP"
@@ -98,14 +127,6 @@
       "condition": "Reason code is not in allowed reason-code registry.",
       "validation_error_code": "invalid_reason_code",
       "verdict": "REJECT"
-    },
-    {
-      "actions": [
-        "PASS"
-      ],
-      "condition": "Mirror output packet passes validation and can be emitted.",
-      "validation_error_code": "valid_packet",
-      "verdict": "ACCEPT"
     }
   ]
 }

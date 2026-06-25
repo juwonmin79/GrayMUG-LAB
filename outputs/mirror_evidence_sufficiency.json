@@ -1,0 +1,171 @@
+{
+  "is_trade_command": false,
+  "issue_counts": {
+    "reason_conflict": 10
+  },
+  "mirror_evidence_sufficiency_schema_version": "mirror_evidence_sufficiency_v1",
+  "packet_count": 20,
+  "rows": [
+    {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "evidence_count": 1,
+      "issues": [
+        "reason_conflict"
+      ],
+      "reason_count": 2,
+      "sufficient_for_decision": false
+    },
+    {
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    },
+    {
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "evidence_count": 1,
+      "issues": [],
+      "reason_count": 1,
+      "sufficient_for_decision": true
+    }
+  ],
+  "sufficient_count": 10
+}

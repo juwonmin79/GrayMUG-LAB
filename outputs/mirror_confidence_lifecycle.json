@@ -1,0 +1,14 @@
+{
+  "audit_requirement": "Any confidence state used in a Mirror Packet must be reproducible from registered evidence and reason codes.",
+  "blueprint_version": "mirror_engine_blueprint_v1",
+  "calculation_formula_defined": false,
+  "created_by": "Confidence Manager",
+  "creation_point": "After Evidence Normalizer and before Decision Builder.",
+  "freeze_point": "Packet Serializer freezes final confidence in Mirror Pattern Packet.",
+  "is_trade_command": false,
+  "mirror_confidence_lifecycle_schema_version": "mirror_confidence_lifecycle_v1",
+  "modifiable_by": [
+    "Confidence Manager",
+    "Decision Builder"
+  ]
+}

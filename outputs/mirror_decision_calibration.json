@@ -1,0 +1,23 @@
+{
+  "confidence_consistency_counts": {
+    "CONSISTENT": 10,
+    "OVERCONFIDENT_CONFLICT": 10
+  },
+  "conflict_count": 10,
+  "decision_distribution": {
+    "FAKE_WHALE_BACK": 10,
+    "INCONCLUSIVE": 0,
+    "REAL_WHALE_BACK": 10
+  },
+  "deterministic": true,
+  "evidence_sufficient_count": 10,
+  "inconclusive_analysis": {
+    "conflict_handling_gap": true,
+    "evidence_gap": false,
+    "registry_gap": false,
+    "rule_gap": true
+  },
+  "is_trade_command": false,
+  "mirror_decision_calibration_schema_version": "mirror_decision_calibration_v1",
+  "packet_count": 20
+}

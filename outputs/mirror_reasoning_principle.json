@@ -1,0 +1,9 @@
+{
+  "feature_to_decision_direct_link_allowed": false,
+  "is_trade_command": false,
+  "mirror_reasoning_principle_schema_version": "mirror_reasoning_principle_v1",
+  "principle": "Mirror does not make decisions directly from Features. Mirror transforms Features into Evidence, Evidence into Reasons, and Reasons into Decisions. Meaning always precedes Decision.",
+  "reason_to_feature_direct_link_allowed": false,
+  "registry_version": "mirror_reasoning_registry_v1",
+  "semantic_consistency_rule": "Feature -> Evidence -> Reason -> Decision"
+}

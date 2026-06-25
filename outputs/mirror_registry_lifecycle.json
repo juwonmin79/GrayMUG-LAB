@@ -1,0 +1,27 @@
+{
+  "audit_log_fields": [
+    "registry_type",
+    "registry_id",
+    "version",
+    "status",
+    "changed_at",
+    "change_reason"
+  ],
+  "extension_policy": "Future Mirror features must be added by registry entries without changing engine pipeline stages.",
+  "is_trade_command": false,
+  "mirror_registry_lifecycle_schema_version": "mirror_registry_lifecycle_v1",
+  "registry_version": "mirror_reasoning_registry_v1",
+  "statuses": [
+    "ACTIVE",
+    "DEPRECATED",
+    "RESERVED",
+    "REMOVED"
+  ],
+  "version_policy": {
+    "backward_compatibility": "ACTIVE v1 registry entries remain readable until explicitly DEPRECATED or REMOVED.",
+    "current_version": "mirror_reasoning_registry_v1",
+    "deprecated_usage": "WARNING; allowed only during deprecation window.",
+    "removed_usage": "REJECT; removed entries cannot be referenced.",
+    "reserved_usage": "HOLD; reserved entries cannot drive decisions."
+  }
+}

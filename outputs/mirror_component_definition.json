@@ -1,0 +1,56 @@
+{
+  "blueprint_version": "mirror_engine_blueprint_v1",
+  "components": [
+    {
+      "component": "Packet Validator",
+      "input": "Campaign Physics Packet",
+      "output": "Validated Packet or validation failure",
+      "responsibility": "Validate Campaign Physics Packet contract only."
+    },
+    {
+      "component": "Evidence Builder",
+      "input": "Validated Packet",
+      "output": "Evidence",
+      "responsibility": "Extract allowed Campaign Physics evidence."
+    },
+    {
+      "component": "Evidence Normalizer",
+      "input": "Evidence",
+      "output": "Normalized Evidence",
+      "responsibility": "Normalize evidence representation without calculating thresholds."
+    },
+    {
+      "component": "Pattern Matcher",
+      "input": "Normalized Evidence",
+      "output": "Matched Pattern",
+      "responsibility": "Match normalized evidence to registered semantic pattern definitions."
+    },
+    {
+      "component": "Decision Builder",
+      "input": "Matched Pattern",
+      "output": "Decision",
+      "responsibility": "Build REAL_WHALE_BACK, FAKE_WHALE_BACK, or INCONCLUSIVE decision."
+    },
+    {
+      "component": "Confidence Manager",
+      "input": "Evidence and Decision context",
+      "output": "Confidence state",
+      "responsibility": "Own confidence lifecycle and freeze point; no formula defined."
+    },
+    {
+      "component": "Explainability Builder",
+      "input": "Matched Evidence and Decision",
+      "output": "Reason Code set",
+      "responsibility": "Generate reason codes; no free-form narrative."
+    },
+    {
+      "component": "Packet Serializer",
+      "input": "Decision, confidence, reason codes",
+      "output": "Mirror Pattern Packet",
+      "responsibility": "Serialize Mirror Pattern Packet from schema."
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_component_definition_schema_version": "mirror_component_definition_v1",
+  "single_responsibility_required": true
+}

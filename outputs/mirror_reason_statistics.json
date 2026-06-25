@@ -1,0 +1,9 @@
+{
+  "is_trade_command": false,
+  "mirror_reason_statistics_schema_version": "mirror_reason_statistics_v1",
+  "reason_counts": {
+    "CONFLICTING_EVIDENCE": 10,
+    "RECOVERY_FAILURE": 10,
+    "RECOVERY_SUPPORT": 10
+  }
+}

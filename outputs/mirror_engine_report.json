@@ -1,0 +1,35 @@
+{
+  "campaign_physics_packet_count": 20,
+  "contract_validation": "PASS",
+  "engine_mode": "offline_replay_only",
+  "forbidden_actions_confirmed": [
+    "No ML training",
+    "No threshold change",
+    "No gate change",
+    "No score change",
+    "No replay logic change",
+    "No Campaign Physics change",
+    "No Production change",
+    "No realtime Hellhound Shadow connection"
+  ],
+  "is_trade_command": false,
+  "mirror_engine_report_schema_version": "mirror_engine_report_v1",
+  "mirror_packet_count": 20,
+  "mirror_packet_validation": "PASS",
+  "pipeline": [
+    "Campaign Physics Packet",
+    "Packet Validation",
+    "Evidence Builder",
+    "Evidence Normalizer",
+    "Pattern Matcher",
+    "Conflict Resolver",
+    "Decision Builder",
+    "Confidence Manager",
+    "Explainability Builder",
+    "Packet Serializer",
+    "Mirror Pattern Packet"
+  ],
+  "registry_validation": "PASS",
+  "temporary_engineering_confidence": true,
+  "temporary_engineering_confidence_note": "Confidence is temporary engineering confidence; it is not statistically validated."
+}

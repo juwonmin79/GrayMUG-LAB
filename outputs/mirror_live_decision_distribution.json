@@ -1,0 +1,21 @@
+{
+  "counts": {
+    "FAKE_WHALE_BACK": 0,
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "inconclusive_drift_check": {
+    "level": "WATCH",
+    "rate": 0.5,
+    "rule_change_performed": false
+  },
+  "is_trade_command": false,
+  "mirror_live_decision_distribution_schema_version": "mirror_live_decision_distribution_v1",
+  "packet_count": 20,
+  "rates": {
+    "FAKE_WHALE_BACK": 0.0,
+    "INCONCLUSIVE": 0.5,
+    "REAL_WHALE_BACK": 0.5
+  },
+  "rule_change_performed": false
+}

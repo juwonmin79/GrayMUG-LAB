@@ -1,0 +1,24 @@
+{
+  "is_trade_command": false,
+  "mirror_registry_validation_schema_version": "mirror_registry_validation_v1",
+  "registry_version": "mirror_reasoning_registry_v1",
+  "validation_checks": {
+    "deprecated_usage": [],
+    "duplicate_evidence": [],
+    "duplicate_feature": [],
+    "duplicate_reason": [],
+    "invalid_reference": [],
+    "missing_evidence": [],
+    "reason_direct_feature_reference": false,
+    "unknown_registry_item": []
+  },
+  "validation_passed": true,
+  "validation_rules": [
+    "duplicate_feature",
+    "duplicate_reason",
+    "missing_evidence",
+    "invalid_reference",
+    "deprecated_usage",
+    "unknown_registry_item"
+  ]
+}

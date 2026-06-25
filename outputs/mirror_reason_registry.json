@@ -1,0 +1,71 @@
+{
+  "is_trade_command": false,
+  "mirror_reason_registry_schema_version": "mirror_reason_registry_v1",
+  "reason_references_feature_directly": false,
+  "reasons": [
+    {
+      "active": true,
+      "category": "support",
+      "evidence_refs": [
+        "EARLY_MAE_HEALTHY"
+      ],
+      "explanation": "Early MAE evidence supports real whale backing.",
+      "reason_code": "EARLY_MAE_SUPPORT",
+      "severity": "INFO"
+    },
+    {
+      "active": true,
+      "category": "support",
+      "evidence_refs": [
+        "RECOVERY_STRONG"
+      ],
+      "explanation": "Recovery evidence supports real whale backing.",
+      "reason_code": "RECOVERY_SUPPORT",
+      "severity": "INFO"
+    },
+    {
+      "active": true,
+      "category": "risk",
+      "evidence_refs": [
+        "EARLY_MAE_EXCESSIVE"
+      ],
+      "explanation": "Early MAE evidence indicates fake or failed campaign risk.",
+      "reason_code": "EARLY_MAE_RISK",
+      "severity": "WARN"
+    },
+    {
+      "active": true,
+      "category": "risk",
+      "evidence_refs": [
+        "RECOVERY_WEAK"
+      ],
+      "explanation": "Recovery evidence indicates failure to recover.",
+      "reason_code": "RECOVERY_FAILURE",
+      "severity": "WARN"
+    },
+    {
+      "active": true,
+      "category": "inconclusive",
+      "evidence_refs": [
+        "INSUFFICIENT_EVIDENCE",
+        "LOW_CONFIDENCE"
+      ],
+      "explanation": "Evidence is insufficient for a Mirror decision.",
+      "reason_code": "INSUFFICIENT_EVIDENCE",
+      "severity": "WARN"
+    },
+    {
+      "active": true,
+      "category": "inconclusive",
+      "evidence_refs": [
+        "EARLY_MAE_HEALTHY",
+        "RECOVERY_WEAK"
+      ],
+      "explanation": "Evidence supports competing interpretations.",
+      "reason_code": "CONFLICTING_EVIDENCE",
+      "severity": "WARN"
+    }
+  ],
+  "registry_type": "Reason Registry",
+  "registry_version": "mirror_reasoning_registry_v1"
+}

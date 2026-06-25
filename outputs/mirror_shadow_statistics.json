@@ -1,0 +1,13 @@
+{
+  "average_confidence": 0.625,
+  "decision_counts": {
+    "FAKE_WHALE_BACK": 0,
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "is_trade_command": false,
+  "mirror_shadow_statistics_schema_version": "mirror_shadow_statistics_v1",
+  "packet_count": 20,
+  "replay_storage_compatible": true,
+  "telegram_default": "OFF"
+}

@@ -1,0 +1,15 @@
+{
+  "blocking_issues": [],
+  "checks": {
+    "all_evidence_sources_are_registered": true,
+    "all_features_have_evidence": true,
+    "all_reason_evidence_refs_are_registered": true,
+    "all_reasons_are_connected_to_decision": true,
+    "dependency_order_is_semantic": true,
+    "reason_direct_feature_reference_forbidden": true,
+    "reverse_reference_forbidden": true
+  },
+  "is_trade_command": false,
+  "mirror_registry_chain_audit_schema_version": "mirror_registry_chain_audit_v1",
+  "status": "PASS"
+}
