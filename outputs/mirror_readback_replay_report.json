@@ -1,0 +1,51 @@
+{
+  "contract_validation": "PASS",
+  "determinism": "PASS",
+  "determinism_report": {
+    "is_trade_command": false,
+    "mirror_replay_determinism_schema_version": "mirror_replay_determinism_v1",
+    "replay_determinism": "PASS",
+    "runs": [
+      {
+        "determinism": "PASS",
+        "elapsed_ms": 8.208833,
+        "mismatch_count": 0,
+        "mismatches": [],
+        "packet_count": 20,
+        "replay_count": 10,
+        "total_replayed_packets": 200
+      },
+      {
+        "determinism": "PASS",
+        "elapsed_ms": 77.976791,
+        "mismatch_count": 0,
+        "mismatches": [],
+        "packet_count": 20,
+        "replay_count": 100,
+        "total_replayed_packets": 2000
+      }
+    ],
+    "stable_fields": [
+      "mirror_decision",
+      "reason_code",
+      "confidence",
+      "validation_state"
+    ]
+  },
+  "is_trade_command": false,
+  "mirror_readback_replay_report_schema_version": "mirror_readback_replay_report_v1",
+  "packet_count": 20,
+  "packet_mutation_count": 0,
+  "replay_after_readback_result": "PASS",
+  "replay_result": "PASS",
+  "sequence_validation": {
+    "content_unchanged": true,
+    "is_trade_command": false,
+    "mirror_replay_sequence_validation_schema_version": "mirror_replay_sequence_validation_v1",
+    "packet_count": 20,
+    "packet_order_preserved": true,
+    "sequence_errors": [],
+    "sequence_validation": "PASS",
+    "timestamp_order_preserved": true
+  }
+}

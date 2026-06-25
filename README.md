@@ -2231,3 +2231,197 @@ Next:
 DB, Supabase, Dashboard, ML, Replay expansion, and Production must use mirror_pattern_packet_v1 as the frozen interface.
 Next Sprint can proceed to DB/Supabase design only if it preserves this contract unchanged.
 ```
+
+## Sprint 12AG Mirror Replay Harness
+
+Status: Mirror Replay Harness complete.
+
+Created files:
+
+```text
+hell_engines/Hellhound/mirror_replay_harness.py
+hell_engines/Hellhound/test_mirror_replay_harness.py
+outputs/mirror_replay_report.json
+outputs/mirror_replay_statistics.json
+outputs/mirror_replay_determinism.json
+```
+
+Replay Source:
+
+```text
+Frozen Contract: mirror_pattern_packet_v1
+Packet source: outputs/mirror_shadow_log.jsonl mirror_packet
+Golden Sample source: outputs/mirror_packet_golden_samples.json
+```
+
+Replay Result:
+
+```text
+Replay Harness: PASS
+packet_count: 20
+replay_count: 20
+success_count: 20
+failure_count: 0
+contract_validation_count: 20
+average_processing_time_ms: 0.018946
+max_processing_time_ms: 0.107541
+```
+
+Sequence Validation:
+
+```text
+Packet order preserved: true
+Timestamp order preserved: true
+Decision preserved: true
+Reason Code preserved: true
+Confidence preserved: true
+Validation State preserved: true
+Packet mutation: false
+```
+
+Golden Sample Replay:
+
+```text
+REAL_WHALE_BACK: PASS
+INCONCLUSIVE: PASS
+FAKE_WHALE_BACK: SKIPPED (absent in source)
+Synthetic samples created: false
+```
+
+Long Replay Determinism:
+
+```text
+10 replay runs: PASS
+100 replay runs: PASS
+total repeated packets: 2200
+mismatch_count: 0
+```
+
+Boundary:
+
+```text
+No Mirror Packet Contract change.
+No Replay Decision Logic change.
+No Production/Trading/Position/Order/DB/Supabase/ML/Medusa change.
+```
+
+## Sprint 12AH Mirror Packet Persistence Adapter
+
+Status: Mirror Packet Persistence Adapter complete.
+
+Created files:
+
+```text
+hell_engines/Hellhound/mirror_persistence_adapter.py
+hell_engines/Hellhound/test_mirror_persistence_adapter.py
+outputs/mirror_persistence_packets.jsonl
+outputs/mirror_persistence_report.json
+outputs/mirror_persistence_statistics.json
+```
+
+Persistence Structure:
+
+```text
+Mirror Packet
+-> Persistence Adapter
+-> Contract Validation
+-> Duplicate Detection
+-> JsonlPacketStorage
+-> Append-only JSONL
+-> Replay Compatibility Check
+```
+
+Storage Policy:
+
+```text
+Current storage: JSONL file only
+Append-only: true
+Database: forbidden
+SQLite/PostgreSQL/Supabase: forbidden
+Existing packet update/delete: forbidden
+```
+
+Persistence Result:
+
+```text
+Persistence Adapter: PASS
+save_count: 20
+success_count: 20
+reject_count: 0
+duplicate_count: 0
+average_save_time_ms: 0.761008
+max_save_time_ms: 1.853708
+packet_mutation_count: 0
+```
+
+Validation:
+
+```text
+Contract Validation: PASS
+JSON Validation: PASS
+Replay Compatibility: PASS
+Duplicate Detection: PASS
+Invalid Packet Detection: PASS
+```
+
+Future Storage Rule:
+
+```text
+JSONL, Supabase, PostgreSQL, or any later storage must implement the same Persistence Adapter boundary.
+mirror_pattern_packet_v1 remains frozen and unchanged.
+```
+
+## Sprint 12AI Mirror Persistence Readback Audit
+
+Status: Mirror Persistence Readback Audit complete.
+
+Created files:
+
+```text
+hell_engines/Hellhound/mirror_persistence_readback_audit.py
+hell_engines/Hellhound/test_mirror_persistence_readback_audit.py
+outputs/mirror_readback_audit_report.json
+outputs/mirror_readback_hash_report.json
+outputs/mirror_readback_replay_report.json
+```
+
+Readback Policy:
+
+```text
+Original source: outputs/mirror_shadow_log.jsonl mirror_packet
+Readback source: outputs/mirror_persistence_packets.jsonl
+Encoding: UTF-8 without BOM
+Hash: sha256(canonical_json_utf8_without_bom)
+Canonical JSON: json.dumps(sort_keys=True,separators=(',',':'))
+```
+
+Readback Result:
+
+```text
+Readback Audit: PASS
+original_packet_count: 20
+readback_packet_count: 20
+hash_match_count: 20
+hash_mismatch_count: 0
+mutation_count: 0
+average_read_time_ms: 0.00335
+max_read_time_ms: 0.00875
+```
+
+Validation:
+
+```text
+UTF-8 Encoding Validation: PASS
+Contract Validation: PASS
+Equality Validation: PASS
+Hash Match: PASS
+Replay After Readback: PASS
+Replay Determinism: PASS
+Packet Mutation Count: 0
+```
+
+Storage Requirement:
+
+```text
+Any future DB, Supabase, PostgreSQL, or dashboard storage path must pass this Readback Audit before being trusted.
+```

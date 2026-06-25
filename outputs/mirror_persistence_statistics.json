@@ -1,0 +1,15 @@
+{
+  "append_only": true,
+  "average_save_time_ms": 0.761008,
+  "duplicate_count": 0,
+  "is_trade_command": false,
+  "max_save_time_ms": 1.853708,
+  "mirror_persistence_statistics_schema_version": "mirror_persistence_statistics_v1",
+  "packet_mutation_count": 0,
+  "reject_count": 0,
+  "replay_compatibility": "PASS",
+  "save_count": 20,
+  "storage_path": "/Users/JakeMin/Documents/Project/GrayMUG-LAB/outputs/mirror_persistence_packets.jsonl",
+  "storage_type": "jsonl_file",
+  "success_count": 20
+}

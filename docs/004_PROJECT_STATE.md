@@ -2418,6 +2418,164 @@ Live execution and production behavior remain out of scope unless separately app
 * 다음 단계:
   - DB, Supabase, Dashboard, ML, Replay 확장, Production은 모두 `mirror_pattern_packet_v1` Frozen Contract 기준으로만 진행한다.
 
+### Sprint 12AG Mirror Replay Harness
+* 상태:
+  - 완료.
+  - Frozen Contract `mirror_pattern_packet_v1` 기준 Replay Harness를 구축했다.
+  - Packet을 수정하지 않고 순차 Replay, Contract Validation, Summary, Error Collection을 수행한다.
+* 생성 파일:
+  - `hell_engines/Hellhound/mirror_replay_harness.py`
+  - `hell_engines/Hellhound/test_mirror_replay_harness.py`
+  - `outputs/mirror_replay_report.json`
+  - `outputs/mirror_replay_statistics.json`
+  - `outputs/mirror_replay_determinism.json`
+* Replay Source:
+  - Frozen Contract: `mirror_pattern_packet_v1`
+  - Packet source: `outputs/mirror_shadow_log.jsonl` 내부 `mirror_packet`
+  - Golden Sample source: `outputs/mirror_packet_golden_samples.json`
+* Replay Summary:
+  - Replay Harness: PASS
+  - packet_count: 20
+  - replay_count: 20
+  - success_count: 20
+  - failure_count: 0
+  - contract_validation_count: 20
+  - average_processing_time_ms: 0.018946
+  - max_processing_time_ms: 0.107541
+* Sequence Validation:
+  - Packet order preserved: true
+  - Timestamp order preserved: true
+  - Decision preserved: true
+  - Reason Code preserved: true
+  - Confidence preserved: true
+  - Validation State preserved: true
+  - Packet mutation: false
+* Golden Sample Replay:
+  - REAL_WHALE_BACK: PASS
+  - INCONCLUSIVE: PASS
+  - FAKE_WHALE_BACK: SKIPPED (absent in source)
+  - Synthetic samples created: false
+* Long Replay Determinism:
+  - 10 replay runs: PASS
+  - 100 replay runs: PASS
+  - total repeated packets: 2200
+  - mismatch_count: 0
+* 검증:
+  - Replay Harness: PASS
+  - Contract Validation: PASS
+  - Replay Compatibility: PASS
+  - Golden Sample Replay: PASS
+  - Replay Determinism: PASS
+* 금지 준수:
+  - Mirror Packet Contract 변경 없음.
+  - Replay Decision Logic 변경 없음.
+  - Production/Trading/Position/Order 변경 없음.
+  - Campaign Physics/Lead Line 변경 없음.
+  - Mirror Registry Logic/Mirror Decision Logic/Threshold/Gate/Score 변경 없음.
+  - ML 학습 없음.
+  - DB 생성 없음.
+  - Supabase 연결 없음.
+  - Medusa 변경 없음.
+
+### Sprint 12AH Mirror Packet Persistence Adapter
+* 상태:
+  - 완료.
+  - `mirror_pattern_packet_v1` Frozen Contract를 변경하지 않고 Persistence Adapter를 구축했다.
+  - 현재 저장 구현은 append-only JSONL 파일만 사용한다.
+* 생성 파일:
+  - `hell_engines/Hellhound/mirror_persistence_adapter.py`
+  - `hell_engines/Hellhound/test_mirror_persistence_adapter.py`
+  - `outputs/mirror_persistence_packets.jsonl`
+  - `outputs/mirror_persistence_report.json`
+  - `outputs/mirror_persistence_statistics.json`
+* Persistence 구조:
+  - Packet 저장 요청 수신.
+  - Contract Validation.
+  - Required Field / JSON Validation.
+  - Duplicate Packet Detection.
+  - Append-only JSONL 저장.
+  - 저장 결과 반환.
+  - Persistence 후 Replay Compatibility 확인.
+* Storage Policy:
+  - 허용: JSONL, JSON Report.
+  - 금지: Database, SQLite, PostgreSQL, Supabase.
+  - 기존 Packet 수정/삭제 금지.
+* Persistence Summary:
+  - Persistence Adapter: PASS
+  - save_count: 20
+  - success_count: 20
+  - reject_count: 0
+  - duplicate_count: 0
+  - average_save_time_ms: 0.761008
+  - max_save_time_ms: 1.853708
+  - packet_mutation_count: 0
+* 검증:
+  - Contract Validation: PASS
+  - JSON Validation: PASS
+  - Replay Compatibility: PASS
+  - Duplicate Detection: PASS
+  - Invalid Packet Detection: PASS
+* 금지 준수:
+  - `mirror_pattern_packet_v1` Contract 변경 없음.
+  - Replay Logic/Mirror Decision Logic/Registry 변경 없음.
+  - Campaign Physics/Lead Line 변경 없음.
+  - Threshold/Gate/Score 변경 없음.
+  - ML 학습 없음.
+  - Production/Trading/Position/Order 변경 없음.
+  - DB/SQLite/PostgreSQL/Supabase 생성 또는 연결 없음.
+  - Medusa 변경 없음.
+* 향후 확장 원칙:
+  - JSONL, Supabase, PostgreSQL 등 모든 저장소는 같은 Persistence Adapter boundary를 구현하는 방식으로만 확장한다.
+
+### Sprint 12AI Mirror Persistence Readback Audit
+* 상태:
+  - 완료.
+  - Persistence Adapter가 저장한 JSONL Packet을 다시 읽어 원본 `mirror_pattern_packet_v1`과 동일성을 검증했다.
+  - 저장 파일과 Readback 과정은 UTF-8 without BOM 기준으로 감사했다.
+* 생성 파일:
+  - `hell_engines/Hellhound/mirror_persistence_readback_audit.py`
+  - `hell_engines/Hellhound/test_mirror_persistence_readback_audit.py`
+  - `outputs/mirror_readback_audit_report.json`
+  - `outputs/mirror_readback_hash_report.json`
+  - `outputs/mirror_readback_replay_report.json`
+* 입력:
+  - Original source: `outputs/mirror_shadow_log.jsonl` 내부 `mirror_packet`
+  - Readback source: `outputs/mirror_persistence_packets.jsonl`
+* Hash Audit:
+  - Encoding: UTF-8 without BOM
+  - Hash method: sha256(canonical_json_utf8_without_bom)
+  - Canonical JSON: `json.dumps(sort_keys=True,separators=(',',':'))`
+* Readback Summary:
+  - Readback Audit: PASS
+  - original_packet_count: 20
+  - readback_packet_count: 20
+  - hash_match_count: 20
+  - hash_mismatch_count: 0
+  - mutation_count: 0
+  - average_read_time_ms: 0.00335
+  - max_read_time_ms: 0.00875
+* 검증:
+  - UTF-8 Encoding Validation: PASS
+  - Contract Validation: PASS
+  - Equality Validation: PASS
+  - Hash Match: PASS
+  - Replay After Readback: PASS
+  - Replay Determinism: PASS
+  - Packet Mutation Count: 0
+* 금지 준수:
+  - `mirror_pattern_packet_v1` Contract 변경 없음.
+  - Persistence Adapter Interface 변경 없음.
+  - JsonlPacketStorage 저장 정책 변경 없음.
+  - Replay Logic/Mirror Decision Logic/Registry 변경 없음.
+  - Campaign Physics/Lead Line 변경 없음.
+  - Threshold/Gate/Score 변경 없음.
+  - ML 학습 없음.
+  - Production/Trading/Position/Order 변경 없음.
+  - DB/SQLite/PostgreSQL/Supabase 생성 또는 연결 없음.
+  - Medusa 변경 없음.
+* 향후 저장소 요구사항:
+  - DB, Supabase, PostgreSQL, Dashboard storage 등 모든 저장 구현은 이 Readback Audit을 통과해야 신뢰 가능한 저장 계층으로 인정한다.
+
 ---
 
 ## 3. In Progress

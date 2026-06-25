@@ -1,0 +1,14 @@
+{
+  "average_processing_time_ms": 0.018946,
+  "contract_validation_count": 20,
+  "failure_count": 0,
+  "fake_golden_sample": "SKIPPED (absent in source)",
+  "golden_sample_replay": "PASS",
+  "is_trade_command": false,
+  "max_processing_time_ms": 0.107541,
+  "mirror_replay_statistics_schema_version": "mirror_replay_statistics_v1",
+  "replay_count": 20,
+  "replay_determinism": "PASS",
+  "sequence_validation": "PASS",
+  "success_count": 20
+}

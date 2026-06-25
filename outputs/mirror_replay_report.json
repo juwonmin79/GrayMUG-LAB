@@ -1,0 +1,117 @@
+{
+  "average_processing_time_ms": 0.018946,
+  "contract_validation": "PASS",
+  "contract_version": "mirror_pattern_packet_v1",
+  "determinism_summary": {
+    "is_trade_command": false,
+    "mirror_replay_determinism_schema_version": "mirror_replay_determinism_v1",
+    "replay_determinism": "PASS",
+    "runs": [
+      {
+        "determinism": "PASS",
+        "elapsed_ms": 8.23625,
+        "mismatch_count": 0,
+        "mismatches": [],
+        "packet_count": 20,
+        "replay_count": 10,
+        "total_replayed_packets": 200
+      },
+      {
+        "determinism": "PASS",
+        "elapsed_ms": 72.154208,
+        "mismatch_count": 0,
+        "mismatches": [],
+        "packet_count": 20,
+        "replay_count": 100,
+        "total_replayed_packets": 2000
+      }
+    ],
+    "stable_fields": [
+      "mirror_decision",
+      "reason_code",
+      "confidence",
+      "validation_state"
+    ]
+  },
+  "failure_count": 0,
+  "fake_golden_sample": "SKIPPED (absent in source)",
+  "forbidden_actions_confirmed": [
+    "No Mirror Packet Contract change",
+    "No Production change",
+    "No Trading change",
+    "No Position change",
+    "No Order change",
+    "No Replay Decision Logic change",
+    "No Campaign Physics change",
+    "No Lead Line change",
+    "No Mirror Registry Logic change",
+    "No Mirror Decision Logic change",
+    "No Threshold change",
+    "No Gate change",
+    "No Score change",
+    "No ML training",
+    "No DB creation",
+    "No Supabase connection",
+    "No Medusa change"
+  ],
+  "golden_sample_replay": "PASS",
+  "golden_sample_report": {
+    "decision_results": {
+      "FAKE_WHALE_BACK": {
+        "reason": "absent in source",
+        "status": "SKIPPED",
+        "synthetic_sample_created": false
+      },
+      "INCONCLUSIVE": {
+        "confidence": 0.35,
+        "contract_validation": "PASS",
+        "decision": "INCONCLUSIVE",
+        "reason": null,
+        "reason_code": [
+          "RECOVERY_FAILURE",
+          "CONFLICTING_EVIDENCE"
+        ],
+        "status": "PASS",
+        "synthetic_sample_created": false,
+        "validation_state": "ACCEPT"
+      },
+      "REAL_WHALE_BACK": {
+        "confidence": 0.9,
+        "contract_validation": "PASS",
+        "decision": "REAL_WHALE_BACK",
+        "reason": null,
+        "reason_code": [
+          "RECOVERY_SUPPORT"
+        ],
+        "status": "PASS",
+        "synthetic_sample_created": false,
+        "validation_state": "ACCEPT"
+      }
+    },
+    "fake_golden_sample": "SKIPPED (absent in source)",
+    "golden_sample_replay": "PASS",
+    "is_trade_command": false,
+    "mirror_golden_sample_replay_schema_version": "mirror_golden_sample_replay_v1",
+    "source": "/Users/JakeMin/Documents/Project/GrayMUG-LAB/outputs/mirror_packet_golden_samples.json",
+    "synthetic_samples_created": false
+  },
+  "is_trade_command": false,
+  "max_processing_time_ms": 0.107541,
+  "mirror_replay_report_schema_version": "mirror_replay_report_v1",
+  "packet_count": 20,
+  "replay_compatibility": "PASS",
+  "replay_count": 20,
+  "replay_determinism": "PASS",
+  "replay_harness": "PASS",
+  "sequence_validation": {
+    "content_unchanged": true,
+    "is_trade_command": false,
+    "mirror_replay_sequence_validation_schema_version": "mirror_replay_sequence_validation_v1",
+    "packet_count": 20,
+    "packet_order_preserved": true,
+    "sequence_errors": [],
+    "sequence_validation": "PASS",
+    "timestamp_order_preserved": true
+  },
+  "success_count": 20
+}

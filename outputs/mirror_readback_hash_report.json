@@ -1,0 +1,154 @@
+{
+  "canonical_json_serialization": "json.dumps(sort_keys=True,separators=(',',':'))",
+  "hash_match": "PASS",
+  "hash_match_count": 20,
+  "hash_method": "sha256(canonical_json_utf8_without_bom)",
+  "hash_mismatch_count": 0,
+  "is_trade_command": false,
+  "mirror_readback_hash_report_schema_version": "mirror_readback_hash_report_v1",
+  "original_packet_count": 20,
+  "readback_packet_count": 20,
+  "rows": [
+    {
+      "campaign_id": "campaign-001-WLDUSDT-failure",
+      "hash_match": true,
+      "original_hash": "b46fc4f3fced61d9112a1b371b4a6b72d5625c97bc47bd1c2d094e6fcc91e400",
+      "readback_hash": "b46fc4f3fced61d9112a1b371b4a6b72d5625c97bc47bd1c2d094e6fcc91e400",
+      "sequence_index": 0
+    },
+    {
+      "campaign_id": "campaign-002-WLDUSDT-failure",
+      "hash_match": true,
+      "original_hash": "70ba311a330234f100bd953937529bcad9564a45561bf2bde06c5eefb2adc900",
+      "readback_hash": "70ba311a330234f100bd953937529bcad9564a45561bf2bde06c5eefb2adc900",
+      "sequence_index": 1
+    },
+    {
+      "campaign_id": "campaign-003-ARBUSDT-failure",
+      "hash_match": true,
+      "original_hash": "52db4791b0c8a5d44e71e9077a841f9dcda6e9b1aa1012bb5263bb12d1fe4066",
+      "readback_hash": "52db4791b0c8a5d44e71e9077a841f9dcda6e9b1aa1012bb5263bb12d1fe4066",
+      "sequence_index": 2
+    },
+    {
+      "campaign_id": "campaign-004-WLDUSDT-failure",
+      "hash_match": true,
+      "original_hash": "ac0cb3e75dc111502145c12e9c81d53ef4e4a126715aaa984b5d2497fef9f82e",
+      "readback_hash": "ac0cb3e75dc111502145c12e9c81d53ef4e4a126715aaa984b5d2497fef9f82e",
+      "sequence_index": 3
+    },
+    {
+      "campaign_id": "campaign-005-WLDUSDT-failure",
+      "hash_match": true,
+      "original_hash": "13d07b0125136db49faf879f6b2ef4c8103501a4d0388f8fc0a97738cdda802f",
+      "readback_hash": "13d07b0125136db49faf879f6b2ef4c8103501a4d0388f8fc0a97738cdda802f",
+      "sequence_index": 4
+    },
+    {
+      "campaign_id": "campaign-006-ARBUSDT-failure",
+      "hash_match": true,
+      "original_hash": "b7370adac66e2e50f481351d5208042bf23441474f28e2b44e81246c563bf74f",
+      "readback_hash": "b7370adac66e2e50f481351d5208042bf23441474f28e2b44e81246c563bf74f",
+      "sequence_index": 5
+    },
+    {
+      "campaign_id": "campaign-007-ARBUSDT-failure",
+      "hash_match": true,
+      "original_hash": "60e6fac24533afd258494903089521102816435ddd62b52353d248a22fcd2361",
+      "readback_hash": "60e6fac24533afd258494903089521102816435ddd62b52353d248a22fcd2361",
+      "sequence_index": 6
+    },
+    {
+      "campaign_id": "campaign-008-WLDUSDT-failure",
+      "hash_match": true,
+      "original_hash": "3d1dd752bae79b72211bca60b4e7a92125a5d68de81d591d7b0f8baa3992a7f0",
+      "readback_hash": "3d1dd752bae79b72211bca60b4e7a92125a5d68de81d591d7b0f8baa3992a7f0",
+      "sequence_index": 7
+    },
+    {
+      "campaign_id": "campaign-009-ARBUSDT-failure",
+      "hash_match": true,
+      "original_hash": "9d53041bc651e2dbf90d7e0fd78560fc6368b701bbcaca4aac3bb4055879f99c",
+      "readback_hash": "9d53041bc651e2dbf90d7e0fd78560fc6368b701bbcaca4aac3bb4055879f99c",
+      "sequence_index": 8
+    },
+    {
+      "campaign_id": "campaign-010-ARBUSDT-failure",
+      "hash_match": true,
+      "original_hash": "92c36e6cebb13f5a64104c769d78fd97ada9bd5e2250681455293f6c6317a22d",
+      "readback_hash": "92c36e6cebb13f5a64104c769d78fd97ada9bd5e2250681455293f6c6317a22d",
+      "sequence_index": 9
+    },
+    {
+      "campaign_id": "campaign-011-BTCUSDT-success",
+      "hash_match": true,
+      "original_hash": "f3318924f6a9e3478ae21f8e825f8e0bdd5032b0b91ba43c2cf155b219f97949",
+      "readback_hash": "f3318924f6a9e3478ae21f8e825f8e0bdd5032b0b91ba43c2cf155b219f97949",
+      "sequence_index": 10
+    },
+    {
+      "campaign_id": "campaign-012-SOLUSDT-success",
+      "hash_match": true,
+      "original_hash": "a0c719ba57c6d7db53c0cc0f6eea6e7a26d9276e9eca5841b3e85ad2cd389ea2",
+      "readback_hash": "a0c719ba57c6d7db53c0cc0f6eea6e7a26d9276e9eca5841b3e85ad2cd389ea2",
+      "sequence_index": 11
+    },
+    {
+      "campaign_id": "campaign-013-WLDUSDT-success",
+      "hash_match": true,
+      "original_hash": "02ddcddf181c91ee2b0a3d5b8ee96fce8626115958f66ec8b8c101dac1652830",
+      "readback_hash": "02ddcddf181c91ee2b0a3d5b8ee96fce8626115958f66ec8b8c101dac1652830",
+      "sequence_index": 12
+    },
+    {
+      "campaign_id": "campaign-014-BTCUSDT-success",
+      "hash_match": true,
+      "original_hash": "3650603341877f90e5528bbd2d8178fa417592911740e0988aa0575fd64befc5",
+      "readback_hash": "3650603341877f90e5528bbd2d8178fa417592911740e0988aa0575fd64befc5",
+      "sequence_index": 13
+    },
+    {
+      "campaign_id": "campaign-015-SOLUSDT-success",
+      "hash_match": true,
+      "original_hash": "0292165c6dc3e7fb089d61d02fd0e3784773139414abd1b1988de2f1de1bfd90",
+      "readback_hash": "0292165c6dc3e7fb089d61d02fd0e3784773139414abd1b1988de2f1de1bfd90",
+      "sequence_index": 14
+    },
+    {
+      "campaign_id": "campaign-016-WLDUSDT-success",
+      "hash_match": true,
+      "original_hash": "d75623a347dbf4849f502516d700cb241bc15e7d716fdd0d2a8946beeff1506e",
+      "readback_hash": "d75623a347dbf4849f502516d700cb241bc15e7d716fdd0d2a8946beeff1506e",
+      "sequence_index": 15
+    },
+    {
+      "campaign_id": "campaign-017-BTCUSDT-success",
+      "hash_match": true,
+      "original_hash": "f2156d8a441f6ec084851e7c9cb21dd3a7aa1be26824488012957bec5206bf4d",
+      "readback_hash": "f2156d8a441f6ec084851e7c9cb21dd3a7aa1be26824488012957bec5206bf4d",
+      "sequence_index": 16
+    },
+    {
+      "campaign_id": "campaign-018-SOLUSDT-success",
+      "hash_match": true,
+      "original_hash": "b66e3fa5e9db0408e4b6112fbea413be9ce67cd7d9245d4048286649391be965",
+      "readback_hash": "b66e3fa5e9db0408e4b6112fbea413be9ce67cd7d9245d4048286649391be965",
+      "sequence_index": 17
+    },
+    {
+      "campaign_id": "campaign-019-WLDUSDT-success",
+      "hash_match": true,
+      "original_hash": "c256ce8dca6143a3299a2426f111567410e26723340989d2e555fca38bd19719",
+      "readback_hash": "c256ce8dca6143a3299a2426f111567410e26723340989d2e555fca38bd19719",
+      "sequence_index": 18
+    },
+    {
+      "campaign_id": "campaign-020-BTCUSDT-success",
+      "hash_match": true,
+      "original_hash": "068531cd46adf62d111fbcd60d0a35f03d467fd43309577e45e5def4df2f6c21",
+      "readback_hash": "068531cd46adf62d111fbcd60d0a35f03d467fd43309577e45e5def4df2f6c21",
+      "sequence_index": 19
+    }
+  ],
+  "utf8_without_bom": true
+}
