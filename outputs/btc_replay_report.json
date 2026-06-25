@@ -1,0 +1,45 @@
+{
+  "btc_replay_report_schema_version": "btc_missed_accumulation_replay_v1",
+  "detectability_verdict": {
+    "accumulation_start": "2026-06-20T14:00:00+00:00",
+    "detectability_verdict": "DETECTABLE_AFTER_THRESHOLD_TUNING",
+    "ignition_time": "2026-06-21T13:45:00+00:00",
+    "is_trade_command": false,
+    "local_peak_time": "2026-06-22T13:45:00+00:00",
+    "max_pre_ignition_score": 0.5212,
+    "pre_ignition_feature_coverage": 1.0,
+    "pre_ignition_promote_count": 0,
+    "reason": "Pre-ignition features are present and score reached watchable range without promotion.",
+    "symbol": "BTCUSDT",
+    "top_lead_strength": 0.393349
+  },
+  "is_trade_command": false,
+  "missed_reason_summary": {
+    "counts": {
+      "B_THRESHOLD_INSUFFICIENT": 22,
+      "E_NOT_DETECTABLE_CURRENT_PIPELINE": 170
+    },
+    "dominant_reason": "E_NOT_DETECTABLE_CURRENT_PIPELINE",
+    "is_trade_command": false,
+    "total_rows": 192
+  },
+  "row_count": 192,
+  "score_summary": {
+    "average": 0.262844,
+    "max": 0.575,
+    "min": 0.1121
+  },
+  "target": {
+    "accumulation_start": "2026-06-20T14:00:00+00:00",
+    "accumulation_start_index": 576,
+    "ignition_index": 671,
+    "ignition_return_24h": 2.232407,
+    "ignition_time": "2026-06-21T13:45:00+00:00",
+    "is_trade_command": false,
+    "local_peak_index": 767,
+    "local_peak_time": "2026-06-22T13:45:00+00:00",
+    "peak_return_from_ignition": 2.232407,
+    "selection_method": "max_24h_forward_return_latest_1000_15m",
+    "symbol": "BTCUSDT"
+  }
+}

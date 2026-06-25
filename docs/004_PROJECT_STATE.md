@@ -586,6 +586,79 @@
   - `hell_engines/Hellhound/test_wave_snapshot.py`
   - `hell_engines/Hellhound/test_wave_outcome_updater.py`
   - `docs/ROADMAP.md`
+
+### Sprint 12M BTC Missed Accumulation Replay
+
+Status:
+
+```text
+Evidence complete
+```
+
+Scope:
+
+```text
+Replay only. No Production code, threshold, gate, ML, Mirror Pattern, Medusa, or Campaign changes.
+```
+
+Replay target:
+
+```text
+symbol: BTCUSDT
+accumulation_start: 2026-06-20T14:00:00+00:00
+ignition_time: 2026-06-21T13:45:00+00:00
+local_peak_time: 2026-06-22T13:45:00+00:00
+row_count: 192
+```
+
+Generated outputs:
+
+```text
+outputs/btc_replay_dataset.jsonl
+outputs/btc_replay_report.json
+outputs/leadline_candidate_report.json
+outputs/detectability_verdict.json
+```
+
+Detectability verdict:
+
+```text
+DETECTABLE_AFTER_THRESHOLD_TUNING
+```
+
+Evidence:
+
+```text
+Pre-ignition feature coverage: 100%
+Max pre-ignition score: 0.5212
+Pre-ignition PROMOTE count: 0
+```
+
+Missed reason summary:
+
+```text
+E_NOT_DETECTABLE_CURRENT_PIPELINE: 170
+B_THRESHOLD_INSUFFICIENT: 22
+```
+
+Lead Line candidate order:
+
+```text
+hellhound_score
+rsi_15m
+volume_ratio_ma20
+macd_hist_15m
+volume_ratio_ma5
+btc_weather
+signal_hour
+```
+
+Next state:
+
+```text
+Sprint 12M output is input evidence for Mirror Pattern Feature design.
+No new Feature or ML work should begin without replay-backed evidence.
+```
 * Layer:
   - Snapshot Layer: T-2, T-1, T0 state vector.
   - Diff Layer: Diff_A, Diff_B.

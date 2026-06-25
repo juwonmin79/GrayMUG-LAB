@@ -1,0 +1,13 @@
+{
+  "accumulation_start": "2026-06-20T14:00:00+00:00",
+  "detectability_verdict": "DETECTABLE_AFTER_THRESHOLD_TUNING",
+  "ignition_time": "2026-06-21T13:45:00+00:00",
+  "is_trade_command": false,
+  "local_peak_time": "2026-06-22T13:45:00+00:00",
+  "max_pre_ignition_score": 0.5212,
+  "pre_ignition_feature_coverage": 1.0,
+  "pre_ignition_promote_count": 0,
+  "reason": "Pre-ignition features are present and score reached watchable range without promotion.",
+  "symbol": "BTCUSDT",
+  "top_lead_strength": 0.393349
+}

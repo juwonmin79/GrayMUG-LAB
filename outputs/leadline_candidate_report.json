@@ -1,0 +1,63 @@
+{
+  "candidate_schema_version": "btc_leadline_candidate_report_v1",
+  "candidates": [
+    {
+      "confidence": "LOW",
+      "feature": "hellhound_score",
+      "is_trade_command": false,
+      "lead_strength": 0.393349,
+      "observation_count": 96,
+      "rank": 1
+    },
+    {
+      "confidence": "LOW",
+      "feature": "rsi_15m",
+      "is_trade_command": false,
+      "lead_strength": 0.18541,
+      "observation_count": 96,
+      "rank": 2
+    },
+    {
+      "confidence": "LOW",
+      "feature": "volume_ratio_ma20",
+      "is_trade_command": false,
+      "lead_strength": 0.14517,
+      "observation_count": 96,
+      "rank": 3
+    },
+    {
+      "confidence": "LOW",
+      "feature": "macd_hist_15m",
+      "is_trade_command": false,
+      "lead_strength": 0.033975,
+      "observation_count": 96,
+      "rank": 4
+    },
+    {
+      "confidence": "LOW",
+      "feature": "volume_ratio_ma5",
+      "is_trade_command": false,
+      "lead_strength": 0.019785,
+      "observation_count": 96,
+      "rank": 5
+    },
+    {
+      "confidence": "LOW",
+      "feature": "btc_weather",
+      "is_trade_command": false,
+      "lead_strength": 0.0,
+      "observation_count": 96,
+      "rank": 6
+    },
+    {
+      "confidence": "LOW",
+      "feature": "signal_hour",
+      "is_trade_command": false,
+      "lead_strength": 0.0,
+      "observation_count": 96,
+      "rank": 7
+    }
+  ],
+  "is_trade_command": false,
+  "symbol": "BTCUSDT"
+}

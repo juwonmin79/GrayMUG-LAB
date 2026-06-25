@@ -540,3 +540,66 @@ Hellhound can advise Production Hound only through versioned, non-trading interf
 ML starts only after missed, success, delay, feedback, and structure datasets have enough real observations.
 Every result must flow back to BTC quantity growth.
 ```
+
+## Sprint 12M BTC Missed Accumulation Replay
+
+Status: evidence complete.
+
+Replay target:
+
+```text
+symbol: BTCUSDT
+accumulation_start: 2026-06-20T14:00:00+00:00
+ignition_time: 2026-06-21T13:45:00+00:00
+local_peak_time: 2026-06-22T13:45:00+00:00
+row_count: 192
+```
+
+Outputs:
+
+```text
+outputs/btc_replay_dataset.jsonl
+outputs/btc_replay_report.json
+outputs/leadline_candidate_report.json
+outputs/detectability_verdict.json
+```
+
+Detectability verdict:
+
+```text
+DETECTABLE_AFTER_THRESHOLD_TUNING
+```
+
+Reason:
+
+```text
+Pre-ignition features were present and Hellhound score reached 0.5212,
+but no pre-ignition row reached the current PROMOTE gate.
+```
+
+Missed reason summary:
+
+```text
+E_NOT_DETECTABLE_CURRENT_PIPELINE: 170
+B_THRESHOLD_INSUFFICIENT: 22
+```
+
+Lead Line candidate ranking:
+
+```text
+1. hellhound_score
+2. rsi_15m
+3. volume_ratio_ma20
+4. macd_hist_15m
+5. volume_ratio_ma5
+6. btc_weather
+7. signal_hour
+```
+
+Boundary:
+
+```text
+No Production code changed.
+No threshold or gate changed.
+No ML, Mirror Pattern, Medusa, or Campaign implementation.
+```

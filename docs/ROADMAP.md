@@ -343,3 +343,74 @@ shadow_runner.py persists incoming signal features into hellhound_shadow_signals
 real_shadow_feed.py preserves the same feature keys in shadow decision JSONL rows.
 mfe_mae_feature_enrichment.py reads the persisted payload by signal_id.
 ```
+
+## Sprint 12M BTC Missed Accumulation Replay
+
+Status:
+
+```text
+Evidence complete
+```
+
+Purpose:
+
+```text
+Replay a missed BTC accumulation/ignition/peak window with the current Hellhound pipeline.
+No new feature, threshold, gate, production logic, ML, Mirror Pattern, Medusa, or Campaign work.
+```
+
+Replay target:
+
+```text
+symbol: BTCUSDT
+accumulation_start: 2026-06-20T14:00:00+00:00
+ignition_time: 2026-06-21T13:45:00+00:00
+local_peak_time: 2026-06-22T13:45:00+00:00
+row_count: 192
+selection_method: max_24h_forward_return_latest_1000_15m
+```
+
+Outputs:
+
+```text
+outputs/btc_replay_dataset.jsonl
+outputs/btc_replay_report.json
+outputs/leadline_candidate_report.json
+outputs/detectability_verdict.json
+```
+
+Result:
+
+```text
+Detectability Verdict: DETECTABLE_AFTER_THRESHOLD_TUNING
+Max pre-ignition score: 0.5212
+Pre-ignition promote count: 0
+Pre-ignition feature coverage: 100%
+```
+
+Missed reason summary:
+
+```text
+E_NOT_DETECTABLE_CURRENT_PIPELINE: 170
+B_THRESHOLD_INSUFFICIENT: 22
+```
+
+Lead Line candidate order:
+
+```text
+hellhound_score
+rsi_15m
+volume_ratio_ma20
+macd_hist_15m
+volume_ratio_ma5
+btc_weather
+signal_hour
+```
+
+Next direction:
+
+```text
+Use this replay evidence as input for Mirror Pattern Feature design.
+Do not add new features without replay evidence.
+Evidence -> Feature -> ML remains the order.
+```
