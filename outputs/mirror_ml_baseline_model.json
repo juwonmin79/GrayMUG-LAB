@@ -1,0 +1,33 @@
+{
+  "classes_": [
+    0,
+    1
+  ],
+  "coef_": [
+    [
+      0.8796123433737644,
+      0.5870541073357809,
+      0.6239332413027286,
+      -1.974953543023661e-05,
+      0.4208169275386059
+    ]
+  ],
+  "created_at": "2026-06-26T23:46:00.035618+00:00",
+  "feature_columns": [
+    "early_mae",
+    "recovery_ratio",
+    "campaign_duration",
+    "confidence",
+    "decision_encoded"
+  ],
+  "feature_contract_version": "mirror_ml_feature_matrix_v1",
+  "intercept_": [
+    -8.271484411262401
+  ],
+  "is_trade_command": false,
+  "model_type": "LogisticRegression",
+  "model_version": "mirror_ml_baseline_trainer_v1",
+  "n_features_in_": 5,
+  "random_seed": 42,
+  "training_contract_version": "mirror_ml_training_v1"
+}

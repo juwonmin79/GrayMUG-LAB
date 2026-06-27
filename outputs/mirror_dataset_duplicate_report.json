@@ -1,0 +1,9 @@
+{
+  "duplicate_checker_schema_version": "mirror_dataset_duplicate_checker_v1",
+  "duplicate_packet_hash_count": 0,
+  "duplicate_packet_hashes": [],
+  "duplicate_result": "PASS",
+  "duplicate_sample_id_count": 0,
+  "duplicate_sample_ids": [],
+  "is_trade_command": false
+}

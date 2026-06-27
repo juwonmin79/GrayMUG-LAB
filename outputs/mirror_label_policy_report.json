@@ -1,0 +1,44 @@
+{
+  "decision_summary": {
+    "FAKE_WHALE_BACK": {
+      "candidate_label": "INSUFFICIENT_CLASS_DATA",
+      "class_data_status": "INSUFFICIENT_CLASS_DATA",
+      "observed_positive_ratio": null,
+      "sample_count": 0
+    },
+    "INCONCLUSIVE": {
+      "candidate_label": "NEGATIVE_MARKET_OUTCOME",
+      "class_data_status": "AVAILABLE",
+      "observed_positive_ratio": 0.0,
+      "sample_count": 10
+    },
+    "REAL_WHALE_BACK": {
+      "candidate_label": "POSITIVE_MARKET_OUTCOME",
+      "class_data_status": "AVAILABLE",
+      "observed_positive_ratio": 1.0,
+      "sample_count": 10
+    }
+  },
+  "is_trade_command": false,
+  "issue_count": 0,
+  "label_candidates": [
+    "POSITIVE_MARKET_OUTCOME",
+    "NEGATIVE_MARKET_OUTCOME",
+    "INSUFFICIENT_CLASS_DATA",
+    "INSUFFICIENT_MARKET_DATA",
+    "UNRESOLVED"
+  ],
+  "label_placeholder_state": "null (JSON null \u2014 not modified in this Sprint)",
+  "observations": [
+    "\ud604\uc7ac \uacb0\uacfc\ub294 Sample 10\uac1c \uae30\ubc18\uc774\ub2e4.",
+    "\ud604\uc7ac Distribution\ub9cc\uc744 \ubc18\uc601\ud55c \uad00\ucc30 \uacb0\uacfc\uc774\ub2e4.",
+    "\ud5a5\ud6c4 Dataset \uc99d\uac00 \uc2dc Policy \ubcc0\uacbd \uac00\ub2a5\uc131\uc774 \uc788\ub2e4.",
+    "observed_positive_ratio=0.0\uc744 \uc601\uad6c Rule\ub85c \ud574\uc11d\ud558\uc9c0 \uc54a\ub294\ub2e4.",
+    "INCONCLUSIVE\uc758 Negative Return\uc740 \ud604\uc7ac 10\uac1c Sample\uc5d0\uc11c\uc758 \uad00\ucc30\uc774\ub2e4.",
+    "FAKE_WHALE_BACK\uc740 \ud604\uc7ac \ub370\uc774\ud130 \uc5c6\uc74c. \ub370\uc774\ud130 \ud655\ubcf4 \ud6c4 Policy \uc7ac\uc815\uc758 \ud544\uc694."
+  ],
+  "policy_builder_version": "mirror_label_policy_builder_v1",
+  "policy_validation_result": "PASS",
+  "policy_version": "mirror_label_policy_v1",
+  "unresolved_case_count": 5
+}

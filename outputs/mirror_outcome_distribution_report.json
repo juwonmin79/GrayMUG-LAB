@@ -1,0 +1,24 @@
+{
+  "analyzer_version": "mirror_outcome_distribution_analyzer_v1",
+  "completed_count": 20,
+  "decision_groups": [
+    "REAL_WHALE_BACK",
+    "FAKE_WHALE_BACK",
+    "INCONCLUSIVE"
+  ],
+  "distribution_validation_result": "PASS",
+  "elapsed_ms": 0.989625,
+  "incomplete_count": 0,
+  "incomplete_ratio": 0.0,
+  "is_trade_command": false,
+  "observations": {
+    "completed_count": 20,
+    "incomplete_count": 0,
+    "incomplete_ratio": 0.0,
+    "time_to_peak_available": false,
+    "time_to_trough_available": false,
+    "total_sample_count": 20,
+    "window_duration_basis": "campaign_duration (Replay summary \u2014 not candle-level end timestamp)"
+  },
+  "sample_count": 20
+}

@@ -1,0 +1,57 @@
+{
+  "classification_rules": [
+    {
+      "any_operation": true,
+      "exception": "json.JSONDecodeError",
+      "failure_code": "CORRUPT_DATA",
+      "severity": "CRITICAL"
+    },
+    {
+      "any_operation": true,
+      "exception": "UnicodeDecodeError",
+      "failure_code": "ENCODING_ERROR",
+      "severity": "CRITICAL"
+    },
+    {
+      "exception": "Any",
+      "failure_code": "WRITE_FAILURE",
+      "operation": "WRITE",
+      "severity": "CRITICAL"
+    },
+    {
+      "exception": "Any",
+      "failure_code": "READ_FAILURE",
+      "operation": "READ",
+      "severity": "CRITICAL"
+    },
+    {
+      "exception": "Any",
+      "failure_code": "HASH_READ_FAILURE",
+      "operation": "HASH_READ",
+      "severity": "CRITICAL"
+    },
+    {
+      "exception": "Any",
+      "failure_code": "UNKNOWN_FAILURE",
+      "operation": "UNKNOWN",
+      "severity": "CRITICAL"
+    }
+  ],
+  "failure_codes": [
+    "WRITE_FAILURE",
+    "READ_FAILURE",
+    "CORRUPT_DATA",
+    "ENCODING_ERROR",
+    "HASH_READ_FAILURE",
+    "UNKNOWN_FAILURE"
+  ],
+  "is_trade_command": false,
+  "mirror_failure_classification_schema_version": "mirror_failure_classification_v1",
+  "policy": {
+    "auto_recovery": false,
+    "on_failure": "FAIL_SAFE",
+    "record_and_terminate": true,
+    "repair": false,
+    "retry": false
+  }
+}

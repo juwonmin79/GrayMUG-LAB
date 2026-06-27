@@ -1,0 +1,10 @@
+{
+  "audit_version": "mirror_label_audit_v1",
+  "consistency_issues": [],
+  "consistency_schema_version": "mirror_label_consistency_v1",
+  "decision_label_consistency_result": "PASS",
+  "hash_consistency_issues": [],
+  "is_trade_command": false,
+  "packet_hash_consistency_result": "PASS",
+  "policy_version_applied": "mirror_label_policy_v1"
+}

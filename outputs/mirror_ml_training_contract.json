@@ -1,0 +1,86 @@
+{
+  "allowed_model_types": [
+    "LogisticRegression"
+  ],
+  "created_at": "2026-06-26T23:36:44.096362+00:00",
+  "evaluation_schema": {
+    "evaluation_schema_version": "mirror_evaluation_schema_v1",
+    "field_types": {
+      "accuracy": "float",
+      "confusion_matrix": "dict",
+      "dataset_size": "int",
+      "f1_score": "float",
+      "precision": "float",
+      "recall": "float",
+      "reference_only": "bool"
+    },
+    "fields": [
+      "accuracy",
+      "precision",
+      "recall",
+      "f1_score",
+      "confusion_matrix",
+      "dataset_size",
+      "reference_only"
+    ],
+    "is_trade_command": false,
+    "notes": [
+      "\ud604\uc7ac Dataset\uc740 N=20 \uae30\ubc18\uc774\ub2e4.",
+      "\uc131\ub2a5 \uc218\uce58\ub294 \uc6b4\uc601 \uae30\uc900\uc73c\ub85c \uc0ac\uc6a9\ud558\uc9c0 \uc54a\ub294\ub2e4.",
+      "Dataset\uc774 \ucda9\ubd84\ud788 \ucee4\uc9c8 \ub54c\uae4c\uc9c0 \ubaa8\ub4e0 \ud3c9\uac00 \uc218\uce58\ub294 \ucc38\uace0\uc6a9\uc774\ub2e4."
+    ],
+    "reference_note": "All evaluation metrics are REFERENCE_ONLY. Current dataset N=20 is too small for statistically reliable evaluation. Do not use metrics as production criteria.",
+    "reference_only": true,
+    "training_contract_version": "mirror_ml_training_v1"
+  },
+  "feature_contract_version": "mirror_ml_feature_matrix_v1",
+  "is_trade_command": false,
+  "model_artifact": "outputs/mirror_ml_baseline_model.json",
+  "model_type": "LogisticRegression",
+  "pipeline_stages": [
+    "Train",
+    "Save",
+    "Load",
+    "Predict",
+    "Report"
+  ],
+  "prediction_schema": {
+    "field_types": {
+      "model_version": "str",
+      "packet_hash": "str",
+      "prediction": "int",
+      "prediction_time": "str (ISO 8601)",
+      "probability": "float",
+      "sample_id": "str"
+    },
+    "fields": [
+      "sample_id",
+      "packet_hash",
+      "prediction",
+      "probability",
+      "model_version",
+      "prediction_time"
+    ],
+    "is_trade_command": false,
+    "notes": [
+      "prediction mirrors label_encoding from mirror_ml_feature_matrix_v1.",
+      "probability is the model confidence for the predicted class.",
+      "model_version must match the training_contract_version that produced the model."
+    ],
+    "prediction_schema_version": "mirror_prediction_schema_v1",
+    "prediction_values": {
+      "-1": "INSUFFICIENT_CLASS_DATA",
+      "0": "NEGATIVE_MARKET_OUTCOME",
+      "1": "POSITIVE_MARKET_OUTCOME"
+    },
+    "training_contract_version": "mirror_ml_training_v1"
+  },
+  "random_seed": 42,
+  "reference_note": "Current Dataset N=20. All evaluation metrics are REFERENCE_ONLY. Pipeline reproducibility is the goal of this contract, not accuracy.",
+  "reference_only": true,
+  "split_contract_version": "mirror_dataset_split_v1",
+  "test_dataset": "outputs/mirror_test_dataset.json",
+  "training_contract_version": "mirror_ml_training_v1",
+  "training_dataset": "outputs/mirror_train_dataset.json",
+  "validation_dataset": "outputs/mirror_validation_dataset.json"
+}

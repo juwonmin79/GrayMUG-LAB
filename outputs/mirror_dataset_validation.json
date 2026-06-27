@@ -1,0 +1,131 @@
+{
+  "dataset_contract_version": "mirror_dataset_v1",
+  "fail_count": 0,
+  "is_trade_command": false,
+  "mirror_dataset_validation_schema_version": "mirror_dataset_validation_v1",
+  "pass_count": 20,
+  "results": [
+    {
+      "issues": [],
+      "sample_id": "ds-b46fc4f3fced61d9",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-70ba311a330234f1",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-52db4791b0c8a5d4",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-ac0cb3e75dc11150",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-13d07b0125136db4",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-b7370adac66e2e50",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-60e6fac24533afd2",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-3d1dd752bae79b72",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-9d53041bc651e2db",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-92c36e6cebb13f5a",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-f3318924f6a9e347",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-a0c719ba57c6d7db",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-02ddcddf181c91ee",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-3650603341877f90",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-0292165c6dc3e7fb",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-d75623a347dbf484",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-f2156d8a441f6ec0",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-b66e3fa5e9db0408",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-c256ce8dca6143a3",
+      "valid": true,
+      "validation_result": "PASS"
+    },
+    {
+      "issues": [],
+      "sample_id": "ds-068531cd46adf62d",
+      "valid": true,
+      "validation_result": "PASS"
+    }
+  ],
+  "sample_count": 20,
+  "validation_result": "PASS"
+}

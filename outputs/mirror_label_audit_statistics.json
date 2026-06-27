@@ -1,0 +1,19 @@
+{
+  "audit_statistics_schema_version": "mirror_label_audit_statistics_v1",
+  "audit_version": "mirror_label_audit_v1",
+  "decision_distribution": {
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "is_trade_command": false,
+  "label_distribution": {
+    "INSUFFICIENT_CLASS_DATA": 0,
+    "INSUFFICIENT_MARKET_DATA": 0,
+    "NEGATIVE_MARKET_OUTCOME": 10,
+    "POSITIVE_MARKET_OUTCOME": 10,
+    "UNRESOLVED": 0
+  },
+  "ml_input_approved": true,
+  "mutation_count": 0,
+  "sample_count": 20
+}

@@ -1,0 +1,39 @@
+{
+  "is_trade_command": false,
+  "observations": [
+    "\ud604\uc7ac Dataset \uaddc\ubaa8\uac00 \uc791\ub2e4 (N=20).",
+    "Validation/Test \ubd84\ud3ec\ub294 \ud1b5\uacc4\uc801\uc73c\ub85c \uc548\uc815\uc801\uc774\uc9c0 \uc54a\uc744 \uc218 \uc788\ub2e4.",
+    "Label Distribution \ud3b8\ud5a5\uc774 \ubc1c\uc0dd\ud560 \uc218 \uc788\ub2e4.",
+    "\uc131\ub2a5 \ud3c9\uac00\ub294 \ucc38\uace0\uc6a9\uc73c\ub85c\ub9cc \uc0ac\uc6a9\ud55c\ub2e4."
+  ],
+  "reference_note": "Dataset Size = 20. Statistics are reference only. Distribution may change as Dataset grows.",
+  "reference_only": true,
+  "split_contract_version": "mirror_dataset_split_v1",
+  "statistics_schema_version": "mirror_dataset_split_statistics_v1",
+  "test_count": 3,
+  "test_decision_distribution": {
+    "0": 3
+  },
+  "test_label_distribution": {
+    "0": 3
+  },
+  "total_count": 20,
+  "train_count": 14,
+  "train_decision_distribution": {
+    "0": 5,
+    "1": 9
+  },
+  "train_label_distribution": {
+    "0": 5,
+    "1": 9
+  },
+  "validation_count": 3,
+  "validation_decision_distribution": {
+    "0": 2,
+    "1": 1
+  },
+  "validation_label_distribution": {
+    "0": 2,
+    "1": 1
+  }
+}

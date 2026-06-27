@@ -1,0 +1,84 @@
+{
+  "auto_recovery_count": 0,
+  "fail_safe_count": 6,
+  "failure_code_distribution": {
+    "CORRUPT_DATA": 1,
+    "ENCODING_ERROR": 1,
+    "HASH_READ_FAILURE": 1,
+    "READ_FAILURE": 1,
+    "UNKNOWN_FAILURE": 0,
+    "WRITE_FAILURE": 2
+  },
+  "failure_records": [
+    {
+      "auto_recovery_attempted": false,
+      "exception_message": "Simulated disk write error",
+      "exception_type": "OSError",
+      "failure_code": "WRITE_FAILURE",
+      "operation": "WRITE",
+      "packet_id": "campaign-sim-REAL_WHALE_BACK",
+      "policy_outcome": "FAIL_SAFE",
+      "timestamp": "2026-06-25T08:43:32.886530+00:00"
+    },
+    {
+      "auto_recovery_attempted": false,
+      "exception_message": "Simulated disk full",
+      "exception_type": "OSError",
+      "failure_code": "WRITE_FAILURE",
+      "operation": "WRITE",
+      "packet_id": "campaign-sim-REAL_WHALE_BACK",
+      "policy_outcome": "FAIL_SAFE",
+      "timestamp": "2026-06-25T08:43:32.887027+00:00"
+    },
+    {
+      "auto_recovery_attempted": false,
+      "exception_message": "Simulated read error",
+      "exception_type": "OSError",
+      "failure_code": "READ_FAILURE",
+      "operation": "READ",
+      "packet_id": null,
+      "policy_outcome": "FAIL_SAFE",
+      "timestamp": "2026-06-25T08:43:32.887162+00:00"
+    },
+    {
+      "auto_recovery_attempted": false,
+      "exception_message": "Simulated JSON decode error: line 1 column 1 (char 0)",
+      "exception_type": "JSONDecodeError",
+      "failure_code": "CORRUPT_DATA",
+      "operation": "READ",
+      "packet_id": null,
+      "policy_outcome": "FAIL_SAFE",
+      "timestamp": "2026-06-25T08:43:32.887321+00:00"
+    },
+    {
+      "auto_recovery_attempted": false,
+      "exception_message": "'utf-8' codec can't decode bytes in position 0-0: Simulated encoding error",
+      "exception_type": "UnicodeDecodeError",
+      "failure_code": "ENCODING_ERROR",
+      "operation": "READ",
+      "packet_id": null,
+      "policy_outcome": "FAIL_SAFE",
+      "timestamp": "2026-06-25T08:43:32.887449+00:00"
+    },
+    {
+      "auto_recovery_attempted": false,
+      "exception_message": "Simulated hash read error",
+      "exception_type": "OSError",
+      "failure_code": "HASH_READ_FAILURE",
+      "operation": "HASH_READ",
+      "packet_id": null,
+      "policy_outcome": "FAIL_SAFE",
+      "timestamp": "2026-06-25T08:43:32.887960+00:00"
+    }
+  ],
+  "is_trade_command": false,
+  "mirror_failure_report_schema_version": "mirror_failure_report_v1",
+  "no_auto_recovery": true,
+  "operation_distribution": {
+    "HASH_READ": 1,
+    "READ": 3,
+    "WRITE": 2
+  },
+  "policy_outcome": "FAIL_SAFE",
+  "total_failures": 6
+}

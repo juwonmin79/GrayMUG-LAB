@@ -1,0 +1,31 @@
+{
+  "field_types": {
+    "model_version": "str",
+    "packet_hash": "str",
+    "prediction": "int",
+    "prediction_time": "str (ISO 8601)",
+    "probability": "float",
+    "sample_id": "str"
+  },
+  "fields": [
+    "sample_id",
+    "packet_hash",
+    "prediction",
+    "probability",
+    "model_version",
+    "prediction_time"
+  ],
+  "is_trade_command": false,
+  "notes": [
+    "prediction mirrors label_encoding from mirror_ml_feature_matrix_v1.",
+    "probability is the model confidence for the predicted class.",
+    "model_version must match the training_contract_version that produced the model."
+  ],
+  "prediction_schema_version": "mirror_prediction_schema_v1",
+  "prediction_values": {
+    "-1": "INSUFFICIENT_CLASS_DATA",
+    "0": "NEGATIVE_MARKET_OUTCOME",
+    "1": "POSITIVE_MARKET_OUTCOME"
+  },
+  "training_contract_version": "mirror_ml_training_v1"
+}

@@ -1,0 +1,38 @@
+{
+  "contract_version": "mirror_pattern_packet_v1",
+  "created_at": "2026-06-25T06:41:36+00:00",
+  "dataset_contract_version": "mirror_dataset_v1",
+  "decision": "INCONCLUSIVE",
+  "evidence": [
+    "RECOVERY_WEAK"
+  ],
+  "feature": {
+    "campaign_duration": 24.0,
+    "confidence": 1.0,
+    "early_mae": -11.425828,
+    "recovery_ratio": 0.732842
+  },
+  "is_trade_command": false,
+  "label_placeholder": null,
+  "outcome_placeholder": null,
+  "packet_hash": "b46fc4f3fced61d9112a1b371b4a6b72d5625c97bc47bd1c2d094e6fcc91e400",
+  "persistence_metadata": {
+    "append_only": true,
+    "dataset_version": "mirror_dataset_v1",
+    "storage_type": "jsonl_file"
+  },
+  "readback_status": {
+    "encoding": "utf-8_without_bom",
+    "hash_verified": true
+  },
+  "reason": [
+    "RECOVERY_FAILURE",
+    "CONFLICTING_EVIDENCE"
+  ],
+  "replay_metadata": {
+    "contract_validation": "PASS",
+    "packet_mutated": false,
+    "replay_result": "PASS"
+  },
+  "sample_id": "ds-b46fc4f3fced61d9"
+}

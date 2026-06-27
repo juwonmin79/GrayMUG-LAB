@@ -1,0 +1,42 @@
+{
+  "all_fail_safe": true,
+  "all_no_bad_packets_downstream": true,
+  "cases": [
+    {
+      "all_fail_safe": true,
+      "case": "write_failure",
+      "downstream_packet_count": 0,
+      "exception_class": "IOError",
+      "failure_record_count": 20,
+      "injection_result": "PASS",
+      "is_trade_command": false,
+      "no_bad_packets_downstream": true,
+      "none_saved": true
+    },
+    {
+      "all_fail_safe": true,
+      "case": "read_failure",
+      "downstream_packet_count": 0,
+      "exception_class": "IOError",
+      "failure_record_count": 1,
+      "injection_result": "PASS",
+      "is_trade_command": false,
+      "no_bad_packets_downstream": true
+    },
+    {
+      "all_fail_safe": true,
+      "case": "corrupt_data_read",
+      "correct_classification": true,
+      "downstream_packet_count": 0,
+      "exception_class": "json.JSONDecodeError",
+      "failure_code": "CORRUPT_DATA",
+      "injection_result": "PASS",
+      "is_trade_command": false,
+      "no_bad_packets_downstream": true
+    }
+  ],
+  "failure_injection_result": "PASS",
+  "injection_count": 3,
+  "is_trade_command": false,
+  "mirror_e2e_failure_report_schema_version": "mirror_e2e_failure_report_v1"
+}

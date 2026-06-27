@@ -1,0 +1,19 @@
+{
+  "is_trade_command": false,
+  "join_result": "PASS",
+  "join_validation_result": "PASS",
+  "label_placeholder_null_count": 20,
+  "live_outcome_null_count": 20,
+  "matched_count": 20,
+  "mutation_count": 0,
+  "outcome_contract_version": "mirror_outcome_contract_v1",
+  "outcome_statistics_schema_version": "mirror_outcome_statistics_v1",
+  "outcome_status_distribution": {
+    "INVALID": 0,
+    "MUTATED": 0,
+    "NO_MATCH": 0,
+    "VALID": 20
+  },
+  "sample_count": 20,
+  "unmatched_count": 0
+}

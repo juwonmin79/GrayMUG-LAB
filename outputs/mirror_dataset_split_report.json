@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-06-26T23:24:32.855562+00:00",
+  "is_trade_command": false,
+  "random_seed": 42,
+  "source_feature_matrix": "mirror_ml_feature_matrix.json",
+  "split_contract_version": "mirror_dataset_split_v1",
+  "split_count_rule": "validation = floor(N * 0.15), test = floor(N * 0.15), train = N - validation - test (remainder to train)",
+  "split_ratio": {
+    "test": 0.15,
+    "train": 0.7,
+    "validation": 0.15
+  },
+  "test_count": 3,
+  "total_count": 20,
+  "train_count": 14,
+  "validation_count": 3
+}

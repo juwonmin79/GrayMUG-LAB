@@ -1,0 +1,168 @@
+{
+  "is_trade_command": false,
+  "outcome_contract_version": "mirror_outcome_contract_v1",
+  "outcome_mapping_schema_version": "mirror_outcome_mapping_v1",
+  "rows": [
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "b46fc4f3fced61d9112a1b371b4a6b72d5625c97bc47bd1c2d094e6fcc91e400",
+      "sample_id": "ds-b46fc4f3fced61d9"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "70ba311a330234f100bd953937529bcad9564a45561bf2bde06c5eefb2adc900",
+      "sample_id": "ds-70ba311a330234f1"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "52db4791b0c8a5d44e71e9077a841f9dcda6e9b1aa1012bb5263bb12d1fe4066",
+      "sample_id": "ds-52db4791b0c8a5d4"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "ac0cb3e75dc111502145c12e9c81d53ef4e4a126715aaa984b5d2497fef9f82e",
+      "sample_id": "ds-ac0cb3e75dc11150"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "13d07b0125136db49faf879f6b2ef4c8103501a4d0388f8fc0a97738cdda802f",
+      "sample_id": "ds-13d07b0125136db4"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "b7370adac66e2e50f481351d5208042bf23441474f28e2b44e81246c563bf74f",
+      "sample_id": "ds-b7370adac66e2e50"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "60e6fac24533afd258494903089521102816435ddd62b52353d248a22fcd2361",
+      "sample_id": "ds-60e6fac24533afd2"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "3d1dd752bae79b72211bca60b4e7a92125a5d68de81d591d7b0f8baa3992a7f0",
+      "sample_id": "ds-3d1dd752bae79b72"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "9d53041bc651e2dbf90d7e0fd78560fc6368b701bbcaca4aac3bb4055879f99c",
+      "sample_id": "ds-9d53041bc651e2db"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "92c36e6cebb13f5a64104c769d78fd97ada9bd5e2250681455293f6c6317a22d",
+      "sample_id": "ds-92c36e6cebb13f5a"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "f3318924f6a9e3478ae21f8e825f8e0bdd5032b0b91ba43c2cf155b219f97949",
+      "sample_id": "ds-f3318924f6a9e347"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "a0c719ba57c6d7db53c0cc0f6eea6e7a26d9276e9eca5841b3e85ad2cd389ea2",
+      "sample_id": "ds-a0c719ba57c6d7db"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "02ddcddf181c91ee2b0a3d5b8ee96fce8626115958f66ec8b8c101dac1652830",
+      "sample_id": "ds-02ddcddf181c91ee"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "3650603341877f90e5528bbd2d8178fa417592911740e0988aa0575fd64befc5",
+      "sample_id": "ds-3650603341877f90"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "0292165c6dc3e7fb089d61d02fd0e3784773139414abd1b1988de2f1de1bfd90",
+      "sample_id": "ds-0292165c6dc3e7fb"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "d75623a347dbf4849f502516d700cb241bc15e7d716fdd0d2a8946beeff1506e",
+      "sample_id": "ds-d75623a347dbf484"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "f2156d8a441f6ec084851e7c9cb21dd3a7aa1be26824488012957bec5206bf4d",
+      "sample_id": "ds-f2156d8a441f6ec0"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "b66e3fa5e9db0408e4b6112fbea413be9ce67cd7d9245d4048286649391be965",
+      "sample_id": "ds-b66e3fa5e9db0408"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "c256ce8dca6143a3299a2426f111567410e26723340989d2e555fca38bd19719",
+      "sample_id": "ds-c256ce8dca6143a3"
+    },
+    {
+      "label_placeholder_null": true,
+      "live_outcome_null": true,
+      "matched": true,
+      "outcome_status": "VALID",
+      "packet_hash": "068531cd46adf62d111fbcd60d0a35f03d467fd43309577e45e5def4df2f6c21",
+      "sample_id": "ds-068531cd46adf62d"
+    }
+  ],
+  "sample_count": 20
+}

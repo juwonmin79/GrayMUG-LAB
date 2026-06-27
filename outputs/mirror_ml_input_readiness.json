@@ -1,0 +1,13 @@
+{
+  "ML_INPUT_APPROVED": true,
+  "approval_basis": [
+    "Label Audit PASS",
+    "Dataset Integrity PASS",
+    "Original Dataset Protection PASS",
+    "packet_hash Consistency PASS"
+  ],
+  "dataset_integrity_pass": true,
+  "label_audit_pass": true,
+  "original_dataset_protection_pass": true,
+  "packet_hash_consistency_pass": true
+}

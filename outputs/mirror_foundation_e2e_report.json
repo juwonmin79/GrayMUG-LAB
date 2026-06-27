@@ -1,0 +1,82 @@
+{
+  "contract_version": "mirror_pattern_packet_v1",
+  "e2e_result": "PASS",
+  "failure_injection_result": "PASS",
+  "forbidden_actions_confirmed": [
+    "No mirror_pattern_packet_v1 Contract change",
+    "No Mirror Decision Logic change",
+    "No Replay Logic change",
+    "No Registry change",
+    "No Campaign Physics change",
+    "No Lead Line change",
+    "No Threshold change",
+    "No Gate change",
+    "No Score change",
+    "No ML training",
+    "No Production change",
+    "No Trading change",
+    "No Position change",
+    "No Order change",
+    "No DB creation",
+    "No SQLite",
+    "No PostgreSQL",
+    "No Supabase connection",
+    "No Medusa change"
+  ],
+  "hash_match_count": 20,
+  "hash_mismatch_count": 0,
+  "is_trade_command": false,
+  "mirror_e2e_report_schema_version": "mirror_e2e_report_v1",
+  "packet_count": 20,
+  "pipeline_result": "PASS",
+  "replay_after_readback": "PASS",
+  "stage_results": [
+    {
+      "content_unchanged": true,
+      "contract_pass": true,
+      "elapsed_ms": 0.909,
+      "is_trade_command": false,
+      "mutation_count": 0,
+      "packet_count": 20,
+      "sequence_validation": "PASS",
+      "stage": "replay",
+      "stage_result": "PASS"
+    },
+    {
+      "duplicate_count": 0,
+      "elapsed_ms": 17.810584,
+      "is_trade_command": false,
+      "mutation_count": 0,
+      "packet_count": 20,
+      "reject_count": 0,
+      "save_count": 20,
+      "stage": "persistence",
+      "stage_result": "PASS"
+    },
+    {
+      "count_match": true,
+      "elapsed_ms": 1.997291,
+      "hash_match_count": 20,
+      "hash_mismatch_count": 0,
+      "is_trade_command": false,
+      "mutation_count": 0,
+      "original_packet_count": 20,
+      "readback_packet_count": 20,
+      "replay_after_readback": "PASS",
+      "stage": "readback_audit",
+      "stage_result": "PASS"
+    },
+    {
+      "all_correct_failure_codes": true,
+      "all_fail_safe": true,
+      "all_no_auto_recovery": true,
+      "elapsed_ms": 1.787083,
+      "is_trade_command": false,
+      "simulation_count": 6,
+      "stage": "failure_policy",
+      "stage_result": "PASS"
+    }
+  ],
+  "total_elapsed_ms": 22.535,
+  "total_mutation_count": 0
+}

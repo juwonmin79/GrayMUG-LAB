@@ -1,0 +1,52 @@
+{
+  "is_trade_command": false,
+  "reference_note": "All evaluation metrics are REFERENCE_ONLY. N=20 dataset is too small for statistically reliable evaluation.",
+  "reference_only": true,
+  "test_evaluation": {
+    "accuracy": 1.0,
+    "confusion_matrix": [
+      [
+        3
+      ]
+    ],
+    "confusion_matrix_labels": [
+      0
+    ],
+    "dataset_size": 3,
+    "evaluation_schema_version": "mirror_evaluation_schema_v1",
+    "f1_score": 1.0,
+    "is_trade_command": false,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reference_note": "Dataset Size = 3 (test). REFERENCE_ONLY. Do not use as production criteria.",
+    "reference_only": true,
+    "split_name": "test"
+  },
+  "trainer_version": "mirror_ml_baseline_trainer_v1",
+  "validation_evaluation": {
+    "accuracy": 1.0,
+    "confusion_matrix": [
+      [
+        2,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "confusion_matrix_labels": [
+      0,
+      1
+    ],
+    "dataset_size": 3,
+    "evaluation_schema_version": "mirror_evaluation_schema_v1",
+    "f1_score": 1.0,
+    "is_trade_command": false,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reference_note": "Dataset Size = 3 (validation). REFERENCE_ONLY. Do not use as production criteria.",
+    "reference_only": true,
+    "split_name": "validation"
+  }
+}

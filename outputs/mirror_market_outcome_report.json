@@ -1,0 +1,19 @@
+{
+  "completed_count": 20,
+  "contract_version": "mirror_pattern_packet_v1",
+  "dataset_contract_version": "mirror_dataset_v1",
+  "elapsed_ms": 0.197917,
+  "evaluator_version": "mirror_outcome_window_evaluator_v1",
+  "insufficient_data_count": 0,
+  "is_trade_command": false,
+  "mae_mean": 6.817699,
+  "market_outcome_contract_version": "mirror_market_outcome_contract_v1",
+  "mfe_mean": 4.262695,
+  "no_match_count": 0,
+  "return_pct_mean": 1.734369,
+  "sample_count": 20,
+  "time_to_peak_available": false,
+  "time_to_trough_available": false,
+  "window_duration_mean": 21.125,
+  "window_validation_result": "PASS"
+}

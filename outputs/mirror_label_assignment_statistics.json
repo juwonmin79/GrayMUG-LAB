@@ -1,0 +1,19 @@
+{
+  "assigned_count": 20,
+  "decision_distribution": {
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "is_trade_command": false,
+  "label_builder_version": "mirror_label_builder_v1",
+  "label_distribution": {
+    "INSUFFICIENT_CLASS_DATA": 0,
+    "INSUFFICIENT_MARKET_DATA": 0,
+    "NEGATIVE_MARKET_OUTCOME": 10,
+    "POSITIVE_MARKET_OUTCOME": 10,
+    "UNRESOLVED": 0
+  },
+  "null_label_count": 0,
+  "statistics_schema_version": "mirror_label_assignment_statistics_v1",
+  "total_count": 20
+}

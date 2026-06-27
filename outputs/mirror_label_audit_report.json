@@ -1,0 +1,16 @@
+{
+  "ML_INPUT_APPROVED": true,
+  "audit_version": "mirror_label_audit_v1",
+  "bom_audit_result": "PASS",
+  "dataset_integrity_result": "PASS",
+  "decision_label_consistency_result": "PASS",
+  "deferred_label_audit_result": "PASS",
+  "is_trade_command": false,
+  "label_audit_result": "PASS",
+  "label_candidate_audit_result": "PASS",
+  "mutation_count": 0,
+  "original_dataset_protection_result": "PASS",
+  "packet_hash_consistency_result": "PASS",
+  "policy_version_audit_result": "PASS",
+  "sample_count": 20
+}

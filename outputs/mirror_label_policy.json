@@ -1,0 +1,106 @@
+{
+  "class_data_status": {
+    "FAKE_WHALE_BACK": "INSUFFICIENT_CLASS_DATA",
+    "INCONCLUSIVE": "AVAILABLE",
+    "REAL_WHALE_BACK": "AVAILABLE"
+  },
+  "created_at": "2026-06-26T06:53:30.416721+00:00",
+  "decision_policy": {
+    "FAKE_WHALE_BACK": {
+      "candidate_label": "INSUFFICIENT_CLASS_DATA",
+      "class_data_status": "INSUFFICIENT_CLASS_DATA",
+      "completed_count": 0,
+      "confidence_basis": "no_samples",
+      "negative_return_count": 0,
+      "observed_positive_ratio": null,
+      "positive_return_count": 0,
+      "sample_count": 0
+    },
+    "INCONCLUSIVE": {
+      "candidate_label": "NEGATIVE_MARKET_OUTCOME",
+      "class_data_status": "AVAILABLE",
+      "completed_count": 10,
+      "confidence_basis": "distribution_observed",
+      "negative_return_count": 10,
+      "observed_positive_ratio": 0.0,
+      "positive_return_count": 0,
+      "sample_count": 10
+    },
+    "REAL_WHALE_BACK": {
+      "candidate_label": "POSITIVE_MARKET_OUTCOME",
+      "class_data_status": "AVAILABLE",
+      "completed_count": 10,
+      "confidence_basis": "distribution_observed",
+      "negative_return_count": 0,
+      "observed_positive_ratio": 1.0,
+      "positive_return_count": 10,
+      "sample_count": 10
+    }
+  },
+  "is_trade_command": false,
+  "label_candidates": [
+    "POSITIVE_MARKET_OUTCOME",
+    "NEGATIVE_MARKET_OUTCOME",
+    "INSUFFICIENT_CLASS_DATA",
+    "INSUFFICIENT_MARKET_DATA",
+    "UNRESOLVED"
+  ],
+  "observations": [
+    "\ud604\uc7ac \uacb0\uacfc\ub294 Sample 10\uac1c \uae30\ubc18\uc774\ub2e4.",
+    "\ud604\uc7ac Distribution\ub9cc\uc744 \ubc18\uc601\ud55c \uad00\ucc30 \uacb0\uacfc\uc774\ub2e4.",
+    "\ud5a5\ud6c4 Dataset \uc99d\uac00 \uc2dc Policy \ubcc0\uacbd \uac00\ub2a5\uc131\uc774 \uc788\ub2e4.",
+    "observed_positive_ratio=0.0\uc744 \uc601\uad6c Rule\ub85c \ud574\uc11d\ud558\uc9c0 \uc54a\ub294\ub2e4.",
+    "INCONCLUSIVE\uc758 Negative Return\uc740 \ud604\uc7ac 10\uac1c Sample\uc5d0\uc11c\uc758 \uad00\ucc30\uc774\ub2e4.",
+    "FAKE_WHALE_BACK\uc740 \ud604\uc7ac \ub370\uc774\ud130 \uc5c6\uc74c. \ub370\uc774\ud130 \ud655\ubcf4 \ud6c4 Policy \uc7ac\uc815\uc758 \ud544\uc694."
+  ],
+  "policy_version": "mirror_label_policy_v1",
+  "required_fields": [
+    "policy_version",
+    "source_distribution_files",
+    "decision_policy",
+    "class_data_status",
+    "required_fields",
+    "label_candidates",
+    "unresolved_policy_cases",
+    "observations",
+    "created_at"
+  ],
+  "source_distribution_files": [
+    "outputs/mirror_outcome_distribution_report.json",
+    "outputs/mirror_outcome_distribution_by_decision.json",
+    "outputs/mirror_outcome_extreme_cases.json",
+    "outputs/mirror_outcome_distribution_statistics.json"
+  ],
+  "unresolved_policy_cases": [
+    {
+      "case_id": "insufficient_market_data_issuance_condition",
+      "description": "INSUFFICIENT_MARKET_DATA \ubc1c\uae09 \uc870\uac74 \uc815\uc758 \uc608\uc815",
+      "sprint": "TBD",
+      "status": "UNRESOLVED"
+    },
+    {
+      "case_id": "completed_false_handling",
+      "description": "completed=false Sample \ucc98\ub9ac \uc5ec\ubd80",
+      "sprint": "TBD",
+      "status": "UNRESOLVED"
+    },
+    {
+      "case_id": "replay_insufficient_handling",
+      "description": "Replay \ubd80\uc871 \ucc98\ub9ac \uc5ec\ubd80",
+      "sprint": "TBD",
+      "status": "UNRESOLVED"
+    },
+    {
+      "case_id": "live_outcome_insufficient_handling",
+      "description": "Live Outcome \ubd80\uc871 \ucc98\ub9ac \uc5ec\ubd80",
+      "sprint": "TBD",
+      "status": "UNRESOLVED"
+    },
+    {
+      "case_id": "market_observation_insufficient_handling",
+      "description": "Market Observation \ubd80\uc871 \ucc98\ub9ac \uc5ec\ubd80",
+      "sprint": "TBD",
+      "status": "UNRESOLVED"
+    }
+  ]
+}

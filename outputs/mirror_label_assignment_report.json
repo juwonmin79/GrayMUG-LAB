@@ -1,0 +1,20 @@
+{
+  "elapsed_ms": 0.305958,
+  "is_trade_command": false,
+  "label_assignment_validation_result": "PASS",
+  "label_builder_version": "mirror_label_builder_v1",
+  "label_distribution": {
+    "INSUFFICIENT_CLASS_DATA": 0,
+    "INSUFFICIENT_MARKET_DATA": 0,
+    "NEGATIVE_MARKET_OUTCOME": 10,
+    "POSITIVE_MARKET_OUTCOME": 10,
+    "UNRESOLVED": 0
+  },
+  "labeled_count": 20,
+  "mutation_count": 0,
+  "null_label_count": 0,
+  "original_dataset_unchanged": true,
+  "policy_reference_valid": true,
+  "policy_version_applied": "mirror_label_policy_v1",
+  "sample_count": 20
+}

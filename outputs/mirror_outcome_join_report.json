@@ -1,0 +1,16 @@
+{
+  "contract_version": "mirror_pattern_packet_v1",
+  "dataset_contract_version": "mirror_dataset_v1",
+  "elapsed_ms": 1.336875,
+  "is_trade_command": false,
+  "join_result": "PASS",
+  "join_validation_result": "PASS",
+  "label_placeholder_null_count": 20,
+  "live_outcome_null_count": 20,
+  "matched_count": 20,
+  "mutation_count": 0,
+  "outcome_contract_version": "mirror_outcome_contract_v1",
+  "outcome_joiner_version": "mirror_outcome_joiner_v1",
+  "sample_count": 20,
+  "unmatched_count": 0
+}

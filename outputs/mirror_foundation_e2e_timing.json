@@ -1,0 +1,17 @@
+{
+  "is_trade_command": false,
+  "mirror_e2e_timing_schema_version": "mirror_e2e_timing_v1",
+  "stage_order": [
+    "replay",
+    "persistence",
+    "readback_audit",
+    "failure_policy"
+  ],
+  "stage_timings_ms": {
+    "failure_policy": 1.787083,
+    "persistence": 17.810584,
+    "readback_audit": 1.997291,
+    "replay": 0.909
+  },
+  "total_elapsed_ms": 22.535
+}

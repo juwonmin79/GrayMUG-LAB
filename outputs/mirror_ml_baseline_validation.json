@@ -1,0 +1,16 @@
+{
+  "artifact_validation_result": "PASS",
+  "is_trade_command": false,
+  "joblib_used": false,
+  "json_serialization": "PASS",
+  "mutation_count": 0,
+  "pickle_used": false,
+  "random_seed": 42,
+  "reference_only": true,
+  "save_load_validation_result": "PASS",
+  "test_count": 3,
+  "train_count": 14,
+  "trainer_version": "mirror_ml_baseline_trainer_v1",
+  "training_result": "PASS",
+  "validation_count": 3
+}

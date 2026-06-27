@@ -1,0 +1,18 @@
+{
+  "dataset_contract_version": "mirror_dataset_v1",
+  "decision_distribution": {
+    "FAKE_WHALE_BACK": 0,
+    "INCONCLUSIVE": 10,
+    "REAL_WHALE_BACK": 10
+  },
+  "hash_verified_count": 20,
+  "is_trade_command": false,
+  "label_placeholder_null_count": 20,
+  "mirror_dataset_statistics_schema_version": "mirror_dataset_statistics_v1",
+  "mutation_count": 0,
+  "outcome_placeholder_null_count": 20,
+  "replay_pass_count": 20,
+  "sample_count": 20,
+  "validation_pass_count": 20,
+  "validation_result": "PASS"
+}

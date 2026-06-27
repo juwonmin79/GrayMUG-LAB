@@ -2308,3 +2308,1115 @@ Future Storage Requirement:
 ```text
 Any future DB, Supabase, PostgreSQL, or dashboard storage implementation must pass Readback Audit before being trusted.
 ```
+
+## Sprint 12AJ Mirror Storage Failure Policy
+
+Status:
+
+```text
+Mirror Storage Failure Policy complete
+```
+
+Scope:
+
+```text
+Storage layer fail-safe policy only.
+No mirror_pattern_packet_v1 Contract change, Replay Logic change, Mirror Decision Logic change, Registry change,
+Campaign Physics change, Lead Line change, Threshold change, Gate change, Score change, ML training,
+Production change, Trading change, Position change, Order change, DB creation, SQLite, PostgreSQL, Supabase connection, or Medusa change.
+```
+
+Outputs:
+
+```text
+hell_engines/Hellhound/mirror_storage_failure_policy.py
+hell_engines/Hellhound/test_mirror_storage_failure_policy.py
+outputs/mirror_failure_policy_report.json
+outputs/mirror_failure_classification.json
+outputs/mirror_replay_safety_report.json
+outputs/mirror_failure_simulation.json
+outputs/mirror_failure_report.json
+```
+
+Failure Classification:
+
+```text
+WRITE_FAILURE: Any exception on append_packet operation
+READ_FAILURE: IOError / OSError on load_packets operation
+CORRUPT_DATA: json.JSONDecodeError on any read operation
+ENCODING_ERROR: UnicodeDecodeError on any read operation
+HASH_READ_FAILURE: Any exception on existing_hashes operation
+UNKNOWN_FAILURE: Any unclassified exception
+```
+
+Policy Rules:
+
+```text
+on_failure: FAIL_SAFE
+auto_recovery_allowed: false
+retry_allowed: false
+repair_allowed: false
+record_required: true
+terminate_on_failure: true
+```
+
+Simulation Method:
+
+```text
+Read Failure and Write Failure simulated using unittest.mock.MagicMock only.
+No actual file permission change, directory permission change, or OS-level setting change.
+```
+
+Simulation Result:
+
+```text
+Simulation Verdict: PASS
+simulation_count: 6
+all_fail_safe: true
+all_no_auto_recovery: true
+all_correct_failure_codes: true
+```
+
+Replay Safety:
+
+```text
+After Write Failure: packets not saved, replay with empty list is safe.
+After Read Failure: packets not loaded, replay with empty list is safe.
+Replay Safety Verdict: PASS
+```
+
+Test Result:
+
+```text
+Targeted Test: 29 PASS
+Full Test: 248 PASS
+```
+
+Next Sprint:
+
+```text
+Mirror Foundation is complete.
+Next implementation should be determined by project requirement review.
+Storage Failure Policy is active and covers all current storage operations.
+```
+
+## Sprint 12AK Mirror Foundation End-to-End Validation
+
+Status:
+
+```text
+Mirror Foundation E2E Validation complete
+```
+
+Scope:
+
+```text
+Foundation integration validation only.
+No mirror_pattern_packet_v1 Contract change, Mirror Decision Logic change, Replay Logic change,
+Registry change, Campaign Physics change, Lead Line change, Threshold change, Gate change,
+Score change, ML training, Production change, Trading change, Position change, Order change,
+DB creation, SQLite, PostgreSQL, Supabase connection, or Medusa change.
+```
+
+Outputs:
+
+```text
+hell_engines/Hellhound/mirror_foundation_e2e_validator.py
+hell_engines/Hellhound/test_mirror_foundation_e2e_validator.py
+outputs/mirror_foundation_e2e_report.json
+outputs/mirror_foundation_e2e_failure_report.json
+outputs/mirror_foundation_e2e_timing.json
+```
+
+E2E Pipeline:
+
+```text
+Mirror Packet -> Replay -> Persistence -> Readback Audit -> Storage Failure Policy
+```
+
+E2E Result:
+
+```text
+E2E Result: PASS
+Pipeline Result: PASS
+Failure Injection Result: PASS
+Contract Version: mirror_pattern_packet_v1
+Packet Count: 20
+Total Mutation Count: 0
+Total Elapsed MS: 22.535
+```
+
+Layer Boundary Mutation Check:
+
+```text
+Replay Stage: mutation_count=0, content_unchanged=true
+Persistence Stage: mutation_count=0, save_count=20
+Readback Stage: hash_mismatch_count=0, mutation_count=0, replay_after_readback=PASS
+```
+
+Failure Injection:
+
+```text
+Write Failure: FAIL_SAFE=true, none_saved=true, downstream_packet_count=0
+Read Failure: FAIL_SAFE=true, downstream_packet_count=0
+Corrupt Data Read: FAIL_SAFE=true, correct_classification=true (CORRUPT_DATA)
+All injections: no_bad_packets_downstream=true
+```
+
+Test Result:
+
+```text
+Targeted Test: 26 PASS
+Full Test: 274 PASS
+```
+
+Next Sprint:
+
+```text
+Mirror Foundation is fully validated end-to-end.
+All layers verified: Replay, Persistence, Readback Audit, Storage Failure Policy.
+Mirror Dataset Layer is active: Dataset Contract defined, samples generated, validation PASS.
+Next: Outcome Validator and Label Builder stages.
+```
+
+## Sprint 12AL Mirror Dataset Layer
+
+Status:
+
+```text
+Mirror Dataset Layer active.
+Dataset Contract confirmed. Dataset Validation PASS.
+```
+
+Scope:
+
+```text
+Dataset Contract definition and Dataset Sample conversion only.
+No ML algorithm. No Feature Engineering. No DB/Supabase/SQLite connection.
+No mirror_pattern_packet_v1 Contract change, Mirror Decision Logic change, Replay Logic change,
+Registry change, Campaign Physics change, Lead Line change, Threshold change, Gate change,
+Score change, Production change, Trading change, Position change, Order change, or Medusa change.
+```
+
+Outputs:
+
+```text
+hell_engines/Hellhound/mirror_dataset_contract.py
+hell_engines/Hellhound/mirror_dataset_builder.py
+hell_engines/Hellhound/test_mirror_dataset_builder.py
+outputs/mirror_dataset_sample.json
+outputs/mirror_dataset_statistics.json
+outputs/mirror_dataset_schema.json
+outputs/mirror_dataset_validation.json
+outputs/mirror_dataset.jsonl
+```
+
+Dataset Contract:
+
+```text
+Dataset Contract Version:  mirror_dataset_v1
+Packet Contract Version:   mirror_pattern_packet_v1 (FROZEN, unchanged)
+```
+
+Dataset Sample Structure:
+
+```text
+sample_id               → ds-{packet_hash[:16]}
+contract_version        → mirror_pattern_packet_v1
+dataset_contract_version → mirror_dataset_v1
+packet_hash             → SHA256 canonical JSON (64 hex)
+feature                 → early_mae, recovery_ratio, campaign_duration, confidence
+evidence                → [list from supporting_features.evidence]
+reason                  → [list from reason_code]
+decision                → REAL_WHALE_BACK | FAKE_WHALE_BACK | INCONCLUSIVE
+replay_metadata         → replay_result, contract_validation, packet_mutated
+persistence_metadata    → storage_type, append_only, dataset_version
+readback_status         → hash_verified, encoding
+outcome_placeholder     → null (JSON null only)
+label_placeholder       → null (JSON null only)
+created_at              → from original packet
+is_trade_command        → false (always)
+```
+
+Validation Result:
+
+```text
+Validation Result: PASS
+Mutation Count: 0
+Packet Count: 20
+Sample Count: 20
+Hash Verified Count: 20
+Outcome Placeholder Null Count: 20
+Label Placeholder Null Count: 20
+```
+
+Test Result:
+
+```text
+Targeted Test: 41 PASS
+Full Test: 315 PASS
+```
+
+Next Sprint:
+
+```text
+Dataset Layer is active and validated.
+Placeholders (outcome_placeholder, label_placeholder) are confirmed null.
+Mirror Dataset Integrity Checker is active.
+Next: Outcome Validator — fills outcome_placeholder after actual trade outcome is known.
+Next: Label Builder — fills label_placeholder based on confirmed outcome.
+```
+
+## Sprint 12AM Mirror Dataset Integrity Checker
+
+Status:
+
+```text
+Mirror Dataset Integrity Checker active.
+Dataset Integrity PASS across all 14 check categories.
+```
+
+Scope:
+
+```text
+Read-only integrity validation of mirror_dataset.jsonl.
+No dataset modification. No auto-recovery. No ML. No DB/Supabase/SQLite connection.
+No mirror_pattern_packet_v1 Contract change, mirror_dataset_v1 Contract change,
+Replay Logic change, Mirror Decision Logic change, Registry change, Campaign Physics change,
+Lead Line change, Threshold change, Gate change, Score change, Production change,
+Trading change, Position change, Order change, Placeholder fill, or Medusa change.
+```
+
+Outputs:
+
+```text
+hell_engines/Hellhound/mirror_dataset_integrity_checker.py
+hell_engines/Hellhound/test_mirror_dataset_integrity_checker.py
+outputs/mirror_dataset_integrity_report.json
+outputs/mirror_dataset_hash_audit.json
+outputs/mirror_dataset_duplicate_report.json
+```
+
+Integrity Checks (14):
+
+```text
+1.  dataset_contract_version 일관성
+2.  packet_hash 형식 (64 hex) 검증
+3.  packet_hash 중복 여부
+4.  sample_id 중복 여부
+5.  Canonical JSON Round-trip Hash 일치
+6.  Append-only 순서 유지
+7.  created_at 시간 역전 여부
+8.  outcome_placeholder = JSON null 확인
+9.  label_placeholder = JSON null 확인
+10. contract_version = mirror_pattern_packet_v1 확인
+11. dataset_contract_version = mirror_dataset_v1 확인
+12. JSONL 파싱 오류 여부
+13. UTF-8 without BOM 여부
+14. 손상 Sample 발견 시 Fail-safe 결과 반환
+```
+
+Integrity Result:
+
+```text
+Integrity Result: PASS
+Sample Count: 20
+Parse Error Count: 0
+Encoding Result: PASS (UTF-8 without BOM)
+Contract Consistency: PASS (issue_count=0)
+Hash Format: PASS (invalid_hash_count=0)
+Duplicate Result: PASS (packet_hash=0, sample_id=0)
+Canonical Roundtrip: PASS (failure_count=0)
+Append Order: PASS (time_reversal_count=0)
+Placeholder Integrity: PASS (issue_count=0)
+```
+
+Test Result:
+
+```text
+Targeted Test: 45 PASS
+Full Test: 360 PASS
+```
+
+Next Sprint:
+
+```text
+Dataset and Integrity Layer are both active and validated.
+Mirror Outcome Joiner is active.
+Next: Label Builder — fills label_placeholder based on confirmed Replay Outcome.
+Next: Live Outcome integration (Hound Shadow based) when Live Sprint begins.
+```
+
+## Sprint 12AN Mirror Outcome Joiner
+
+Status:
+
+```text
+Mirror Outcome Joiner active.
+Replay Outcome Join PASS. live_outcome = JSON null (Live Sprint 전까지).
+```
+
+Scope:
+
+```text
+Outcome Join layer only. No Outcome analysis. No Label generation.
+No mirror_pattern_packet_v1 Contract change, mirror_dataset_v1 Contract change,
+Replay Logic change, Mirror Decision Logic change, Registry change, Campaign Physics change,
+Lead Line change, Threshold change, Gate change, Score change, ML algorithm,
+Outcome analysis, Feature Engineering, DB/Supabase/SQLite connection, Production change,
+Trading change, Position change, Order change, or Medusa change.
+```
+
+Outputs:
+
+```text
+hell_engines/Hellhound/mirror_outcome_joiner.py
+hell_engines/Hellhound/test_mirror_outcome_joiner.py
+outputs/mirror_outcome_join_report.json
+outputs/mirror_outcome_mapping.json
+outputs/mirror_outcome_statistics.json
+```
+
+Outcome Contract:
+
+```text
+outcome_placeholder = {
+    "replay_outcome": {
+        "status": "VALID" | "MUTATED" | "INVALID" | "NO_MATCH",
+        "metadata": { contract_validation, packet_mutated, decision, confidence, ... }
+    },
+    "live_outcome": null   ← JSON null 고정 (Live Sprint 전까지)
+}
+```
+
+Join Result:
+
+```text
+Join Validation Result: PASS
+Join Result: PASS
+Sample Count: 20
+Matched Count: 20
+Unmatched Count: 0
+Mutation Count: 0
+Live Outcome Null Count: 20
+Label Placeholder Null Count: 20
+```
+
+Test Result:
+
+```text
+Targeted Test: 42 PASS
+Full Test: 402 PASS
+```
+
+Next Sprint:
+
+```text
+Outcome Join is active.
+Mirror Outcome Window Evaluator is active.
+Next: Label Builder — assigns label_placeholder from confirmed Market Outcome.
+Next: Live Outcome Connector — integrates Hound Shadow for live_outcome fill.
+```
+
+## Sprint 12AO Mirror Outcome Window Evaluator
+
+Status:
+
+```text
+Mirror Outcome Window Evaluator active.
+Market Outcome 계산 완료. Window Validation PASS.
+```
+
+Scope:
+
+```text
+Replay 기반 Market Outcome 계산 전용.
+임의의 시간 기준(1h/4h/24h/N봉), TP/SL, Profit Target, Threshold, Rule 기반 종료 조건 없음.
+No Label generation. No Live Outcome. No ML. No DB/Supabase/SQLite.
+No mirror_pattern_packet_v1 Contract change, mirror_dataset_v1 Contract change,
+Replay Logic change, Mirror Decision Logic change, Registry change, Campaign Physics change,
+Lead Line change, Score change, Feature Engineering, Production change, or Medusa change.
+```
+
+Outputs:
+
+```text
+hell_engines/Hellhound/mirror_outcome_window_evaluator.py
+hell_engines/Hellhound/test_mirror_outcome_window_evaluator.py
+outputs/mirror_market_outcome_report.json
+outputs/mirror_market_outcome_statistics.json
+outputs/mirror_outcome_window_examples.json
+```
+
+Market Outcome Contract:
+
+```text
+market_outcome = {
+    "mfe":             float | null  ← max(0, (recovery_ratio-1) × |early_mae|)
+    "mae":             float | null  ← abs(early_mae)
+    "return_pct":      float | null  ← (recovery_ratio-1) × |early_mae|
+    "time_to_peak":    null          ← Candle-level data required
+    "time_to_trough":  null          ← Candle-level data required
+    "window_duration": float | null  ← campaign_duration (hours)
+    "status":          "COMPLETED" | "INSUFFICIENT_REPLAY_DATA" | "NO_PACKET_MATCH"
+    "completed":       true | false
+}
+```
+
+Outcome Window 종료 조건:
+
+```text
+window_start = Dataset Sample created_at
+window_end   = campaign_duration summary 기반 (Replay 요약 데이터)
+               * campaign_duration은 Packet supporting_features의 요약 통계값이다.
+               * 캔들 수준 종료 타임스탬프가 아니다.
+               * 실제 마지막 캔들 timestamp는 Live Candle Data 도입 시 확정된다.
+임의의 시간 기준 사용 없음
+```
+
+Market Outcome 결과 (20 samples):
+
+```text
+Window Validation Result: PASS
+Completed Count: 20 / 20
+MFE Mean:            4.262695 %
+MAE Mean:            6.817699 %
+Return PCT Mean:     1.734369 %
+Window Duration Mean: 21.125 h
+time_to_peak:    null (candle-level data required)
+time_to_trough:  null (candle-level data required)
+```
+
+Test Result:
+
+```text
+Targeted Test: 47 PASS
+Full Test: 449 PASS
+```
+
+Next Sprint:
+
+```text
+Market Outcome Window is active.
+time_to_peak / time_to_trough: null (Candle-level data 도입 시 채워질 예정).
+Next: Label Builder — Market Outcome (mfe, mae, return_pct) 기반으로 label_placeholder 할당.
+```
+
+---
+
+## Sprint 12AP Mirror Outcome Distribution Analyzer
+
+### 목표
+
+Market Outcome 결과를 Decision별로 집계하여 Label Policy 설계에 필요한 분포 데이터를 생성한다.
+Label 생성 없음. Threshold 없음. Rule 없음. 분포 측정 및 기록 계층만 구현.
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_outcome_distribution_analyzer.py
+hell_engines/Hellhound/test_mirror_outcome_distribution_analyzer.py
+outputs/mirror_outcome_distribution_report.json
+outputs/mirror_outcome_distribution_by_decision.json
+outputs/mirror_outcome_extreme_cases.json
+outputs/mirror_outcome_distribution_statistics.json
+```
+
+### window_duration 기준
+
+```text
+window_duration = campaign_duration  (Outcome Window Evaluator의 값을 그대로 사용)
+window_end - window_start 재계산 없음. 임의의 시간 기준 없음.
+time_to_peak / time_to_trough null이어도 window_duration 집계 정상 수행.
+```
+
+### Decision별 Distribution 결과
+
+```text
+REAL_WHALE_BACK  (10 samples, 10 completed)
+  MFE mean:         8.525390 %
+  MAE mean:         8.525390 %
+  Return PCT mean: +8.525390 %
+  Window Duration mean: — (각 packet 값 기반)
+  Positive Return: 10 / Negative Return: 0
+
+INCONCLUSIVE     (10 samples, 10 completed)
+  MFE mean:         0.000000 %
+  Return PCT mean: -5.056651 %
+  Positive Return:  0  / Negative Return: 10
+
+FAKE_WHALE_BACK  (0 samples)
+  → 현재 데이터 없음. 통계 항목 전부 null.
+
+Overall          (20 samples, 20 completed)
+  MFE mean:         4.262695 %
+  MAE mean:         6.817699 %
+  Return PCT mean: +1.734369 %
+  Positive Return: 10 / Negative Return: 10
+```
+
+### Extreme Cases
+
+```text
+max_mfe:            22.824677  (REAL_WHALE_BACK  ds-c256ce8dca6143a3)
+max_mae:            16.811404  (INCONCLUSIVE     ds-3d1dd752bae79b72)
+max_return:        +22.824677  (REAL_WHALE_BACK  ds-c256ce8dca6143a3)
+min_return:        -11.849300  (INCONCLUSIVE     ds-3d1dd752bae79b72)
+max_window_duration: 24.0 h   (INCONCLUSIVE     ds-b46fc4f3fced61d9)
+min_window_duration: 14.75 h  (INCONCLUSIVE     ds-3d1dd752bae79b72)
+```
+
+### completed / incomplete 분석
+
+```text
+completed_count:   20 / 20
+incomplete_count:   0
+incomplete_ratio:   0.0
+→ 경고 없음. incomplete_warning 항목 미생성.
+```
+
+### Distribution Validation
+
+```text
+distribution_validation_result: PASS
+Mean within [min, max] range: PASS (전 그룹, 전 필드)
+MFE / MAE non-negative minimum: PASS
+Count consistency: PASS
+Mutation Count: 0
+```
+
+### Test Result
+
+```text
+Targeted Test: 67 PASS
+Full Test: 516 PASS  (기존 449 + 신규 67, 0 regression)
+```
+
+Next Sprint:
+
+```text
+Distribution is active. Decision별 return_pct 분포 확보 완료.
+REAL_WHALE_BACK: 전 샘플 Positive Return.
+INCONCLUSIVE:    전 샘플 Negative Return.
+FAKE_WHALE_BACK: 데이터 없음.
+Next: Label Policy Builder — 분포 기반으로 label_placeholder 할당 정책 설계.
+```
+
+---
+
+## Sprint 12AQ Mirror Label Policy Builder
+
+### 목표
+
+Outcome Distribution 결과를 기반으로 Label 생성 정책을 설계하고
+검증 가능한 Label Policy Contract를 구축한다.
+Label 생성 없음. label_placeholder JSON null 유지. Policy Contract만 구축.
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_label_policy_builder.py
+hell_engines/Hellhound/test_mirror_label_policy_builder.py
+outputs/mirror_label_policy.json
+outputs/mirror_label_policy_report.json
+outputs/mirror_label_policy_validation.json
+```
+
+### Label Policy Contract
+
+```text
+policy_version = mirror_label_policy_v1
+
+Required Fields:
+  policy_version, source_distribution_files, decision_policy,
+  class_data_status, required_fields, label_candidates,
+  unresolved_policy_cases, observations, created_at
+
+Label Candidates:
+  POSITIVE_MARKET_OUTCOME
+  NEGATIVE_MARKET_OUTCOME
+  INSUFFICIENT_CLASS_DATA
+  INSUFFICIENT_MARKET_DATA   (발급 조건 미정)
+  UNRESOLVED
+```
+
+### Decision별 Policy Draft
+
+```text
+REAL_WHALE_BACK
+  class_data_status:         AVAILABLE
+  candidate_label:           POSITIVE_MARKET_OUTCOME
+  observed_positive_ratio:   1.0
+  confidence_basis:          distribution_observed
+  sample_count:              10
+
+INCONCLUSIVE
+  class_data_status:         AVAILABLE
+  candidate_label:           NEGATIVE_MARKET_OUTCOME
+  observed_positive_ratio:   0.0
+  confidence_basis:          distribution_observed
+  sample_count:              10
+
+FAKE_WHALE_BACK
+  class_data_status:         INSUFFICIENT_CLASS_DATA
+  candidate_label:           INSUFFICIENT_CLASS_DATA
+  confidence_basis:          no_samples
+  sample_count:              0
+```
+
+### unresolved_policy_cases (5)
+
+```text
+1. INSUFFICIENT_MARKET_DATA 발급 조건 정의 예정
+2. completed=false Sample 처리 여부
+3. Replay 부족 처리 여부
+4. Live Outcome 부족 처리 여부
+5. Market Observation 부족 처리 여부
+```
+
+### Policy Observations
+
+```text
+- 현재 결과는 Sample 10개 기반이다.
+- 현재 Distribution만을 반영한 관찰 결과이다.
+- 향후 Dataset 증가 시 Policy 변경 가능성이 있다.
+- observed_positive_ratio=0.0을 영구 Rule로 해석하지 않는다.
+- INCONCLUSIVE의 Negative Return은 현재 10개 Sample에서의 관찰이다.
+- FAKE_WHALE_BACK은 현재 데이터 없음. 데이터 확보 후 Policy 재정의 필요.
+```
+
+### label_placeholder 유지
+
+```text
+label_placeholder: JSON null 전부 유지
+Dataset Sample 변경 없음
+Mutation Count = 0
+```
+
+### Test Result
+
+```text
+Targeted Test: 55 PASS
+Full Test: 571 PASS  (기존 516 + 신규 55, 0 regression)
+```
+
+Next Sprint:
+
+```text
+Label Policy Contract 활성. Policy Version = mirror_label_policy_v1.
+unresolved_policy_cases 5개 미결 상태.
+Next: Label Builder (Sprint 12AR) — Policy Contract를 참조하여
+      label_placeholder에 실제 값 할당.
+```
+
+---
+
+## Sprint 12AR Mirror Label Builder
+
+### 목표
+
+mirror_label_policy_v1을 참조하여 Dataset Sample의 label_placeholder에 실제 Label 값을 할당한다.
+새 Policy 없음. Threshold/Rule/Score/ML 없음. Apply Policy Only.
+원본 mirror_dataset.jsonl 변경 없음.
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_label_builder.py
+hell_engines/Hellhound/test_mirror_label_builder.py
+outputs/mirror_labeled_dataset.jsonl
+outputs/mirror_label_assignment_report.json
+outputs/mirror_label_assignment_statistics.json
+outputs/mirror_label_assignment_validation.json
+```
+
+### Label 적용 기준
+
+```text
+mirror_label_policy_v1 decision_policy만 참조.
+판단 없음. Policy 그대로 적용.
+
+REAL_WHALE_BACK → POSITIVE_MARKET_OUTCOME
+INCONCLUSIVE    → NEGATIVE_MARKET_OUTCOME
+FAKE_WHALE_BACK → INSUFFICIENT_CLASS_DATA  (Mock 포함)
+
+INSUFFICIENT_MARKET_DATA: 발급 조건 미정 → 미적용
+UNRESOLVED: 미적용
+```
+
+### Label Assignment 결과
+
+```text
+POSITIVE_MARKET_OUTCOME:   10  (REAL_WHALE_BACK)
+NEGATIVE_MARKET_OUTCOME:   10  (INCONCLUSIVE)
+INSUFFICIENT_CLASS_DATA:    0  (현재 FAKE_WHALE_BACK 데이터 없음)
+INSUFFICIENT_MARKET_DATA:   0  (미적용)
+UNRESOLVED:                  0  (미적용)
+null_label_count:            0
+```
+
+### Mock FAKE_WHALE_BACK 검증
+
+```text
+assign_label(FAKE_WHALE_BACK)         → INSUFFICIENT_CLASS_DATA  PASS
+apply_label(INSUFFICIENT_CLASS_DATA)  → label_placeholder 할당  PASS
+validate_assignments(mock)            → PASS
+run full path (mock)                  → PASS
+```
+
+### Dataset 원본 무변형
+
+```text
+mirror_dataset.jsonl label_placeholder=null: 20/20  PASS
+original_dataset_unchanged: true
+Mutation Count: 0
+```
+
+### Validation
+
+```text
+label_assignment_validation_result: PASS
+policy_reference_valid: true
+INSUFFICIENT_MARKET_DATA 미적용: PASS
+UNRESOLVED 미적용: PASS
+```
+
+### Test Result
+
+```text
+Targeted Test: 52 PASS
+Full Test: 623 PASS  (기존 571 + 신규 52, 0 regression)
+```
+
+Next Sprint:
+
+```text
+Labeled Dataset 활성. 20 samples에 Label 할당 완료.
+POSITIVE_MARKET_OUTCOME: 10 / NEGATIVE_MARKET_OUTCOME: 10.
+Next: Label Audit 또는 Labeled Dataset 기반 ML Pipeline 준비.
+```
+
+---
+
+## Sprint 12AS Mirror Label Audit
+
+### 목표
+
+mirror_labeled_dataset.jsonl의 Label 품질 검증 및 ML 입력 최종 감사.
+Label/Policy/Dataset 수정 없음. Audit 전용.
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_label_audit.py
+hell_engines/Hellhound/test_mirror_label_audit.py
+outputs/mirror_label_audit_report.json
+outputs/mirror_label_consistency_report.json
+outputs/mirror_label_integrity_report.json
+outputs/mirror_ml_input_readiness.json
+outputs/mirror_label_audit_statistics.json
+```
+
+### Audit 결과
+
+```text
+label_audit_result:                  PASS
+decision_label_consistency_result:   PASS
+policy_version_audit_result:         PASS  (mirror_label_policy_v1)
+label_candidate_audit_result:        PASS
+dataset_integrity_result:            PASS
+bom_audit_result:                    PASS  (UTF-8 without BOM)
+packet_hash_consistency_result:      PASS  (unique_hash_count=20)
+original_dataset_protection_result:  PASS  (label_placeholder null 20/20)
+deferred_label_audit_result:         PASS  (INSUFFICIENT_MARKET_DATA=0, UNRESOLVED=0)
+Mutation Count: 0
+```
+
+### ML_INPUT_APPROVED
+
+```text
+ML_INPUT_APPROVED: true
+
+승인 근거:
+  - Label Audit PASS
+  - Dataset Integrity PASS
+  - Original Dataset Protection PASS
+  - packet_hash Consistency PASS
+```
+
+### Test Result
+
+```text
+Targeted Test: 47 PASS
+Full Test: 670 PASS  (기존 623 + 신규 47, 0 regression)
+```
+
+Next Sprint:
+
+```text
+mirror_labeled_dataset.jsonl 공식 ML 입력 Dataset 승인 완료.
+Next: 12AT — ML Feature Layer 구축. 학습 파이프라인 준비.
+```
+
+---
+
+## Sprint 12AT Mirror ML Feature Layer
+
+### 목표
+
+ML_INPUT_APPROVED: true 상태의 Dataset을 Feature Matrix로 변환.
+ML 학습 없음. Feature Engineering 없음. 기존 Feature만 사용.
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_ml_feature_layer.py
+hell_engines/Hellhound/test_mirror_ml_feature_layer.py
+outputs/mirror_ml_feature_matrix.json
+outputs/mirror_ml_feature_schema.json
+outputs/mirror_ml_feature_statistics.json
+outputs/mirror_ml_feature_validation.json
+```
+
+### Feature Contract
+
+```text
+feature_contract_version = mirror_ml_feature_matrix_v1
+
+Feature Columns (고정 순서):
+  early_mae, recovery_ratio, campaign_duration, confidence, decision_encoded
+
+Decision Encoding: REAL_WHALE_BACK=1, INCONCLUSIVE=0, FAKE_WHALE_BACK=-1
+Label Encoding:    POSITIVE_MARKET_OUTCOME=1, NEGATIVE_MARKET_OUTCOME=0,
+                   INSUFFICIENT_CLASS_DATA=-1
+```
+
+### Feature Matrix
+
+```text
+20 rows × 5 features + 1 label
+ML_INPUT_APPROVED gate 적용
+feature_validation_result: PASS
+mutation_count: 0
+```
+
+### Mock FAKE Encoding
+
+```text
+FAKE_WHALE_BACK decision_encoded = -1  PASS
+INSUFFICIENT_CLASS_DATA label_encoded = -1  PASS
+런타임 코드 경로 전부 검증
+```
+
+### Feature Statistics (REFERENCE_ONLY)
+
+```text
+Dataset Size = 20. Statistics are reference only.
+early_mae: mean=-6.818, min=-16.811, max=-1.351
+recovery_ratio: mean=2.480, min=0.295, max=12.018
+campaign_duration: mean=21.125, min=14.750, max=24.000
+confidence: mean=1.000 (현재 전 샘플 동일)
+```
+
+### Test Result
+
+```text
+Targeted Test: 57 PASS
+Full Test: 727 PASS  (기존 670 + 신규 57, 0 regression)
+```
+
+Next Sprint:
+
+```text
+Feature Matrix 활성. mirror_ml_feature_matrix_v1 Contract 확정.
+Next: 12AU — ML Baseline. Feature Matrix 기반 ML 모델 학습 파이프라인 구축.
+```
+
+---
+
+## Sprint 12AU Mirror Dataset Split Layer
+
+### 목표
+
+mirror_ml_feature_matrix_v1을 Train / Validation / Test로 분리.
+ML 학습 없음. Deterministic Split (random_seed=42).
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_dataset_split_layer.py
+hell_engines/Hellhound/test_mirror_dataset_split_layer.py
+outputs/mirror_train_dataset.json
+outputs/mirror_validation_dataset.json
+outputs/mirror_test_dataset.json
+outputs/mirror_dataset_split_report.json
+outputs/mirror_dataset_split_statistics.json
+outputs/mirror_dataset_split_validation.json
+```
+
+### Split Contract
+
+```text
+split_contract_version = mirror_dataset_split_v1
+random_seed = 42
+
+Count Rule:
+  validation = floor(N x 0.15)
+  test       = floor(N x 0.15)
+  train      = N - validation - test  (나머지 → Train)
+```
+
+### Split 결과 (N=20)
+
+```text
+Train = 14  /  Validation = 3  /  Test = 3
+```
+
+### Split Statistics (REFERENCE_ONLY)
+
+```text
+Train label_dist: {0:5, 1:9}
+Val   label_dist: {0:2, 1:1}
+Test  label_dist: {0:3}  (편향 발생 — 지시서 예고대로)
+
+N=20 기준 / 통계 불안정 / 성능 평가 참고용
+```
+
+### Validation 결과
+
+```text
+split_validation_result: PASS
+leakage_validation_result: PASS
+coverage_validation_result: PASS
+mutation_count: 0
+```
+
+### Test Result
+
+```text
+Targeted Test: 53 PASS
+Full Test: 780 PASS  (기존 727 + 신규 53, 0 regression)
+```
+
+Next Sprint:
+
+```text
+mirror_dataset_split_v1 Contract 확정.
+Next: 12AV — ML Baseline. Train Dataset 기반 ML 모델 학습 파이프라인 구축.
+```
+
+---
+
+## Sprint 12AV Mirror ML Baseline Contract
+
+### 목표
+
+ML Baseline Training / Prediction / Evaluation Contract 확립.
+ML 학습 없음. 모델 파일 없음. Contract 계층 정의만 수행.
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_ml_training_contract.py
+hell_engines/Hellhound/test_mirror_ml_training_contract.py
+outputs/mirror_ml_training_contract.json
+outputs/mirror_prediction_contract.json
+outputs/mirror_evaluation_contract.json
+outputs/mirror_ml_contract_validation.json
+```
+
+### Training Contract
+
+```text
+training_contract_version = mirror_ml_training_v1
+model_type = LogisticRegression (등록만 — 학습 없음)
+random_seed = 42
+pipeline_stages = [Train, Save, Load, Predict, Report]
+model_artifact = outputs/mirror_ml_baseline_model.json
+```
+
+### Contract Validation
+
+```text
+contract_validation_result: PASS
+contract_layer_result: PASS
+reference_only: True
+```
+
+### Test Result
+
+```text
+Targeted Test: 62 PASS
+Full Test: 842 PASS  (기존 780 + 신규 62, 0 regression)
+```
+
+Next Sprint:
+
+```text
+mirror_ml_training_v1 Contract 확정.
+Next: 12AW — ML Baseline Trainer. Train/Save/Load/Predict/Report 파이프라인 검증.
+```
+
+---
+
+## Sprint 12AW Mirror ML Baseline Trainer
+
+### 목표
+
+Train → Save → Load → Predict → Report 파이프라인 재현 가능성 검증.
+JSON First. pickle/joblib 금지. 성능이 아닌 파이프라인 완결성이 목표.
+
+### 생성 파일
+
+```text
+hell_engines/Hellhound/mirror_ml_baseline_trainer.py
+hell_engines/Hellhound/test_mirror_ml_baseline_trainer.py
+outputs/mirror_ml_baseline_model.json
+outputs/mirror_prediction_report.json
+outputs/mirror_evaluation_report.json
+outputs/mirror_ml_baseline_validation.json
+```
+
+### JSON Model 구조
+
+```text
+model_type: LogisticRegression
+coef_: list / intercept_: list / classes_: [0,1] / n_features_in_: 5
+random_seed: 42
+pickle_used: false / joblib_used: false
+```
+
+### Save/Load Validation
+
+```text
+PASS — JSON 직렬화 후 완전 동일 Prediction 재현
+mismatch_count: 0
+```
+
+### Evaluation (REFERENCE_ONLY)
+
+```text
+Validation: accuracy=1.0  f1=1.0  (N=3)
+Test:       accuracy=1.0  f1=1.0  (N=3, 전부 NEGATIVE)
+N=20 기반 / 성능 수치는 운영 기준으로 사용하지 않음
+```
+
+### Pipeline 결과
+
+```text
+pipeline_result: PASS / mutation_count: 0
+```
+
+### Test Result
+
+```text
+Targeted Test: 61 PASS
+Full Test: 903 PASS  (기존 842 + 신규 61, 0 regression)
+```
+
+### LAB Phase 완료
+
+```text
+mirror_ml_training_v1 Contract 파이프라인 재현 확인.
+Next: Shadow Adapter → 실시간 시장 데이터 축적 → Mirror ML 반복 학습.
+```

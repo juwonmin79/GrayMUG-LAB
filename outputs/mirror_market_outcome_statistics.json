@@ -1,0 +1,23 @@
+{
+  "candle_level_data_required": true,
+  "completed_count": 20,
+  "evaluator_version": "mirror_outcome_window_evaluator_v1",
+  "insufficient_data_count": 0,
+  "is_trade_command": false,
+  "mae_max": 16.811404,
+  "mae_mean": 6.817699,
+  "mae_min": 1.351157,
+  "mae_stdev": 4.97519,
+  "mfe_max": 22.824677,
+  "mfe_mean": 4.262695,
+  "mfe_min": 0.0,
+  "mfe_stdev": 7.365582,
+  "no_match_count": 0,
+  "outcome_statistics_schema_version": "mirror_outcome_window_statistics_v1",
+  "return_pct_mean": 1.734369,
+  "return_pct_stdev": 9.603841,
+  "time_to_peak_available": false,
+  "time_to_trough_available": false,
+  "total_count": 20,
+  "window_duration_mean": 21.125
+}

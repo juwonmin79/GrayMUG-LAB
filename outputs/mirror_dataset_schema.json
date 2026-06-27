@@ -1,0 +1,48 @@
+{
+  "dataset_contract_version": "mirror_dataset_v1",
+  "dataset_schema_version": "mirror_dataset_schema_v1",
+  "feature_fields": [
+    "early_mae",
+    "recovery_ratio",
+    "campaign_duration",
+    "confidence"
+  ],
+  "is_trade_command": false,
+  "packet_contract_version": "mirror_pattern_packet_v1",
+  "persistence_metadata_fields": [
+    "storage_type",
+    "append_only",
+    "dataset_version"
+  ],
+  "placeholder_policy": {
+    "fill_condition": "Actual Outcome Validator and Label Builder stages only.",
+    "label_placeholder": "null \u2014 JSON null only. Never 0, '', 'unknown', or false.",
+    "outcome_placeholder": "null \u2014 JSON null only. Never 0, '', 'unknown', or false."
+  },
+  "readback_status_fields": [
+    "hash_verified",
+    "encoding"
+  ],
+  "replay_metadata_fields": [
+    "replay_result",
+    "contract_validation",
+    "packet_mutated"
+  ],
+  "required_fields": [
+    "sample_id",
+    "contract_version",
+    "dataset_contract_version",
+    "packet_hash",
+    "feature",
+    "evidence",
+    "reason",
+    "decision",
+    "replay_metadata",
+    "persistence_metadata",
+    "readback_status",
+    "outcome_placeholder",
+    "label_placeholder",
+    "created_at",
+    "is_trade_command"
+  ]
+}

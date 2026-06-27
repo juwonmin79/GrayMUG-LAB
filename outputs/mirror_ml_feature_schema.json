@@ -1,0 +1,38 @@
+{
+  "categorical_features": [
+    "decision_encoded"
+  ],
+  "decision_encoding": {
+    "FAKE_WHALE_BACK": -1,
+    "INCONCLUSIVE": 0,
+    "REAL_WHALE_BACK": 1
+  },
+  "feature_columns": [
+    "early_mae",
+    "recovery_ratio",
+    "campaign_duration",
+    "confidence",
+    "decision_encoded"
+  ],
+  "feature_contract_version": "mirror_ml_feature_matrix_v1",
+  "feature_schema_version": "mirror_ml_feature_schema_v1",
+  "feature_source": "mirror_dataset_v1 sample.feature (existing fields only)",
+  "is_trade_command": false,
+  "label_column": "label_encoded",
+  "label_encoding": {
+    "INSUFFICIENT_CLASS_DATA": -1,
+    "NEGATIVE_MARKET_OUTCOME": 0,
+    "POSITIVE_MARKET_OUTCOME": 1
+  },
+  "notes": [
+    "Feature columns are in fixed order defined by FEATURE_COLUMNS.",
+    "Encoding is deterministic \u2014 no learned encoding.",
+    "No new features are added. Only existing Dataset fields are used."
+  ],
+  "numeric_features": [
+    "early_mae",
+    "recovery_ratio",
+    "campaign_duration",
+    "confidence"
+  ]
+}

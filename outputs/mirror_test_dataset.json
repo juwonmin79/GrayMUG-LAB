@@ -1,0 +1,47 @@
+{
+  "is_trade_command": false,
+  "rows": [
+    {
+      "features": {
+        "campaign_duration": 17.5,
+        "confidence": 1.0,
+        "decision_encoded": 0,
+        "early_mae": -9.87074,
+        "recovery_ratio": 0.459901
+      },
+      "label_encoded": 0,
+      "label_original": "NEGATIVE_MARKET_OUTCOME",
+      "packet_hash": "9d53041bc651e2dbf90d7e0fd78560fc6368b701bbcaca4aac3bb4055879f99c",
+      "sample_id": "ds-9d53041bc651e2db"
+    },
+    {
+      "features": {
+        "campaign_duration": 24.0,
+        "confidence": 1.0,
+        "decision_encoded": 0,
+        "early_mae": -11.425828,
+        "recovery_ratio": 0.732842
+      },
+      "label_encoded": 0,
+      "label_original": "NEGATIVE_MARKET_OUTCOME",
+      "packet_hash": "b46fc4f3fced61d9112a1b371b4a6b72d5625c97bc47bd1c2d094e6fcc91e400",
+      "sample_id": "ds-b46fc4f3fced61d9"
+    },
+    {
+      "features": {
+        "campaign_duration": 24.0,
+        "confidence": 1.0,
+        "decision_encoded": 0,
+        "early_mae": -16.190327,
+        "recovery_ratio": 0.305779
+      },
+      "label_encoded": 0,
+      "label_original": "NEGATIVE_MARKET_OUTCOME",
+      "packet_hash": "ac0cb3e75dc111502145c12e9c81d53ef4e4a126715aaa984b5d2497fef9f82e",
+      "sample_id": "ds-ac0cb3e75dc11150"
+    }
+  ],
+  "sample_count": 3,
+  "split_contract_version": "mirror_dataset_split_v1",
+  "split_name": "test"
+}

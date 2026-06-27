@@ -1,0 +1,15 @@
+{
+  "audit_version": "mirror_label_audit_v1",
+  "bom_audit_result": "PASS",
+  "dataset_integrity_result": "PASS",
+  "deferred_label_audit_result": "PASS",
+  "deferred_label_breakdown": {
+    "INSUFFICIENT_MARKET_DATA": 0,
+    "UNRESOLVED": 0
+  },
+  "duplicate_sample_id_count": 0,
+  "integrity_schema_version": "mirror_label_integrity_v1",
+  "is_trade_command": false,
+  "mutation_count": 0,
+  "original_dataset_protection_result": "PASS"
+}

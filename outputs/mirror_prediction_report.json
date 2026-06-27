@@ -1,0 +1,64 @@
+{
+  "is_trade_command": false,
+  "model_version": "mirror_ml_baseline_trainer_v1",
+  "reference_only": true,
+  "test_predictions": [
+    {
+      "label_encoded": 0,
+      "model_version": "mirror_ml_baseline_trainer_v1",
+      "packet_hash": "9d53041bc651e2dbf90d7e0fd78560fc6368b701bbcaca4aac3bb4055879f99c",
+      "prediction": 0,
+      "prediction_time": "2026-06-26T23:46:00.037234+00:00",
+      "probability": 0.996875,
+      "sample_id": "ds-9d53041bc651e2db"
+    },
+    {
+      "label_encoded": 0,
+      "model_version": "mirror_ml_baseline_trainer_v1",
+      "packet_hash": "b46fc4f3fced61d9112a1b371b4a6b72d5625c97bc47bd1c2d094e6fcc91e400",
+      "prediction": 0,
+      "prediction_time": "2026-06-26T23:46:00.037234+00:00",
+      "probability": 0.94869,
+      "sample_id": "ds-b46fc4f3fced61d9"
+    },
+    {
+      "label_encoded": 0,
+      "model_version": "mirror_ml_baseline_trainer_v1",
+      "packet_hash": "ac0cb3e75dc111502145c12e9c81d53ef4e4a126715aaa984b5d2497fef9f82e",
+      "prediction": 0,
+      "prediction_time": "2026-06-26T23:46:00.037234+00:00",
+      "probability": 0.999363,
+      "sample_id": "ds-ac0cb3e75dc11150"
+    }
+  ],
+  "trainer_version": "mirror_ml_baseline_trainer_v1",
+  "validation_predictions": [
+    {
+      "label_encoded": 0,
+      "model_version": "mirror_ml_baseline_trainer_v1",
+      "packet_hash": "52db4791b0c8a5d44e71e9077a841f9dcda6e9b1aa1012bb5263bb12d1fe4066",
+      "prediction": 0,
+      "prediction_time": "2026-06-26T23:46:00.037141+00:00",
+      "probability": 0.787393,
+      "sample_id": "ds-52db4791b0c8a5d4"
+    },
+    {
+      "label_encoded": 1,
+      "model_version": "mirror_ml_baseline_trainer_v1",
+      "packet_hash": "f2156d8a441f6ec084851e7c9cb21dd3a7aa1be26824488012957bec5206bf4d",
+      "prediction": 1,
+      "prediction_time": "2026-06-26T23:46:00.037141+00:00",
+      "probability": 0.998504,
+      "sample_id": "ds-f2156d8a441f6ec0"
+    },
+    {
+      "label_encoded": 0,
+      "model_version": "mirror_ml_baseline_trainer_v1",
+      "packet_hash": "3d1dd752bae79b72211bca60b4e7a92125a5d68de81d591d7b0f8baa3992a7f0",
+      "prediction": 0,
+      "prediction_time": "2026-06-26T23:46:00.037141+00:00",
+      "probability": 0.999999,
+      "sample_id": "ds-3d1dd752bae79b72"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "example_count": 5,
+  "examples": [
+    {
+      "decision": "INCONCLUSIVE",
+      "market_outcome": {
+        "completed": true,
+        "mae": 11.425828,
+        "mfe": 0.0,
+        "return_pct": -3.052501,
+        "status": "COMPLETED",
+        "time_to_peak": null,
+        "time_to_trough": null,
+        "window_duration": 24.0
+      },
+      "packet_hash": "b46fc4f3fced61d9112a1b371b4a6b72d5625c97bc47bd1c2d094e6fcc91e400",
+      "sample_id": "ds-b46fc4f3fced61d9",
+      "window_start": "2026-06-25T06:41:36+00:00"
+    },
+    {
+      "decision": "REAL_WHALE_BACK",
+      "market_outcome": {
+        "completed": true,
+        "mae": 6.850811,
+        "mfe": 1.522517,
+        "return_pct": 1.522517,
+        "status": "COMPLETED",
+        "time_to_peak": null,
+        "time_to_trough": null,
+        "window_duration": 24.0
+      },
+      "packet_hash": "70ba311a330234f100bd953937529bcad9564a45561bf2bde06c5eefb2adc900",
+      "sample_id": "ds-70ba311a330234f1",
+      "window_start": "2026-06-25T06:41:36+00:00"
+    },
+    {
+      "decision": "INCONCLUSIVE",
+      "market_outcome": {
+        "completed": true,
+        "mae": 7.050529,
+        "mfe": 0.0,
+        "return_pct": -0.693561,
+        "status": "COMPLETED",
+        "time_to_peak": null,
+        "time_to_trough": null,
+        "window_duration": 20.25
+      },
+      "packet_hash": "52db4791b0c8a5d44e71e9077a841f9dcda6e9b1aa1012bb5263bb12d1fe4066",
+      "sample_id": "ds-52db4791b0c8a5d4",
+      "window_start": "2026-06-25T06:41:36+00:00"
+    },
+    {
+      "decision": "INCONCLUSIVE",
+      "market_outcome": {
+        "completed": true,
+        "mae": 16.190327,
+        "mfe": 0.0,
+        "return_pct": -11.239665,
+        "status": "COMPLETED",
+        "time_to_peak": null,
+        "time_to_trough": null,
+        "window_duration": 24.0
+      },
+      "packet_hash": "ac0cb3e75dc111502145c12e9c81d53ef4e4a126715aaa984b5d2497fef9f82e",
+      "sample_id": "ds-ac0cb3e75dc11150",
+      "window_start": "2026-06-25T06:41:36+00:00"
+    },
+    {
+      "decision": "INCONCLUSIVE",
+      "market_outcome": {
+        "completed": true,
+        "mae": 11.87709,
+        "mfe": 0.0,
+        "return_pct": -5.441204,
+        "status": "COMPLETED",
+        "time_to_peak": null,
+        "time_to_trough": null,
+        "window_duration": 24.0
+      },
+      "packet_hash": "13d07b0125136db49faf879f6b2ef4c8103501a4d0388f8fc0a97738cdda802f",
+      "sample_id": "ds-13d07b0125136db4",
+      "window_start": "2026-06-25T06:41:36+00:00"
+    }
+  ]
+}

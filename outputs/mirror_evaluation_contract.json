@@ -1,0 +1,30 @@
+{
+  "evaluation_schema_version": "mirror_evaluation_schema_v1",
+  "field_types": {
+    "accuracy": "float",
+    "confusion_matrix": "dict",
+    "dataset_size": "int",
+    "f1_score": "float",
+    "precision": "float",
+    "recall": "float",
+    "reference_only": "bool"
+  },
+  "fields": [
+    "accuracy",
+    "precision",
+    "recall",
+    "f1_score",
+    "confusion_matrix",
+    "dataset_size",
+    "reference_only"
+  ],
+  "is_trade_command": false,
+  "notes": [
+    "\ud604\uc7ac Dataset\uc740 N=20 \uae30\ubc18\uc774\ub2e4.",
+    "\uc131\ub2a5 \uc218\uce58\ub294 \uc6b4\uc601 \uae30\uc900\uc73c\ub85c \uc0ac\uc6a9\ud558\uc9c0 \uc54a\ub294\ub2e4.",
+    "Dataset\uc774 \ucda9\ubd84\ud788 \ucee4\uc9c8 \ub54c\uae4c\uc9c0 \ubaa8\ub4e0 \ud3c9\uac00 \uc218\uce58\ub294 \ucc38\uace0\uc6a9\uc774\ub2e4."
+  ],
+  "reference_note": "All evaluation metrics are REFERENCE_ONLY. Current dataset N=20 is too small for statistically reliable evaluation. Do not use metrics as production criteria.",
+  "reference_only": true,
+  "training_contract_version": "mirror_ml_training_v1"
+}

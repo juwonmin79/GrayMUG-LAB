@@ -1,0 +1,46 @@
+{
+  "decision_distribution": {
+    "0": 10,
+    "1": 10
+  },
+  "feature_contract_version": "mirror_ml_feature_matrix_v1",
+  "feature_stats": {
+    "campaign_duration": {
+      "maximum": 24.0,
+      "mean": 21.125,
+      "median": 22.875,
+      "minimum": 14.75,
+      "standard_deviation": 3.488232
+    },
+    "confidence": {
+      "maximum": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "minimum": 1.0,
+      "standard_deviation": 0.0
+    },
+    "early_mae": {
+      "maximum": -1.351157,
+      "mean": -6.817699,
+      "median": -6.116136,
+      "minimum": -16.811404,
+      "standard_deviation": 4.97519
+    },
+    "recovery_ratio": {
+      "maximum": 12.017584,
+      "mean": 2.479905,
+      "median": 1.106015,
+      "minimum": 0.295163,
+      "standard_deviation": 2.937849
+    }
+  },
+  "is_trade_command": false,
+  "label_distribution": {
+    "0": 10,
+    "1": 10
+  },
+  "reference_note": "Dataset Size = 20. Statistics are reference only. Distribution may change as Dataset grows.",
+  "reference_only": true,
+  "sample_count": 20,
+  "statistics_schema_version": "mirror_ml_feature_statistics_v1"
+}

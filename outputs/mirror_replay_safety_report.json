@@ -1,0 +1,10 @@
+{
+  "empty_replay_safe": true,
+  "is_trade_command": false,
+  "mirror_replay_safety_schema_version": "mirror_replay_safety_v1",
+  "read_failure_replay_safety": "PASS",
+  "replay_safety_verdict": "PASS",
+  "replay_sequence_valid": false,
+  "replay_with_empty_packets": "PASS",
+  "write_failure_replay_safety": "PASS"
+}
