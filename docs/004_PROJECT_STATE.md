@@ -1,8 +1,74 @@
 # GrayMUG Project State
 
 * **작성일**: 2026-06-22
+* **Phase 전환일**: 2026-06-27
 * **범위**: GrayMUG-LAB 기준 프로젝트 현재 상태 요약
 * **목적**: 세션, 모델, 담당자가 바뀌어도 GrayMUG가 어디까지 왔는지 5분 안에 복구할 수 있도록 현재 버전, 완료 항목, 진행 항목, 향후 방향을 고정한다.
+
+---
+
+## GrayMUG Phase 2 : GARAGE — Phase Transition Declaration
+
+> LAB built the foundation. GARAGE builds the machine.
+
+### 현재 Phase
+
+```text
+Phase 2 — GARAGE
+전환일: 2026-06-27
+```
+
+### Phase 1 (LAB) 종료 요약
+
+```text
+완료: Mirror Foundation / Replay / Persistence / Dataset / Outcome
+     Label Pipeline / Feature Matrix / Dataset Split
+     ML Training Contract (mirror_ml_training_v1)
+     ML Baseline (mirror_ml_baseline_trainer_v1)
+Full Test: 903 PASS
+```
+
+LAB의 목적은 달성되었다.
+
+### Phase 2 (GARAGE) 운영 원칙
+
+```text
+Architect Rule:
+  Dynamic Adaptation에 직접 기여하는가?
+  기여하지 않으면 만들지 않는다.
+```
+
+### Garage Mission (Closed Loop)
+
+```text
+Live Market → Shadow → Mirror Feature → Mirror ML → Prediction
+     ↑                                                     ↓
+Retraining ← Dynamic Adaptation ← Dataset Growth ← Outcome
+```
+
+### 고정 vs 진화
+
+```text
+고정 (변경 금지)            진화 (계속 갱신)
+──────────────────────     ──────────────────────
+Mirror Contract            ML Model
+Dataset Schema             Feature Weight
+Replay Determinism         Threshold / Confidence
+JSON Contract              Pattern Ranking
+Feature Interface          Retraining Policy
+```
+
+### Sprint 우선순위 (GARAGE)
+
+```text
+1. Shadow Integration
+2. Live Market Data
+3. Dynamic Adaptation
+4. Continuous Learning
+5. Production Promotion
+```
+
+---
 
 ---
 

@@ -1,5 +1,78 @@
 # GrayMUG-LAB Roadmap
 
+---
+
+## GrayMUG Phase 2 : GARAGE — Phase Transition Declaration
+
+> LAB built the foundation. GARAGE builds the machine.
+
+### Phase 1 (LAB) 종료 선언
+
+LAB의 목적은 신뢰 가능한 Foundation 구축이었다.
+
+완료 항목:
+
+```text
+Mirror Foundation
+Replay
+Persistence
+Dataset
+Outcome
+Label Pipeline
+Feature Matrix
+Dataset Split
+ML Training Contract (mirror_ml_training_v1)
+ML Baseline (mirror_ml_baseline_trainer_v1)
+Full Test 903 PASS
+```
+
+LAB의 목적은 달성되었다.
+
+### Phase 2 (GARAGE) 정의
+
+Garage는 새로운 계층을 만드는 프로젝트가 아니다. 실제 시장에서 움직이는 시스템을 만드는 프로젝트다.
+
+```text
+Architect Rule:
+  Dynamic Adaptation에 직접 기여하는가?
+  기여하지 않으면 만들지 않는다.
+```
+
+### Garage Mission (Closed Loop)
+
+```text
+Live Market → Shadow → Mirror Feature → Mirror ML → Prediction
+     ↑                                                     ↓
+Retraining ← Dynamic Adaptation ← Dataset Growth ← Outcome
+```
+
+### 고정 vs 진화
+
+```text
+고정 (변경 금지)            진화 (계속 갱신)
+──────────────────────     ──────────────────────
+Mirror Contract            ML Model
+Dataset Schema             Feature Weight
+Replay Determinism         Threshold
+JSON Contract              Confidence
+Feature Interface          Pattern Ranking
+Append-only Policy         Retraining Policy
+```
+
+### Sprint 우선순위 (GARAGE)
+
+```text
+1. Shadow Integration
+2. Live Market Data
+3. Dynamic Adaptation
+4. Continuous Learning
+5. Production Promotion
+```
+
+새로운 Layer 추가는 우선순위가 아니다.
+
+---
+
 ## Wave Engine v0
 
 Status:

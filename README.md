@@ -1,20 +1,71 @@
 # GrayMUG-LAB
 
+---
+
+## GrayMUG Phase 2 : GARAGE
+
+> LAB built the foundation. GARAGE builds the machine.
+
+### Phase 1 (LAB) 종료
+
+Mirror Foundation, Replay, Persistence, Dataset, Outcome, Label Pipeline, Feature Matrix, Dataset Split, ML Training Contract, ML Baseline — 전체 완료. Full Test 903 PASS.
+
+LAB의 목적은 달성되었다.
+
+### Phase 2 (GARAGE) 시작
+
+앞으로의 모든 Sprint는 다음 질문을 먼저 통과해야 한다.
+
+> 이 기능이 실시간 시장 적응(Dynamic Adaptation)에 기여하는가?
+
+아니라면 우선순위를 낮춘다.
+
+### Garage Mission
+
+```text
+Live Market → Shadow → Mirror Feature → Mirror ML → Prediction
+     ↑                                                     ↓
+Retraining ← Dynamic Adaptation ← Dataset Growth ← Outcome
+```
+
+Closed Loop를 구축한다.
+
+### 고정 vs 진화
+
+```text
+고정 (변경 금지)            진화 (계속 갱신)
+──────────────────────     ──────────────────────
+Mirror Contract            ML Model
+Dataset Schema             Feature Weight
+Replay Determinism         Threshold
+JSON Contract              Confidence
+Feature Interface          Pattern Ranking
+Append-only Policy         Retraining Policy
+```
+
+### Sprint 우선순위
+
+```text
+1. Shadow Integration
+2. Live Market Data
+3. Dynamic Adaptation
+4. Continuous Learning
+5. Production Promotion
+```
+
+새로운 Layer 추가는 우선순위가 아니다.
+
+---
+
 GrayMUG-LAB is the research, validation, and experimental engine lab for GrayMUG.
 
 Current state:
 
 ```text
-WhaleLab Foundation Complete.
-Hellhound Production Shadow Pipeline verified.
-Pre-ML observation collection active.
-Mirror Foundation Complete.
-Mirror Storage Failure Policy active.
-Mirror Foundation E2E Validation complete.
-Mirror Dataset Layer active.
-Mirror Dataset Integrity Checker active.
-Mirror Outcome Joiner active.
-Mirror Outcome Window Evaluator active.
+Phase 2 GARAGE — Live Market Closed Loop 구축 단계.
+LAB Foundation Complete (Full Test 903 PASS).
+Mirror ML Baseline active (mirror_ml_training_v1).
+Next: Shadow Integration → Live Market Data → Dynamic Adaptation.
 ```
 
 ## 1. Project Vision
